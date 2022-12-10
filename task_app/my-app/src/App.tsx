@@ -1,10 +1,5 @@
 import { useEffect } from 'react';
 import './App.css';
-import {MongoClient} from 'mongodb';
-import * as dotenv from 'dotenv';
-require('dotenv').config();
-
-const client: any = new MongoClient(process.env.URI as string)
 
 function App() {
 
@@ -12,6 +7,7 @@ function App() {
     const keyDownHandler = (event: any) => {
       if (event.key === 'Enter') {
         event.preventDefault();
+        submitTask();
         
         // Call submitTask function here.
       }
@@ -23,17 +19,15 @@ function App() {
   }, []); // Also consider reloading the tasks whenever submitTask is called.
 
   const submitTask = async () => {
-    // Need to connect to mongoDB.
-    // Need to use a mongo instance to submit task to database.
-    // Try catch.
+    try {
+
+      console.log("Enter pressed and task submitted ")
+      
+    } catch (error) {
+      console.error(error);
+    }
 
   }
-
-
-
-
-
-
 
   function taskWindow() {
     return (
@@ -47,13 +41,6 @@ function App() {
       </div>
     );
   }
-
-
-
-
-
-
-
 
 
 

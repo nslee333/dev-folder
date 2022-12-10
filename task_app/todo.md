@@ -19,12 +19,14 @@ Basic idea:
     3.2: On 'Enter' key press it is submitted.
 4. On first load, it needs to load the active tasks.
     - Under useEffect function.
-
 5. When a task is marked completed - it is deleted from the database?
+6. Connect 
 
 
 
 
 
 [CT]: On enter key press submit to mongoDB.
+
+
 

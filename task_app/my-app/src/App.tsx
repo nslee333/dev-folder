@@ -1,5 +1,8 @@
 import React, { useEffect, RefObject, KeyboardEventHandler } from 'react';
 import './App.css';
+import { MongoClient } from 'mongodb';
+
+// console.log(process.env.URI)
 
 function App() {
   const inputRef: RefObject<any> = React.createRef();
@@ -9,12 +12,7 @@ function App() {
 
   }, []); // Also consider reloading the tasks whenever submitTask is called.
 
-  // type  = {
-  //   preventDefault: () => {};
-  //   key: string;
-  //   target: object;
 
-  // }
 
   const keyDownHandler = (event: any) => {
     if (event.key === 'Enter') {

@@ -19,8 +19,6 @@ function App() {
   const keyDownHandler = (event: any) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      // console.log(event.target.value);
-      console.log(typeof event.target)
       
       submitTask(event);
 
@@ -28,7 +26,6 @@ function App() {
     }
   }
 
-  console.log("homo"); 
 
   const submitTask = async (event: any) => {
     try {

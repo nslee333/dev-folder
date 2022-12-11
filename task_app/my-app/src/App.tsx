@@ -22,7 +22,7 @@ function App() {
       // console.log(event.target.value);
       console.log(typeof event.target)
       
-      submitTask();
+      submitTask(event);
 
       inputRef.current.value = ""
     }
@@ -30,11 +30,12 @@ function App() {
 
   console.log("homo"); 
 
-  const submitTask = async () => {
+  const submitTask = async (event: any) => {
     try {
-      console.log("Enter pressed and task submitted ")
-      console.log()
-      
+      // Need to call 
+      console.log(event.target.value, "Inside submit task");
+
+
     } catch (error) {
       console.error(error);
     }

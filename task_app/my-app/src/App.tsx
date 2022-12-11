@@ -29,7 +29,7 @@ function App() {
 
   const submitTask = async (event: any) => {
     try {
-      // Need to call 
+      // Need to call mongoose instance to insert document for task.
       console.log(event.target.value, "Inside submit task");
 
 

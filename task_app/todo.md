@@ -21,6 +21,7 @@ Basic idea:
     - Under useEffect function?
 5. When a task is marked completed - it is deleted from the database?
 6. Connect to MongoDB.
+7. Write an REST API for the backend.
 
 
 
@@ -32,8 +33,9 @@ Task 6.
     1. Define a MDB connection.
     2. Init .env file
         - Put the connection URI in it and gitignore .env.
-    3. 
+    3. Rest API and express.js for 
     5. Save to the database.
+
 
 Done: 6.meta.1 Compare connection with mongoose vs mongoDBs methods.
 6.meta.2: Should I extract mongoose connection code to a seperate file?

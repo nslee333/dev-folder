@@ -26,7 +26,8 @@ Basic idea:
 
 
 
-[CT]: 
+[CT]: Backend work:
+
 Task 6.
     1. Define a MDB connection.
     2. Init .env file

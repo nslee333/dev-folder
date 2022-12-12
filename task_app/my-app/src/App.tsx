@@ -1,8 +1,7 @@
 import React, { useEffect, RefObject, KeyboardEventHandler } from 'react';
 import './App.css';
-import { MongoClient } from 'mongodb';
 
-console.log(process.env.URI)
+
 
 function App() {
   const inputRef: RefObject<any> = React.createRef();

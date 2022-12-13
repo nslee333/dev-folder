@@ -33,7 +33,7 @@ client.connect(err => {
     // Function to delete a specific task.
     const deleteTask = async (deleteId: ObjectId ) => {
         try {
-            collection.deleteOne({_id: deleteId});
+            await collection.deleteOne({_id: deleteId});
 
 
         } catch (error) {

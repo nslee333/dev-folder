@@ -43,7 +43,7 @@ Basic idea:
 
 
 
-[CT]: Backend work:
+[CT]:
 
 
 

@@ -1,12 +1,22 @@
 const express = require('express');
 import {Request, Response} from 'express';
+import { getDocuments } from './controller';
 const app = express();
 const port = 3001;
 import {fetchCollection, addTask, deleteTask} from './db';
 
-app.get('/api/', (req: Request, res: Response) => {
-    res.send("Sucessful get req")
+console.log("Hello")
+
+app.get('/api/', async (req: Request, res: Response) => {
+    try {
+        // const collection = await getDocuments(); 
+        // res.status(200).json(collection);
+    } catch (err) {
+        console.error(err);
+        res.status(400).json({message: Error});
+    }
 });
+
 
 app.post('/api/', (req: Request, res: Response) => {
     res.send("Sucessful post req")

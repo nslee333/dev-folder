@@ -6,29 +6,33 @@ import {ObjectId} from 'mongodb';
 export const fetchCollection = async () => {
     try {
         client.connect(async (err: Error) => {
-            const collection = client.db("task_app").collection("tasks");
+            if (err) {
+                return console.log("Unable to connect to database.")
+            }
+            const taskCollection = client.db("task_app").collection("tasks");
            
-            await collection.find();
+            const result = await taskCollection.find();
            
             client.close();
+            return result;
         });
 
     } catch (error) {
         console.error(error);
-    } 
+    }
 }
 
 // Function to add a new task to the collection.
 export const addTask = async (inputTask: string) => {
     try {
         client.connect(async (err: Error) => {
-            const collection = client.db("task_app").collection("tasks");
+            const taskCollection = client.db("task_app").collection("tasks");
 
             const taskDocument = {
                 task: inputTask,
             }
 
-            await collection.insertOne(taskDocument);
+            await taskCollection.insertOne(taskDocument);
             client.close();
         });
         
@@ -41,8 +45,8 @@ export const addTask = async (inputTask: string) => {
 export const deleteTask = async (deleteId: ObjectId ) => {
     try {
         client.connect(async (err: Error) => {
-            const collection = client.db("task_app").collection("tasks");
-            await collection.deleteOne({_id: deleteId});
+            const taskCollection = client.db("task_app").collection("tasks");
+            await taskCollection.deleteOne({_id: deleteId});
             client.close();
         })
 

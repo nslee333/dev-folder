@@ -43,7 +43,8 @@ Basic idea:
 
 
 
-[CT]:
+[CT]: Consider how to connect db methods to http methods.
+
 
 
 

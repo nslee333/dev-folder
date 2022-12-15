@@ -45,19 +45,12 @@ app.get("/api/courses/:id", (req, res) => {
 
 app.post('/api/courses', (req, res) => {
 
-    const schema = Joi.object({
-        name: Joi.string().min(3).required(),
-    });
-
-    const result = schema.validate(req.body);
-
-    // if (!req.body.name || req.body.name.length < 3) {
-    //     res.status(400).send('Name is required and should be a minimum of 3 characters.')
-    // }
-
-    if (result.error) {
-        res.status(400).send(result.error.details[0].message);
+    const {error} = validateCourse(req.body); // Result.error
+    if (error) {
+        res.status(400).send(error.details[0].message);
+        return;
     }
+
     const course = {
         id: courses.length + 1,
         name: req.body.name
@@ -65,7 +58,33 @@ app.post('/api/courses', (req, res) => {
 
     courses.push(course);
     res.send(course);
+});
+
+app.put('/api/courses/:id', (req, res) => {
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if(!course) res.status(404).send('The course with the given id was not found.');
+
+    const schema = Joi.object({
+        name: Joi.string().min(3).required(),
+    });
+
+    const {error} = validateCourse(req.body); // Result.error
+    if (error) {
+        res.status(400).send(error.details[0].message);
+        return;
+    }
+
+    course.name = req.body.name;
+    res.send(course);
 })
+
+function validateCourse(course) {
+    const schema = Joi.object({
+        name: Joi.string().min(3).required(),
+    });
+
+    return schema.validate(course);
+}
 
 
 const port = process.send.PORT || 3013;

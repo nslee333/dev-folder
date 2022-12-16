@@ -10,4 +10,6 @@ export const getDocuments = async () => {
     
 }
 
+// console.log(getDocuments());
+
 module.exports = getDocuments;

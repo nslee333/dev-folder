@@ -1,4 +1,4 @@
-// const fetchCollection = require('./controller');
+// const fetchCollection = require('./controller'); ??? controller isn't the right file.
 const URI = require('./uri');
 const dotenv = require('dotenv');
 dotenv.config();

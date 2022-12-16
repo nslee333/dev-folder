@@ -19,6 +19,7 @@ export const fetchCollection = async () => {
 
     } catch (error) {
         console.error(error);
+        return error;
     }
 }
 

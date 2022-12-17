@@ -3,7 +3,12 @@ import {ObjectId} from "mongodb";
 
 // Class implementation.
 export default class Game {
-    constructor(public name: string, public price: number, public catagory: string, public id?: ObjectId) {}
+    constructor (
+        public name: string, 
+        public price: number, 
+        public catagory: string, 
+        public id?: ObjectId
+    ) {}
 }
 
 // Hi

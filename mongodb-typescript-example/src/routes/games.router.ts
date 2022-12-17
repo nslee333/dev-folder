@@ -1,5 +1,5 @@
 // External dependencies.
-import express, { Request, Response, IRouter } from "express";
+import express, { Request, Response } from "express";
 import { ObjectId } from "mongodb";
 import { collections } from "../services/database.service";
 import Game from "../models/game";
@@ -14,7 +14,7 @@ gamesRouter.get("/", async (_req: Request, res: Response) => {
     try {
         const games = await collections.games.find({}).toArray();
         res.status(200).send(games);
-        
+
     } catch (error) {
         res.status(500).send
     }

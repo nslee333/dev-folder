@@ -1,14 +1,14 @@
-// const fetchCollection = require('./controller'); ??? controller isn't the right file.
+const fetchCollection = require('./db.js'); 
 const URI = require('./uri');
 const dotenv = require('dotenv');
 dotenv.config();
 
-// const asyncF = async () => {
-//     const result = await fetchCollection();
-//     console.log(result, "Result");
-// }
+const asyncF = async () => {
+    const result = await fetchCollection();
+    console.log(result, "Result");
+}
 
 
-// asyncF();
+asyncF();
 console.log(process.env.URI, "ENV");
 console.log(URI, "URI");

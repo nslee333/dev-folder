@@ -45,6 +45,8 @@ Basic idea:
 
 [CT]: Consider how to connect db methods to http methods.
 
+Use AXIOS for client-side http requests
+
 
 
 

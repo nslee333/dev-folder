@@ -28,7 +28,7 @@ gamesRouter.get("/:id", async (req: Request, res: Response) => {
         const game = (await collections.games.findOne(query)) as Game;
 
         if (game) {
-            res.status(200).send(game);+
+            res.status(200).send(game);
         }
         
     } catch (error) {
@@ -92,5 +92,3 @@ gamesRouter.delete("/:id", async (req: Request, res: Response) => {
         res.status(400).send(error.message);
     }
 })
-
-console.log("HELLO")

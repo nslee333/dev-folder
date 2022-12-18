@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 import {Request, Response} from 'express';
-import { getDocuments } from './controller';
+import { getDocuments } from './controller.js';
 const app = express();
 const port = 3001;
 import {fetchCollection, addTask, deleteTask} from './db';

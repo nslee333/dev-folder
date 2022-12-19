@@ -1,5 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const client = new MongoClient(process.env.URI, { useNewUrlParser: true });
+console.log(process.env.URI, "Process.env.uri");
 // Function to fetch all current tasks.
 export const fetchCollection = async () => {
     try {

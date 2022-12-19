@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "server": "nodemon ./src/server.ts"
+    "server": "nodemon ./dist/server"
   },
   "keywords": [],
   "author": "",

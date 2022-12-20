@@ -1,6 +1,6 @@
 import express from 'express';
 import {Request, Response} from 'express';
-import { getDocuments } from './controller.js';
+import { getDocuments } from './controller';
 const app = express();
 const port = 3001;
 import {fetchCollection, addTask, deleteTask} from './db';

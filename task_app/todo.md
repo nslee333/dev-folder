@@ -30,9 +30,11 @@ Basic idea:
 
     9: [Done] On 'Enter' key press input is submitted.
     10: [Done]: Got basic express http methods implemented.
+    [Bug #3]: [Done] Fixed: 'Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client' Error after an http get request.
 
 [bugs]:
-'TypeError:(0, controller)1.getDocuments) is not a function.' error after an http get request.
+Bug #2: 'TypeError:(0, controller)1.getDocuments) is not a function.' error after an http get request.
+
 
 
 

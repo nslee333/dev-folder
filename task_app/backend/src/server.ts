@@ -6,9 +6,10 @@ const port = 3000;
 
 app.get('/api/', async (req: Request, res: Response) => {
     try {
-        res.send(":)")
         const collection = await getDocuments(); 
-        res.status(200).json({collection});
+        if (collection) {
+            res.status(200).json({collection});
+        }
     } catch (err) {
         console.error(err);
         res.status(400).json({message: Error});

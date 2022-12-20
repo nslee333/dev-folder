@@ -29,6 +29,11 @@ Basic idea:
         3.3. Delete a task from the collection.
 
     9: [Done] On 'Enter' key press input is submitted.
+    10: [Done]: Got basic express http methods implemented.
+
+[bugs]:
+'TypeError:(0, controller)1.getDocuments) is not a function.' error after an http get request.
+
 
 
 [Tasks]:
@@ -43,7 +48,7 @@ Basic idea:
 
 
 
-[CT]: Consider how to connect db methods to http methods.
+[CT]: Fix Bugs''
 
 Use AXIOS for client-side http requests
 

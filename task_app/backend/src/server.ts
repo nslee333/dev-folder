@@ -1,11 +1,8 @@
-const express = require('express');
+import express from 'express';
 import {Request, Response} from 'express';
 import { getDocuments } from './controller';
 const app = express();
-const port = 3001;
-import {fetchCollection, addTask, deleteTask} from './db';
-
-console.log("Hello")
+const port = 3000;
 
 app.get('/api/', async (req: Request, res: Response) => {
     try {

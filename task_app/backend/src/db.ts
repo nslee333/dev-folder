@@ -1,10 +1,11 @@
-const MongoClient = require('mongodb').MongoClient;
-const client = new MongoClient(process.env.URI, {useNewUrlParser: true});
+const dotenv = require("dotenv").config();
 import {ObjectId} from 'mongodb';
 
  // Function to fetch all current tasks.
 export const fetchCollection = async () => {
     try {
+        const MongoClient = require('mongodb').MongoClient;
+        const client = new MongoClient(process.env.URI, {useNewUrlParser: true});
         client.connect(async (err: Error) => {
             if (err) {
                 return console.log("Unable to connect to database.")
@@ -26,6 +27,8 @@ export const fetchCollection = async () => {
 // Function to add a new task to the collection.
 export const addTask = async (inputTask: string) => {
     try {
+        const MongoClient = require('mongodb').MongoClient;
+        const client = new MongoClient(process.env.URI, {useNewUrlParser: true});
         client.connect(async (err: Error) => {
             const taskCollection = client.db("task_app").collection("tasks");
 
@@ -44,6 +47,8 @@ export const addTask = async (inputTask: string) => {
 
 // Delete a task from the database.
 export const deleteTask = async (deleteId: ObjectId ) => {
+    const MongoClient = require('mongodb').MongoClient;
+    const client = new MongoClient(process.env.URI, {useNewUrlParser: true});
     try {
         client.connect(async (err: Error) => {
             const taskCollection = client.db("task_app").collection("tasks");

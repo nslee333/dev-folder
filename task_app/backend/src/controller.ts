@@ -1,4 +1,4 @@
-import { fetchCollection } from "./db.js"
+import { fetchCollection } from "./db"
 
 export const getDocuments = async () => {
     try {

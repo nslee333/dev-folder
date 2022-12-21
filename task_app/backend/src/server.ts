@@ -1,12 +1,13 @@
 import express from 'express';
 import {Request, Response} from 'express';
 import { getDocuments } from './controller';
+import { fetchCollection } from './db';
 const app = express();
 const port = 3000;
 
 app.get('/api/', async (req: Request, res: Response) => {
     try {
-        const collection = await getDocuments(); 
+        const collection = await fetchCollection(); 
         if (collection) {
             res.status(200).json({collection});
         }

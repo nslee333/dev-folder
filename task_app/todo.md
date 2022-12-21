@@ -8,6 +8,7 @@ Basic idea:
 1. Authentication?
     - Login with google?
 2. When a task is marked completed - it is deleted from the database?
+3. Use AXIOS for client-side http requests
 
 [Completed-Tasks]:
     1. Initialize a database for task app - collection for tasks.
@@ -50,9 +51,8 @@ Bug #2: 'TypeError:(0, controller)1.getDocuments) is not a function.' error afte
 
 
 
-[CT]: Fix Bugs''
-
-Use AXIOS for client-side http requests
+[CT]: postman stuck during get request.
+- Atlas paused cluster as well.
 
 
 

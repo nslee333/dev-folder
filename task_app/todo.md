@@ -45,14 +45,13 @@ Bug #2: 'TypeError:(0, controller)1.getDocuments) is not a function.' error afte
     4. On first load, it needs to load the active tasks.
         - Under useEffect function?
     7. Write an REST API for the backend.
-    8. 
+    8. Rewrite GET request conditional?
 
 
 
 
 
-[CT]: postman stuck during get request.
-- Atlas paused cluster as well.
+[CT]: 
 
 
 

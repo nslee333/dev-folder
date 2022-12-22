@@ -6,22 +6,21 @@ export const fetchCollection = async () => {
     try {
         const MongoClient = require('mongodb').MongoClient;
         const client = new MongoClient(process.env.URI, {useNewUrlParser: true});
-        client.connect(async (err: Error) => {
-            if (err) {
-                return console.log("Unable to connect to database.")
-            }
-            const taskCollection = client.db("task_app").collection("tasks");
-           
-            const result = await taskCollection.find();
-           
-            client.close();
-            return result;
+
+        await client.connect().catch((err: Error) => {
+            console.error(err);
         });
+
+        const taskCollection = await client.db("task_app").collection("tasks");
+        const result = await taskCollection.find({}).toArray();
+
+        client.close();
+        return result;
 
     } catch (error) {
         console.error(error);
         return error;
-    }
+    } 
 }
 
 // Function to add a new task to the collection.

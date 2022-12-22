@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const db_1 = require("./db");
 const app = (0, express_1.default)();
-const port = 3000 || 3001;
+const port = 3000;
 app.use(express_1.default.json());
 app.get('/api/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

@@ -3,7 +3,7 @@ import {Request, Response} from 'express';
 import { addTask, deleteTask, fetchCollection } from './db';
 
 const app = express();
-const port = 3000 || 3001;
+const port = 3000;
 app.use(express.json());
 
 app.get('/api/', async (req: Request, res: Response) => {

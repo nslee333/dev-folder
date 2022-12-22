@@ -26,20 +26,17 @@ export const fetchCollection = async () => {
 // Function to add a new task to the collection.
 export const addTask = async (inputTask: object) => {
     try {
-        console.log(inputTask);
         const MongoClient = require('mongodb').MongoClient;
         const client = new MongoClient(process.env.URI, {useNewUrlParser: true});
 
         await client.connect().catch((err: Error) => {
             console.error(err);
-        } );
+        });
 
         const taskCollection = client.db("task_app").collection("tasks");
-
         const addedTaskResult = await taskCollection.insertOne(inputTask);
 
         client.close();
-
         return addedTaskResult;
 
     } catch (error) {
@@ -49,10 +46,10 @@ export const addTask = async (inputTask: object) => {
 
 // Delete a task from the database.
 export const deleteTask = async (deleteId: ObjectId ) => {
-    const MongoClient = require('mongodb').MongoClient;
-    const client = new MongoClient(process.env.URI, {useNewUrlParser: true});
-
     try {
+        const MongoClient = require('mongodb').MongoClient;
+        const client = new MongoClient(process.env.URI, {useNewUrlParser: true});
+
         client.connect().catch((err: Error) => {
             console.error(err);
         });
@@ -62,12 +59,8 @@ export const deleteTask = async (deleteId: ObjectId ) => {
         const deleteQuery = {
             _id: new ObjectId(deleteId)
         }
-
-
-
-        console.log(deleteQuery, "delete query");
+        
         const deleteResult = await taskCollection.deleteOne(deleteQuery);
-        console.log(deleteResult);
         
         client.close();
         return deleteResult;

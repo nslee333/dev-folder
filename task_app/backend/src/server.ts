@@ -9,7 +9,6 @@ app.use(express.json());
 
 app.get('/api/', async (req: Request, res: Response) => {
     try {
-
         const collection = await fetchCollection();
 
         if (collection) {
@@ -41,7 +40,6 @@ app.post('/api/', async (req: Request, res: Response) => {
 app.delete('/api/', async (req: Request, res: Response) => {
     try {
         const deleteResult = await deleteTask(req.body._id);
-        console.log(req.body._id, "REQ BODY")
 
         if (deleteResult) {
             res.status(200).json(deleteResult);
@@ -52,7 +50,6 @@ app.delete('/api/', async (req: Request, res: Response) => {
         res.status(400).json({message: Error});
     }
 });
-
 
 
 app.listen(port, () => {

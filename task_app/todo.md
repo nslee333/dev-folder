@@ -30,11 +30,23 @@ Basic idea:
         3.3. Delete a task from the collection.
 
     9: [Done] On 'Enter' key press input is submitted.
-    10: [Done]: Got basic express http methods implemented.
-    [Bug #3]: [Done] Fixed: 'Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client' Error after an http get request.
 
-[bugs]:
-Bug #2: 'TypeError:(0, controller)1.getDocuments) is not a function.' error after an http get request.
+    10: [Done]: Got basic express http methods implemented.
+
+    Bug #3: [Done] Fixed: 'Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client' Error after an http get request.
+
+    Bug #2: [Done] 'TypeError:(0, controller)1.getDocuments) is not a function.' error after an http get request.
+
+    8. [Done - unnecessary] Rewrite GET request conditional?
+
+    11: [Done] GET http method finished.
+
+    Bug #3: [Done] GET request / MongoDB client not working as intended.
+
+
+
+[bugs]: 4
+
 
 
 
@@ -45,7 +57,7 @@ Bug #2: 'TypeError:(0, controller)1.getDocuments) is not a function.' error afte
     4. On first load, it needs to load the active tasks.
         - Under useEffect function?
     7. Write an REST API for the backend.
-    8. Rewrite GET request conditional?
+    
 
 
 

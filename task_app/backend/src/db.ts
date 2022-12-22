@@ -24,21 +24,24 @@ export const fetchCollection = async () => {
 }
 
 // Function to add a new task to the collection.
-export const addTask = async (inputTask: string) => {
+export const addTask = async (inputTask: object) => {
     try {
+        console.log(inputTask);
         const MongoClient = require('mongodb').MongoClient;
         const client = new MongoClient(process.env.URI, {useNewUrlParser: true});
-        client.connect(async (err: Error) => {
-            const taskCollection = client.db("task_app").collection("tasks");
 
-            const taskDocument = {
-                task: inputTask,
-            }
+        await client.connect().catch((err: Error) => {
+            console.error(err);
+        } );
 
-            await taskCollection.insertOne(taskDocument);
-            client.close();
-        });
-        
+        const taskCollection = client.db("task_app").collection("tasks");
+
+        const addedTaskResult = await taskCollection.insertOne(inputTask);
+
+        client.close();
+
+        return addedTaskResult;
+
     } catch (error) {
         console.error(error);
     }
@@ -48,6 +51,7 @@ export const addTask = async (inputTask: string) => {
 export const deleteTask = async (deleteId: ObjectId ) => {
     const MongoClient = require('mongodb').MongoClient;
     const client = new MongoClient(process.env.URI, {useNewUrlParser: true});
+
     try {
         client.connect(async (err: Error) => {
             const taskCollection = client.db("task_app").collection("tasks");

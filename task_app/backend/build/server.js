@@ -13,27 +13,46 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const controller_1 = require("./controller");
+const db_1 = require("./db");
 const app = (0, express_1.default)();
-const port = 3001;
-console.log("Hello");
+const port = 3000 || 3001;
+app.use(express_1.default.json());
 app.get('/api/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.send(":)");
-        const collection = yield (0, controller_1.getDocuments)();
-        res.status(200).json({ collection });
+        const collection = yield (0, db_1.fetchCollection)();
+        if (collection) {
+            res.status(200).json({ collection });
+        }
     }
     catch (err) {
         console.error(err);
         res.status(400).json({ message: Error });
     }
 }));
-app.post('/api/', (req, res) => {
-    res.send("Sucessful post req");
-});
-app.delete('/api/', (req, res) => {
-    res.send("Sucessful delete req");
-});
+app.post('/api/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const addTaskResult = yield (0, db_1.addTask)(req.body);
+        if (addTaskResult) {
+            res.status(200).json(addTaskResult);
+        }
+    }
+    catch (error) {
+        console.error(error);
+        res.status(400).json({ message: Error });
+    }
+}));
+app.delete('/api/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const deleteResult = yield (0, db_1.deleteTask)(req.body._id);
+        if (deleteResult) {
+            res.status(200).json(deleteResult);
+        }
+    }
+    catch (error) {
+        console.error(error);
+        res.status(400).json({ message: Error });
+    }
+}));
 app.listen(port, () => {
     console.log(`Server has started listening on port ${port}`);
 });

@@ -10,21 +10,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTask = exports.addTask = exports.fetchCollection = void 0;
-const MongoClient = require('mongodb').MongoClient;
-const client = new MongoClient(process.env.URI, { useNewUrlParser: true });
-console.log(process.env.URI, "Process.env.uri");
+const dotenv = require("dotenv").config();
+const mongodb_1 = require("mongodb");
 // Function to fetch all current tasks.
 const fetchCollection = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        client.connect((err) => __awaiter(void 0, void 0, void 0, function* () {
-            if (err) {
-                return console.log("Unable to connect to database.");
-            }
-            const taskCollection = client.db("task_app").collection("tasks");
-            const result = yield taskCollection.find();
-            client.close();
-            return result;
-        }));
+        const MongoClient = require('mongodb').MongoClient;
+        const client = new MongoClient(process.env.URI, { useNewUrlParser: true });
+        yield client.connect().catch((err) => {
+            console.error(err);
+        });
+        const taskCollection = yield client.db("task_app").collection("tasks");
+        const result = yield taskCollection.find({}).toArray();
+        client.close();
+        return result;
     }
     catch (error) {
         console.error(error);
@@ -35,14 +34,15 @@ exports.fetchCollection = fetchCollection;
 // Function to add a new task to the collection.
 const addTask = (inputTask) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        client.connect((err) => __awaiter(void 0, void 0, void 0, function* () {
-            const taskCollection = client.db("task_app").collection("tasks");
-            const taskDocument = {
-                task: inputTask,
-            };
-            yield taskCollection.insertOne(taskDocument);
-            client.close();
-        }));
+        const MongoClient = require('mongodb').MongoClient;
+        const client = new MongoClient(process.env.URI, { useNewUrlParser: true });
+        yield client.connect().catch((err) => {
+            console.error(err);
+        });
+        const taskCollection = client.db("task_app").collection("tasks");
+        const addedTaskResult = yield taskCollection.insertOne(inputTask);
+        client.close();
+        return addedTaskResult;
     }
     catch (error) {
         console.error(error);
@@ -52,11 +52,18 @@ exports.addTask = addTask;
 // Delete a task from the database.
 const deleteTask = (deleteId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        client.connect((err) => __awaiter(void 0, void 0, void 0, function* () {
-            const taskCollection = client.db("task_app").collection("tasks");
-            yield taskCollection.deleteOne({ _id: deleteId });
-            client.close();
-        }));
+        const MongoClient = require('mongodb').MongoClient;
+        const client = new MongoClient(process.env.URI, { useNewUrlParser: true });
+        client.connect().catch((err) => {
+            console.error(err);
+        });
+        const taskCollection = client.db("task_app").collection("tasks");
+        const deleteQuery = {
+            _id: new mongodb_1.ObjectId(deleteId)
+        };
+        const deleteResult = yield taskCollection.deleteOne(deleteQuery);
+        client.close();
+        return deleteResult;
     }
     catch (error) {
         console.error(error);

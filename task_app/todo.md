@@ -41,6 +41,10 @@ Basic idea:
 
     11: [Done] GET http method finished.
 
+    12. [Done] POST http method finished.
+
+    13. [Done]DELETE http method finished.
+
     Bug #3: [Done] GET request / MongoDB client not working as intended.
 
     Bug #4: DELETE method is connecting to mongoDB, but not deleting a document.
@@ -60,7 +64,6 @@ Basic idea:
     4. On first load, it needs to load the active tasks.
         - Under useEffect function?
     7. Write an REST API for the backend.
-    
 
 
 

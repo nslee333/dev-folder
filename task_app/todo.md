@@ -13,45 +13,48 @@ Basic idea:
 [Completed-Tasks]:
     1. Initialize a database for task app - collection for tasks.
 
-    6.meta.1 [Done]. Compare connection with mongoose vs mongoDBs methods.
+    6.meta.1 Compare connection with mongoose vs mongoDBs methods.
 
-    6.meta.2: [Done]. Should I extract mongoose connection code to a seperate file?
+    6.meta.2: Should I extract mongoose connection code to a seperate file?
 
-    6: [Done]: Connect to MongoDB
+    6:  Connect to MongoDB
         1. Done. Define a MDB connection.
         2. Done. Init .env file
             - Put the connection URI in it and gitignore .env.
         3. Done. Save to the database.
         4. Model the database documents.
 
-    3. [Done]: Write MongoDB methods.
+    3.  Write MongoDB methods.
         3.1. Fetch all tasks.
         3.2. Add a task to the collection.
         3.3. Delete a task from the collection.
 
-    9: [Done] On 'Enter' key press input is submitted.
+    9: On 'Enter' key press input is submitted.
 
-    10: [Done]: Got basic express http methods implemented.
+    10: Got basic express http methods implemented.
 
-    Bug #3: [Done] Fixed: 'Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client' Error after an http get request.
+    Bug #3:'Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client' Error after an http get request.
 
-    Bug #2: [Done] 'TypeError:(0, controller)1.getDocuments) is not a function.' error after an http get request.
+    Bug #2: 'TypeError:(0, controller)1.getDocuments) is not a function.' error after an http get request.
 
-    8. [Done - unnecessary] Rewrite GET request conditional?
+    8. Rewrite GET request conditional?
 
-    11: [Done] GET http method finished.
+    11: GET http method finished.
 
-    12. [Done] POST http method finished.
+    12. POST http method finished.
 
-    13. [Done]DELETE http method finished.
+    13. DELETE http method finished.
 
-    Bug #3: [Done] GET request / MongoDB client not working as intended.
+    Bug #3: GET request / MongoDB client not working as intended.
 
     Bug #4: DELETE method is connecting to mongoDB, but not deleting a document.
 
+    2. Set up express server side.
+    7. Write an REST API for the backend.
 
 
-[bugs]: 5
+
+[bugs]: #5
 
 
 
@@ -59,11 +62,9 @@ Basic idea:
 
 
 [Tasks]:
-    2. Set up express server side.
-    9. On 'Enter' key press input is submitted.
     4. On first load, it needs to load the active tasks.
         - Under useEffect function?
-    7. Write an REST API for the backend.
+        
 
 
 

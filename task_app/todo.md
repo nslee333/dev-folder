@@ -43,9 +43,12 @@ Basic idea:
 
     Bug #3: [Done] GET request / MongoDB client not working as intended.
 
+    Bug #4: DELETE method is connecting to mongoDB, but not deleting a document.
 
 
-[bugs]: 4
+
+[bugs]: 5
+
 
 
 

@@ -53,11 +53,24 @@ export const deleteTask = async (deleteId: ObjectId ) => {
     const client = new MongoClient(process.env.URI, {useNewUrlParser: true});
 
     try {
-        client.connect(async (err: Error) => {
-            const taskCollection = client.db("task_app").collection("tasks");
-            await taskCollection.deleteOne({_id: deleteId});
-            client.close();
-        })
+        client.connect().catch((err: Error) => {
+            console.error(err);
+        });
+
+        const taskCollection = client.db("task_app").collection("tasks");
+
+        const deleteQuery = {
+            _id: new ObjectId(deleteId)
+        }
+
+
+
+        console.log(deleteQuery, "delete query");
+        const deleteResult = await taskCollection.deleteOne(deleteQuery);
+        console.log(deleteResult);
+        
+        client.close();
+        return deleteResult;
 
     } catch (error) {
         console.error(error);

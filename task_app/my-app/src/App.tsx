@@ -29,16 +29,8 @@ function App() {
     const responseObject: any = await getMethod();
     const taskArray: taskDocument[] = responseObject.data.collection;
     
-
     setDocuments(taskArray);
   }
-
-  const awaitTaskDocuments = (): taskDocument[] => {
-    const documentArray = documents;
-
-    return documentArray;
-  }
-
 
 
   const keyDownHandler = (event: any) => {
@@ -71,8 +63,8 @@ function App() {
         </div>
         <div className='taskBox'>
         <>
-          {/* <h1>Current Tasks</h1> */}
-          {task(awaitTaskDocuments())}
+          {/* <h1>Current Tasks</h1> */} // TODO: Not sure if we need to add a title here 
+          {task(documents)}
         </>
         </div>
       </div>

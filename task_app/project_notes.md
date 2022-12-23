@@ -48,15 +48,27 @@ Basic idea:
     Bug #3: GET request / MongoDB client not working as intended.
 
     Bug #4: DELETE method is connecting to mongoDB, but not deleting a document.
+        - Fixed the filter query in the http request.
 
     2. Set up express server side.
     7. Write an REST API for the backend.
 
     Bug #5: Module not found.
+        - Fixed by using proper typescript export syntax.
+
+    Bug #6: Access to XMLHttpRequest at 'http://localhost:1300/api/' from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+        - Fixed with installing cors npm package and using it in my server.ts in the backend.
+
+    Bug #7: Http methods not callable
+        - Fixed with wrapping axios methods in an async function.
+
+    Bug #8: AxiosError:
+        - Put in correct localhost url inside axios callback. 
 
 
 
-[bugs]: #6
+[bugs]: #9
+
 
 
 
@@ -67,7 +79,7 @@ Basic idea:
 [Tasks]:
     4. On first load, it needs to load the active tasks.
         - Under useEffect function?
-        
+    
 
 
 

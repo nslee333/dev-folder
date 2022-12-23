@@ -86,7 +86,7 @@ Basic idea:
 
 
 
-[CT]: List tasks in task window.
+[CT]: Just finished with displaying documents on webpage, stopped there.
 
 
 

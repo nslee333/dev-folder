@@ -22,9 +22,7 @@ function App() {
     
   }, []);
 
-  
-  
-  
+
 
   const getTasks = async (): Promise<void> => {
     const responseObject: any = await getMethod();
@@ -48,12 +46,21 @@ function App() {
   const submitTask = async (event: any) => {
     try {
       await postMethod(event.target.value);
-      getTasks();
+      await getTasks();
 
     } catch (error) {
       console.error(error);
     }
+  }
 
+  const deleteTask = async (objectId: string) => {
+    try {
+      await deleteMethod(objectId);
+      await getTasks();
+      
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   function taskWindow() {
@@ -73,9 +80,9 @@ function App() {
 
   function task(task: taskDocument[]) { 
     const listItems = task.map(document => (
-      <div>
-        <li key={document._id.toString()} className='taskLI'>{document.task}</li>
-        <button className='taskButton'>&times;</button>
+      <div key={document._id.toString()}>
+        <li className='taskLI'>{document.task}</li>
+        <button className='taskButton' onClick={(e:any) => deleteTask(document._id.toString())}>&times;</button>
       </div>
     ));
 

@@ -4,13 +4,14 @@ Basic idea:
         - Two sections: Todo and completed tasks.
         - Daily.
 
-[Design][Bugs]:
-1. Authentication?
-    - Login with google?
-2. When a task is marked completed - it is deleted from the database?
-3. Use AXIOS for client-side http requests
+[Design]:
+    1. Authentication?
+       - Login with google?
+
+
 
 [Completed-Tasks]:
+    
     1. Initialize a database for task app - collection for tasks.
 
     6.meta.1 Compare connection with mongoose vs mongoDBs methods.
@@ -24,7 +25,7 @@ Basic idea:
         3. Done. Save to the database.
         4. Model the database documents.
 
-    3.  Write MongoDB methods.
+    2.  Write MongoDB methods.
         3.1. Fetch all tasks.
         3.2. Add a task to the collection.
         3.3. Delete a task from the collection.
@@ -37,20 +38,20 @@ Basic idea:
 
     Bug #2: 'TypeError:(0, controller)1.getDocuments) is not a function.' error after an http get request.
 
-    8. Rewrite GET request conditional?
+    3. Rewrite GET request conditional?
 
     11: GET http method finished.
 
-    12. POST http method finished.
+    4.  POST http method finished.
 
-    13. DELETE http method finished.
+    5.  DELETE http method finished.
 
     Bug #3: GET request / MongoDB client not working as intended.
 
     Bug #4: DELETE method is connecting to mongoDB, but not deleting a document.
         - Fixed the filter query in the http request.
 
-    2. Set up express server side.
+    6. Set up express server side.
     7. Write an REST API for the backend.
 
     Bug #5: Module not found.
@@ -68,10 +69,20 @@ Basic idea:
     14: Display tasks properly on page.
 
     15: Post axios request working properly.
-    15.1: Modify Axios post method boilerplate.
-    15.2: Write a function to call axios method with.
-        - Figure out how to handle the newTaskString passed to the axios post method.
-    15.3: 
+        15.1: Modify Axios post method boilerplate.
+        15.2: Write a function to call axios method with.
+            - Figure out how to handle the newTaskString passed to the axios post method.
+    
+    16: Implement delete functionality.
+        16.1: Styled close button.
+        16.2: Wrote delete task function, and modified axios delete to include data with http request.
+
+    2.design: When a task is marked completed - it is deleted from the database?
+    3.design.: Use AXIOS for client-side http requests
+
+    1. On first load, it needs to load the active tasks.
+        - Under useEffect function?
+    2. Implement Axios: GET, POST, DELETE methods.
 
 
 
@@ -82,28 +93,24 @@ Basic idea:
 
 
 
-
-
-[Tasks]:
-    1. On first load, it needs to load the active tasks.
-        - Under useEffect function?
-    2. Implement Axios: GET, POST, DELETE methods.
-    3. Go through and remove all `any` types?
+[todo items]:
+    1. Go through and remove all `any` types?
 
 
 
 
 
 [CT]: 
-16: Implement delete functionality.
-16.1: Styled close button.
 
 17: Styling fixes.
     17.1: Long task needs to stay inside of the LI container.
     17.2: If there is a bunch of tasks, the task window needs to scroll.
     17.3: Need to make LI elements a lighter shade and make it more bearable.
+    17.4: Center task string inside Li.
+    17.5: Make the input bar larger, along with text.
 
-Left off at centering LI inside UL.
+
+
 
 
 

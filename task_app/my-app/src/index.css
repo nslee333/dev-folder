@@ -5,7 +5,6 @@
 
 
 * {
-  /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   font-family:  'proxima-nova-bold';
   --main-green: #32a877;
   background-color: #121212;
@@ -64,12 +63,12 @@
   border-radius: 15px;
   
   font-size: 35px;
-  font-weight: bold;
+  overflow:hidden; 
+  /* white-space:nowrap;  */
+  text-overflow: ellipsis;
+  /* color: red; */
 }
 
-.taskUL {
-  
-}
 
 .taskButton {
   position: absolute;
@@ -77,4 +76,5 @@
   border-radius: 5px;
   font-size: 45px;
   font-weight: 600;
+  cursor: pointer;
 }

@@ -28,8 +28,12 @@ export const postMethod = async (newTaskString: string) => {
     return response;
 }
 
-export const deleteMethod = async () => {
-    const response: AxiosResponse | Error = await axios.delete("http://localhost:1300/api/")
+export const deleteMethod = async (documentId: string) => {
+    const response: AxiosResponse | Error = await axios.delete("http://localhost:1300/api/", {
+        data: {
+            "_id": documentId
+        }
+    })
         .then(function (response: AxiosResponse): AxiosResponse {
             console.log(response);
             return response;
@@ -38,6 +42,7 @@ export const deleteMethod = async () => {
             console.log(error);
             return error;
         });
+    
     return response 
 }
 export default { getMethod, postMethod, deleteMethod }

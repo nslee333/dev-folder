@@ -8,19 +8,17 @@
   /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   font-family:  'proxima-nova-bold';
   --main-green: #32a877;
-  /* background-color: #121212; */
-  background-color: #e4d3d3;
+  background-color: #121212;
+  /* background-color: #e4d3d3; */
   color: #ffffff;
   
 }
 
-
-
 .taskInput {
   position: absolute;
 
-  left: 650px;
-  right: 650px;
+  left: 630px;
+  right: 630px;
   bottom: 750px;
   top: 100px;
 
@@ -42,16 +40,12 @@
   border: 3.5px solid var(--main-green);
   border-radius: 15px;
 
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-
   position: absolute;
   width: 650px;
   height: 750px;
 
-  left: 650px;
-  right: 650px;
+  left: 630px;
+  right: 630px;
   bottom: 750px;
   top: 150px;
 }
@@ -64,10 +58,6 @@
   height: 70px;
   width: 550px;
   
-  /* right: 2px;
-  left: -20px; */
-
-
   margin: 5px;
   padding: 5px;
   border: 2.5px solid var(--main-green);
@@ -75,31 +65,16 @@
   
   font-size: 35px;
   font-weight: bold;
-
 }
 
 .taskUL {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-
+  
 }
 
 .taskButton {
-  background-color: #090101;
-  position: relative;
-  height: 70px;
-  width: 550px;
-  
-  /* right: 2px;
-  left: -20px; */
-
-
-  margin: 5px;
-  padding: 5px;
-  border: 2.5px solid var(--main-green);
-  border-radius: 15px;
-  
-  font-size: 35px;
-  font-weight: bold;
+  position: absolute;
+  transform: translate(200px, -80px);
+  border-radius: 5px;
+  font-size: 45px;
+  font-weight: 600;
 }

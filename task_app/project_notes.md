@@ -96,8 +96,15 @@ Basic idea:
 
 [CT]: 
 16: Implement delete functionality.
+16.1: Styled close button.
+
+17: Styling fixes.
+    17.1: Long task needs to stay inside of the LI container.
+    17.2: If there is a bunch of tasks, the task window needs to scroll.
+    17.3: Need to make LI elements a lighter shade and make it more bearable.
 
 Left off at centering LI inside UL.
+
 
 
 

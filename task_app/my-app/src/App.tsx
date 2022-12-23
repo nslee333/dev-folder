@@ -73,8 +73,10 @@ function App() {
 
   function task(task: taskDocument[]) { 
     const listItems = task.map(document => (
-      // <li key={document._id.toString()} className='taskLI'><button className='taskButton'>{document.task}</button></li>
-      <li key={document._id.toString()} className='taskLI'>{document.task}</li>
+      <div>
+        <li key={document._id.toString()} className='taskLI'>{document.task}</li>
+        <button className='taskButton'>&times;</button>
+      </div>
     ));
 
     

@@ -52,9 +52,12 @@ Basic idea:
     2. Set up express server side.
     7. Write an REST API for the backend.
 
+    Bug #5: Module not found.
 
 
-[bugs]: #5
+
+[bugs]: #6
+
 
 
 

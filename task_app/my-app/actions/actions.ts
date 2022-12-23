@@ -1,7 +1,6 @@
 import axios, { AxiosResponse, AxiosError } from 'axios';
 
-// GET
-export const getMethod = await axios.get('/api/')
+const getMethod = await axios.get('/api/')
     .then(function (response: AxiosResponse) {
         console.log(response);
         return response;
@@ -13,8 +12,7 @@ export const getMethod = await axios.get('/api/')
         // Always executed.
     });
 
-// POST
-export const postMethod = await axios.post('/api/')
+const postMethod = await axios.post('/api/')
     .then(function (response: AxiosResponse) {
         console.log(response);
         return response;
@@ -26,8 +24,7 @@ export const postMethod = await axios.post('/api/')
         // Always executed.
     })
 
-// DELETE
-export const deleteMethod = await axios.delete("/api/")
+const deleteMethod = await axios.delete("/api/")
     .then(function (response: AxiosResponse) {
         console.log(response);
         return response;
@@ -39,5 +36,4 @@ export const deleteMethod = await axios.delete("/api/")
         // Always executed.
     })
  
- 
-module.exports = { getMethod, postMethod, deleteMethod }
+export default { getMethod, postMethod, deleteMethod }

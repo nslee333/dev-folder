@@ -8,7 +8,6 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/axios": "^0.14.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.10",
     "@types/react-dom": "^18.0.9",
     "axios": "^1.2.1",
     "react": "^18.2.0",
@@ -43,6 +42,7 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^18.11.17",
     "@types/react": "^18.0.26",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",

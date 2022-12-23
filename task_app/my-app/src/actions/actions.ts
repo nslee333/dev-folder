@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, AxiosError } from 'axios';
 
 export const getMethod = async () => {
-    const response: AxiosResponse | Error = await axios.get('/api/')
+    const response: AxiosResponse | Error = await axios.get('http://localhost:1300/api/')
         .then(function (response: AxiosResponse): AxiosResponse {
             console.log(response);
             return response;

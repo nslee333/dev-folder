@@ -1,10 +1,12 @@
 import express from 'express';
 import {Request, Response} from 'express';
 import { addTask, deleteTask, fetchCollection } from './db';
+import cors from 'cors';
 
 const app = express();
-const port = 3000;
+const port = 1300;
 app.use(express.json());
+app.use(cors());
 
 app.get('/api/', async (req: Request, res: Response) => {
     try {

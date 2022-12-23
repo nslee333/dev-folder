@@ -8,7 +8,8 @@
   /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   font-family:  'proxima-nova-bold';
   --main-green: #32a877;
-  background-color: #121212;
+  /* background-color: #121212; */
+  background-color: #e4d3d3;
   color: #ffffff;
   
 }
@@ -41,6 +42,10 @@
   border: 3.5px solid var(--main-green);
   border-radius: 15px;
 
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+
   position: absolute;
   width: 650px;
   height: 750px;
@@ -52,22 +57,49 @@
 }
 
 .taskLI {
+  list-style: none;
+
+  background-color: #090101;
   position: relative;
-  margin: 15px;
+  height: 70px;
+  width: 550px;
+  
+  /* right: 2px;
+  left: -20px; */
+
+
+  margin: 5px;
   padding: 5px;
   border: 2.5px solid var(--main-green);
   border-radius: 15px;
-  list-style: none;
+  
   font-size: 35px;
   font-weight: bold;
 
 }
 
 .taskUL {
-  
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
 
 }
 
-h1 {
-  font-size: 45px;
+.taskButton {
+  background-color: #090101;
+  position: relative;
+  height: 70px;
+  width: 550px;
+  
+  /* right: 2px;
+  left: -20px; */
+
+
+  margin: 5px;
+  padding: 5px;
+  border: 2.5px solid var(--main-green);
+  border-radius: 15px;
+  
+  font-size: 35px;
+  font-weight: bold;
 }

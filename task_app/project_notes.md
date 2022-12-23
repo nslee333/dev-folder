@@ -67,6 +67,12 @@ Basic idea:
 
     14: Display tasks properly on page.
 
+    15: Post axios request working properly.
+    15.1: Modify Axios post method boilerplate.
+    15.2: Write a function to call axios method with.
+        - Figure out how to handle the newTaskString passed to the axios post method.
+    15.3: 
+
 
 
 [bugs]: #9
@@ -88,11 +94,10 @@ Basic idea:
 
 
 
-[CT]: 15: Post axios request working properly.
-15.1: Modify Axios post method boilerplate.
-15.2: Write a function to call axios method with.
-    - Figure out how to handle the newTaskString passed to the axios post method.
-15.3: 
+[CT]: 
+16: Implement delete functionality.
+
+Left off at centering LI inside UL.
 
 
 

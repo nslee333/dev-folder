@@ -64,7 +64,6 @@ function App() {
         </div>
         <div className='taskBox'>
         <>
-          {/* <h1>Current Tasks</h1> */} // TODO: Not sure if we need to add a title here 
           {task(documents)}
         </>
         </div>
@@ -74,6 +73,7 @@ function App() {
 
   function task(task: taskDocument[]) { 
     const listItems = task.map(document => (
+      // <li key={document._id.toString()} className='taskLI'><button className='taskButton'>{document.task}</button></li>
       <li key={document._id.toString()} className='taskLI'>{document.task}</li>
     ));
 

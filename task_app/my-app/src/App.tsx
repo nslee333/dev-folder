@@ -1,5 +1,8 @@
 import React, { useEffect, RefObject, KeyboardEventHandler } from 'react';
 import './App.css';
+import {getMethod, postMethod, deleteMethod} from "./actions/actions";
+
+
 
 
 
@@ -8,8 +11,14 @@ function App() {
 
 
   useEffect(() => {
+    getTasks();
 
   }, []);
+
+  const getTasks = async () => {
+    const taskArray: any = await getMethod();
+    console.dir(taskArray); 
+  }
 
 
 

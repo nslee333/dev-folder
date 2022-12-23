@@ -18,10 +18,11 @@ function App() {
 
 
   useEffect(() => {
-  getTasks();
-  // console.log(documents, "DOCUMENTS AT USEFEFFEF")
+    getTasks();
     
   }, []);
+
+  
   
   
 
@@ -46,8 +47,8 @@ function App() {
 
   const submitTask = async (event: any) => {
     try {
-      console.log(event.target.value, "Inside submit task");
-
+      await postMethod(event.target.value);
+      getTasks();
 
     } catch (error) {
       console.error(error);

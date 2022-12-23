@@ -88,7 +88,12 @@ Basic idea:
 
 
 
-[CT]: Post axios request working properly.
+[CT]: 15: Post axios request working properly.
+15.1: Modify Axios post method boilerplate.
+15.2: Write a function to call axios method with.
+    - Figure out how to handle the newTaskString passed to the axios post method.
+15.3: 
+
 
 
 

@@ -13,8 +13,10 @@ export const getMethod = async () => {
     return response;
 } 
 
-export const postMethod = async () => {
-    const response: AxiosResponse | Error = await axios.post('http://localhost:1300/api/')
+export const postMethod = async (newTaskString: string) => {
+    const response: AxiosResponse | Error = await axios.post('http://localhost:1300/api/', {
+        task: newTaskString
+    })
         .then(function (response: AxiosResponse): AxiosResponse {
             console.log(response);
             return response;

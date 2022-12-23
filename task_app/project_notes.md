@@ -79,13 +79,14 @@ Basic idea:
 [Tasks]:
     4. On first load, it needs to load the active tasks.
         - Under useEffect function?
-    
+    5. Implement Axios: GET, POST, DELETE methods.
+    6. Go through and remove all `any` types?
 
 
 
 
 
-[CT]: 
+[CT]: List tasks in task window.
 
 
 

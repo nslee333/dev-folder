@@ -69,9 +69,9 @@ function App() {
         <div>
           <input type='text' className='taskInput' onKeyDown={keyDownHandler} ref={inputRef} />
         </div>
-        <div>
+        <div className='taskBox'>
         <>
-          // Display current tasks here
+          {/* <h1>Current Tasks</h1> */}
           {task(awaitTaskDocuments())}
         </>
         </div>
@@ -93,8 +93,12 @@ function App() {
   }
 
 
-// & TODO
+// & Note
 // TODO:
+// ! RED
+// ? QUESTION:
+// ^ Markup
+
 
   return (
     <div className="App">

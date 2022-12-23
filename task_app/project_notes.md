@@ -65,6 +65,8 @@ Basic idea:
     Bug #8: AxiosError:
         - Put in correct localhost url inside axios callback. 
 
+    14: Display tasks properly on page.
+
 
 
 [bugs]: #9
@@ -77,16 +79,16 @@ Basic idea:
 
 
 [Tasks]:
-    4. On first load, it needs to load the active tasks.
+    1. On first load, it needs to load the active tasks.
         - Under useEffect function?
-    5. Implement Axios: GET, POST, DELETE methods.
-    6. Go through and remove all `any` types?
+    2. Implement Axios: GET, POST, DELETE methods.
+    3. Go through and remove all `any` types?
 
 
 
 
 
-[CT]: Just finished with displaying documents on webpage, stopped there.
+[CT]: 
 
 
 

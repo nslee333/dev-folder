@@ -1,5 +1,12 @@
+@font-face {
+  font-family: 'proxima-nova-bold';
+  src: url(../Proxima-Nova-Extra-Condensed/Demo_Fonts/Fontspring-DEMO-proximanova-semiboldit.otf)
+}
+
+
 * {
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  font-family:  'proxima-nova-bold';
   --main-green: #32a877;
   background-color: #121212;
   color: #ffffff;
@@ -42,4 +49,25 @@
   right: 650px;
   bottom: 750px;
   top: 150px;
+}
+
+.taskLI {
+  position: relative;
+  margin: 15px;
+  padding: 5px;
+  border: 2.5px solid var(--main-green);
+  border-radius: 15px;
+  list-style: none;
+  font-size: 35px;
+  font-weight: bold;
+
+}
+
+.taskUL {
+  
+
+}
+
+h1 {
+  font-size: 45px;
 }

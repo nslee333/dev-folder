@@ -7,6 +7,10 @@
 * {
   font-family:  'proxima-nova-bold';
   --main-green: #32a877;
+  --main-red: #A83263;
+  --main-yellow: #9EA832;
+  --main-blue: #3C32A8;
+
   background-color: #121212;
   /* background-color: #e4d3d3; */
   color: #ffffff;
@@ -16,23 +20,27 @@
 .taskInput {
   position: absolute;
 
-  left: 630px;
-  right: 630px;
+  left: 626px;
+  right: 626px;
   bottom: 750px;
-  top: 100px;
+  top: 90px;
 
   width: 650px;
-  height: 25px;
+  height: 45px;
 
-  font-size: 20px;
+  margin: 2px;
+
+  font-size: 30px;
 
   border-radius: 10px;
-  border: 3px solid var(--main-green)
+  border: 3px solid var(--main-red);
+  
 
 }
 
 .taskInput:focus {
-  border: 3px solid #ffffff;
+  border: 3px solid var(--main-red);
+  outline: none;
 }
 
 .taskBox {
@@ -48,68 +56,73 @@
   bottom: 750px;
   top: 150px;
   
-  /* overflow: scroll; */
+  overflow: scroll;
 }
 
 .taskList {
   list-style: none;
 
-  background-color: #090101;
+  background-color: var(--main-red);
   position: relative;
-  height: 60px;
-  width: 550px;
+  height: 70px;
+  width: 480px;
   
   margin: 5px;
 
   padding-left: 5px;
   padding-right: 5px;
-  padding-top: 20px;
-  padding-bottom: 5px;
 
-  border: 2.5px solid var(--main-green);
-  border-radius: 15px;
+  /* border-radius: 15px; */
   
   font-size: 35px;
   overflow:hidden;
 }
 
+.taskListSmallText {
+  list-style: none;
+
+  background-color: var(--main-red);
+  height: 70px;
+  max-width: 450px;
+  
+  margin: 5px;
+
+  padding-right: 5px;
+  padding-left: 5px;
+
+  
+  font-size: 26px;
+}
+
 
 .taskDeleteButton {
   position: absolute;
-  transform: translate(200px, -80px);
-  border-radius: 5px;
-  font-size: 45px;
+  transform: translate(220px, -80px);
+
+  background-color: var(--main-red);
+  border:none;
+
+  font-size: 55px;
   font-weight: 600;
   cursor: pointer;
 }
 
 .taskDeleteButtonSmallText {
   position: absolute;
-  transform: translate(218px, -80px);
-  border-radius: 5px;
-  font-size: 45px;
+  transform: translate(220px, -80px);
+
+  background-color: var(--main-red);
+  border:none;
+
+  font-size: 55px;
   font-weight: 600;
   cursor: pointer;
 }
 
-.taskListSmallText {
-  list-style: none;
-
-  background-color: #090101;
-  height: 70px;
-  max-width: 480px;
-  
-  margin: 5px;
-
-  padding-right: 5px;
-  padding-left: 5px;
-
-  
-  font-size: 25px;
-}
 
 .taskDiv {
-  border: 2.5px solid var(--main-green);
+  background-color: var(--main-red);
+  border: 2.5px solid var(--main-red);
   border-radius: 15px;
 
   height: 70px;
@@ -120,4 +133,28 @@
   padding-bottom: 5px;
   padding-right: 5px;
   padding-left: 5px;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  /* border-radius: 2px; */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--main-green);  /* border-radius: 2px; */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  /* border-radius: 2px; */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  /* border-radius: 2px; */
 }

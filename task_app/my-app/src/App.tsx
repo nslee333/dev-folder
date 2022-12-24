@@ -44,6 +44,8 @@ function App() {
 
 
   const submitTask = async (event: any) => {
+    if (event.target.value.length > 85) return window.alert("Task length too long. Please try again.");
+
     try {
       await postMethod(event.target.value);
       await getTasks();
@@ -80,13 +82,20 @@ function App() {
 
   function task(task: taskDocument[]) { 
     const listItems = task.map(document => (
-      <div key={document._id.toString()}>
-        <li className='taskLI'>{document.task}</li>
-        <button className='taskButton' onClick={(e:any) => deleteTask(document._id.toString())}>&times;</button>
+      document.task.length >= 26  ? 
+    (
+      <div key={document._id.toString()} className='taskDiv'>
+        <li className='taskListSmallText'>{document.task}</li>
+        <button className='taskDeleteButtonSmallText' onClick={(e:any) => deleteTask(document._id.toString())}>&times;</button>
       </div>
+    ) : (
+      <div key={document._id.toString()}>
+        <li className='taskList'>{document.task}</li>
+        <button className='taskDeleteButton' onClick={(e:any) => deleteTask(document._id.toString())}>&times;</button>
+      </div>
+    )
+      
     ));
-
-    
     return (
       <>
         <ul className='taskUL'>{listItems}</ul>

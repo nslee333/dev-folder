@@ -47,34 +47,77 @@
   right: 630px;
   bottom: 750px;
   top: 150px;
+  
+  /* overflow: scroll; */
 }
 
-.taskLI {
+.taskList {
   list-style: none;
 
   background-color: #090101;
   position: relative;
-  height: 70px;
+  height: 60px;
   width: 550px;
   
   margin: 5px;
-  padding: 5px;
+
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 20px;
+  padding-bottom: 5px;
+
   border: 2.5px solid var(--main-green);
   border-radius: 15px;
   
   font-size: 35px;
-  overflow:hidden; 
-  /* white-space:nowrap;  */
-  text-overflow: ellipsis;
-  /* color: red; */
+  overflow:hidden;
 }
 
 
-.taskButton {
+.taskDeleteButton {
   position: absolute;
   transform: translate(200px, -80px);
   border-radius: 5px;
   font-size: 45px;
   font-weight: 600;
   cursor: pointer;
+}
+
+.taskDeleteButtonSmallText {
+  position: absolute;
+  transform: translate(218px, -80px);
+  border-radius: 5px;
+  font-size: 45px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.taskListSmallText {
+  list-style: none;
+
+  background-color: #090101;
+  height: 70px;
+  max-width: 480px;
+  
+  margin: 5px;
+
+  padding-right: 5px;
+  padding-left: 5px;
+
+  
+  font-size: 25px;
+}
+
+.taskDiv {
+  border: 2.5px solid var(--main-green);
+  border-radius: 15px;
+
+  height: 70px;
+  width: 550px;
+  margin: 5px;
+
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
 }

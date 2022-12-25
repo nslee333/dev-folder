@@ -1,8 +1,7 @@
-import React, { useEffect, RefObject, KeyboardEventHandler } from 'react';
+import React, { useEffect, RefObject, useState, SyntheticEvent } from 'react';
 import './App.css';
 import {getMethod, postMethod, deleteMethod} from "./actions/actions";
 import {ObjectId} from 'mongodb';
-import {useState} from 'react';
 
 
 type taskDocument = {
@@ -10,11 +9,9 @@ type taskDocument = {
   task: string
 }
 
-
-function App() {
+function App(): JSX.Element {
   const [documents, setDocuments] = useState<taskDocument[]>([]);
-
-  const inputRef: RefObject<any> = React.createRef();
+  const inputRef: RefObject<HTMLInputElement> = React.createRef();
 
 
   useEffect(() => {
@@ -22,21 +19,24 @@ function App() {
     
   }, []);
 
-
-
-  const getTasks = async (): Promise<void> => {
+  const getTasks: () => Promise<void> = async (): Promise<void> => {
     const responseObject: any = await getMethod();
     const taskArray: taskDocument[] = responseObject.data.collection;
     
     setDocuments(taskArray);
   }
 
-
-  const keyDownHandler = (event: any) => {
+  console.log(typeof Event, "event type")
+  const keyDownHandler: (event: SyntheticEvent) => void = (event: SyntheticEvent) => {
+    
     if (event.key === 'Enter') {
       event.preventDefault();
       
       submitTask(event);
+
+      if (inputRef.current === null) {
+        return console.error("InputRef Error:", inputRef.current);
+      }
 
       inputRef.current.value = ""
     }

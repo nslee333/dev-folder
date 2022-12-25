@@ -122,8 +122,9 @@ Basic idea:
 
 [CT]:
 20: Go through and remove all `any` types?
+    - Stopped at this task.
 
-21: Task color rotates.
+21: Chore: Go through and eliminate any unused imports.
 
 
 

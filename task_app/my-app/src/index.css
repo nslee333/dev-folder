@@ -7,6 +7,7 @@
 * {
   font-family:  'proxima-nova-bold';
   --main-red: #d76884;
+  --main-beige: #ffd39e9e;
 }
 
 body {
@@ -15,8 +16,6 @@ body {
 
 .taskInput {
   position: absolute;
-  background-color: #ffd39e9e;
-
   left: 626px;
   right: 626px;
   bottom: 750px;
@@ -25,26 +24,24 @@ body {
   width: 650px;
   height: 45px;
 
-  margin: 2px;
+  background-color: var(--main-beige);
 
+  margin: 2px;
   font-size: 30px;
 
   border-radius: 10px;
   border: none;
-  /* border: 3px solid var(--main-red); */
-  
-
 }
 
 .taskInput:focus {
   outline: none;
 }
 
-.taskBox {
-  background-color: #ffd39e9e;
-  border: 5px solid var(--main-green);
-  border-radius: 15px;
+.taskInput::placeholder {
+  color: #403a3a79;
+}
 
+.taskBox {
   position: absolute;
   width: 650px;
   height: 750px;
@@ -53,45 +50,45 @@ body {
   right: 630px;
   bottom: 750px;
   top: 150px;
-  
+
+  background-color: var(--main-beige);
+
+  border: 5px solid var(--main-green);
+  border-radius: 15px;
+
   overflow: scroll;
 }
 
 .taskList {
-  list-style: none;
-
-  background-color: var(--main-red);
   position: relative;
   height: 70px;
   width: 480px;
+
+  list-style: none;
+  background-color: var(--main-red);
   
   margin: 5px;
-
   padding-left: 5px;
   padding-right: 5px;
-
-  /* border-radius: 15px; */
   
   font-size: 35px;
   overflow:hidden;
 }
 
 .taskListSmallText {
-  list-style: none;
-
-  background-color: var(--main-red);
+  position: relative;
   height: 70px;
   max-width: 450px;
   
-  margin: 5px;
-
-  padding-right: 5px;
-  padding-left: 5px;
-
+  list-style: none;
+  background-color: var(--main-red);
   
+  margin: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+
   font-size: 26px;
 }
-
 
 .taskDeleteButton {
   position: absolute;
@@ -117,26 +114,22 @@ body {
   cursor: pointer;
 }
 
-
 .taskDiv {
-  background-color: var(--main-red);
-  border: 2.5px solid var(--main-red);
-  border-radius: 15px;
-
   height: 70px;
   width: 550px;
+  
+  background-color: var(--main-red);
+  border-radius: 15px;
+  border: 2.5px solid var(--main-red);
+  
   margin: 10px;
-
   padding-top: 5px;
   padding-bottom: 5px;
   padding-right: 5px;
   padding-left: 5px;
 }
 
-
-/* width */
 ::-webkit-scrollbar {
   width: 0px;
   height: 0px;
-  /* border-radius: 2px; */
 }

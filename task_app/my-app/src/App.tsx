@@ -55,7 +55,7 @@ function App() {
     }
   }
 
-  const deleteTask = async (objectId: string) => {
+  const deleteTask: (objectId: string) => Promise<void> = async (objectId: string) => {
     try {
       await deleteMethod(objectId);
       await getTasks();
@@ -69,7 +69,7 @@ function App() {
     return (
       <div>
         <div>
-          <input type='text' className='taskInput' onKeyDown={keyDownHandler} ref={inputRef}  placeholder='Schedule Dentist Appointment...'/>
+          <input type='text' className='taskInput' onKeyDown={keyDownHandler} ref={inputRef} placeholder='Schedule Dentist Appointment...'/>
         </div>
         <div className='taskBox'>
         <>

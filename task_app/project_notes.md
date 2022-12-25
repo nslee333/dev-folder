@@ -89,15 +89,15 @@ Basic idea:
         17.2: If there is a bunch of tasks, the task window needs to scroll.
            - Also need to style scrollbars.
 
-        17.4: Center task string inside Li.
-        17.5: Make the input bar larger, along with text.
-        17.6: Delete button background the same as the LI background color.
-        17.7: Background gradient?
+        17.3: Center task string inside Li.
+        17.4: Make the input bar larger, along with text.
+        17.5: Delete button background the same as the LI background color.
+        17.6: Background gradient?
 
-        17.11: .taskDiv is only implemented on the smallText tasks - need to implement them on all tasks.
+        17.7: .taskDiv is only implemented on the smallText tasks - need to implement them on all tasks.
         
-        17.12: Delete button - center and a little to the right.
-        17.13: Delete button - Make X bigger and adjust position.
+        17.8: Delete button - center and a little to the right.
+        17.9: Delete button - Make X bigger and adjust position.
 
     19: Implement a maximum task string length at the input.
 
@@ -107,6 +107,9 @@ Basic idea:
     - After reading the documentation about MongoClient, I refactored the db.ts MongoClient instance
       - into its own function, which reduced it to one MongoClient, wheras before I had one for every http method.
       - After modifying the code, I tested it and the errors haven't come back.
+
+    18: Refactoring tasks:
+        18.1: Refactor index.css styling, group related styling together.
     
 
 
@@ -120,21 +123,7 @@ Basic idea:
 [CT]:
 20: Go through and remove all `any` types?
 
-17: Styling fixes.
-    
-
-    17.8: Overall window for entire app.
-    17.9: Swap out font?
-    
-
-
-
-18: Refactoring tasks:
-    18.1: Refactor index.css styling, group related styling together.
-
 21: Task color rotates.
-
-left at trying to set up one instance of a connection.
 
 
 

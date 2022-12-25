@@ -1,11 +1,19 @@
 const dotenv = require("dotenv").config();
-import {ObjectId} from 'mongodb';
+import {ObjectId, MongoClient} from 'mongodb';
 
- // Function to fetch all current tasks.
+ // Function to fetch all current tasks.\
+
+const mongoClientConnection:  () => MongoClient = () => {
+    const MongoClient = require('mongodb').MongoClient;
+    const client = new MongoClient(process.env.URI, {useNewUrlParser: true});
+
+    return client;
+}
+
+
 export const fetchCollection = async () => {
     try {
-        const MongoClient = require('mongodb').MongoClient;
-        const client = new MongoClient(process.env.URI, {useNewUrlParser: true});
+        const client = mongoClientConnection();
 
         await client.connect().catch((err: Error) => {
             console.error(err);
@@ -26,8 +34,7 @@ export const fetchCollection = async () => {
 // Function to add a new task to the collection.
 export const addTask = async (inputTask: object) => {
     try {
-        const MongoClient = require('mongodb').MongoClient;
-        const client = new MongoClient(process.env.URI, {useNewUrlParser: true});
+        const client = mongoClientConnection();;
 
         await client.connect().catch((err: Error) => {
             console.error(err);
@@ -41,14 +48,14 @@ export const addTask = async (inputTask: object) => {
 
     } catch (error) {
         console.error(error);
+        return error;
     }
 }
 
 // Delete a task from the database.
 export const deleteTask = async (deleteId: ObjectId ) => {
     try {
-        const MongoClient = require('mongodb').MongoClient;
-        const client = new MongoClient(process.env.URI, {useNewUrlParser: true});
+        const client = mongoClientConnection();
 
         client.connect().catch((err: Error) => {
             console.error(err);
@@ -67,6 +74,7 @@ export const deleteTask = async (deleteId: ObjectId ) => {
 
     } catch (error) {
         console.error(error);
+        return error;
     }
 }
 

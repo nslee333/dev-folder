@@ -86,46 +86,55 @@ Basic idea:
 
     17: Styling fixes:
         17.1: Long task needs to stay inside of the LI container.
+        17.2: If there is a bunch of tasks, the task window needs to scroll.
+           - Also need to style scrollbars.
 
         17.4: Center task string inside Li.
         17.5: Make the input bar larger, along with text.
+        17.6: Delete button background the same as the LI background color.
+        17.7: Background gradient?
 
         17.11: .taskDiv is only implemented on the smallText tasks - need to implement them on all tasks.
-
-        17.6: Delete button background the same as the LI background color.
-        17.10: Delete button - center and a little to the right.
-        17.11: Delete button - Make X bigger and adjust position.
+        
+        17.12: Delete button - center and a little to the right.
+        17.13: Delete button - Make X bigger and adjust position.
 
     19: Implement a maximum task string length at the input.
+
+    Bugs #9 + #10: Intermittant MongoDB connection errors:
+    - MongoRuntimeError: Illegal state transition from [closed] => [connected].
+    - PoolClosedError [MongoPoolClosedError]: Attempted to check out a connection from closed       connection pool
+    - After reading the documentation about MongoClient, I refactored the db.ts MongoClient instance
+      - into its own function, which reduced it to one MongoClient, wheras before I had one for every http method.
+      - After modifying the code, I tested it and the errors haven't come back.
     
 
 
 
 
-[bugs]: #9
+[bugs]: #11
+
+
 
 
 [CT]:
 20: Go through and remove all `any` types?
 
 17: Styling fixes.
-    17.2: If there is a bunch of tasks, the task window needs to scroll.
-        - Also need to style scrollbars.
-    17.3: Need to make LI elements a lighter shade and make it more bearable.
-
     
 
-
-    
-    17.7: Background gradient?
     17.8: Overall window for entire app.
-    17.9: Swap out font.
+    17.9: Swap out font?
     
 
 
 
 18: Refactoring tasks:
     18.1: Refactor index.css styling, group related styling together.
+
+21: Task color rotates.
+
+left at trying to set up one instance of a connection.
 
 
 

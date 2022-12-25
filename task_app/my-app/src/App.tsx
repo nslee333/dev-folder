@@ -69,7 +69,7 @@ function App() {
     return (
       <div>
         <div>
-          <input type='text' className='taskInput' onKeyDown={keyDownHandler} ref={inputRef} />
+          <input type='text' className='taskInput' onKeyDown={keyDownHandler} ref={inputRef}  placeholder='Schedule Dentist Appointment...'/>
         </div>
         <div className='taskBox'>
         <>

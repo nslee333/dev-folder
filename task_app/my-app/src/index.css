@@ -6,19 +6,16 @@
 
 * {
   font-family:  'proxima-nova-bold';
-  --main-green: #32a877;
-  --main-red: #A83263;
-  --main-yellow: #9EA832;
-  --main-blue: #3C32A8;
+  --main-red: #d76884;
+}
 
-  background-color: #121212;
-  /* background-color: #e4d3d3; */
-  color: #ffffff;
-  
+body {
+  background:linear-gradient(300deg, #c54364 50%, #c5a342)
 }
 
 .taskInput {
   position: absolute;
+  background-color: #ffd39e9e;
 
   left: 626px;
   right: 626px;
@@ -33,18 +30,19 @@
   font-size: 30px;
 
   border-radius: 10px;
-  border: 3px solid var(--main-red);
+  border: none;
+  /* border: 3px solid var(--main-red); */
   
 
 }
 
 .taskInput:focus {
-  border: 3px solid var(--main-red);
   outline: none;
 }
 
 .taskBox {
-  border: 3.5px solid var(--main-green);
+  background-color: #ffd39e9e;
+  border: 5px solid var(--main-green);
   border-radius: 15px;
 
   position: absolute;
@@ -127,7 +125,7 @@
 
   height: 70px;
   width: 550px;
-  margin: 5px;
+  margin: 10px;
 
   padding-top: 5px;
   padding-bottom: 5px;
@@ -138,23 +136,7 @@
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
-  /* border-radius: 2px; */
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: var(--main-green);  /* border-radius: 2px; */
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888;
-  /* border-radius: 2px; */
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  width: 0px;
+  height: 0px;
   /* border-radius: 2px; */
 }

@@ -43,7 +43,7 @@ function App(): JSX.Element {
   }
 
 
-  const submitTask = async (event: any) => {
+  const submitTask: (event: any) => Promise<void> = async (event: any) => {
     if (event.target.value.length > 75) return window.alert("Task length too long. Please try again.");
 
     try {
@@ -65,7 +65,7 @@ function App(): JSX.Element {
     }
   }
 
-  function taskWindow() {
+  function taskWindow(): JSX.Element {
     return (
       <div>
         <div>
@@ -80,8 +80,8 @@ function App(): JSX.Element {
     );
   }
 
-  function task(task: taskDocument[]) { 
-    const listItems = task.map(document => (
+  function task(task: taskDocument[]): JSX.Element { 
+    const listItems: JSX.Element[] = task.map(document => (
       document.task.length >= 37  ? 
     (
       <div key={document._id.toString()} className='taskDiv'>

@@ -122,6 +122,7 @@ Basic idea:
 
 [CT]:
 20: Go through and remove all `any` types?
+    - Backend and frontend.
     - Stopped at this task.
 
 21: Chore: Go through and eliminate any unused imports.

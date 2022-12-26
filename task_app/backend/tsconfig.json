@@ -12,7 +12,6 @@
       "sourceMap": true,
       "noImplicitAny": true,
       "noImplicitReturns": true,
-      "strictNullChecks": true,
+      "strictNullChecks": true
     }
-  }
-  
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, RefObject, useState, SyntheticEvent } from 'react';
+import React, { useEffect, RefObject, useState, SyntheticEvent, HtmlHTMLAttributes } from 'react';
 import './App.css';
 import {getMethod, postMethod, deleteMethod} from "./actions/actions";
 import {ObjectId} from 'mongodb';
@@ -27,8 +27,7 @@ function App(): JSX.Element {
   }
 
   console.log(typeof Event, "event type")
-  const keyDownHandler: (event: SyntheticEvent) => void = (event: SyntheticEvent) => {
-    
+  const keyDownHandler: (event: KeyboardEvent) => void = (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       
@@ -69,7 +68,7 @@ function App(): JSX.Element {
     return (
       <div>
         <div>
-          <input type='text' className='taskInput' onKeyDown={keyDownHandler} ref={inputRef} placeholder='Schedule Dentist Appointment...'/>
+          <input type='text' className='taskInput' onKeyDown={e => keyDownHandler} ref={inputRef} placeholder='Schedule Dentist Appointment...'/>
         </div>
         <div className='taskBox'>
         <>

@@ -11,9 +11,9 @@ const mongoClientConnection:  () => MongoClient = () => {
 }
 
 
-export const fetchCollection = async () => {
+export const fetchCollection: () => void = async () => {
     try {
-        const client = mongoClientConnection();
+        const client: MongoClient = mongoClientConnection();
 
         await client.connect().catch((err: Error) => {
             console.error(err);

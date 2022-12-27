@@ -128,6 +128,8 @@ Bug #11: server.ts bug Expression of type void cannot be tested for truthiness.
 
 21: Chore: Go through and eliminate any unused imports.
 
+Stopped at nodemon getting stuck
+
 
 
 

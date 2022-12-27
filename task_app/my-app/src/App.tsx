@@ -21,6 +21,11 @@ function App(): JSX.Element {
 
   const getTasks: () => Promise<void> = async (): Promise<void> => {
     const responseObject: any = await getMethod();
+    // if ((typeof responseObject) === 'undefined') {
+
+    // }
+    console.log(responseObject)
+
     const taskArray: taskDocument[] = responseObject.data.collection;
     
     setDocuments(taskArray);

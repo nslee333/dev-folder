@@ -110,7 +110,6 @@ function App(): JSX.Element {
 // ? QUESTION:
 // ^ Markup
 
-
   return (
     <div className="App">
       {taskWindow()}

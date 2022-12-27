@@ -115,7 +115,8 @@ Basic idea:
 
 
 
-[bugs]: #11
+[bugs]: 
+Bug #11: server.ts bug Expression of type void cannot be tested for truthiness.
 
 
 

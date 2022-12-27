@@ -1,6 +1,7 @@
 import express from 'express';
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
 import { addTask, deleteTask, fetchCollection } from './db';
+import { WithId } from 'mongodb';
 import cors from 'cors';
 
 const app = express();
@@ -10,7 +11,7 @@ app.use(cors());
 
 app.get('/api/', async (req: Request, res: Response) => {
     try {
-        const collection = await fetchCollection();
+        const collection: WithId<Document>[] = await fetchCollection();
 
         if (collection) {
             res.status(200).json({collection});

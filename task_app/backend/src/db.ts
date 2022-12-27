@@ -1,5 +1,5 @@
 const dotenv = require("dotenv").config();
-import {ObjectId, MongoClient} from 'mongodb';
+import {ObjectId, MongoClient, WithId} from 'mongodb';
 
  // Function to fetch all current tasks.\
 
@@ -11,7 +11,7 @@ const mongoClientConnection:  () => MongoClient = () => {
 }
 
 
-export const fetchCollection: () => void = async () => {
+export const fetchCollection: () => Promise<WithId<Document>[]> = async () => {
     try {
         const client: MongoClient = mongoClientConnection();
 
@@ -20,7 +20,7 @@ export const fetchCollection: () => void = async () => {
         });
 
         const taskCollection = await client.db("task_app").collection("tasks");
-        const result = await taskCollection.find({}).toArray();
+        const result: WithId<Document>[] = await taskCollection.find({}).toArray();
 
         client.close();
         return result;

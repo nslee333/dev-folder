@@ -1,5 +1,5 @@
 const dotenv = require("dotenv").config();
-import {ObjectId, MongoClient, Collection, WithId} from 'mongodb';
+import {ObjectId, MongoClient, Collection, InsertOneResult} from 'mongodb';
 
  // Function to fetch all current tasks.\
 
@@ -16,30 +16,29 @@ const mongoClientConnection: () => MongoClient = () => {
 }
 
 
-export const fetchCollection: any = async () => {
-    try {
-        const client: MongoClient = mongoClientConnection();
+export const fetchCollection: () => Promise<taskDocument[] | Error> = async () => {
+    const client: MongoClient = mongoClientConnection();
 
-        await client.connect().catch((err: Error) => {
-            console.error(err);
-        });
+    await client.connect().catch((err: Error) => {
+        console.error(err);
+    });
 
-        const taskCollection: Collection = client.db("task_app").collection("tasks");
-        const result: taskDocument[] = await taskCollection.find({}).toArray();
+    const taskCollection: Collection = client.db("task_app").collection("tasks");
+    const result: taskDocument[] = await taskCollection.find({}).toArray();
 
-        client.close();
+    client.close();
+
+    if (result === undefined) {
+        return new Error("Database Error at fetchCollection().")
+    } else {
         return result;
-
-    } catch (error) {
-        console.error(error);
-        return error;
     } 
 }
 
 // Function to add a new task to the collection
-export const addTask = async (inputTask: object) => {
+export const addTask: (inputTask: object) => InsertOneResult = async (inputTask: object) => {
     try {
-        const client = mongoClientConnection();
+        const client: MongoClient = mongoClientConnection();
 
         await client.connect().catch((err: Error) => {
             console.error(err);

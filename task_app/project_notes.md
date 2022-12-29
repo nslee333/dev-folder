@@ -127,13 +127,8 @@ Bug #12
     - Stopped at this task.
 
 21: Chore: Go through and eliminate any unused imports.
-
-Stopped at nodemon getting stuck\
-
-Commented out 3 server functions and the error was fixed, so that's where it's at.
-
-ts/js language server not working properly too
-
+    21.1: Remove all console.logs.
+    
 
 
 

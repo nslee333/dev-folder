@@ -10,63 +10,84 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTask = exports.addTask = exports.fetchCollection = void 0;
-const dotenv = require("dotenv").config();
 const mongodb_1 = require("mongodb");
-// Function to fetch all current tasks.
+require("dotenv").config();
+const mongoClientConnection = () => {
+    const MongoClient = require('mongodb').MongoClient;
+    if (process.env.URI === undefined) {
+        return new Error("Environment Variable Error: URI is Undefined.");
+    }
+    else {
+        const client = new MongoClient(process.env.URI);
+        return client;
+    }
+};
+// Function to grab all documents in database.
 const fetchCollection = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const MongoClient = require('mongodb').MongoClient;
-        const client = new MongoClient(process.env.URI, { useNewUrlParser: true });
+    const client = mongoClientConnection();
+    if (client instanceof mongodb_1.MongoClient) {
         yield client.connect().catch((err) => {
             console.error(err);
         });
-        const taskCollection = yield client.db("task_app").collection("tasks");
-        const result = yield taskCollection.find({}).toArray();
-        client.close();
-        return result;
     }
-    catch (error) {
-        console.error(error);
-        return error;
+    else {
+        return new Error("MongoClient Error");
+    }
+    const taskCollection = client.db("task_app").collection("tasks");
+    const result = yield taskCollection.find({}).toArray();
+    client.close();
+    if (result === undefined) {
+        return new Error("Database Error");
+    }
+    else {
+        return result;
     }
 });
 exports.fetchCollection = fetchCollection;
-// Function to add a new task to the collection.
+// Function to add a new task to the collection
 const addTask = (inputTask) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const MongoClient = require('mongodb').MongoClient;
-        const client = new MongoClient(process.env.URI, { useNewUrlParser: true });
+    const client = mongoClientConnection();
+    if (client instanceof mongodb_1.MongoClient) {
         yield client.connect().catch((err) => {
             console.error(err);
         });
-        const taskCollection = client.db("task_app").collection("tasks");
-        const addedTaskResult = yield taskCollection.insertOne(inputTask);
-        client.close();
-        return addedTaskResult;
     }
-    catch (error) {
-        console.error(error);
+    else {
+        return new Error("MongoClient Error");
+    }
+    const taskCollection = client.db("task_app").collection("tasks");
+    const addedTaskResult = yield taskCollection.insertOne(inputTask);
+    client.close();
+    if (addedTaskResult === undefined) {
+        return new Error("Database error at addTask().");
+    }
+    else {
+        return addedTaskResult;
     }
 });
 exports.addTask = addTask;
 // Delete a task from the database.
 const deleteTask = (deleteId) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const MongoClient = require('mongodb').MongoClient;
-        const client = new MongoClient(process.env.URI, { useNewUrlParser: true });
-        client.connect().catch((err) => {
+    const client = mongoClientConnection();
+    if (client instanceof mongodb_1.MongoClient) {
+        yield client.connect().catch((err) => {
             console.error(err);
         });
-        const taskCollection = client.db("task_app").collection("tasks");
-        const deleteQuery = {
-            _id: new mongodb_1.ObjectId(deleteId)
-        };
-        const deleteResult = yield taskCollection.deleteOne(deleteQuery);
-        client.close();
-        return deleteResult;
     }
-    catch (error) {
-        console.error(error);
+    else {
+        return new Error("MongoClient Error");
+    }
+    const deleteQuery = {
+        _id: new mongodb_1.ObjectId(deleteId)
+    };
+    const taskCollection = client.db("task_app").collection("tasks");
+    const deleteResult = yield taskCollection.deleteOne(deleteQuery);
+    client.close();
+    if (deleteResult === undefined) {
+        return new Error("Database error at deleteTask().");
+    }
+    else {
+        return deleteResult;
     }
 });
 exports.deleteTask = deleteTask;

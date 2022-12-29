@@ -14,43 +14,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const db_1 = require("./db");
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
-const port = 3000;
-app.use(express_1.default.json());
+const port = 1300;
+app.use(express_1.default.json(), (0, cors_1.default)());
 app.get('/api/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const collection = yield (0, db_1.fetchCollection)();
-        if (collection) {
-            res.status(200).json({ collection });
-        }
-    }
-    catch (err) {
-        console.error(err);
+    const collection = yield (0, db_1.fetchCollection)();
+    if (collection instanceof Error) {
+        console.error(Error);
         res.status(400).json({ message: Error });
+    }
+    else {
+        res.status(200).json({ collection });
     }
 }));
 app.post('/api/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const addTaskResult = yield (0, db_1.addTask)(req.body);
-        if (addTaskResult) {
-            res.status(200).json(addTaskResult);
-        }
-    }
-    catch (error) {
-        console.error(error);
+    const addTaskResult = yield (0, db_1.addTask)(req.body);
+    if (addTaskResult instanceof Error) {
+        console.error(Error);
         res.status(400).json({ message: Error });
+    }
+    else {
+        res.status(200).json(addTaskResult);
     }
 }));
 app.delete('/api/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const deleteResult = yield (0, db_1.deleteTask)(req.body._id);
-        if (deleteResult) {
-            res.status(200).json(deleteResult);
-        }
-    }
-    catch (error) {
-        console.error(error);
+    const deleteResult = yield (0, db_1.deleteTask)(req.body._id);
+    if (deleteResult instanceof Error) {
+        console.error(Error);
         res.status(400).json({ message: Error });
+    }
+    else {
+        res.status(200).json(deleteResult);
     }
 }));
 app.listen(port, () => {

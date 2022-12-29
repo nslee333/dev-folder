@@ -116,7 +116,7 @@ Basic idea:
 
 
 [bugs]: 
-Bug #11: server.ts bug Expression of type void cannot be tested for truthiness.
+Bug #12
 
 
 

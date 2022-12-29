@@ -1,11 +1,10 @@
 const dotenv = require("dotenv").config();
-import {ObjectId, MongoClient, Collection} from 'mongodb';
+import {ObjectId, MongoClient, Collection, WithId} from 'mongodb';
 
  // Function to fetch all current tasks.\
 
  type taskDocument = {
-    _id: ObjectId,
-    task: string
+    _id: ObjectId
   }
 
 
@@ -25,8 +24,8 @@ export const fetchCollection: any = async () => {
             console.error(err);
         });
 
-        const taskCollection: Collection<Document> = client.db("task_app").collection("tasks");
-        const result = await taskCollection.find({}).toArray();
+        const taskCollection: Collection = client.db("task_app").collection("tasks");
+        const result: taskDocument[] = await taskCollection.find({}).toArray();
 
         client.close();
         return result;

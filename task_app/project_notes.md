@@ -4,11 +4,6 @@ Basic idea:
         - Two sections: Todo and completed tasks.
         - Daily.
 
-[Design]:
-    1. Authentication?
-       - Login with google?
-
-
 
 [Completed-Tasks]:
     
@@ -80,9 +75,9 @@ Basic idea:
     2.design: When a task is marked completed - it is deleted from the database?
     3.design.: Use AXIOS for client-side http requests
 
-    1. On first load, it needs to load the active tasks.
+    8. On first load, it needs to load the active tasks.
         - Under useEffect function?
-    2. Implement Axios: GET, POST, DELETE methods.
+    9. Implement Axios: GET, POST, DELETE methods.
 
     17: Styling fixes:
         17.1: Long task needs to stay inside of the LI container.
@@ -111,12 +106,16 @@ Basic idea:
     18: Refactoring tasks:
         18.1: Refactor index.css styling, group related styling together.
     
+    Bug #12 - Input not submitting on enter key press.
+        - Ended up being smarter about types and got it working.
 
+    21: Chore: Go through and eliminate any unused imports.
+        21.1: Remove all console.logs.
+        21.2: Remove all VOID
 
 
 
 [bugs]: 
-Bug #12
 
 
 
@@ -124,11 +123,7 @@ Bug #12
 [CT]:
 20: Go through and remove all `any` types?
     - Backend and frontend.
-    - Stopped at this task.
 
-21: Chore: Go through and eliminate any unused imports.
-    21.1: Remove all console.logs.
-    
 
 
 

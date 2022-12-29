@@ -10,9 +10,11 @@ const port = 1300;
 app.use(express.json());
 app.use(cors());
 
+
 type taskDocument = {
     _id: ObjectId
   }
+
 
 app.get('/api/', async (req: Request, res: Response) => {
     const collection: Error | taskDocument[] = await fetchCollection();
@@ -23,7 +25,6 @@ app.get('/api/', async (req: Request, res: Response) => {
     } else {
         res.status(200).json({collection});
     }
-
 });
 
 

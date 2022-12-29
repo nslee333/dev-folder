@@ -1,23 +1,35 @@
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 import {ObjectId, MongoClient, Collection, InsertOneResult, DeleteResult} from 'mongodb';
 
- // Function to fetch all current tasks.\
-
- type taskDocument = {
-    _id: ObjectId
-  }
+type taskDocument = {
+_id: ObjectId
+}
 
 
-const mongoClientConnection: () => MongoClient = () => {
-    const MongoClient = require('mongodb').MongoClient;
-    const client = new MongoClient(process.env.URI, {useNewUrlParser: true});
+const mongoClientConnection: () => MongoClient | void = () => {
+    const MongoClient: typeof import('mongodb').MongoClient = require('mongodb').MongoClient;
+    console.log(MongoClient)
 
-    return client;
+    if (process.env.URI === undefined) {
+        return console.error("Environment Variable Error: URI is Undefined.");
+
+    } else {
+        const client: MongoClient = new MongoClient(process.env.URI);
+        return client;
+    }
 }
 
 // Function to grab all documents in database.
 export const fetchCollection: () => Promise<taskDocument[] | Error> = async () => {
-    const client: MongoClient = mongoClientConnection();
+    const client: void | MongoClient = mongoClientConnection();
+
+    if (client instanceof MongoClient) {
+        await client.connect().catch((err: Error) => {
+            console.error(err);
+        });
+    } else {
+        return new Error("MongoClient Error")
+    }
 
     await client.connect().catch((err: Error) => {
         console.error(err);
@@ -36,17 +48,22 @@ export const fetchCollection: () => Promise<taskDocument[] | Error> = async () =
 }
 
 // Function to add a new task to the collection
-export const addTask: (inputTask: object) => Promise <Error | InsertOneResult> = async (inputTask: object) => {
-    const client: MongoClient = mongoClientConnection();
+export const addTask: (inputTask: object) => Promise <InsertOneResult | Error > = async (inputTask: object) => {
+    const client: MongoClient | void = mongoClientConnection();
 
-    await client.connect().catch((err: Error) => {
-        console.error(err);
-    });
+    if (client instanceof MongoClient) {
+        await client.connect().catch((err: Error) => {
+            console.error(err);
+        });
+    } else {
+        return new Error("MongoClient Error")
+    }
 
     const taskCollection: Collection = client.db("task_app").collection("tasks");
     const addedTaskResult: InsertOneResult = await taskCollection.insertOne(inputTask);
 
     client.close();
+
 
     if (addedTaskResult === undefined) {
         return new Error("Database error at addTask().")
@@ -56,12 +73,16 @@ export const addTask: (inputTask: object) => Promise <Error | InsertOneResult> =
 }
 
 // Delete a task from the database.
-export const deleteTask: (deleteId: ObjectId) => Promise<Error | DeleteResult> = async (deleteId: ObjectId ) => {
-    const client: MongoClient = mongoClientConnection();
+export const deleteTask: (deleteId: ObjectId) => Promise<DeleteResult | Error > = async (deleteId: ObjectId ) => {
+    const client: MongoClient | void = mongoClientConnection();
 
-    client.connect().catch((err: Error) => {
-        console.error(err);
-    });
+    if (client instanceof MongoClient) {
+        await client.connect().catch((err: Error) => {
+            console.error(err);
+        });
+    } else {
+        return new Error("MongoClient Error")
+    }
 
     const taskCollection: Collection = client.db("task_app").collection("tasks");
 

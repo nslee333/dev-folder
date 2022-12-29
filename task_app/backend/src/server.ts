@@ -15,47 +15,40 @@ type taskDocument = {
   }
 
 app.get('/api/', async (req: Request, res: Response) => {
-    try {
-        const collection: Error | taskDocument[] = await fetchCollection();
+    const collection: Error | taskDocument[] = await fetchCollection();
 
-        if (collection) {
-            res.status(200).json({collection});
-        }
-
-    } catch (err) {
-        console.error(err);
+    if (collection instanceof Error) {
+        console.error(Error);
         res.status(400).json({message: Error});
+    } else {
+        res.status(200).json({collection});
     }
+
 });
 
 
 app.post('/api/', async (req: Request, res: Response) => {
-    try {
-        const addTaskResult: Error | InsertOneResult = await addTask(req.body);
+    const addTaskResult: Error | InsertOneResult = await addTask(req.body);
 
-        if (addTaskResult) {
-            res.status(200).json(addTaskResult);
-        }
-
-    } catch (error) {
-        console.error(error);
+    if (addTaskResult instanceof Error) {
+        console.error(Error);
         res.status(400).json({message: Error});
+    } else {
+        res.status(200).json(addTaskResult);
     }
 });
 
 
 app.delete('/api/', async (req: Request, res: Response) => {
-    try {
-        const deleteResult: Error | DeleteResult = await deleteTask(req.body._id);
+    const deleteResult: Error | DeleteResult = await deleteTask(req.body._id);
 
-        if (deleteResult) {
-            res.status(200).json(deleteResult);
-        } 
-        
-    } catch (error) {
-        console.error(error);
+    if (deleteResult instanceof Error)  {
+        console.error(Error);
         res.status(400).json({message: Error});
-    }
+
+    } else {
+        res.status(200).json(deleteResult);
+    } 
 });
 
 

@@ -1,11 +1,10 @@
-Basic idea:
-    - MERN stack.
-    - Basic todo app.
-        - Two sections: Todo and completed tasks.
-        - Daily.
+Basic idea:<br> 
+    - MERN stack.<br> 
+    - Basic todo app.<br> 
+  
 
-
-[Completed-Tasks]:
+[Completed-Tasks]: <br> 
+Note: The number assigned to the task is given at conception, and listed by when they were completed, with the top of the list being the oldest, the last being the latest.
     
     1. Initialize a database for task app - collection for tasks.
 
@@ -100,7 +99,7 @@ Basic idea:
     - MongoRuntimeError: Illegal state transition from [closed] => [connected].
     - PoolClosedError [MongoPoolClosedError]: Attempted to check out a connection from closed       connection pool
     - After reading the documentation about MongoClient, I refactored the db.ts MongoClient instance
-      - into its own function, which reduced it to one MongoClient, wheras before I had one for every http method.
+      - into its own function, which reduced it to one MongoClient, whereas before I had one for every http method.
       - After modifying the code, I tested it and the errors haven't come back.
 
     18: Refactoring tasks:
@@ -113,27 +112,12 @@ Basic idea:
         21.1: Remove all console.logs.
         21.2: Remove all VOID
 
+    20: Go through and remove all `any` types?
+        - Backend and frontend.
 
 
-[bugs]: 
+[Bugs]: 
 
 
-
-
-[CT]:
-20: Go through and remove all `any` types?
-    - Backend and frontend.
-
-
-
-
-
-
-
-
-
-
-
-
-
+[Current Tasks]:
 

@@ -17,7 +17,7 @@ const mongoClientConnection: () => MongoClient = () => {
 }
 
 
-export const fetchCollection = async () => {
+export const fetchCollection: any = async () => {
     try {
         const client: MongoClient = mongoClientConnection();
 
@@ -27,7 +27,6 @@ export const fetchCollection = async () => {
 
         const taskCollection: Collection<Document> = client.db("task_app").collection("tasks");
         const result = await taskCollection.find({}).toArray();
-        console.log(typeof result, result)
 
         client.close();
         return result;
@@ -38,10 +37,10 @@ export const fetchCollection = async () => {
     } 
 }
 
-// Function to add a new task to the collection.
+// Function to add a new task to the collection
 export const addTask = async (inputTask: object) => {
     try {
-        const client = mongoClientConnection();;
+        const client = mongoClientConnection();
 
         await client.connect().catch((err: Error) => {
             console.error(err);

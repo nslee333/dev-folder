@@ -36,24 +36,23 @@ export const fetchCollection: () => Promise<taskDocument[] | Error> = async () =
 }
 
 // Function to add a new task to the collection
-export const addTask: (inputTask: object) => InsertOneResult = async (inputTask: object) => {
-    try {
-        const client: MongoClient = mongoClientConnection();
+export const addTask: (inputTask: object) => Promise <Error | InsertOneResult> = async (inputTask: object) => {
+    const client: MongoClient = mongoClientConnection();
 
-        await client.connect().catch((err: Error) => {
-            console.error(err);
-        });
+    await client.connect().catch((err: Error) => {
+        console.error(err);
+    });
 
-        const taskCollection = client.db("task_app").collection("tasks");
-        const addedTaskResult = await taskCollection.insertOne(inputTask);
+    const taskCollection = client.db("task_app").collection("tasks");
+    const addedTaskResult = await taskCollection.insertOne(inputTask);
 
-        client.close();
+    client.close();
+
+    if (addedTaskResult === undefined) {
+        return new Error("Database error at addTask().")
+    } else {
         return addedTaskResult;
-
-    } catch (error) {
-        console.error(error);
-        return error;
-    }
+    }    
 }
 
 // Delete a task from the database.

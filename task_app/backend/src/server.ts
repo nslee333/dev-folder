@@ -7,8 +7,7 @@ import cors from 'cors';
 
 const app = express();
 const port = 1300;
-app.use(express.json());
-app.use(cors());
+app.use(express.json(), cors());
 
 
 type taskDocument = {
@@ -22,6 +21,7 @@ app.get('/api/', async (req: Request, res: Response) => {
     if (collection instanceof Error) {
         console.error(Error);
         res.status(400).json({message: Error});
+        
     } else {
         res.status(200).json({collection});
     }
@@ -34,6 +34,7 @@ app.post('/api/', async (req: Request, res: Response) => {
     if (addTaskResult instanceof Error) {
         console.error(Error);
         res.status(400).json({message: Error});
+
     } else {
         res.status(200).json(addTaskResult);
     }

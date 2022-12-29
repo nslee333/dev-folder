@@ -62,7 +62,6 @@ export const addTask: (inputTask: object) => Promise <InsertOneResult | Error > 
 
     client.close();
 
-
     if (addedTaskResult === undefined) {
         return new Error("Database error at addTask().")
     } else {
@@ -83,12 +82,12 @@ export const deleteTask: (deleteId: ObjectId) => Promise<DeleteResult | Error > 
         return new Error("MongoClient Error")
     }
 
-    const taskCollection: Collection = client.db("task_app").collection("tasks");
-
+    
     const deleteQuery = {
         _id: new ObjectId(deleteId)
     }
     
+    const taskCollection: Collection = client.db("task_app").collection("tasks");
     const deleteResult: DeleteResult = await taskCollection.deleteOne(deleteQuery);
     
     client.close();

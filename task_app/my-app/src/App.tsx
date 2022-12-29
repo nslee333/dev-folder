@@ -92,7 +92,7 @@ function App(): JSX.Element {
 
   function task(task: taskDocument[]): JSX.Element { 
     const listItems: JSX.Element[] = task.map(document => (
-      document.task.length >= 37  ? 
+      document.task.length >= 37 ? 
     (
       <div key={document._id.toString()} className='taskDiv'>
         <li className='taskListSmallText'>{document.task}</li>
@@ -103,9 +103,9 @@ function App(): JSX.Element {
         <li className='taskList'>{document.task}</li>
         <button className='taskDeleteButton' onClick={(e:any) => deleteTask(document._id.toString())}>&times;</button>
       </div>
-    )
-      
-    ));
+    )));
+
+
     return (
       <>
         <ul className='taskUL'>{listItems}</ul>

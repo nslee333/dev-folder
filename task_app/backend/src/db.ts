@@ -1,5 +1,5 @@
 const dotenv = require("dotenv").config();
-import {ObjectId, MongoClient, Collection, InsertOneResult} from 'mongodb';
+import {ObjectId, MongoClient, Collection, InsertOneResult, DeleteResult} from 'mongodb';
 
  // Function to fetch all current tasks.\
 
@@ -15,7 +15,7 @@ const mongoClientConnection: () => MongoClient = () => {
     return client;
 }
 
-
+// Function to grab all documents in database.
 export const fetchCollection: () => Promise<taskDocument[] | Error> = async () => {
     const client: MongoClient = mongoClientConnection();
 
@@ -43,8 +43,8 @@ export const addTask: (inputTask: object) => Promise <Error | InsertOneResult> =
         console.error(err);
     });
 
-    const taskCollection = client.db("task_app").collection("tasks");
-    const addedTaskResult = await taskCollection.insertOne(inputTask);
+    const taskCollection: Collection = client.db("task_app").collection("tasks");
+    const addedTaskResult: InsertOneResult = await taskCollection.insertOne(inputTask);
 
     client.close();
 
@@ -56,30 +56,28 @@ export const addTask: (inputTask: object) => Promise <Error | InsertOneResult> =
 }
 
 // Delete a task from the database.
-export const deleteTask = async (deleteId: ObjectId ) => {
-    try {
-        const client = mongoClientConnection();
+export const deleteTask: (deleteId: ObjectId) => Promise<Error | DeleteResult> = async (deleteId: ObjectId ) => {
+    const client: MongoClient = mongoClientConnection();
 
-        client.connect().catch((err: Error) => {
-            console.error(err);
-        });
+    client.connect().catch((err: Error) => {
+        console.error(err);
+    });
 
-        const taskCollection = client.db("task_app").collection("tasks");
+    const taskCollection: Collection = client.db("task_app").collection("tasks");
 
-        const deleteQuery = {
-            _id: new ObjectId(deleteId)
-        }
-        
-        const deleteResult = await taskCollection.deleteOne(deleteQuery);
-        
-        client.close();
+    const deleteQuery = {
+        _id: new ObjectId(deleteId)
+    }
+    
+    const deleteResult: DeleteResult = await taskCollection.deleteOne(deleteQuery);
+    
+    client.close();
+    
+    if (deleteResult === undefined) {
+        return new Error("Database error at deleteTask().");
+    } else {
         return deleteResult;
-
-    } catch (error) {
-        console.error(error);
-        return error;
     }
 }
-
 
 module.exports = {fetchCollection, addTask, deleteTask}

@@ -1,13 +1,15 @@
-import React, { useEffect, RefObject, useState, SyntheticEvent, HtmlHTMLAttributes } from 'react';
+import React, { useEffect, RefObject, useState, KeyboardEvent} from 'react';
 import './App.css';
 import {getMethod, postMethod, deleteMethod} from "./actions/actions";
 import {ObjectId} from 'mongodb';
+import {AxiosResponse} from 'axios';
 
 
 type taskDocument = {
   _id: ObjectId,
   task: string
 }
+
 
 function App(): JSX.Element {
   const [documents, setDocuments] = useState<taskDocument[]>([]);
@@ -19,20 +21,20 @@ function App(): JSX.Element {
     
   }, []);
 
+
   const getTasks: () => Promise<void> = async (): Promise<void> => {
-    const responseObject: any = await getMethod();
-    // if ((typeof responseObject) === 'undefined') {
+    const responseObject: void | AxiosResponse<any, any> | Error = await getMethod();
 
-    // }
-    console.log(responseObject)
+    if (responseObject instanceof Error) {
+        console.log(responseObject.message);
 
-    const taskArray: taskDocument[] = responseObject.data.collection;
-    
-    setDocuments(taskArray);
+    } else {
+      const taskArray: taskDocument[] = responseObject.data.collection;
+      setDocuments(taskArray);
+    } 
   }
 
-  console.log(typeof Event, "event type")
-  const keyDownHandler: (event: KeyboardEvent) => void = (event: KeyboardEvent) => {
+  const keyDownHandler: (event: KeyboardEvent<HTMLInputElement>) => void = (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       
@@ -73,7 +75,7 @@ function App(): JSX.Element {
     return (
       <div>
         <div>
-          <input type='text' className='taskInput' onKeyDown={e => keyDownHandler} ref={inputRef} placeholder='Schedule Dentist Appointment...'/>
+          <input type='text' className='taskInput' onKeyDown={keyDownHandler} ref={inputRef} placeholder='Schedule Dentist Appointment...'/>
         </div>
         <div className='taskBox'>
         <>
@@ -106,13 +108,6 @@ function App(): JSX.Element {
       </>
     );
   }
-
-
-// & Note
-// TODO:
-// ! RED
-// ? QUESTION:
-// ^ Markup
 
   return (
     <div className="App">

@@ -1,7 +1,7 @@
 import express from 'express';
 import { Request, Response } from 'express';
 import { addTask, deleteTask, fetchCollection } from './db';
-import { WithId } from 'mongodb';
+import { InsertOneResult, ObjectId, DeleteResult } from 'mongodb';
 import cors from 'cors';
 
 
@@ -10,9 +10,13 @@ const port = 1300;
 app.use(express.json());
 app.use(cors());
 
+type taskDocument = {
+    _id: ObjectId
+  }
+
 app.get('/api/', async (req: Request, res: Response) => {
     try {
-        const collection: any = await fetchCollection();
+        const collection: Error | taskDocument[] = await fetchCollection();
 
         if (collection) {
             res.status(200).json({collection});
@@ -27,7 +31,7 @@ app.get('/api/', async (req: Request, res: Response) => {
 
 app.post('/api/', async (req: Request, res: Response) => {
     try {
-        const addTaskResult = await addTask(req.body);
+        const addTaskResult: Error | InsertOneResult = await addTask(req.body);
 
         if (addTaskResult) {
             res.status(200).json(addTaskResult);
@@ -42,7 +46,7 @@ app.post('/api/', async (req: Request, res: Response) => {
 
 app.delete('/api/', async (req: Request, res: Response) => {
     try {
-        const deleteResult = await deleteTask(req.body._id);
+        const deleteResult: Error | DeleteResult = await deleteTask(req.body._id);
 
         if (deleteResult) {
             res.status(200).json(deleteResult);

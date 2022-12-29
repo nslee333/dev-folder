@@ -23,7 +23,7 @@ function App(): JSX.Element {
 
 
   const getTasks: () => Promise<void> = async (): Promise<void> => {
-    const responseObject: void | AxiosResponse<any, any> | Error = await getMethod();
+    const responseObject: AxiosResponse<any, any> | Error = await getMethod();
 
     if (responseObject instanceof Error) {
         console.log(responseObject.message);
@@ -33,6 +33,7 @@ function App(): JSX.Element {
       setDocuments(taskArray);
     } 
   }
+
 
   const keyDownHandler: (event: KeyboardEvent<HTMLInputElement>) => void = (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
@@ -61,6 +62,7 @@ function App(): JSX.Element {
     }
   }
 
+
   const deleteTask: (objectId: string) => Promise<void> = async (objectId: string) => {
     try {
       await deleteMethod(objectId);
@@ -70,6 +72,7 @@ function App(): JSX.Element {
       console.error(error);
     }
   }
+
 
   function taskWindow(): JSX.Element {
     return (
@@ -85,6 +88,7 @@ function App(): JSX.Element {
       </div>
     );
   }
+
 
   function task(task: taskDocument[]): JSX.Element { 
     const listItems: JSX.Element[] = task.map(document => (
@@ -109,11 +113,13 @@ function App(): JSX.Element {
     );
   }
 
+
   return (
     <div className="App">
       {taskWindow()}
     </div>
   );
 }
+
 
 export default App;

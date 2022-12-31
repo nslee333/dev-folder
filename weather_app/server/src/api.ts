@@ -9,15 +9,18 @@ const forecastAPIMethod: string = '/forecast.json';
 let apiQuery: string | number = 10001;
 let metric: boolean = false;
 
+
 export const updateMetric: (metricBool: boolean) => void = (metricBool : boolean) => {
     metric = metricBool;
 }
+
 
 export const updateQueryParams = (newQueryParams: string | number) => {
     apiQuery = newQueryParams;
 }
 
-type dataObject = {
+
+type weatherData = {
     name: string,
     region: string,
     country: string,
@@ -56,7 +59,8 @@ const forecastRequest = async () => {
     const result = await axios.get(baseURL + forecastAPIMethod, {
         params: {
             key: process.env.API_KEY,
-            q: apiQuery
+            q: apiQuery,
+            days: 7
         }
     })
     .then(function (response: AxiosResponse) {
@@ -69,7 +73,7 @@ const forecastRequest = async () => {
     return result;
 }
 
-export const realtimeRequestAndSort = async () => {
+export const realtimeRequestAndSort: () => Promise<weatherData | Error> = async () => {
     const apiResponse: AxiosResponse | Error = await realtimeRequest();
     if (apiResponse instanceof Error) return apiResponse;
 
@@ -77,7 +81,7 @@ export const realtimeRequestAndSort = async () => {
     const apiLocation = apiResponse.data.location;
 
     if (metric) {
-        const apiDataMetric: dataObject = {
+        const apiDataMetric: weatherData = {
             name: apiLocation.name,
             region: apiLocation.region,
             country: apiLocation.country,
@@ -96,7 +100,7 @@ export const realtimeRequestAndSort = async () => {
         return apiDataMetric;
 
     } else {
-        const apiDataImperial: dataObject = {
+        const apiDataImperial: weatherData = {
             name: apiLocation.name,
             region: apiLocation.region,
             country: apiLocation.country,
@@ -116,8 +120,16 @@ export const realtimeRequestAndSort = async () => {
     
 }
 
-export const forecastRequestAndSort = async () => {
+export const forecastRequestAndSortWeekly = async () => {
+    const apiResponse: AxiosResponse | Error = await forecastRequest();
+    if (apiResponse instanceof Error) return apiResponse;
 
+    
+}
+
+export const forecastRequestAndSortHourly = async () => {
+    const apiResponse: AxiosResponse | Error = await forecastRequest();
+    if (apiResponse instanceof Error) return apiResponse;
 }
 
 
@@ -126,6 +138,6 @@ export const forecastRequestAndSort = async () => {
 
 
 
-// export Forcast and Realtime axios requests
+// export Forecast and Realtime axios requests
 
 

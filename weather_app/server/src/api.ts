@@ -120,14 +120,14 @@ export const realtimeRequestAndSort: () => Promise<weatherData | Error> = async 
     
 }
 
-export const forecastRequestAndSortWeekly = async () => {
+export const forecastSortWeekly = async () => {
     const apiResponse: AxiosResponse | Error = await forecastRequest();
     if (apiResponse instanceof Error) return apiResponse;
 
     
 }
 
-export const forecastRequestAndSortHourly = async () => {
+export const forecastSortHourly = async () => {
     const apiResponse: AxiosResponse | Error = await forecastRequest();
     if (apiResponse instanceof Error) return apiResponse;
 }

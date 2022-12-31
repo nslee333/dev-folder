@@ -29,6 +29,10 @@ Use WeatherAPI.com's API.
     - Remove all unused imports.
     - Remove all unused dev or main dependencies.
     - Remove all `any` typings
+    - Comment documentation above function declarations.
+      - Note: Need to research common conventions for this.
+      - @param paramName its use
+      - @param param
 
 
 

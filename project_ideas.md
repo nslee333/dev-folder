@@ -2,6 +2,22 @@ The main goal is to build applications that I would use in my own life.
 
 Web application ideas:
 
+    Multiple page application?
+        - Book finder.
+        - Quiz app.
+        - Notes app?
+        - Words based password generator
+
+
+
+        - Weather app
+          - Search for a zip code and it brings up your week's weather.
+          - Background / Theme changes based upon the current weather.
+          - 24 hour option?
+          - Farenheit vs Celsius
+
+
+
 
     Payment application.
         - User signs up.

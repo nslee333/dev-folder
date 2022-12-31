@@ -33,6 +33,7 @@ Use WeatherAPI.com's API.
       - Note: Need to research common conventions for this.
       - @param paramName its use
       - @param param
+    - Remove all unused data from api calls.
 
 
 

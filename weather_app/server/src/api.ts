@@ -138,7 +138,6 @@ export const forecastSortWeekly = async () => {
     const apiResponse: AxiosResponse | Error = await forecastRequest();
     if (apiResponse instanceof Error) return apiResponse;
 
-    // const apiForecastDay = apiResponse.data.forecast.forecastday;
     // TODO: Sort out 7 day forecast.
 
     if (metric) {
@@ -195,17 +194,56 @@ export const forecastSortWeekly = async () => {
 }
 
 
-
-
 // TODO: Define forecastHourlyData type.
+type forecastHourlyData = {
+    timeEpoch: number,
+    temperature: number,
+    conditionText: string,
+    conditionIcon: string,
+    precipitation: number; 
+}
 
 
 export const forecastSortHourly = async () => {
     const apiResponse: AxiosResponse | Error = await forecastRequest();
     if (apiResponse instanceof Error) return apiResponse;
 
-    const apiForecast = apiResponse.data.forecast;
-    // TODO: Sort: Todays time + next 6 hour's forecast.
+    const currentTime = Date.now();
+    const apiForecastHour = apiResponse.data.forecast.forecastday[0].hour;
+    const timeEpoch = apiResponse.data.forecast.forecastday[0].hour.time_epoch;
+    
+    if (metric) {
+        const hourlyForecastMetric: forecastHourlyData[] = [];
+        while (hourlyForecastMetric.length < 5) {
+            if (currentTime < timeEpoch) {
+                const hourForecast: forecastHourlyData = {
+                    timeEpoch: apiForecastHour.time_epoch,
+                    temperature: apiForecastHour.temp_c,
+                    conditionText: apiForecastHour.condition.text,
+                    conditionIcon: apiForecastHour.condition.icon,
+                    precipitation: apiForecastHour.precip_mm,
+                }
+                hourlyForecastMetric.push(hourForecast);
+            }
+        }
+        return hourlyForecastMetric;
+        
+    } else {
+        const hourlyForecastImperial: forecastHourlyData[] = [];
+        while (hourlyForecastImperial.length < 5) {
+            if (currentTime < timeEpoch) {
+                const hourForecast: forecastHourlyData = {
+                    timeEpoch: apiForecastHour.time_epoch,
+                    temperature: apiForecastHour.temp_f,
+                    conditionText: apiForecastHour.condition.text,
+                    conditionIcon: apiForecastHour.condition.icon,
+                    precipitation: apiForecastHour.precip_in,
+                }
+                hourlyForecastImperial.push(hourForecast);
+            }
+        }
+        return hourlyForecastImperial;
+    }
     
 }
 

@@ -23,6 +23,13 @@ Weather web app:
 
 Use WeatherAPI.com's API.
 
+[WrapUp]:
+    - Proofread and Refactor all code.
+    - Remove all debugger logs.
+    - Remove all unused imports.
+    - Remove all unused dev or main dependencies.
+    - Remove all `any` typings
+
 
 
 [Completed]:
@@ -35,14 +42,32 @@ Use WeatherAPI.com's API.
 
 [Research]:
     - Authentication.
-    
+
+[Tasks]
+    - Integrate with GH actions.
+    - Build tests alongside application. 
 
 
 
-[Tasks]:
+[CurrentTasks]:
     1. Set up Axios http requests skeleton.
     2. Set up server skeleton.
     3. Set up API http methods skeleton with Axios
     4. Research and gather what APIs I need.
-    5. 
+    5. Need to set up 
+
+
+[Working]
+    - Learning how to call WeatherAPI with Postman.
+
+    - Need to figure out how to call specific locations
+
+
+
+
+
+
+
+
+
 

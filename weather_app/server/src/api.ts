@@ -15,7 +15,7 @@ export const updateMetric: (metricBool: boolean) => void = (metricBool : boolean
 }
 
 
-export const updateQueryParams = (newQueryParams: string | number) => {
+export const updateQueryParams: (newQueryParams: string) => void = (newQueryParams: string | number) => {
     apiQuery = newQueryParams;
 }
 
@@ -38,7 +38,7 @@ const realtimeRequest: () => Promise<AxiosResponse | Error> = async () => {
 }
 
 // Forecast axios request
-const forecastRequest = async () => {
+const forecastRequest: () => Promise<AxiosResponse | Error> = async () => {
     const result = await axios.get(baseURL + forecastAPIMethod, {
         params: {
             key: process.env.API_KEY,
@@ -134,7 +134,7 @@ type forecastDailyData = {
     conditionCode: number,
 }
 
-export const forecastWeeklySort = async () => {
+export const forecastWeeklySort: () => Promise<forecastDailyData[] | Error> = async () => {
     const apiResponse: AxiosResponse | Error = await forecastRequest();
     if (apiResponse instanceof Error) return apiResponse;
 
@@ -193,7 +193,6 @@ export const forecastWeeklySort = async () => {
 }
 
 
-// TODO: Define forecastHourlyData type.
 type forecastHourlyData = {
     timeEpoch: number,
     temperature: number,
@@ -203,7 +202,7 @@ type forecastHourlyData = {
 }
 
 
-export const forecastHourlySort = async () => {
+export const forecastHourlySort: () => Promise<forecastHourlyData[] | Error> = async () => {
     const apiResponse: AxiosResponse | Error = await forecastRequest();
     if (apiResponse instanceof Error) return apiResponse;
 
@@ -247,4 +246,4 @@ export const forecastHourlySort = async () => {
 }
 
 
-module.exports = {realtimeWeatherSort, forecastWeeklySort, forecastHourlySort};
+module.exports = {updateMetric, updateQueryParams, realtimeWeatherSort, forecastWeeklySort, forecastHourlySort};

@@ -7,14 +7,30 @@ const baseURL: string = 'https://api.weatherapi.com/v1/';
 const realtimeAPIMethod: string = '/current.json';
 const forecastAPIMethod: string = '/forecast.json';
 let apiQuery: string | number = 10001;
-let celsius: boolean = false;
+let metric: boolean = false;
 
-export const updateCelsius: (celsiusBool: boolean) => void = (celsiusBool : boolean) => {
-    celsius = celsiusBool;
+export const updateMetric: (metricBool: boolean) => void = (metricBool : boolean) => {
+    metric = metricBool;
 }
 
 export const updateQueryParams = (newQueryParams: string | number) => {
     apiQuery = newQueryParams;
+}
+
+type dataObject = {
+    name: string,
+    region: string,
+    country: string,
+    localTime: string,
+    temperature: number,
+    isDay: number,
+    conditionString: string,
+    conditionIcon: string,
+    conditionCode: number,
+    windSpeed: number,
+    precipitation: number,
+    humidity: number,
+    feelsLike: number,
 }
 
 
@@ -55,10 +71,47 @@ const forecastRequest = async () => {
 
 export const realtimeRequestAndSort = async () => {
     const apiResponse: AxiosResponse | Error = await realtimeRequest();
-    if (apiResponse instanceof Error) return new Error("API Error.");
+    if (apiResponse instanceof Error) return apiResponse;
 
-    if (celsius) {
-        
+    const apiCurrent = apiResponse.data.current;
+    const apiLocation = apiResponse.data.location;
+
+    if (metric) {
+        const apiDataMetric: dataObject = {
+            name: apiLocation.name,
+            region: apiLocation.region,
+            country: apiLocation.country,
+            localTime: apiLocation.localtime,
+            temperature: apiCurrent.temp_c,
+            isDay: apiCurrent.is_day,
+            conditionString: apiCurrent.condition.text,
+            conditionIcon: apiCurrent.condition.icon,
+            conditionCode: apiCurrent.condition.code,
+            windSpeed: apiCurrent.wind_kph,
+            precipitation: apiCurrent.precip_mm,
+            humidity: apiCurrent.humidity,
+            feelsLike: apiCurrent.feelslike_c
+        }
+
+        return apiDataMetric;
+
+    } else {
+        const apiDataImperial: dataObject = {
+            name: apiLocation.name,
+            region: apiLocation.region,
+            country: apiLocation.country,
+            localTime: apiLocation.localtime,
+            temperature: apiCurrent.temp_f,
+            isDay: apiCurrent.is_day,
+            conditionString: apiCurrent.condition.text,
+            conditionIcon: apiCurrent.condition.icon,
+            conditionCode: apiCurrent.condition.code,
+            windSpeed: apiCurrent.wind_mph,
+            precipitation: apiCurrent.precip_in,
+            humidity: apiCurrent.humidity,
+            feelsLike: apiCurrent.feelslike_f
+        }
+        return apiDataImperial;
     }
     
 }

@@ -15,7 +15,7 @@ export const updateMetric: (metricBool: boolean) => void = (metricBool : boolean
 }
 
 
-export const updateQueryParams: (newQueryParams: string) => void = (newQueryParams: string | number) => {
+export const updateQueryParams: (newQueryParams: string | number) => void = (newQueryParams: string | number) => {
     apiQuery = newQueryParams;
 }
 

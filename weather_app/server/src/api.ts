@@ -74,7 +74,7 @@ type realtimeWeatherData = {
 }
 
 
-export const realtimeRequestAndSort: () => Promise<realtimeWeatherData | Error> = async () => {
+export const realtimeWeatherSort: () => Promise<realtimeWeatherData | Error> = async () => {
     const apiResponse: AxiosResponse | Error = await realtimeRequest();
     if (apiResponse instanceof Error) return apiResponse;
 
@@ -134,11 +134,10 @@ type forecastDailyData = {
     conditionCode: number,
 }
 
-export const forecastSortWeekly = async () => {
+export const forecastWeeklySort = async () => {
     const apiResponse: AxiosResponse | Error = await forecastRequest();
     if (apiResponse instanceof Error) return apiResponse;
 
-    // TODO: Sort out 7 day forecast.
 
     if (metric) {
         const apiWeeklyForecastMetric: forecastDailyData[] = [];
@@ -204,7 +203,7 @@ type forecastHourlyData = {
 }
 
 
-export const forecastSortHourly = async () => {
+export const forecastHourlySort = async () => {
     const apiResponse: AxiosResponse | Error = await forecastRequest();
     if (apiResponse instanceof Error) return apiResponse;
 
@@ -248,11 +247,4 @@ export const forecastSortHourly = async () => {
 }
 
 
-
-
-
-
-
-// export Forecast and Realtime axios requests
-
-
+module.exports = {realtimeWeatherSort, forecastWeeklySort, forecastHourlySort};

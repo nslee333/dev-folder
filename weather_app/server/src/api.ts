@@ -20,23 +20,6 @@ export const updateQueryParams = (newQueryParams: string | number) => {
 }
 
 
-type weatherData = {
-    name: string,
-    region: string,
-    country: string,
-    localTime: string,
-    temperature: number,
-    isDay: number,
-    conditionString: string,
-    conditionIcon: string,
-    conditionCode: number,
-    windSpeed: number,
-    precipitation: number,
-    humidity: number,
-    feelsLike: number,
-}
-
-
 const realtimeRequest: () => Promise<AxiosResponse | Error> = async () => {
     const result = await axios.get(baseURL + realtimeAPIMethod, {
         params: {
@@ -73,15 +56,34 @@ const forecastRequest = async () => {
     return result;
 }
 
-export const realtimeRequestAndSort: () => Promise<weatherData | Error> = async () => {
+
+type realtimeWeatherData = {
+    name: string,
+    region: string,
+    country: string,
+    localTime: string,
+    temperature: number,
+    isDay: number,
+    conditionString: string,
+    conditionIcon: string,
+    conditionCode: number,
+    windSpeed: number,
+    precipitation: number,
+    humidity: number,
+    feelsLike: number,
+}
+
+
+export const realtimeRequestAndSort: () => Promise<realtimeWeatherData | Error> = async () => {
     const apiResponse: AxiosResponse | Error = await realtimeRequest();
     if (apiResponse instanceof Error) return apiResponse;
 
+    // TODO: Need to type these variables.
     const apiCurrent = apiResponse.data.current;
     const apiLocation = apiResponse.data.location;
-
+    
     if (metric) {
-        const apiDataMetric: weatherData = {
+        const apiDataMetric: realtimeWeatherData = {
             name: apiLocation.name,
             region: apiLocation.region,
             country: apiLocation.country,
@@ -100,7 +102,7 @@ export const realtimeRequestAndSort: () => Promise<weatherData | Error> = async 
         return apiDataMetric;
 
     } else {
-        const apiDataImperial: weatherData = {
+        const apiDataImperial: realtimeWeatherData = {
             name: apiLocation.name,
             region: apiLocation.region,
             country: apiLocation.country,
@@ -117,19 +119,31 @@ export const realtimeRequestAndSort: () => Promise<weatherData | Error> = async 
         }
         return apiDataImperial;
     }
-    
 }
 
 export const forecastSortWeekly = async () => {
     const apiResponse: AxiosResponse | Error = await forecastRequest();
     if (apiResponse instanceof Error) return apiResponse;
 
+    // const apiForecastDay = apiResponse.data.forecast.forecastday;
+    // TODO: Sort out 7 day forecast.
+
     
 }
+
+
+
+
+
+
 
 export const forecastSortHourly = async () => {
     const apiResponse: AxiosResponse | Error = await forecastRequest();
     if (apiResponse instanceof Error) return apiResponse;
+
+    const apiForecast = apiResponse.data.forecast;
+    // TODO: Sort: Todays time + next 6 hour's forecast.
+    
 }
 
 

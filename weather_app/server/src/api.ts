@@ -121,6 +121,19 @@ export const realtimeRequestAndSort: () => Promise<realtimeWeatherData | Error> 
     }
 }
 
+// TODO: Define forecastWeeklyData type.
+
+type forecastDailyData = {
+    date: string,
+    dateEpoch: number,
+    maxTemp: number,
+    minTemp: number,
+    totalPrecipitation: number,
+    conditionText: string,
+    conditionIcon: string,
+    conditionCode: number,
+}
+
 export const forecastSortWeekly = async () => {
     const apiResponse: AxiosResponse | Error = await forecastRequest();
     if (apiResponse instanceof Error) return apiResponse;
@@ -128,13 +141,63 @@ export const forecastSortWeekly = async () => {
     // const apiForecastDay = apiResponse.data.forecast.forecastday;
     // TODO: Sort out 7 day forecast.
 
-    
+    if (metric) {
+        const apiWeeklyForecastMetric: forecastDailyData[] = [];
+        const forecastDay = apiResponse.data.forecast.forecastday;
+
+        for (let day in forecastDay) {
+            const forecastDay = apiResponse.data.forecast.forecastday[day];
+            const forecastDayData = forecastDay.day;
+            const forecastDayCondition = forecastDayData.condition;
+
+            const apiForecastDay: forecastDailyData = {
+                date: forecastDay.date,
+                dateEpoch: forecastDay.date_epoch,
+                maxTemp: forecastDayData.maxtemp_c,
+                minTemp: forecastDayData.mintemp_c,
+                totalPrecipitation:  forecastDayData.totalprecip_mm,
+                conditionText: forecastDayCondition.text,
+                conditionIcon: forecastDayCondition.condition.icon,
+                conditionCode: forecastDayCondition.condition.code
+            };
+        
+            apiWeeklyForecastMetric.push(apiForecastDay)
+
+        }
+        return apiWeeklyForecastMetric;
+
+    } else {
+        const apiWeeklyForecastImperial: forecastDailyData[] = [];
+        const forecastDay = apiResponse.data.forecast.forecastday;
+
+        for (let day in forecastDay) {
+            const forecastDay = apiResponse.data.forecast.forecastday[day];
+            const forecastDayData = forecastDay.day;
+            const forecastDayCondition = forecastDayData.condition;
+
+            const apiForecastDay: forecastDailyData = {
+                date: forecastDay.date,
+                dateEpoch: forecastDay.date_epoch,
+                maxTemp: forecastDayData.maxtemp_f,
+                minTemp: forecastDayData.mintemp_f,
+                totalPrecipitation:  forecastDayData.totalprecip_in,
+                conditionText: forecastDayCondition.text,
+                conditionIcon: forecastDayCondition.condition.icon,
+                conditionCode: forecastDayCondition.condition.code
+            };
+        
+            apiWeeklyForecastImperial.push(apiForecastDay)
+
+        }
+
+        return apiWeeklyForecastImperial;
+    }
 }
 
 
 
 
-
+// TODO: Define forecastHourlyData type.
 
 
 export const forecastSortHourly = async () => {

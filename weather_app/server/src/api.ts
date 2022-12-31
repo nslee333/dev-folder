@@ -6,18 +6,23 @@ dotenv.config();
 const baseURL: string = 'https://api.weatherapi.com/v1/';
 const realtimeAPIMethod: string = '/current.json';
 const forecastAPIMethod: string = '/forecast.json';
-let baseQuery: string | number = 10001;
+let apiQuery: string | number = 10001;
+let celsius: boolean = false;
+
+export const updateCelsius: (celsiusBool: boolean) => void = (celsiusBool : boolean) => {
+    celsius = celsiusBool;
+}
 
 export const updateQueryParams = (newQueryParams: string | number) => {
-    baseQuery = newQueryParams;
+    apiQuery = newQueryParams;
 }
 
 
-export const realtimeRequest: () => Promise<AxiosResponse | Error> = async () => {
+const realtimeRequest: () => Promise<AxiosResponse | Error> = async () => {
     const result = await axios.get(baseURL + realtimeAPIMethod, {
         params: {
             key: process.env.API_KEY,
-            q: baseQuery
+            q: apiQuery
         }
     })
     .then(function (response: AxiosResponse) {
@@ -26,19 +31,42 @@ export const realtimeRequest: () => Promise<AxiosResponse | Error> = async () =>
     .catch(function (error: string) {
         return new Error(error);
     })
+
     return result;
 }
 
 // Forecast axios request
-export const forecastRequest = async () => {
+const forecastRequest = async () => {
+    const result = await axios.get(baseURL + forecastAPIMethod, {
+        params: {
+            key: process.env.API_KEY,
+            q: apiQuery
+        }
+    })
+    .then(function (response: AxiosResponse) {
+        return response;
+    })
+    .catch(function (error: string) {
+        return new Error(error);
+    });
+
+    return result;
+}
+
+export const realtimeRequestAndSort = async () => {
+    const apiResponse: AxiosResponse | Error = await realtimeRequest();
+    if (apiResponse instanceof Error) return new Error("API Error.");
+
+    if (celsius) {
+        
+    }
     
 }
 
+export const forecastRequestAndSort = async () => {
 
-// https://api.weatherapi.com/v1/current.json?key=<>q=97702 - query for 97702, current api.
+}
 
-// Maybe What I'll need to do is sort out the specific data in api.ts, then give it back
-// to server.ts
 
 
 

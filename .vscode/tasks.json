@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "build",
+			"path": "weather_app/server/src/server.ts",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: build - weather_app/server",
+			"detail": "tsc -p ."
+		}
+	]
+}

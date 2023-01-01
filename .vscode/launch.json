@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Launch via npm",
+            "type": "node",
+            "request": "launch",
+            "cwd": "/home/nslee333/Program/Projects_/weather_app/server",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": ["run", "dev"]
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach by Process ID",
+            "processId": "${command:PickProcess}"
+        }
+    ]
+}

@@ -2,7 +2,7 @@ import axios, {AxiosError, AxiosResponse} from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
 
-// Realtime axios request
+
 const baseURL: string = 'https://api.weatherapi.com/v1/';
 const realtimeAPIMethod: string = 'current.json';
 const forecastAPIMethod: string = 'forecast.json';
@@ -21,7 +21,6 @@ export const updateQueryParams: (newQueryParams: string | number) => void = (new
 
 
 const realtimeRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
-    console.log("Calling Realtime API...")
     const result = await axios.get(baseURL + realtimeAPIMethod, {
         params: {
             key: process.env.API_KEY,
@@ -40,7 +39,6 @@ const realtimeRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
 
 // Forecast axios request
 const forecastRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
-    console.log("Calling Forecast API...")
     const result = await axios.get(baseURL + forecastAPIMethod, {
         params: {
             key: process.env.API_KEY,
@@ -77,7 +75,6 @@ type realtimeWeatherData = {
 
 
 export const realtimeWeatherSort: () => Promise<realtimeWeatherData | AxiosError> = async () => {
-    console.log("realtime call sort...")
     const apiResponse: AxiosResponse | AxiosError = await realtimeRequest();
     if ( apiResponse instanceof AxiosError) return apiResponse;
 
@@ -136,7 +133,6 @@ type forecastDailyData = {
 
 
 export const forecastWeeklySort: () => Promise<forecastDailyData[] | AxiosError> = async () => {
-    console.log("Week Sort Call...")
     const apiResponse: AxiosResponse | AxiosError = await forecastRequest();
     if (apiResponse instanceof AxiosError) return apiResponse;
 
@@ -166,16 +162,12 @@ export const forecastWeeklySort: () => Promise<forecastDailyData[] | AxiosError>
         return apiWeeklyForecastMetric;
 
     } else {
-        
         const apiWeeklyForecastImperial: forecastDailyData[] = [];
-        // const forecastDay = apiResponse.data.forecast.forecastday;
-        // console.log(forecastDay)
 
         let count: number = 0;
         while (apiWeeklyForecastImperial.length < 7) {
             
             const forecastDay = apiResponse.data.forecast.forecastday[count];
-            console.log(forecastDay, "FORECAST DAY")
             const forecastDayData = forecastDay.day;
             const forecastDayCondition = forecastDayData.condition;
 
@@ -206,17 +198,20 @@ type forecastHourlyData = {
 
 
 export const forecastHourlySort: () => Promise<forecastHourlyData[] | AxiosError> = async () => {
-    console.log("Hourly sort call...")
     const apiResponse: AxiosResponse | AxiosError = await forecastRequest();
     if (apiResponse instanceof AxiosError) return apiResponse;
 
-    const currentTime = Date.now();
-    const apiForecastHour = apiResponse.data.forecast.forecastday[0].hour;
-    const timeEpoch = apiResponse.data.forecast.forecastday[0].hour.time_epoch
-    
+    const currentTime = Date.now() / 1000;
+
     if (metric) {
         const hourlyForecastMetric: forecastHourlyData[] = [];
-        while (hourlyForecastMetric.length < 5) {
+        
+        for (let count = 0; count < 24; count++) {
+            if (hourlyForecastMetric.length === 6) return hourlyForecastMetric;
+
+            const apiForecastHour = apiResponse.data.forecast.forecastday[0].hour[count];
+            const timeEpoch = apiForecastHour.time_epoch;
+           
             if (currentTime < timeEpoch) {
                 const hourForecast: forecastHourlyData = {
                     timeEpoch: apiForecastHour.time_epoch,
@@ -231,7 +226,13 @@ export const forecastHourlySort: () => Promise<forecastHourlyData[] | AxiosError
         
     } else {
         const hourlyForecastImperial: forecastHourlyData[] = [];
-        while (hourlyForecastImperial.length < 5) {
+
+        for (let count = 0; count < 24; count++) {
+            if (hourlyForecastImperial.length === 6) return hourlyForecastImperial;
+
+            const apiForecastHour = apiResponse.data.forecast.forecastday[0].hour[count];
+            const timeEpoch = apiForecastHour.time_epoch;
+            
             if (currentTime < timeEpoch) {
                 const hourForecast: forecastHourlyData = {
                     timeEpoch: apiForecastHour.time_epoch,

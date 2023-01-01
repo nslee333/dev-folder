@@ -64,6 +64,7 @@ Use WeatherAPI.com's API.
 
 [Working]
     Bug #2: weekly sort only returning 3 days, should be returning 7.
+        - API issue :(
     Bug #3: Hourly sort getting hung up.
 
 

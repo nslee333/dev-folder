@@ -38,8 +38,13 @@ Use WeatherAPI.com's API.
 
 
 [Completed]:
-   1. Client and Server folders initialized.
-   2. 
+    1. Client and Server folders initialized.
+    2. Set up Axios http requests skeleton.
+    3. Set up server skeleton.
+    4. Set up API http methods skeleton with Axios
+    5. Research and gather what APIs I need.
+    6. Learning to call weatherAPI with postman
+    7. Need to figure out to call specific locations.
 
 
 
@@ -55,17 +60,11 @@ Use WeatherAPI.com's API.
 
 
 [CurrentTasks]:
-    1. Set up Axios http requests skeleton.
-    2. Set up server skeleton.
-    3. Set up API http methods skeleton with Axios
-    4. Research and gather what APIs I need.
-    5. Need to set up 
 
 
 [Working]
-    - Learning how to call WeatherAPI with Postman.
-
-    - Need to figure out how to call specific locations
+    Bug #2: weekly sort only returning 3 days, should be returning 7.
+    Bug #3: Hourly sort getting hung up.
 
 
 

@@ -1,12 +1,12 @@
-import axios, {AxiosResponse} from 'axios';
+import axios, {AxiosError, AxiosResponse} from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
 
 // Realtime axios request
 const baseURL: string = 'https://api.weatherapi.com/v1/';
-const realtimeAPIMethod: string = '/current.json';
-const forecastAPIMethod: string = '/forecast.json';
-let apiQuery: string | number = 10001;
+const realtimeAPIMethod: string = 'current.json';
+const forecastAPIMethod: string = 'forecast.json';
+let apiQuery: string | number = 97702;
 let metric: boolean = false;
 
 
@@ -20,7 +20,8 @@ export const updateQueryParams: (newQueryParams: string | number) => void = (new
 }
 
 
-const realtimeRequest: () => Promise<AxiosResponse | Error> = async () => {
+const realtimeRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
+    console.log("Calling Realtime API...")
     const result = await axios.get(baseURL + realtimeAPIMethod, {
         params: {
             key: process.env.API_KEY,
@@ -28,29 +29,30 @@ const realtimeRequest: () => Promise<AxiosResponse | Error> = async () => {
         }
     })
     .then(function (response: AxiosResponse) {
-        return response
+        return response;
     })
-    .catch(function (error: string) {
-        return new Error(error);
+    .catch(function (error: AxiosError) {
+        return error;
     })
 
     return result;
 }
 
 // Forecast axios request
-const forecastRequest: () => Promise<AxiosResponse | Error> = async () => {
+const forecastRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
+    console.log("Calling Forecast API...")
     const result = await axios.get(baseURL + forecastAPIMethod, {
         params: {
             key: process.env.API_KEY,
             q: apiQuery,
-            days: 7
+            days: 4
         }
     })
     .then(function (response: AxiosResponse) {
         return response;
     })
-    .catch(function (error: string) {
-        return new Error(error);
+    .catch(function (error: AxiosError) {
+        return error;
     });
 
     return result;
@@ -74,9 +76,10 @@ type realtimeWeatherData = {
 }
 
 
-export const realtimeWeatherSort: () => Promise<realtimeWeatherData | Error> = async () => {
-    const apiResponse: AxiosResponse | Error = await realtimeRequest();
-    if (apiResponse instanceof Error) return apiResponse;
+export const realtimeWeatherSort: () => Promise<realtimeWeatherData | AxiosError> = async () => {
+    console.log("realtime call sort...")
+    const apiResponse: AxiosResponse | AxiosError = await realtimeRequest();
+    if ( apiResponse instanceof AxiosError) return apiResponse;
 
     // TODO: Need to type these variables.
     const apiCurrent = apiResponse.data.current;
@@ -121,7 +124,6 @@ export const realtimeWeatherSort: () => Promise<realtimeWeatherData | Error> = a
     }
 }
 
-// TODO: Define forecastWeeklyData type.
 
 type forecastDailyData = {
     date: string,
@@ -130,20 +132,21 @@ type forecastDailyData = {
     minTemp: number,
     totalPrecipitation: number,
     conditionText: string,
-    conditionIcon: string,
-    conditionCode: number,
 }
 
-export const forecastWeeklySort: () => Promise<forecastDailyData[] | Error> = async () => {
-    const apiResponse: AxiosResponse | Error = await forecastRequest();
-    if (apiResponse instanceof Error) return apiResponse;
+
+export const forecastWeeklySort: () => Promise<forecastDailyData[] | AxiosError> = async () => {
+    console.log("Week Sort Call...")
+    const apiResponse: AxiosResponse | AxiosError = await forecastRequest();
+    if (apiResponse instanceof AxiosError) return apiResponse;
 
 
     if (metric) {
         const apiWeeklyForecastMetric: forecastDailyData[] = [];
         const forecastDay = apiResponse.data.forecast.forecastday;
+        
 
-        for (let day in forecastDay) {
+        for (const day in forecastDay) {
             const forecastDay = apiResponse.data.forecast.forecastday[day];
             const forecastDayData = forecastDay.day;
             const forecastDayCondition = forecastDayData.condition;
@@ -155,8 +158,6 @@ export const forecastWeeklySort: () => Promise<forecastDailyData[] | Error> = as
                 minTemp: forecastDayData.mintemp_c,
                 totalPrecipitation:  forecastDayData.totalprecip_mm,
                 conditionText: forecastDayCondition.text,
-                conditionIcon: forecastDayCondition.condition.icon,
-                conditionCode: forecastDayCondition.condition.code
             };
         
             apiWeeklyForecastMetric.push(apiForecastDay)
@@ -165,11 +166,16 @@ export const forecastWeeklySort: () => Promise<forecastDailyData[] | Error> = as
         return apiWeeklyForecastMetric;
 
     } else {
+        
         const apiWeeklyForecastImperial: forecastDailyData[] = [];
-        const forecastDay = apiResponse.data.forecast.forecastday;
+        // const forecastDay = apiResponse.data.forecast.forecastday;
+        // console.log(forecastDay)
 
-        for (let day in forecastDay) {
-            const forecastDay = apiResponse.data.forecast.forecastday[day];
+        let count: number = 0;
+        while (apiWeeklyForecastImperial.length < 7) {
+            
+            const forecastDay = apiResponse.data.forecast.forecastday[count];
+            console.log(forecastDay, "FORECAST DAY")
             const forecastDayData = forecastDay.day;
             const forecastDayCondition = forecastDayData.condition;
 
@@ -180,12 +186,10 @@ export const forecastWeeklySort: () => Promise<forecastDailyData[] | Error> = as
                 minTemp: forecastDayData.mintemp_f,
                 totalPrecipitation:  forecastDayData.totalprecip_in,
                 conditionText: forecastDayCondition.text,
-                conditionIcon: forecastDayCondition.condition.icon,
-                conditionCode: forecastDayCondition.condition.code
             };
         
             apiWeeklyForecastImperial.push(apiForecastDay)
-
+            count++;
         }
 
         return apiWeeklyForecastImperial;
@@ -197,18 +201,18 @@ type forecastHourlyData = {
     timeEpoch: number,
     temperature: number,
     conditionText: string,
-    conditionIcon: string,
     precipitation: number; 
 }
 
 
-export const forecastHourlySort: () => Promise<forecastHourlyData[] | Error> = async () => {
-    const apiResponse: AxiosResponse | Error = await forecastRequest();
-    if (apiResponse instanceof Error) return apiResponse;
+export const forecastHourlySort: () => Promise<forecastHourlyData[] | AxiosError> = async () => {
+    console.log("Hourly sort call...")
+    const apiResponse: AxiosResponse | AxiosError = await forecastRequest();
+    if (apiResponse instanceof AxiosError) return apiResponse;
 
     const currentTime = Date.now();
     const apiForecastHour = apiResponse.data.forecast.forecastday[0].hour;
-    const timeEpoch = apiResponse.data.forecast.forecastday[0].hour.time_epoch;
+    const timeEpoch = apiResponse.data.forecast.forecastday[0].hour.time_epoch
     
     if (metric) {
         const hourlyForecastMetric: forecastHourlyData[] = [];
@@ -218,7 +222,6 @@ export const forecastHourlySort: () => Promise<forecastHourlyData[] | Error> = a
                     timeEpoch: apiForecastHour.time_epoch,
                     temperature: apiForecastHour.temp_c,
                     conditionText: apiForecastHour.condition.text,
-                    conditionIcon: apiForecastHour.condition.icon,
                     precipitation: apiForecastHour.precip_mm,
                 }
                 hourlyForecastMetric.push(hourForecast);
@@ -234,7 +237,6 @@ export const forecastHourlySort: () => Promise<forecastHourlyData[] | Error> = a
                     timeEpoch: apiForecastHour.time_epoch,
                     temperature: apiForecastHour.temp_f,
                     conditionText: apiForecastHour.condition.text,
-                    conditionIcon: apiForecastHour.condition.icon,
                     precipitation: apiForecastHour.precip_in,
                 }
                 hourlyForecastImperial.push(hourForecast);

@@ -52,15 +52,17 @@ app.post('/api/settings/', async (request: Request, response: Response) => {
     const area = request.query.area;
     const metric = request.query.metric;
 
+    if (typeof metric === 'string') {
+        updateMetric(!!metric)
+    }
+    
     if (typeof area === 'string' || typeof area === 'number') {
         updateQueryParams(area);
-
-        if (typeof metric === 'boolean') {
-            updateMetric(metric)
-        }
-
-        return response.status(200);
+        
+        
     }
+
+    return response.status(200);
 });
 
 

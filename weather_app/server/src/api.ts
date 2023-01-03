@@ -14,8 +14,8 @@ let locationKey: string = '335268';
 let metricBool: boolean = false;
 
 
-export const updateMetric: (metricBool: boolean) => void = (metricBool : boolean) => {
-    metricBool = metricBool;
+export const updateMetric: (metricBoolean: boolean) => void = (metricBoolean : boolean) => {
+    metricBool = metricBoolean;
 }
 
 
@@ -65,7 +65,7 @@ const currentRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
 const forecastRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
     const result = await axios.get(baseURL + forecastURL + locationKey, {
         params: {
-            key: process.env.API_KEY,
+            apikey: process.env.API_KEY,
             details: true,
             metric: metricBool
         }
@@ -113,7 +113,6 @@ export const realtimeWeatherSort: () => Promise<realtimeWeatherData | AxiosError
 
     const apiData = apiResponse.data[0];
 
-    // TODO: api data has metric and imperial fields, need to add a conditional for this.
     if (metricBool) {
         const apiDataMetric: realtimeWeatherData = {
             weatherDescription: apiData.WeatherText,

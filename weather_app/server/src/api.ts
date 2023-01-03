@@ -29,7 +29,6 @@ const getLocationKey = async () => {
         params: {
             apikey: process.env.API_KEY,
             q: locationQuery,
-            metric: metricBool
         }
     })
     .then(function (response: AxiosResponse) {
@@ -48,7 +47,7 @@ const getLocationKey = async () => {
 const currentRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
     const result = await axios.get(baseURL + currentURL + locationKey, {
         params: {
-            key: process.env.API_KEY,
+            apikey: process.env.API_KEY,
             metric: metricBool
         }
     })
@@ -112,16 +111,28 @@ export const realtimeWeatherSort: () => Promise<realtimeWeatherData | AxiosError
     const apiResponse: AxiosResponse | AxiosError = await currentRequest();
     if ( apiResponse instanceof AxiosError) return apiResponse;
 
-    const apiData = apiResponse.data;
+    const apiData = apiResponse.data[0];
 
-    const apiDataMetric: realtimeWeatherData = {
-        weatherDescription: apiData.WeatherText,
-        hasPrecipitation: apiData.HasPrecipitation,
-        precipitationType: apiData.PrecipitationType,
-        temperature: apiData.Temperature.Metric.Value,
+    // TODO: api data has metric and imperial fields, need to add a conditional for this.
+    if (metricBool) {
+        const apiDataMetric: realtimeWeatherData = {
+            weatherDescription: apiData.WeatherText,
+            hasPrecipitation: apiData.HasPrecipitation,
+            precipitationType: apiData.PrecipitationType,
+            temperature: apiData.Temperature.Metric.Value,
+        }
+        return apiDataMetric;
+        
+    } else {
+        const apiDataImperial: realtimeWeatherData = {
+            weatherDescription: apiData.WeatherText,
+            hasPrecipitation: apiData.HasPrecipitation,
+            precipitationType: apiData.PrecipitationType,
+            temperature: apiData.Temperature.Imperial.Value,
+        }
+        return apiDataImperial
     }
 
-    return apiDataMetric;
 }
 
 

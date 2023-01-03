@@ -9,32 +9,27 @@ const currentURL: string = '/currentconditions/v1/';
 const hourlyForecastURL: string = '/forecasts/v1/hourly/12hour/';
 const citySearchURL: string = 'locations/v1/cities/search'
 
-// Example: http://dataservice.accuweather.com + /forecasts/v1/daily/5day/ + 335268 + apikey
-
-
-
-
 let locationQuery: string | number = 97702;
 let locationKey: string = '335268';
-let metric: boolean = false;
+let metricBool: boolean = false;
 
 
 export const updateMetric: (metricBool: boolean) => void = (metricBool : boolean) => {
-    metric = metricBool;
+    metricBool = metricBool;
 }
 
 
 export const updateQueryParams: (newQueryParams: string | number) => void = (newQueryParams: string | number) => {
-    locationQuery = newQueryParams;
-    // TODO: Add a function for calling the location api to get the location key. 
-    // getLocationKey();
+    locationQuery = newQueryParams; 
+    getLocationKey();
 }
 
 const getLocationKey = async () => {
     const result = await axios.get(baseURL + citySearchURL, {
         params: {
             apikey: process.env.API_KEY,
-            q: locationQuery
+            q: locationQuery,
+            metric: metricBool
         }
     })
     .then(function (response: AxiosResponse) {
@@ -43,16 +38,18 @@ const getLocationKey = async () => {
     .catch(function (error: AxiosError) {
         return error;
     })
+
+    if (result instanceof AxiosError) return result;
     
-    // TODO: assign result.data to locationKey
-    return result;
+    locationKey = result.data.Key;
 }
 
 
 const currentRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
     const result = await axios.get(baseURL + currentURL + locationKey, {
         params: {
-            key: process.env.API_KEY
+            key: process.env.API_KEY,
+            metric: metricBool
         }
     })
     .then(function (response: AxiosResponse) {
@@ -70,7 +67,8 @@ const forecastRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
     const result = await axios.get(baseURL + forecastURL + locationKey, {
         params: {
             key: process.env.API_KEY,
-            details: true
+            details: true,
+            metric: metricBool
         }
     })
     .then(function (response: AxiosResponse) {
@@ -79,6 +77,24 @@ const forecastRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
     .catch(function (error: AxiosError) {
         return error;
     });
+
+    return result;
+}
+
+
+const hourlyRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
+    const result = axios.get(baseURL + hourlyForecastURL + locationKey, {
+        params: {
+            apikey: process.env.API_KEY,
+            metric: metricBool,
+        }
+    })
+    .then(function (response) {
+        return response;
+    })
+    .catch(function (error) {
+        return error;
+    })
 
     return result;
 }
@@ -98,26 +114,14 @@ export const realtimeWeatherSort: () => Promise<realtimeWeatherData | AxiosError
 
     const apiData = apiResponse.data;
 
-        
-    if (metric) {
-        const apiDataMetric: realtimeWeatherData = {
-            weatherDescription: apiData.WeatherText,
-            hasPrecipitation: apiData.HasPrecipitation,
-            precipitationType: apiData.PrecipitationType,
-            temperature: apiData.Temperature.Metric.Value,
-        }
-
-        return apiDataMetric;
-
-    } else {
-        const apiDataImperial: realtimeWeatherData = {
-            weatherDescription: apiData.WeatherText,
-            hasPrecipitation: apiData.HasPrecipitation,
-            precipitationType: apiData.PrecipitationType,
-            temperature: apiData.Temperature.Imperial.Value,
-        }
-        return apiDataImperial;
+    const apiDataMetric: realtimeWeatherData = {
+        weatherDescription: apiData.WeatherText,
+        hasPrecipitation: apiData.HasPrecipitation,
+        precipitationType: apiData.PrecipitationType,
+        temperature: apiData.Temperature.Metric.Value,
     }
+
+    return apiDataMetric;
 }
 
 
@@ -140,133 +144,77 @@ type forecastDailyData = {
 
 
 export const forecastWeeklySort: () => Promise<forecastDailyData[] | AxiosError> = async () => {
-    const apiResponse: AxiosResponse | AxiosError = await forecastRequest();
+    const apiResponse: AxiosResponse | AxiosError = await forecastRequest(); 
     if (apiResponse instanceof AxiosError) return apiResponse;
 
-
-    if (metric) {
-        const apiWeeklyForecastMetric: forecastDailyData[] = [];
-        const forecastDay = apiResponse.data.forecast.forecastday;
+        const apiWeeklyForecast: forecastDailyData[] = [];
         
-
-        for (const day in forecastDay) {
+        for (let count: number = 0; count <= 5; count++ ) {
+            const forecastDay = apiResponse.data.DailyForecasts[count];
             
-
             const apiForecastDay: forecastDailyData = {
-                date: '',
-                dateEpoch: 0,
-                maxTemp: 0,
-                minTemp: 0,
-                dayIcon: 0,
-                dayIconPhrase: '',
-                dayHasPrecipitation: null,
-                dayPrecipitationType: null,
-                dayPrecipitationIntensity: null,
-                nightIcon: 0,
-                nightIconPhrase: '',
-                nightHasPrecipitation: null,
-                nightPrecipitationType: null,
-                nightPrecipitationIntensity: null
+                date: forecastDay.Date,
+                dateEpoch: forecastDay.EpochDate,
+                maxTemp: forecastDay.Temperature.Maximum.Value,
+                minTemp: forecastDay.Temperature.Minimum.Value,
+                dayIcon: forecastDay.Day.Icon,
+                dayIconPhrase: forecastDay.Day.IconPhrase,
+                dayHasPrecipitation: forecastDay.Day.HasPrecipitation,
+                dayPrecipitationType: forecastDay.Day.PrecipitationType,
+                dayPrecipitationIntensity: forecastDay.Day.PrecipitationIntensity,
+                nightIcon: forecastDay.Night.Icon,
+                nightIconPhrase: forecastDay.Night.IconPhrase,
+                nightHasPrecipitation: forecastDay.Night.HasPrecipitation,
+                nightPrecipitationType: forecastDay.Night.PrecipitationType,
+                nightPrecipitationIntensity: forecastDay.Night.PrecipitationIntensity
             };
         
-            apiWeeklyForecastMetric.push(apiForecastDay)
+            apiWeeklyForecast.push(apiForecastDay)
 
         }
-        return apiWeeklyForecastMetric;
-
-    } else {
-        const apiWeeklyForecastImperial: forecastDailyData[] = [];
-
-        let count: number = 0;
-        while (apiWeeklyForecastImperial.length < 7) {
-            
-            const forecastDay = apiResponse.data.forecast.forecastday[count];
-            const forecastDayData = forecastDay.day;
-            const forecastDayCondition = forecastDayData.condition;
-
-            const apiForecastDay: forecastDailyData = {
-                date: '',
-                dateEpoch: 0,
-                maxTemp: 0,
-                minTemp: 0,
-                dayIcon: 0,
-                dayIconPhrase: '',
-                dayHasPrecipitation: null,
-                dayPrecipitationType: null,
-                dayPrecipitationIntensity: null,
-                nightIcon: 0,
-                nightIconPhrase: '',
-                nightHasPrecipitation: null,
-                nightPrecipitationType: null,
-                nightPrecipitationIntensity: null
-            };
-        
-            apiWeeklyForecastImperial.push(apiForecastDay)
-            count++;
-        }
-
-        return apiWeeklyForecastImperial;
-    }
+        return apiWeeklyForecast;
 }
 
 
 type forecastHourlyData = {
     timeEpoch: number,
+    iconPhrase: string,
+    hasPrecipitation: boolean;
     temperature: number,
-    conditionText: string,
-    precipitation: number; 
+    precipitationType: string | null,
+    precipitationIntensity: string | null,
 }
 
 
 export const forecastHourlySort: () => Promise<forecastHourlyData[] | AxiosError> = async () => {
-    const apiResponse: AxiosResponse | AxiosError = await forecastRequest();
+    const apiResponse: AxiosResponse | AxiosError = await hourlyRequest();
     if (apiResponse instanceof AxiosError) return apiResponse;
 
-    const currentTime = Date.now() / 1000;
-
-    if (metric) {
-        const hourlyForecastMetric: forecastHourlyData[] = [];
-        
-        for (let count = 0; count < 24; count++) {
-            if (hourlyForecastMetric.length === 6) return hourlyForecastMetric;
-
-            const apiForecastHour = apiResponse.data.forecast.forecastday[0].hour[count];
-            const timeEpoch = apiForecastHour.time_epoch;
-           
-            if (currentTime < timeEpoch) {
-                const hourForecast: forecastHourlyData = {
-                    timeEpoch: apiForecastHour.time_epoch,
-                    temperature: apiForecastHour.temp_c,
-                    conditionText: apiForecastHour.condition.text,
-                    precipitation: apiForecastHour.precip_mm,
-                }
-                hourlyForecastMetric.push(hourForecast);
-            }
-        }
-        return hourlyForecastMetric;
-        
-    } else {
-        const hourlyForecastImperial: forecastHourlyData[] = [];
-
-        for (let count = 0; count < 24; count++) {
-            if (hourlyForecastImperial.length === 6) return hourlyForecastImperial;
-
-            const apiForecastHour = apiResponse.data.forecast.forecastday[0].hour[count];
-            const timeEpoch = apiForecastHour.time_epoch;
-            
-            if (currentTime < timeEpoch) {
-                const hourForecast: forecastHourlyData = {
-                    timeEpoch: apiForecastHour.time_epoch,
-                    temperature: apiForecastHour.temp_f,
-                    conditionText: apiForecastHour.condition.text,
-                    precipitation: apiForecastHour.precip_in,
-                }
-                hourlyForecastImperial.push(hourForecast);
-            }
-        }
-        return hourlyForecastImperial;
-    }
     
+    const hourlyForecast: forecastHourlyData[] = [];
+    
+    for (let count = 0; count < 24; count++) {
+        if (hourlyForecast.length === 6) return hourlyForecast;
+        
+        const apiForecastHour = apiResponse.data[count]
+        const currentTime = Date.now() / 1000;
+        const timeEpoch = apiForecastHour.EpochDateTime;
+           
+        if (currentTime < timeEpoch) {
+            const hourForecast: forecastHourlyData = {
+                timeEpoch: apiForecastHour.EpochDateTime,
+                iconPhrase: apiForecastHour.IconPhrase,
+                hasPrecipitation: apiForecastHour.hasPrecipitation,
+                temperature: apiForecastHour.Temperature.Value,
+                precipitationType: apiForecastHour.PrecipitationType,
+                precipitationIntensity: apiForecastHour.PrecipitationIntensity
+            }
+            hourlyForecast.push(hourForecast);
+        }
+    }
+
+    return hourlyForecast;
+
 }
 
 

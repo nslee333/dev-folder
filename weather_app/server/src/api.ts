@@ -82,7 +82,7 @@ const forecastRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
 
 
 const hourlyRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
-    const result = axios.get(baseURL + hourlyForecastURL + locationKey, {
+    const result = await axios.get(baseURL + hourlyForecastURL + locationKey, {
         params: {
             apikey: process.env.API_KEY,
             metric: metricBool,

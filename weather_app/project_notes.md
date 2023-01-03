@@ -68,6 +68,7 @@ Use WeatherAPI.com's API.
     Bug #3: Hourly sort getting hung up.
 
     8. Swap out api.ts with new api :)
+       1. So we
 
 
 

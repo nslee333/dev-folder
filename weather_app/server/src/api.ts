@@ -126,66 +126,88 @@ type forecastDailyData = {
     dateEpoch: number,
     maxTemp: number,
     minTemp: number,
-    totalPrecipitation: number,
-    conditionText: string,
+    dayIcon: number,
+    dayIconPhrase: string,
+    dayHasPrecipitation: boolean | null,
+    dayPrecipitationType: string | null,
+    dayPrecipitationIntensity: string | null,
+    nightIcon: number,
+    nightIconPhrase: string,
+    nightHasPrecipitation: boolean | null,
+    nightPrecipitationType: string | null,
+    nightPrecipitationIntensity: string | null;
 }
 
 
-// export const forecastWeeklySort: () => Promise<forecastDailyData[] | AxiosError> = async () => {
-//     const apiResponse: AxiosResponse | AxiosError = await forecastRequest();
-//     if (apiResponse instanceof AxiosError) return apiResponse;
+export const forecastWeeklySort: () => Promise<forecastDailyData[] | AxiosError> = async () => {
+    const apiResponse: AxiosResponse | AxiosError = await forecastRequest();
+    if (apiResponse instanceof AxiosError) return apiResponse;
 
 
-//     if (metric) {
-//         const apiWeeklyForecastMetric: forecastDailyData[] = [];
-//         const forecastDay = apiResponse.data.forecast.forecastday;
+    if (metric) {
+        const apiWeeklyForecastMetric: forecastDailyData[] = [];
+        const forecastDay = apiResponse.data.forecast.forecastday;
         
 
-//         for (const day in forecastDay) {
-//             const forecastDay = apiResponse.data.forecast.forecastday[day];
-//             const forecastDayData = forecastDay.day;
-//             const forecastDayCondition = forecastDayData.condition;
-
-//             const apiForecastDay: forecastDailyData = {
-//                 date: forecastDay.date,
-//                 dateEpoch: forecastDay.date_epoch,
-//                 maxTemp: forecastDayData.maxtemp_c,
-//                 minTemp: forecastDayData.mintemp_c,
-//                 totalPrecipitation:  forecastDayData.totalprecip_mm,
-//                 conditionText: forecastDayCondition.text,
-//             };
-        
-//             apiWeeklyForecastMetric.push(apiForecastDay)
-
-//         }
-//         return apiWeeklyForecastMetric;
-
-//     } else {
-//         const apiWeeklyForecastImperial: forecastDailyData[] = [];
-
-//         let count: number = 0;
-//         while (apiWeeklyForecastImperial.length < 7) {
+        for (const day in forecastDay) {
             
-//             const forecastDay = apiResponse.data.forecast.forecastday[count];
-//             const forecastDayData = forecastDay.day;
-//             const forecastDayCondition = forecastDayData.condition;
 
-//             const apiForecastDay: forecastDailyData = {
-//                 date: forecastDay.date,
-//                 dateEpoch: forecastDay.date_epoch,
-//                 maxTemp: forecastDayData.maxtemp_f,
-//                 minTemp: forecastDayData.mintemp_f,
-//                 totalPrecipitation:  forecastDayData.totalprecip_in,
-//                 conditionText: forecastDayCondition.text,
-//             };
+            const apiForecastDay: forecastDailyData = {
+                date: '',
+                dateEpoch: 0,
+                maxTemp: 0,
+                minTemp: 0,
+                dayIcon: 0,
+                dayIconPhrase: '',
+                dayHasPrecipitation: null,
+                dayPrecipitationType: null,
+                dayPrecipitationIntensity: null,
+                nightIcon: 0,
+                nightIconPhrase: '',
+                nightHasPrecipitation: null,
+                nightPrecipitationType: null,
+                nightPrecipitationIntensity: null
+            };
         
-//             apiWeeklyForecastImperial.push(apiForecastDay)
-//             count++;
-//         }
+            apiWeeklyForecastMetric.push(apiForecastDay)
 
-//         return apiWeeklyForecastImperial;
-//     }
-// }
+        }
+        return apiWeeklyForecastMetric;
+
+    } else {
+        const apiWeeklyForecastImperial: forecastDailyData[] = [];
+
+        let count: number = 0;
+        while (apiWeeklyForecastImperial.length < 7) {
+            
+            const forecastDay = apiResponse.data.forecast.forecastday[count];
+            const forecastDayData = forecastDay.day;
+            const forecastDayCondition = forecastDayData.condition;
+
+            const apiForecastDay: forecastDailyData = {
+                date: '',
+                dateEpoch: 0,
+                maxTemp: 0,
+                minTemp: 0,
+                dayIcon: 0,
+                dayIconPhrase: '',
+                dayHasPrecipitation: null,
+                dayPrecipitationType: null,
+                dayPrecipitationIntensity: null,
+                nightIcon: 0,
+                nightIconPhrase: '',
+                nightHasPrecipitation: null,
+                nightPrecipitationType: null,
+                nightPrecipitationIntensity: null
+            };
+        
+            apiWeeklyForecastImperial.push(apiForecastDay)
+            count++;
+        }
+
+        return apiWeeklyForecastImperial;
+    }
+}
 
 
 type forecastHourlyData = {

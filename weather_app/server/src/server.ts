@@ -10,9 +10,11 @@ import {
 } from './api'
 import { AxiosError } from 'axios';
 
+
 const app = express();
 const port = 1300;
 app.use(cors())
+
 
 app.get('/api/realtime/', async (request: Request, response: Response) => {
     const apiResponse = await realtimeWeatherSort();

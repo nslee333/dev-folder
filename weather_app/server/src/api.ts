@@ -187,10 +187,10 @@ type forecastHourlyData = {
 
 
 export const forecastHourlySort: () => Promise<forecastHourlyData[] | AxiosError> = async () => {
+    
     const apiResponse: AxiosResponse | AxiosError = await hourlyRequest();
     if (apiResponse instanceof AxiosError) return apiResponse;
 
-    
     const hourlyForecast: forecastHourlyData[] = [];
     
     for (let count = 0; count < 24; count++) {
@@ -218,4 +218,10 @@ export const forecastHourlySort: () => Promise<forecastHourlyData[] | AxiosError
 }
 
 
-module.exports = {updateMetric, updateQueryParams, realtimeWeatherSort, forecastWeeklySort, forecastHourlySort};
+module.exports = {
+    updateMetric,
+    updateQueryParams,
+    realtimeWeatherSort,
+    forecastWeeklySort,
+    forecastHourlySort
+};

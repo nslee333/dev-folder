@@ -216,7 +216,7 @@ export const forecastHourlySort: () => Promise<forecastHourlyData[] | AxiosError
         if (currentTime < timeEpoch) {
             const hourForecast: forecastHourlyData = {
                 timeEpoch: apiForecastHour.EpochDateTime,
-                weatherIcon: apiForecastHour.WeatherIcon;
+                weatherIcon: apiForecastHour.WeatherIcon,
                 iconPhrase: apiForecastHour.IconPhrase,
                 hasPrecipitation: apiForecastHour.hasPrecipitation,
                 temperature: apiForecastHour.Temperature.Value,

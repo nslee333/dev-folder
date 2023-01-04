@@ -55,7 +55,9 @@ Use WeatherAPI.com's API.
 
 [Tasks]
     - Integrate with GH actions.
-    - Build tests alongside application. 
+    - Build tests alongside application.
+    - Add a button for night mode.
+    -  
 
 
 

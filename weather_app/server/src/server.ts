@@ -48,18 +48,16 @@ app.get('/api/hourlyForecast/', async (request: Request, response: Response) => 
     }
 });
 
-app.post('/api/settings/', async (request: Request, response: Response) => {
-    const area = request.query.area;
+app.post('/api/settings', async (request: Request, response: Response) => {
+    const locationQuery = request.query.locationQuery;
     const metric = request.query.metric;
 
     if (typeof metric === 'string') {
         updateMetric(!!metric)
     }
     
-    if (typeof area === 'string' || typeof area === 'number') {
-        updateQueryParams(area);
-        
-        
+    if (typeof locationQuery === 'string' || typeof locationQuery === 'number') {
+        updateQueryParams(locationQuery);
     }
 
     return response.status(200);

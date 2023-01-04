@@ -1,14 +1,33 @@
+import { AxiosError } from 'axios';
 import './App.css';
+import {realtimeRequest, hourlyRequest, weeklyRequest, settingsRequest} from './actions/actions';
 
 console.log(window.innerWidth, window.innerHeight)
 
 // TODO: Add useEffect => Request data on page load.
 
+type whichRequest = 'realtime' |  'weekly' | 'hourly';
+
+const dataRequest = async (stringParam: whichRequest) => {
+
+  if (stringParam === 'realtime') {
+    const data = await realtimeRequest();
+    if (data instanceof AxiosError) return console.error(data);
+
+  } else if (stringParam === 'weekly') {
+
+  } else if (stringParam === 'hourly') {
+
+  }
+}
 
 
 
-function realtime() {
-  // TODO: Call data.
+
+const realtimeComponent = async () => {
+
+
+
   // TODO: Get date, and display below.
   // TODO: Center text. :-)
 
@@ -28,7 +47,7 @@ function App() {
     <div className='App'>
       <div className='forecastDiv'></div>
       <div className='navBar'></div>
-        {realtime()}
+        <div>{realtimeComponent}</div>
       <div className='hourForecast'></div>
     </div>
   );

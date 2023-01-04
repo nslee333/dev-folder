@@ -1,3 +1,4 @@
+ @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
 * {
   background-color: var(--main-black);
   --main-black: #282c37;
@@ -5,18 +6,7 @@
   --main-grey: #d9e1e8;
   --main-blue: #2b90d9;
   --primary-div: var(--main-grey);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-h2 {
-  background-color: var(--main-grey);
-  color: var(--main-black);
-}
-
-h1 {
-  background-color: var(--main-grey);
-  color: var(--main-blue);
-
+  font-family: 'Open Sans', 'sans-serif';
 }
 
 /* *1075 x 1910 */
@@ -65,8 +55,9 @@ background-color: var(--primary-div);
 
 }
 
-.realtimeDiv{
+.realtimeMain{
   position: absolute;
+  padding: px;
 
   height: 475px;
   width: 625px;
@@ -77,8 +68,44 @@ background-color: var(--primary-div);
   background-color: var(--primary-div);
   /* border: 1px solid rgb(242, 0, 255); */
   border-radius: 10px;
+  /* text-align: center; */
 
 }
+
+.realtimeh1, .realtimeh2 {
+  
+  margin: 0 auto;
+  display: block;
+  font-weight: bold;
+
+  margin: 40px;
+  padding: 5px;
+
+  background-color: var(--main-grey);
+  color: var(--main-black);
+}
+
+
+.realtimeh2 {
+  font-size: 40px;
+}
+
+.realtimeh1 {
+  font-size: 60px;
+}
+
+
+/* .realtimeDiv {
+  position: absolute;
+
+  height: 475px;
+  width: 625px;
+
+  
+  background-color: var(--primary-div);
+  border-radius: 10px;
+
+} */
 
 
 .hourForecast {

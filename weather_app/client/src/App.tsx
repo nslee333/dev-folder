@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 import './App.css';
-import {realtimeRequest, hourlyRequest, weeklyRequest, settingsRequest} from './actions/actions';
+import {realtimeRequest, dailyRequest, hourlyRequest, settingsRequest} from './actions/actions';
+import {realtimeWeatherData, forecastDailyData, forecastHourlyData} from './types/dataTypings'
 
 console.log(window.innerWidth, window.innerHeight)
 
@@ -11,20 +12,37 @@ type whichRequest = 'realtime' |  'weekly' | 'hourly';
 const dataRequest = async (stringParam: whichRequest) => {
 
   if (stringParam === 'realtime') {
-    const data = await realtimeRequest();
-    if (data instanceof AxiosError) return console.error(data);
+    const response = await realtimeRequest();
+    if (response instanceof AxiosError) return console.error(response);
+
+    const realtimeResult: realtimeWeatherData = response.data;
+    return realtimeResult;
 
   } else if (stringParam === 'weekly') {
+    const response = await dailyRequest();
+    if (response instanceof AxiosError) return console.error(response);
+
+    const dailyResult: forecastDailyData = response.data;
+    return dailyResult;
 
   } else if (stringParam === 'hourly') {
+    const response = await hourlyRequest();
+    if (response instanceof AxiosError) return console.error(response);
 
+    const hourlyResult: forecastHourlyData = response.data;
+    return hourlyResult;
   }
+}
+
+
+const settingsUpdate = async () => {
+
 }
 
 
 
 
-const realtimeComponent = async () => {
+const realtimeComponent = () => {
 
 
 
@@ -47,7 +65,7 @@ function App() {
     <div className='App'>
       <div className='forecastDiv'></div>
       <div className='navBar'></div>
-        <div>{realtimeComponent}</div>
+        <div>{realtimeComponent()}</div>
       <div className='hourForecast'></div>
     </div>
   );

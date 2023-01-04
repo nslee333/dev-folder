@@ -5,10 +5,10 @@
 .forecastDiv {
   position: absolute;
   
-  top: 575px;
+  top: 550px;
   left: 340px;
   
-  height: 325px;
+  height: 350px;
   width: 950px;
   
   border: 1px solid rgb(255, 0, 242);
@@ -64,11 +64,11 @@
 .hourForecast {
   position: absolute;
 
-  width: 275px;
-  height: 845px;
+  width: 300px;
+  height: 475px;
 
   top: 27.5px;
-  left: 500px;
+  left: 1000px;
 
 
 

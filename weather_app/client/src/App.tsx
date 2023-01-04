@@ -1,18 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 console.log(window.innerWidth, window.innerHeight)
+
+// TODO: Add useEffect => Request data on page load.
+
+
+
+
+function realtime() {
+  // TODO: Call data.
+  // TODO: Get date, and display below.
+  // TODO: Center text. :-)
+
+
+
+  return (
+    <div className='realtimeMain'>
+      <h1 className='realtimeh1'>ICON 72* Cloudy</h1>  
+      <h1 className='realtimeh1'>5:41pm</h1>
+      <h2 className='realtimeh2'>Tuesday, January 4th 2023</h2>
+    </div>
+  );
+}
 
 function App() {
   return (
     <div className='App'>
       <div className='forecastDiv'></div>
       <div className='navBar'></div>
-      <div className='realtimeDiv'>
-        <h2>Forecast 2022</h2>
-        <h1>Forecast 2022</h1>
-      </div>
+        {realtime()}
       <div className='hourForecast'></div>
     </div>
   );

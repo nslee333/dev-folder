@@ -1,38 +1,78 @@
-.App {
-  text-align: center;
+* {
+  background-color: #121212;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.forecastDiv {
+  position: absolute;
+  
+  top: 575px;
+  left: 340px;
+  
+  height: 325px;
+  width: 950px;
+  
+  border: 1px solid rgb(255, 0, 242);
+  border-radius: 10px;
+
+}
+/* *1075 x 1910 */
+
+.App{
+  position: absolute;
+  height: 900px;
+  width: 1300px;
+  
+  top: 87.5px;
+  left: 305px;
+  padding: 25px;
+
+  border: 1px solid green;
+  border-radius: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navBar {
+  position: absolute;
+  
+  width: 275px;
+  height: 845px;
+  
+  top: 27.5px;
+  /* left: ; */
+
+
+  border: 1px solid rgb(242, 0, 255);
+  border-radius: 10px;
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.realtimeDiv{
+  position: absolute;
+
+  height: 475px;
+  width: 625px;
+
+  top: 27.5px;
+  left: 337.5px;
+  
+
+  border: 1px solid rgb(242, 0, 255);
+  border-radius: 10px;
+
 }
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.hourForecast {
+  position: absolute;
+
+  width: 275px;
+  height: 845px;
+
+  top: 27.5px;
+  left: 500px;
+
+
+
+  border: 1px solid rgb(242, 0, 255);
+  border-radius: 10px;
+
 }

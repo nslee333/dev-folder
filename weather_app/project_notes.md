@@ -45,6 +45,11 @@ Use WeatherAPI.com's API.
     5. Research and gather what APIs I need.
     6. Learning to call weatherAPI with postman
     7. Need to figure out to call specific locations.
+    8. Swap out api.ts with new api.
+    9. Bug #2: weekly sort only returning 3 days, should be returning.
+    10. Bug #3: Hourly sort getting hung up.
+    11. Bug #4: Server crash issue.
+    12. 
 
 
 
@@ -65,12 +70,7 @@ Use WeatherAPI.com's API.
 
 
 [Working]
-    Bug #2: weekly sort only returning 3 days, should be returning 7.
-        - API issue :(
-    Bug #3: Hourly sort getting hung up.
-
-    8. Swap out api.ts with new api :)
-       1. So we
+ hourly + realtime requests - add icon numbers.  
 
 
 

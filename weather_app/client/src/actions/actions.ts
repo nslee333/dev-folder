@@ -61,4 +61,6 @@ export const settingsRequest: (location: string, metricBool: boolean) => Promise
 module.exports = {
     realtimeRequest,
     weeklyRequest,
+    hourlyRequest,
+    settingsRequest
 }

@@ -2,6 +2,21 @@
   background-color: #121212;
 }
 
+/* *1075 x 1910 */
+
+.App{
+  position: absolute;
+  height: 900px;
+  width: 1300px;
+  
+  top: 87.5px;
+  left: 305px;
+  padding: 25px;
+  
+  border: 1px solid green;
+  border-radius: 10px;
+}
+
 .forecastDiv {
   position: absolute;
   
@@ -15,26 +30,12 @@
   border-radius: 10px;
 
 }
-/* *1075 x 1910 */
-
-.App{
-  position: absolute;
-  height: 900px;
-  width: 1300px;
-  
-  top: 87.5px;
-  left: 305px;
-  padding: 25px;
-
-  border: 1px solid green;
-  border-radius: 10px;
-}
 
 .navBar {
   position: absolute;
   
   width: 275px;
-  height: 845px;
+  height: 870px;
   
   top: 27.5px;
   /* left: ; */

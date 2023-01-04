@@ -66,7 +66,6 @@ const forecastRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
     const result = await axios.get(baseURL + forecastURL + locationKey, {
         params: {
             apikey: process.env.API_KEY,
-            details: true,
             metric: metricBool
         }
     })
@@ -159,7 +158,7 @@ export const forecastWeeklySort: () => Promise<forecastDailyData[] | AxiosError>
 
         const apiWeeklyForecast: forecastDailyData[] = [];
         
-        for (let count: number = 0; count <= 5; count++ ) {
+        for (let count: number = 0; count < 5; count++ ) {
             const forecastDay = apiResponse.data.DailyForecasts[count];
             
             const apiForecastDay: forecastDailyData = {

@@ -16,7 +16,7 @@ const port = 1300;
 app.use(cors())
 
 
-app.get('/api/realtime/', async (request: Request, response: Response) => {
+app.get('/api/realtime', async (request: Request, response: Response) => {
     const apiResponse = await realtimeWeatherSort();
 
     if (apiResponse instanceof AxiosError) {
@@ -27,7 +27,7 @@ app.get('/api/realtime/', async (request: Request, response: Response) => {
 });
 
 
-app.get('/api/weeklyForecast/', async (request: Request, response: Response) => {
+app.get('/api/weeklyForecast', async (request: Request, response: Response) => {
     const apiResponse = await forecastWeeklySort();
 
     if (apiResponse instanceof Error) {
@@ -38,7 +38,7 @@ app.get('/api/weeklyForecast/', async (request: Request, response: Response) => 
 });
 
 
-app.get('/api/hourlyForecast/', async (request: Request, response: Response) => {
+app.get('/api/hourlyForecast', async (request: Request, response: Response) => {
     const apiResponse = await forecastHourlySort();
 
     if (apiResponse instanceof Error) {
@@ -60,7 +60,7 @@ app.post('/api/settings', async (request: Request, response: Response) => {
         updateQueryParams(locationQuery);
     }
 
-    return response.status(200);
+    return response.status(200).send("Settings updated.");
 });
 
 

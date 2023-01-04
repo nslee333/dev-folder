@@ -9,7 +9,10 @@ function App() {
     <div className='App'>
       <div className='forecastDiv'></div>
       <div className='navBar'></div>
-      <div className='realtimeDiv'></div>
+      <div className='realtimeDiv'>
+        <h2>Forecast 2022</h2>
+        <h1>Forecast 2022</h1>
+      </div>
       <div className='hourForecast'></div>
     </div>
   );

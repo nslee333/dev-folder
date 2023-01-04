@@ -1,5 +1,22 @@
 * {
-  background-color: #121212;
+  background-color: var(--main-black);
+  --main-black: #282c37;
+  --main-darkGrey: #9baec8;
+  --main-grey: #d9e1e8;
+  --main-blue: #2b90d9;
+  --primary-div: var(--main-grey);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+  background-color: var(--main-grey);
+  color: var(--main-black);
+}
+
+h1 {
+  background-color: var(--main-grey);
+  color: var(--main-blue);
+
 }
 
 /* *1075 x 1910 */
@@ -13,7 +30,8 @@
   left: 305px;
   padding: 25px;
   
-  border: 1px solid green;
+  background-color: var(--main-darkGrey);
+  /* border: 1px solid var(--main-blue); */
   border-radius: 10px;
 }
 
@@ -26,7 +44,8 @@
   height: 350px;
   width: 950px;
   
-  border: 1px solid rgb(255, 0, 242);
+  background-color: var(--primary-div);
+  /* border: 1px solid rgb(255, 0, 242); */
   border-radius: 10px;
 
 }
@@ -40,8 +59,8 @@
   top: 27.5px;
   /* left: ; */
 
-
-  border: 1px solid rgb(242, 0, 255);
+background-color: var(--primary-div);
+  /* border: 1px solid rgb(242, 0, 255); */
   border-radius: 10px;
 
 }
@@ -55,8 +74,8 @@
   top: 27.5px;
   left: 337.5px;
   
-
-  border: 1px solid rgb(242, 0, 255);
+  background-color: var(--primary-div);
+  /* border: 1px solid rgb(242, 0, 255); */
   border-radius: 10px;
 
 }
@@ -65,7 +84,7 @@
 .hourForecast {
   position: absolute;
 
-  width: 300px;
+  width: 290px;
   height: 475px;
 
   top: 27.5px;
@@ -73,7 +92,8 @@
 
 
 
-  border: 1px solid rgb(242, 0, 255);
+  /* border: 1px solid rgb(242, 0, 255); */
+  background-color: var(--primary-div);
   border-radius: 10px;
 
 }

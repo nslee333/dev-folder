@@ -16,7 +16,7 @@ export const realtimeRequest: () => Promise<AxiosResponse | AxiosError> = async 
 } 
 
 // 5 day forecast 
-export const weeklyRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
+export const dailyRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
     const result: AxiosResponse | AxiosError = await axios.get(baseURL + 'weeklyForecast', {})
     .then(function (response: AxiosResponse) {
         return response;
@@ -60,7 +60,7 @@ export const settingsRequest: (location: string, metricBool: boolean) => Promise
 
 module.exports = {
     realtimeRequest,
-    weeklyRequest,
+    dailyRequest,
     hourlyRequest,
     settingsRequest
 }

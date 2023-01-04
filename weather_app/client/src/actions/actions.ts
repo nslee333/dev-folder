@@ -29,7 +29,7 @@ export const weeklyRequest: () => Promise<AxiosResponse | AxiosError> = async ()
 }
 
 // Hourly forecast
-export const hourlyForecast: () => Promise<AxiosResponse | AxiosError> = async () => {
+export const hourlyRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
     const result: AxiosResponse | AxiosError = await axios.get(baseURL + 'hourlyForecast', {})
     .then(function (response: AxiosResponse) {
         return response;
@@ -41,7 +41,22 @@ export const hourlyForecast: () => Promise<AxiosResponse | AxiosError> = async (
     return result;
 }
 
-// Settings call
+export const settingsRequest: (location: string, metricBool: boolean) => Promise<AxiosResponse | AxiosError> = async (location: string, metricBool: boolean) => {
+    const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'settings', {
+        params: {
+            locationQuery: location,
+            metric: metricBool
+        }
+    })
+    .then(function (response: AxiosResponse) {
+        return response;
+    })
+    .catch(function (error: AxiosError) {
+        return error;
+    });
+
+    return result;
+} 
 
 module.exports = {
     realtimeRequest,

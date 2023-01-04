@@ -100,6 +100,7 @@ const hourlyRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
 
 type realtimeWeatherData = {
     weatherDescription: string,
+    weatherIcon: number,
     hasPrecipitation: boolean,
     precipitationType: string | null,
     temperature: number,
@@ -115,6 +116,7 @@ export const realtimeWeatherSort: () => Promise<realtimeWeatherData | AxiosError
     if (metricBool) {
         const apiDataMetric: realtimeWeatherData = {
             weatherDescription: apiData.WeatherText,
+            weatherIcon: apiData.WeatherIcon,
             hasPrecipitation: apiData.HasPrecipitation,
             precipitationType: apiData.PrecipitationType,
             temperature: apiData.Temperature.Metric.Value,
@@ -124,6 +126,7 @@ export const realtimeWeatherSort: () => Promise<realtimeWeatherData | AxiosError
     } else {
         const apiDataImperial: realtimeWeatherData = {
             weatherDescription: apiData.WeatherText,
+            weatherIcon: apiData.WeatherIcon,
             hasPrecipitation: apiData.HasPrecipitation,
             precipitationType: apiData.PrecipitationType,
             temperature: apiData.Temperature.Imperial.Value,
@@ -187,6 +190,7 @@ export const forecastWeeklySort: () => Promise<forecastDailyData[] | AxiosError>
 
 type forecastHourlyData = {
     timeEpoch: number,
+    weatherIcon: number,
     iconPhrase: string,
     hasPrecipitation: boolean;
     temperature: number,
@@ -212,6 +216,7 @@ export const forecastHourlySort: () => Promise<forecastHourlyData[] | AxiosError
         if (currentTime < timeEpoch) {
             const hourForecast: forecastHourlyData = {
                 timeEpoch: apiForecastHour.EpochDateTime,
+                weatherIcon: apiForecastHour.WeatherIcon;
                 iconPhrase: apiForecastHour.IconPhrase,
                 hasPrecipitation: apiForecastHour.hasPrecipitation,
                 temperature: apiForecastHour.Temperature.Value,

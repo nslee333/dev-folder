@@ -56,11 +56,4 @@ export const settingsRequest: (location: string, metricBool: boolean) => Promise
     });
 
     return result;
-} 
-
-module.exports = {
-    realtimeRequest,
-    dailyRequest,
-    hourlyRequest,
-    settingsRequest
 }

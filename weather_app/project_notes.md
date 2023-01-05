@@ -49,7 +49,8 @@ Use WeatherAPI.com's API.
     9. Bug #2: weekly sort only returning 3 days, should be returning.
     10. Bug #3: Hourly sort getting hung up.
     11. Bug #4: Server crash issue.
-    12. 
+    12. Bug #5 fix - removed module.exports, ESM module error.
+    13. hourly + realtime requests - add weather icon numbers.
 
 
 
@@ -61,6 +62,8 @@ Use WeatherAPI.com's API.
 [Tasks]
     - Integrate with GH actions.
     - Build tests alongside application.
+    - Performance testing.
+    - Web security analysis
     - Add a button for night mode.
     -  
 
@@ -70,7 +73,6 @@ Use WeatherAPI.com's API.
 
 
 [Working]
- hourly + realtime requests - add icon numbers.  
 
 
 

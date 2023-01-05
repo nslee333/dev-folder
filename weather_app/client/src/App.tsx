@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import './App.css';
 import {realtimeRequest, dailyRequest, hourlyRequest, settingsRequest} from './actions/actions';
 import {realtimeWeatherData, forecastDailyData, forecastHourlyData} from './types/dataTypings'
@@ -35,8 +35,11 @@ const dataRequest = async (stringParam: whichRequest) => {
 }
 
 
-const settingsUpdate = async () => {
-
+const settingsUpdate = async (locationString: string, metricBool: boolean) => {
+  const response: AxiosResponse | AxiosError = await settingsRequest(locationString, metricBool);
+  if (response instanceof AxiosError) return console.error(response);
+  
+  console.log(response);
 }
 
 

@@ -34,6 +34,7 @@ Use WeatherAPI.com's API.
       - @param paramName its use
       - @param param
     - Remove all unused data from api calls.
+    - Refactor CSS, put css classes with each other parent => child => etc.
 
 
 

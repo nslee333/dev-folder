@@ -2,36 +2,66 @@ import { AxiosError, AxiosResponse } from 'axios';
 import './App.css';
 import {realtimeRequest, dailyRequest, hourlyRequest, settingsRequest} from './actions/actions';
 import {realtimeWeatherData, forecastDailyData, forecastHourlyData} from './types/dataTypings'
+import { useEffect, useState } from 'react';
 
-console.log(window.innerWidth, window.innerHeight)
+function App() {
 
-// TODO: Add useEffect => Request data on page load.
+const [realtime, setRealtime] = useState<realtimeWeatherData>();
+const [forecastDaily, setForecastDaily] = useState<forecastDailyData>();
+const [forecastHourly, setForecastHourly] = useState<forecastHourlyData>();
 
-type whichRequest = 'realtime' |  'weekly' | 'hourly';
+useEffect(() => {
 
-const dataRequest = async (stringParam: whichRequest) => {
+  // dataFetch(); // TODO: Make sure to limit api calls.
+  
+}, [])
 
-  if (stringParam === 'realtime') {
-    const response = await realtimeRequest();
-    if (response instanceof AxiosError) return console.error(response);
 
-    const realtimeResult: realtimeWeatherData = response.data;
-    return realtimeResult;
+type dataTuple = [realtimeWeatherData, forecastDailyData, forecastHourlyData];
 
-  } else if (stringParam === 'weekly') {
-    const response = await dailyRequest();
-    if (response instanceof AxiosError) return console.error(response);
+const dataFetch = async () => {
 
-    const dailyResult: forecastDailyData = response.data;
-    return dailyResult;
+  const apiData: dataTuple | void = await dataRequest();
+  if (apiData === undefined || apiData === null) return console.error("Realtime Data undefined.");
 
-  } else if (stringParam === 'hourly') {
-    const response = await hourlyRequest();
-    if (response instanceof AxiosError) return console.error(response);
+  const [realtime, daily, hourly] = apiData; // JS array destructuring
 
-    const hourlyResult: forecastHourlyData = response.data;
-    return hourlyResult;
-  }
+  setRealtime(realtime);
+  setForecastDaily(daily);
+  setForecastHourly(hourly);
+
+}
+
+
+const dataRequest: () => Promise<dataTuple| void> = async (): Promise<dataTuple | void> => {
+
+    const resultArray = [];
+  
+    const responseRealtime = await realtimeRequest();
+    if (responseRealtime instanceof AxiosError) return console.error(responseRealtime);
+
+    const realtimeResult: realtimeWeatherData = responseRealtime.data;
+    resultArray.push(realtimeResult);
+    
+    
+    const responseDaily = await dailyRequest();
+    if (responseDaily instanceof AxiosError) return console.error(responseDaily);
+    
+    const dailyResult: forecastDailyData = responseDaily.data;
+    resultArray.push(dailyResult);
+    
+    
+    const responseHourly = await hourlyRequest();
+    if (responseHourly instanceof AxiosError) return console.error(responseHourly);
+    
+    const hourlyResult: forecastHourlyData = responseHourly.data;
+    resultArray.push(hourlyResult);
+
+    
+    const returnArray: dataTuple = [realtimeResult, dailyResult, hourlyResult];
+     
+    return returnArray;
+  
 }
 
 
@@ -43,17 +73,7 @@ const settingsUpdate = async (locationString: string, metricBool: boolean) => {
 }
 
 
-
-
 const realtimeComponent = () => {
-
-
-
-  // TODO: Get date, and display below.
-  // TODO: Center text. :-)
-
-
-
   return (
     <div className='realtimeMain'>
       <h1 className='realtimeh1'>ICON 72* Cloudy</h1>  
@@ -63,7 +83,7 @@ const realtimeComponent = () => {
   );
 }
 
-function App() {
+
   return (
     <div className='App'>
       <div className='forecastDiv'></div>

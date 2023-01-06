@@ -72,6 +72,7 @@ Use WeatherAPI.com's API.
 
 [CurrentTasks]:
 - `Loading...` display while waiting?
+- Change the background color depending upon the time of day / weather?
 
 
 [Working]:

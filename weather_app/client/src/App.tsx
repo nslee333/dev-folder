@@ -23,7 +23,7 @@ useEffect(() => {
 
   return () => clearInterval(interval);
   
-}, [])
+})
 
 
 type dataTuple = [realtimeWeatherData, forecastDailyData, forecastHourlyData];
@@ -87,22 +87,35 @@ const realtimeComponent = () => {
   return (
     <div className='realtimeMain'>
       <h1 className='realtimeh1'>{realtime?.weatherIcon && realtime?.weatherDescription && realtime?.temperature || 'ICON 72* Cloudy'}</h1>  
-      <h1 className='realtimeh1'>{time}</h1>
+      <h2 className='realtimeh1'>{time}</h2>
       <h2 className='realtimeh2'>{currentDate}</h2>
     </div>
   );
 }
 
-const hourForecastComponent = () => { // TODO: My
+const hourForecastComponent = () => { // TODO: Might need to remove two parent divs.
   return (
-  <div className='hourDivParent'>
-    <div className='hourDiv'>{`data here`}</div>
-    <div className='hourDiv'>{`data here`}</div>
-    <div className='hourDiv'>{`data here`}</div>
-    <div className='hourDiv'>{`data here`}</div>
-    <div className='hourDiv'>{`data here`}</div>
-    <div className='hourDiv'>{`data here`}</div>
+    <div className='hourForecast'>
+      <div className='hourDivParent'>
+        <div className='hourDiv'>{`8:00 72*`}</div>
+        <div className='hourDiv'>{`9:00 65*`}</div>
+        <div className='hourDiv'>{`10:00 55*`}</div>
+        <div className='hourDiv'>{`11:00 43* `}</div>
+        <div className='hourDiv'>{`12:00 32*`}</div>
+        <div className='hourDiv'>{`1:00 29*`}</div>
+      </div>
   </div>
+  );
+}
+
+const navbarComponent = () => {
+  return (
+    <div className='navBar'>
+      <div className='navbarChildren'>Home icon</div>
+      <div className='navbarChildren'>World Icon for multiple forecasts</div>
+      <div className='navbarChildren'>Map</div>
+      <div className='navbarChildren'>Settings</div>
+    </div>
   );
 }
 
@@ -110,9 +123,9 @@ const hourForecastComponent = () => { // TODO: My
   return (
     <div className='App'>
       <div className='forecastDiv'></div>
-      <div className='navBar'></div>
+      <div>{navbarComponent()}</div>
         <div>{realtimeComponent()}</div>
-      <div className='hourForecast'>{hourForecastComponent()}</div>
+      <div>{hourForecastComponent()}</div>
     </div>
   );
 }

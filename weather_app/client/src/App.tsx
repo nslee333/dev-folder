@@ -12,7 +12,7 @@ const [forecastHourly, setForecastHourly] = useState<forecastHourlyData>();
 
 useEffect(() => {
 
-  // dataFetch(); // TODO: Make sure to limit api calls.
+  // dataFetch(); // !! Make sure to limit api calls.
   
 }, [])
 
@@ -35,29 +35,22 @@ const dataFetch = async () => {
 
 const dataRequest: () => Promise<dataTuple| void> = async (): Promise<dataTuple | void> => {
     // TODO: Make sure this works.
-    const resultArray = [];
   
     const responseRealtime = await realtimeRequest();
     if (responseRealtime instanceof AxiosError) return console.error(responseRealtime);
-
     const realtimeResult: realtimeWeatherData = responseRealtime.data;
-    resultArray.push(realtimeResult);
     
     
     const responseDaily = await dailyRequest();
     if (responseDaily instanceof AxiosError) return console.error(responseDaily);
-    
     const dailyResult: forecastDailyData = responseDaily.data;
-    resultArray.push(dailyResult);
     
     
     const responseHourly = await hourlyRequest();
     if (responseHourly instanceof AxiosError) return console.error(responseHourly);
-    
     const hourlyResult: forecastHourlyData = responseHourly.data;
-    resultArray.push(hourlyResult);
 
-    
+
     const returnArray: dataTuple = [realtimeResult, dailyResult, hourlyResult];
      
     return returnArray;

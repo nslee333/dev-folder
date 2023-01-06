@@ -62,9 +62,14 @@
 
 }
 
-.navbar__page {
-  border-radius: 10px;
-  height: ;
+.navbar__pages {
+  border-radius: 7px;
+  height: 55px;
+  margin: 20px;
+
+  font-size: 30px;
+  /* text-align: center; */
+  /* width: 20px; */
 }
 
 .realtime-main{

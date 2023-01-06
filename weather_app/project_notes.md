@@ -71,6 +71,7 @@ Use WeatherAPI.com's API.
 
 [CurrentTasks]:
 - Build components for navbar, hour forecast
+- `Loading...` display while waiting?
 
 
 

@@ -34,7 +34,7 @@ const dataFetch = async () => {
 
 
 const dataRequest: () => Promise<dataTuple| void> = async (): Promise<dataTuple | void> => {
-
+    // TODO: Make sure this works.
     const resultArray = [];
   
     const responseRealtime = await realtimeRequest();

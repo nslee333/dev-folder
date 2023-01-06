@@ -1,11 +1,22 @@
  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
-* {
-  background-color: var(--main-black);
+
+ * {
+  background-color: var(--primary-background);
   --main-black: #282c37;
   --main-darkGrey: #9baec8;
   --main-grey: #d9e1e8;
   --main-blue: #2b90d9;
+  --main-blueGrey: #9baec8;
+  /* --main-orange: #f5b183; */
+  --main-purple: #5c5a5e;
+
   --primary-div: var(--main-grey);
+  --primary-background: var(--main-blue);
+
+  --main-app: var(--main-darkGrey);
+  --main-font: var(--main-black);
+  
+  --main-hourly: var(--main-blueGrey);
   font-family: 'Open Sans', 'sans-serif';
 }
 
@@ -20,8 +31,7 @@
   left: 305px;
   padding: 25px;
   
-  background-color: var(--main-darkGrey);
-  /* border: 1px solid var(--main-blue); */
+  background-color: var(--main-app);
   border-radius: 10px;
 }
 
@@ -35,7 +45,6 @@
   width: 950px;
   
   background-color: var(--primary-div);
-  /* border: 1px solid rgb(255, 0, 242); */
   border-radius: 10px;
 
 }
@@ -47,10 +56,8 @@
   height: 870px;
   
   top: 27.5px;
-  /* left: ; */
 
-background-color: var(--primary-div);
-  /* border: 1px solid rgb(242, 0, 255); */
+  background-color: var(--primary-div);
   border-radius: 10px;
 
 }
@@ -76,18 +83,18 @@ background-color: var(--primary-div);
   
   margin: 0 auto;
   display: block;
-  font-weight: bold;
+  /* font-weight: bold; */
 
   margin: 40px;
   padding: 5px;
 
-  background-color: var(--main-grey);
-  color: var(--main-black);
+  background-color: var(--main-div);
+  color: var(--main-font);
 }
 
 
 .realtimeh2 {
-  font-size: 40px;
+  font-size: 30px;
 }
 
 .realtimeh1 {
@@ -123,4 +130,24 @@ background-color: var(--primary-div);
   background-color: var(--primary-div);
   border-radius: 10px;
 
+}
+
+.hourDivParent {
+  background-color: var(--main-grey);
+}
+
+.hourDiv {
+  background-color: var(--main-hourly);
+  color: var(--main-font);
+  font-size: 30px;
+  /* font-weight: bold; */
+  text-align: center;
+
+
+
+  margin: 20px;
+  border-radius: 7px;
+
+  height: 55px;
+  /* padding: 5px; */
 }

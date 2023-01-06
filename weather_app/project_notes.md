@@ -51,6 +51,7 @@ Use WeatherAPI.com's API.
     11. Bug #4: Server crash issue.
     12. Bug #5 fix - removed module.exports, ESM module error.
     13. hourly + realtime requests - add weather icon numbers.
+    14. Displaying data for realtime
 
 
 
@@ -70,13 +71,11 @@ Use WeatherAPI.com's API.
 
 
 [CurrentTasks]:
-- Build components for navbar, hour forecast
 - `Loading...` display while waiting?
 
 
-
 [Working]:
-    - Displaying data for realtime
+- Build components for navbar, hour forecast
 
 
 

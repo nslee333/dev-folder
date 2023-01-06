@@ -57,7 +57,8 @@ const dataRequest: () => Promise<dataTuple| void> = async (): Promise<dataTuple 
     
     const responseHourly = await hourlyRequest();
     if (responseHourly instanceof AxiosError) return console.error(responseHourly);
-    const hourlyResult: forecastHourlyData = responseHourly.data;
+    const hourlyResult: forecastHourlyData = responseHourly.data; 
+    // TODO: Need the data shape to type effectively.
 
 
     const returnArray: dataTuple = [realtimeResult, dailyResult, hourlyResult];
@@ -92,13 +93,26 @@ const realtimeComponent = () => {
   );
 }
 
+const hourForecastComponent = () => { // TODO: My
+  return (
+  <div className='hourDivParent'>
+    <div className='hourDiv'>{`data here`}</div>
+    <div className='hourDiv'>{`data here`}</div>
+    <div className='hourDiv'>{`data here`}</div>
+    <div className='hourDiv'>{`data here`}</div>
+    <div className='hourDiv'>{`data here`}</div>
+    <div className='hourDiv'>{`data here`}</div>
+  </div>
+  );
+}
+
 
   return (
     <div className='App'>
       <div className='forecastDiv'></div>
       <div className='navBar'></div>
         <div>{realtimeComponent()}</div>
-      <div className='hourForecast'></div>
+      <div className='hourForecast'>{hourForecastComponent()}</div>
     </div>
   );
 }

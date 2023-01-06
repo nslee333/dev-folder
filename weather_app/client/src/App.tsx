@@ -83,16 +83,17 @@ const currentDate = date.toLocaleString('en-US', {
   year: 'numeric'
 });
 
+
 const realtimeComponent = () => {
   return (
     <div className='realtime-main'>
       <h1 className='realtime-h1'>{realtime?.weatherIcon && realtime?.weatherDescription && realtime?.temperature || 'ICON 72* Cloudy'}</h1>  
       <h2 className='realtime-h1'>{time}</h2>
-      <h2 className='realtime-h1'>{time}</h2>
       <h2 className='realtime-h2'>{currentDate}</h2>
     </div>
   );
 }
+
 
 const hourForecastComponent = () => { // TODO: Might need to remove two parent divs.
   return (
@@ -108,6 +109,7 @@ const hourForecastComponent = () => { // TODO: Might need to remove two parent d
   </div>
   );
 }
+
 
 const navbarComponent = () => {
   return (
@@ -131,5 +133,5 @@ const navbarComponent = () => {
   );
 }
 
+
 export default App;
-// 1152 x 1920

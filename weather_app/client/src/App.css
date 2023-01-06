@@ -78,17 +78,13 @@
   left: 337.5px;
   
   background-color: var(--primary-div);
-  /* border: 1px solid rgb(242, 0, 255); */
   border-radius: 10px;
-  /* text-align: center; */
-
 }
 
 .realtime-h1, .realtime-h2 {
   
   margin: 0 auto;
   display: block;
-  /* font-weight: bold; */
 
   margin: 40px;
   padding: 5px;
@@ -107,19 +103,6 @@
 }
 
 
-/* .realtimeDiv {
-  position: absolute;
-
-  height: 475px;
-  width: 625px;
-
-  
-  background-color: var(--primary-div);
-  border-radius: 10px;
-
-} */
-
-
 .hour-forecast {
   position: absolute;
 
@@ -130,8 +113,6 @@
   left: 1000px;
 
 
-
-  /* border: 1px solid rgb(242, 0, 255); */
   background-color: var(--primary-div);
   border-radius: 10px;
 
@@ -145,14 +126,11 @@
   background-color: var(--main-hourly);
   color: var(--main-font);
   font-size: 30px;
-  /* font-weight: bold; */
   text-align: center;
-
 
 
   margin: 20px;
   border-radius: 7px;
 
   height: 55px;
-  /* padding: 5px; */
 }

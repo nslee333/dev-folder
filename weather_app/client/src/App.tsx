@@ -87,7 +87,7 @@ const realtimeComponent = () => {
   return (
     <div className='realtimeMain'>
       <h1 className='realtimeh1'>{realtime?.weatherIcon && realtime?.weatherDescription && realtime?.temperature || 'ICON 72* Cloudy'}</h1>  
-      <h1 className='realtimeh1'>{time}</h1>
+      <h2 className='realtimeh1'>{time}</h2>
       <h2 className='realtimeh2'>{currentDate}</h2>
     </div>
   );
@@ -96,12 +96,12 @@ const realtimeComponent = () => {
 const hourForecastComponent = () => { // TODO: My
   return (
   <div className='hourDivParent'>
-    <div className='hourDiv'>{`data here`}</div>
-    <div className='hourDiv'>{`data here`}</div>
-    <div className='hourDiv'>{`data here`}</div>
-    <div className='hourDiv'>{`data here`}</div>
-    <div className='hourDiv'>{`data here`}</div>
-    <div className='hourDiv'>{`data here`}</div>
+    <div className='hourDiv'>{`8:00 72*`}</div>
+    <div className='hourDiv'>{`9:00 65*`}</div>
+    <div className='hourDiv'>{`10:00 55*`}</div>
+    <div className='hourDiv'>{`11:00 43* `}</div>
+    <div className='hourDiv'>{`12:00 32*`}</div>
+    <div className='hourDiv'>{`1:00 29*`}</div>
   </div>
   );
 }

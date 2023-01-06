@@ -88,6 +88,7 @@ const realtimeComponent = () => {
     <div className='realtimeMain'>
       <h1 className='realtimeh1'>{realtime?.weatherIcon && realtime?.weatherDescription && realtime?.temperature || 'ICON 72* Cloudy'}</h1>  
       <h2 className='realtimeh1'>{time}</h2>
+      <h2 className='realtimeh1'>{time}</h2>
       <h2 className='realtimeh2'>{currentDate}</h2>
     </div>
   );

@@ -70,9 +70,13 @@ Use WeatherAPI.com's API.
 
 
 [CurrentTasks]:
+- Build components for navbar, hour forecast
 
 
-[Working]
+
+[Working]:
+    - Displaying data for realtime
+
 
 
 

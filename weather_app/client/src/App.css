@@ -52,7 +52,7 @@
 .navbar {
   position: absolute;
   
-  width: 275px;
+  width: 150px;
   height: 870px;
   
   top: 27.5px;
@@ -62,17 +62,44 @@
 
 }
 
-.navbar__pages {
-  border-radius: 7px;
-  height: 55px;
-  margin: 20px;
 
-  font-size: 30px;
+.navbar__pages {
+  font-family: var(--main-font);
+  border-radius: 7px;
+  height: 90px;
+  width: 125px;
+  margin: 12px;
+
+  
+
+  font-size: 25px;
+  /* padding: 5px; */
   /* text-align: center; */
+  display: flex;
+  justify-content: center;
+
   /* width: 20px; */
 }
 
-.realtime-main{
+.navbar__pages__content {
+  border-radius: 7px;
+  text-align: left;
+  /* border: 1px solid purple; */
+  margin: 5px;
+  width: 192.5px;
+  height: 38.5px
+}
+
+.navbar__pages__content__icon {
+
+}
+
+.navbar__pages__content__text {
+  
+}
+
+
+.realtime-main {
   position: absolute;
   padding: px;
 

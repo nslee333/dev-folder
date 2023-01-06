@@ -117,46 +117,50 @@ const navbarComponent = () => {
     <div className='navbar'>
       <div className='navbar__pages'>
         <div className='navbar__pages__content'>
-          <div className='navbar__pages__content__icon'>
-            <FontAwesomeIcon icon={faHouse} className='navbar__pages--icon'/> 
+          <div className='navbar__pages__content__icon-div'>
+            <FontAwesomeIcon icon={faHouse} className='navbar__pages__content__icon-div__icon'/> 
           </div>
           <div className='navbar__pages__content__text'>
             Home
           </div>
-          </div>
         </div>
+      </div>
+      <hr className='navbar__hr'/>
       <div className='navbar__pages'>
         <div className='navbar__pages__content'>
-          <div className='navbar__pages__content__icon'>
-            <FontAwesomeIcon icon={faEarthAmericas} className='navbar__pages--icon'/> 
+          <div className='navbar__pages__content__icon-div'>
+            <FontAwesomeIcon icon={faEarthAmericas} className='navbar__pages__content__icon-div__icon'/> 
           </div>
           <div className='navbar__pages__content__text'>
             World
           </div>
-          </div>
         </div>
+      </div>
+      <hr className='navbar__hr'/>
       <div className='navbar__pages'>
         <div className='navbar__pages__content'>
-          <div className='navbar__pages__content__icon'>
-            <FontAwesomeIcon icon={faLocationDot} className='navbar__pages--icon'/> 
+          <div className='navbar__pages__content__icon-div'>
+            <FontAwesomeIcon icon={faLocationDot} className='navbar__pages__content__icon-div__icon'/> 
           </div>
           <div className='navbar__pages__content__text'>
             Map  
           </div>
-          </div>
         </div>
+      </div>
+      <hr className='navbar__hr'/>
       <div className='navbar__pages'>
         <div className='navbar__pages__content'>
           <div className='navbar__pages__content__icon'>
-            <div className='navbar__pages__content__icon'>
-              <FontAwesomeIcon icon={faSliders} className='navbar__pages--icon'/>
+            <div className='navbar__pages__content__icon-div'>
+              <FontAwesomeIcon icon={faSliders} className='navbar__pages__content__icon-div__icon'/>
             </div>
             <div className='navbar__pages__content__text'>
               Settings
             </div>
           </div>
-          </div>
         </div>
+      </div>
+      <hr className='navbar__hr'/>
     </div>
   );
 }
@@ -170,8 +174,6 @@ const navbarComponent = () => {
       </div>
         <div>{realtimeComponent()}</div>
       <div>{hourForecastComponent()}</div>
-      {/* <FontAwesomeIcon icon={faEarthAmericas} className='icon' /> 
-        <FontAwesomeIcon icon={faLocationDot} className='icon'/> */}
     </div>
     
   );

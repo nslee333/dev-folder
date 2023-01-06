@@ -62,9 +62,14 @@
 
 }
 
+.navbar__hr {
+  border: 1px solid var(--main-darkGrey);
+}
+
 
 .navbar__pages {
   font-family: var(--main-font);
+  background-color: var(--main-grey);
   border-radius: 7px;
   height: 90px;
   width: 125px;
@@ -73,15 +78,12 @@
   
 
   font-size: 25px;
-  /* padding: 5px; */
-  /* text-align: center; */
   display: flex;
   justify-content: center;
-
-  /* width: 20px; */
 }
 
 .navbar__pages__content {
+
   border-radius: 7px;
   text-align: left;
   /* border: 1px solid purple; */
@@ -90,12 +92,26 @@
   height: 38.5px
 }
 
-.navbar__pages__content__icon {
+.navbar__pages__content__icon-div, .navbar__pages__content__text {
+  text-align: center;
+  background-color: var(--main-grey);
 
 }
 
+
+
+
+.navbar__pages__content__icon-div {
+  font-size: 35px;
+}
+
+.navbar__pages__content__icon-div__icon {
+  background-color: var(--main-grey);
+}
+
 .navbar__pages__content__text {
-  
+  font-size: 25px;
+  /* font-weight: bold; */
 }
 
 

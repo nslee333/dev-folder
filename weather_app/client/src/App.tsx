@@ -3,7 +3,8 @@ import './App.css';
 import {realtimeRequest, dailyRequest, hourlyRequest, settingsRequest} from './actions/actions';
 import {realtimeWeatherData, forecastDailyData, forecastHourlyData} from './types/dataTypings'
 import { useEffect, useState } from 'react';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faEarthAmericas, faLocationDot, faSliders, faHouse} from '@fortawesome/free-solid-svg-icons';
 function App() {
 
 const [realtime, setRealtime] = useState<realtimeWeatherData>();
@@ -114,10 +115,48 @@ const hourForecastComponent = () => { // TODO: Might need to remove two parent d
 const navbarComponent = () => {
   return (
     <div className='navbar'>
-      <div className='navbar__pages'>Home icon</div>
-      <div className='navbar__pages'>World Icon for multiple forecasts</div>
-      <div className='navbar__pages'>Map</div>
-      <div className='navbar__pages'>Settings</div>
+      <div className='navbar__pages'>
+        <div className='navbar__pages__content'>
+          <div className='navbar__pages__content__icon'>
+            <FontAwesomeIcon icon={faHouse} className='navbar__pages--icon'/> 
+          </div>
+          <div className='navbar__pages__content__text'>
+            Home
+          </div>
+          </div>
+        </div>
+      <div className='navbar__pages'>
+        <div className='navbar__pages__content'>
+          <div className='navbar__pages__content__icon'>
+            <FontAwesomeIcon icon={faEarthAmericas} className='navbar__pages--icon'/> 
+          </div>
+          <div className='navbar__pages__content__text'>
+            World
+          </div>
+          </div>
+        </div>
+      <div className='navbar__pages'>
+        <div className='navbar__pages__content'>
+          <div className='navbar__pages__content__icon'>
+            <FontAwesomeIcon icon={faLocationDot} className='navbar__pages--icon'/> 
+          </div>
+          <div className='navbar__pages__content__text'>
+            Map  
+          </div>
+          </div>
+        </div>
+      <div className='navbar__pages'>
+        <div className='navbar__pages__content'>
+          <div className='navbar__pages__content__icon'>
+            <div className='navbar__pages__content__icon'>
+              <FontAwesomeIcon icon={faSliders} className='navbar__pages--icon'/>
+            </div>
+            <div className='navbar__pages__content__text'>
+              Settings
+            </div>
+          </div>
+          </div>
+        </div>
     </div>
   );
 }
@@ -126,10 +165,15 @@ const navbarComponent = () => {
   return (
     <div className='App'>
       <div className='forecast-div'></div>
-      <div>{navbarComponent()}</div>
+      <div>
+        {navbarComponent()}
+      </div>
         <div>{realtimeComponent()}</div>
       <div>{hourForecastComponent()}</div>
+      {/* <FontAwesomeIcon icon={faEarthAmericas} className='icon' /> 
+        <FontAwesomeIcon icon={faLocationDot} className='icon'/> */}
     </div>
+    
   );
 }
 

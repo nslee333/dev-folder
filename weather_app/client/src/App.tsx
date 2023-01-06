@@ -85,25 +85,25 @@ const currentDate = date.toLocaleString('en-US', {
 
 const realtimeComponent = () => {
   return (
-    <div className='realtimeMain'>
-      <h1 className='realtimeh1'>{realtime?.weatherIcon && realtime?.weatherDescription && realtime?.temperature || 'ICON 72* Cloudy'}</h1>  
-      <h2 className='realtimeh1'>{time}</h2>
-      <h2 className='realtimeh1'>{time}</h2>
-      <h2 className='realtimeh2'>{currentDate}</h2>
+    <div className='realtime-main'>
+      <h1 className='realtime-h1'>{realtime?.weatherIcon && realtime?.weatherDescription && realtime?.temperature || 'ICON 72* Cloudy'}</h1>  
+      <h2 className='realtime-h1'>{time}</h2>
+      <h2 className='realtime-h1'>{time}</h2>
+      <h2 className='realtime-h2'>{currentDate}</h2>
     </div>
   );
 }
 
 const hourForecastComponent = () => { // TODO: Might need to remove two parent divs.
   return (
-    <div className='hourForecast'>
-      <div className='hourDivParent'>
-        <div className='hourDiv'>{`8:00 72*`}</div>
-        <div className='hourDiv'>{`9:00 65*`}</div>
-        <div className='hourDiv'>{`10:00 55*`}</div>
-        <div className='hourDiv'>{`11:00 43* `}</div>
-        <div className='hourDiv'>{`12:00 32*`}</div>
-        <div className='hourDiv'>{`1:00 29*`}</div>
+    <div className='hour-forecast'>
+      <div className='hour-div'>
+        <div className='hour-div__hours'>{`8:00 72*`}</div>
+        <div className='hour-div__hours'>{`9:00 65*`}</div>
+        <div className='hour-div__hours'>{`10:00 55*`}</div>
+        <div className='hour-div__hours'>{`11:00 43* `}</div>
+        <div className='hour-div__hours'>{`12:00 32*`}</div>
+        <div className='hour-div__hours'>{`1:00 29*`}</div>
       </div>
   </div>
   );
@@ -111,11 +111,11 @@ const hourForecastComponent = () => { // TODO: Might need to remove two parent d
 
 const navbarComponent = () => {
   return (
-    <div className='navBar'>
-      <div className='navbarChildren'>Home icon</div>
-      <div className='navbarChildren'>World Icon for multiple forecasts</div>
-      <div className='navbarChildren'>Map</div>
-      <div className='navbarChildren'>Settings</div>
+    <div className='navbar'>
+      <div className='navbar__pages'>Home icon</div>
+      <div className='navbar__pages'>World Icon for multiple forecasts</div>
+      <div className='navbar__pages'>Map</div>
+      <div className='navbar__pages'>Settings</div>
     </div>
   );
 }
@@ -123,7 +123,7 @@ const navbarComponent = () => {
 
   return (
     <div className='App'>
-      <div className='forecastDiv'></div>
+      <div className='forecast-div'></div>
       <div>{navbarComponent()}</div>
         <div>{realtimeComponent()}</div>
       <div>{hourForecastComponent()}</div>

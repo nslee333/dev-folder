@@ -35,7 +35,7 @@
   border-radius: 10px;
 }
 
-.forecastDiv {
+.forecast-div {
   position: absolute;
   
   top: 550px;
@@ -49,7 +49,7 @@
 
 }
 
-.navBar {
+.navbar {
   position: absolute;
   
   width: 275px;
@@ -62,12 +62,12 @@
 
 }
 
-.navbarChildren {
+.navbar__page {
   border-radius: 10px;
-  height: 
+  height: ;
 }
 
-.realtimeMain{
+.realtime-main{
   position: absolute;
   padding: px;
 
@@ -84,7 +84,7 @@
 
 }
 
-.realtimeh1, .realtimeh2 {
+.realtime-h1, .realtime-h2 {
   
   margin: 0 auto;
   display: block;
@@ -98,11 +98,11 @@
 }
 
 
-.realtimeh2 {
+.realtime-h2 {
   font-size: 30px;
 }
 
-.realtimeh1 {
+.realtime-h1 {
   font-size: 60px;
 }
 
@@ -120,7 +120,7 @@
 } */
 
 
-.hourForecast {
+.hour-forecast {
   position: absolute;
 
   width: 290px;
@@ -137,11 +137,11 @@
 
 }
 
-.hourDivParent {
+.hour-div {
   background-color: var(--main-grey);
 }
 
-.hourDiv {
+.hour-div__hours {
   background-color: var(--main-hourly);
   color: var(--main-font);
   font-size: 30px;

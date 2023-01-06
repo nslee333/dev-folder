@@ -76,7 +76,7 @@ Use WeatherAPI.com's API.
 
 [Working]:
 - Build components for navbar, hour forecast
-
+- Make h1, h2 to be a semi-bold or light font-weight.
 
 
 

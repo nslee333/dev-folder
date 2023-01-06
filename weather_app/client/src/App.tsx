@@ -115,50 +115,51 @@ const hourForecastComponent = () => { // TODO: Might need to remove two parent d
 const navbarComponent = () => {
   return (
     <div className='navbar'>
+
       <div className='navbar__pages'>
-        <div className='navbar__pages__content'>
-          <div className='navbar__pages__content__icon-div'>
-            <FontAwesomeIcon icon={faHouse} className='navbar__pages__content__icon-div__icon'/> 
+        <button className='navbar__pages__button' /* TODO: onClick={} */>
+          <div className='navbar__pages__button__icon-div'>
+            <FontAwesomeIcon icon={faHouse} className='navbar__pages__button__icon-div__icon'/> 
           </div>
-          <div className='navbar__pages__content__text'>
+          <div className='navbar__pages__button__text'>
             Home
           </div>
-        </div>
+        </button>
       </div>
+
       <hr className='navbar__hr'/>
+
       <div className='navbar__pages'>
-        <div className='navbar__pages__content'>
-          <div className='navbar__pages__content__icon-div'>
-            <FontAwesomeIcon icon={faEarthAmericas} className='navbar__pages__content__icon-div__icon'/> 
+        <button className='navbar__pages__button'>
+          <div className='navbar__pages__button__icon-div'>
+            <FontAwesomeIcon icon={faEarthAmericas} className='navbar__pages__button__icon-div__icon'/> 
           </div>
-          <div className='navbar__pages__content__text'>
+          <div className='navbar__pages__button__text'>
             World
           </div>
-        </div>
+        </button>
       </div>
       <hr className='navbar__hr'/>
       <div className='navbar__pages'>
-        <div className='navbar__pages__content'>
-          <div className='navbar__pages__content__icon-div'>
-            <FontAwesomeIcon icon={faLocationDot} className='navbar__pages__content__icon-div__icon'/> 
+        <button className='navbar__pages__button'>
+          <div className='navbar__pages__button__icon-div'>
+            <FontAwesomeIcon icon={faLocationDot} className='navbar__pages__button__icon-div__icon'/> 
           </div>
-          <div className='navbar__pages__content__text'>
+          <div className='navbar__pages__button__text'>
             Map  
           </div>
-        </div>
+        </button>
       </div>
       <hr className='navbar__hr'/>
       <div className='navbar__pages'>
-        <div className='navbar__pages__content'>
-          <div className='navbar__pages__content__icon'>
-            <div className='navbar__pages__content__icon-div'>
-              <FontAwesomeIcon icon={faSliders} className='navbar__pages__content__icon-div__icon'/>
+        <button className='navbar__pages__button'>
+            <div className='navbar__pages__button__icon-div'>
+              <FontAwesomeIcon icon={faSliders} className='navbar__pages__button__icon-div__icon'/>
             </div>
-            <div className='navbar__pages__content__text'>
+            <div className='navbar__pages__button__text'>
               Settings
             </div>
-          </div>
-        </div>
+        </button>
       </div>
       <hr className='navbar__hr'/>
     </div>

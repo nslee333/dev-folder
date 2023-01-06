@@ -9,10 +9,19 @@ function App() {
 const [realtime, setRealtime] = useState<realtimeWeatherData>();
 const [forecastDaily, setForecastDaily] = useState<forecastDailyData>();
 const [forecastHourly, setForecastHourly] = useState<forecastHourlyData>();
+const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
+
 
 useEffect(() => {
 
   // dataFetch(); // !! Make sure to limit api calls.
+  
+  const interval = setInterval(() => {
+    const newTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+    setTime(newTime);
+  }, 1000);
+
+  return () => clearInterval(interval);
   
 }, [])
 
@@ -66,12 +75,19 @@ const settingsUpdate = async (locationString: string, metricBool: boolean) => {
 }
 
 
+const date = new Date();
+const currentDate = date.toLocaleString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric'
+});
+
 const realtimeComponent = () => {
   return (
     <div className='realtimeMain'>
-      <h1 className='realtimeh1'>ICON 72* Cloudy</h1>  
-      <h1 className='realtimeh1'>5:41pm</h1>
-      <h2 className='realtimeh2'>Tuesday, January 4th 2023</h2>
+      <h1 className='realtimeh1'>{realtime?.weatherIcon && realtime?.weatherDescription && realtime?.temperature || 'ICON 72* Cloudy'}</h1>  
+      <h1 className='realtimeh1'>{time}</h1>
+      <h2 className='realtimeh2'>{currentDate}</h2>
     </div>
   );
 }

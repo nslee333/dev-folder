@@ -224,7 +224,7 @@ const navbarComponent = () => {
 
 const homeComponent: () => JSX.Element = () => {
   return (
-    <div className='variable-bar__home-bar'>
+    <div className='variable__home'>
       // TODO: Weekly Weather.
     </div>
   );
@@ -232,7 +232,7 @@ const homeComponent: () => JSX.Element = () => {
 
 const worldComponent: () => JSX.Element = () => {
   return (
-    <div className='variable-bar__world-bar'>
+    <div className='variable__world'>
       // TODO: Search bar and city forecast.
     </div>
   );
@@ -240,7 +240,7 @@ const worldComponent: () => JSX.Element = () => {
 
 const mapComponent: () => JSX.Element = () => {
   return (
-    <div className='variable-bar__map-bar'>
+    <div className='variable__map'>
       // TODO Render a forecast map of the local area.
     </div>
   );
@@ -259,12 +259,24 @@ const settingsUpdate = async (locationString: string, metricBool: boolean) => {
 const handleLocationInput = (event: KeyboardEvent<HTMLInputElement>) => {
   console.log("location input success")
 
-  // * Custom types for string and number??
+  const target = event.target as HTMLInputElement;
+
+  const stringValue: string = target.value;
+
+  const inputNumber = (!isNaN(parseInt(stringValue)));
+
+  if (!isNaN(parseInt(stringValue))) {
+    if (stringValue.length < 5) return window.alert("Zip code is too short.");
+    if (stringValue.length > 5) return window.alert("Zip code is too long."); 
+
+  } else {
+    // & string query case
+  }
 
   // ^ If string
   // ^ AccuWeatherAPI Query requirements?
   // ^ if bad string => return window alert => error & requirements.
-  // ^ if good string => call settingsUpdate.
+  // ^ if good string => call settingsUpdate. "city, state"
   // ^ success -> window alert success? 
 
   // & If number:
@@ -299,27 +311,30 @@ const keyDownLocationHandler: (event: KeyboardEvent<HTMLInputElement>) => void =
   }
 }
 
+// const zipCodeRegex: RegExp = /[0-9]{0,5}/;
+// const cityStateRegex: RegExp = /[a-z]+, [AK,AZ,AR,CA,CO,CT,DE,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY]{2}/i;
+
 
 // TODO: Clean class names
 const settingsComponent: () => JSX.Element = () => {
   return (
-    <div className='variable-bar__settings-bar'>
-      <div className='variable-bar__settings-bar__location-div'>
-        <div className='variable-bar__settings-bar__location-div__input-label'>Change Location</div>
-        <div className='variable-bar__settings-bar__location-div__current-location'>Location: {location}</div>
+    <div className='variable__settings'>
+      <div className='variable__settings__location-div'>
+        <div className='variable__settings__location-div__input-label'>Change Location</div>
+        <div className='variable__settings__location-div__current-location'>Location: {location}</div>
         
-        <input className='variable-bar__settings-bar__location-div__input' 
-        type='text'
+        <input className='variable__settings__location-div__input' 
+        type='search'
         onKeyDown={keyDownLocationHandler}
         ref={settingsLocationRef}
         placeholder='City or ZIP Code'
-
+        // pattern={} //TODO Data validation with regular expression.
         />
-      </div> 
-      <div className='variable-bar__settings-bar__metric-div'>
-        <div className='variable-bar__settings-bar__metric-div__button-label'>Change Measurement System</div>
-        <div className='variable-bar__settings-bar__metric-div__metric-current'>Current: {metric ? 'Metric' : 'Imperial'}</div>
-        <button className='variable-bar__settings-bar__metric-div__button' onClick={handleMetricButtonClick}>{metric ? 'Imperial' : 'Metric'}</button>
+      </div>  
+      <div className='variable__settings__metric'>
+        <div className='variable__settings__metric__button-label'>Change Measurement System</div>
+        <div className='variable__settings__metric__metric-current'>Current: {metric ? 'Metric' : 'Imperial'}</div>
+        <button className='variable__settings__metric__button' onClick={handleMetricButtonClick}>{metric ? 'Imperial' : 'Metric'}</button>
       </div> 
     </div>
   );
@@ -328,7 +343,7 @@ const settingsComponent: () => JSX.Element = () => {
 
 const variableBar: () => JSX.Element = () => {
   return (
-    <div className='variable-bar'>
+    <div className='variable'>
       {settingsHighlighted ? settingsComponent() : worldHighlighted ? 
       worldComponent(): mapHighlighted ? mapComponent() : homeComponent()}
     </div>

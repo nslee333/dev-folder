@@ -168,7 +168,7 @@
   height: 55px;
 }
 
-.variable-bar {
+.variable {
   position: absolute;
   
   top: 525px;
@@ -182,23 +182,23 @@
 
 }
 
-.variable-bar__home-bar {
+.variable__home {
 
 }
 
-.variable-bar__world-bar {
+.variable__world {
 
 }
 
-.variable-bar__map-bar {
+.variable__map {
 
 }
 
-.variable-bar__settings-bar {
+.variable__settings {
   background-color: var(--main-grey);
 }
 
-.variable-bar__settings-bar__metric-div {
+.variable__settings__metric {
   background-color: var(--main-grey);
   
   position: absolute;
@@ -209,7 +209,7 @@
 }
 
 
-.variable-bar__settings-bar__metric-div__button-label {
+.variable__settings__metric__button-label {
   background-color: var(--main-grey);
   position: absolute;
   top: 50px;
@@ -220,7 +220,7 @@
   font-size: 30px;
 }
 
-.variable-bar__settings-bar__metric-div__metric-current {
+.variable__settings__metric__metric-current {
   background-color: var(--main-grey);
   position: absolute;
   top: 100px;
@@ -233,7 +233,7 @@
   font-size: 25px;
 }
 
-.variable-bar__settings-bar__metric-div__button {
+.variable__settings__metric__button {
   background-color: #9baec8;
   position: absolute;
   /* background-color: var(--main-grey); */
@@ -252,40 +252,40 @@
   
   cursor: pointer;
 }
-.variable-bar__settings-bar__metric-div__button:active {
+.variable__settings__metric__button:active {
   background-color: var(--main-grey);
 }
 
-.variable-bar__settings-bar__location-div {
+.variable__settings__location-div {
   width: 0px;
   position: relative;
   left: 30px;
   top: 10px;
 }
-.variable-bar__settings-bar__location-div__input-label,
-.variable-bar__settings-bar__location-div__current-location,
-.variable-bar__settings-bar__location-div__input {
+.variable__settings__location-div__input-label,
+.variable__settings__location-div__current-location,
+.variable__settings__location-div__input {
   margin-top: 7px;
   margin-bottom: 7px;
 }
 
 
 
-.variable-bar__settings-bar__location-div__input-label {
+.variable__settings__location-div__input-label {
   background-color: var(--main-grey);
   font-size: 30px;
   width: 350px;
   
   
 }
-.variable-bar__settings-bar__location-div__current-location {
+.variable__settings__location-div__current-location {
   background-color: var(--main-grey);
   width: 300px;
   font-size: 25px;
 }
 
 
-.variable-bar__settings-bar__location-div__input {
+.variable__settings__location-div__input {
   background-color: var(--main-grey);
   position: absolute;
   width: 250px;
@@ -295,6 +295,6 @@
   border: 0px;
 }
 
-.variable-bar__settings-bar__location-div__input:focus-visible {
+.variable__settings__location-div__input:focus-visible {
   outline: none;
 }

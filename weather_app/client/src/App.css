@@ -195,5 +195,17 @@
 }
 
 .variable-bar__settings-bar {
+  background-color: var(--main-grey);
+}
+
+.variable-bar__settings-bar__metric-button {
+  background-color: var(--main-grey);
+  position: absolute;
+  height: 25px;
+  width: 30px;
   
+}
+
+.variable-bar__settings-bar__location-input {
+
 }

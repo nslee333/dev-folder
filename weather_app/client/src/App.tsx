@@ -12,10 +12,10 @@ const [forecastDaily, setForecastDaily] = useState<forecastDailyData>();
 const [forecastHourly, setForecastHourly] = useState<forecastHourlyData>();
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
-const [homeHighlighted, setHomeHighlighted] = useState(true);
+const [homeHighlighted, setHomeHighlighted] = useState(false); //TODO Reset => TRUE
 const [worldHighlighted, setWorldHighlighted] = useState(false);
 const [mapHighlighted, setMapHighlighted] = useState(false);
-const [settingsHighlighted, setSettingsHighlighted] = useState(false);
+const [settingsHighlighted, setSettingsHighlighted] = useState(true);
 
 useEffect(() => {
 
@@ -227,7 +227,7 @@ const navbarComponent = () => {
 
 const homeComponent: () => JSX.Element = () => {
   return (
-    <div className='varable-bar__home-bar'>
+    <div className='variable-bar__home-bar'>
       // TODO: Weekly Weather.
     </div>
   );
@@ -235,7 +235,7 @@ const homeComponent: () => JSX.Element = () => {
 
 const worldComponent: () => JSX.Element = () => {
   return (
-    <div className='varable-bar__world-bar'>
+    <div className='variable-bar__world-bar'>
       // TODO: Search bar and city forecast.
     </div>
   );
@@ -243,7 +243,7 @@ const worldComponent: () => JSX.Element = () => {
 
 const mapComponent: () => JSX.Element = () => {
   return (
-    <div className='varable-bar__map-bar'>
+    <div className='variable-bar__map-bar'>
       // TODO Render a forecast map of the local area.
     </div>
   );
@@ -251,8 +251,10 @@ const mapComponent: () => JSX.Element = () => {
 
 const settingsComponent: () => JSX.Element = () => {
   return (
-    <div className='varable-bar__settings-bar'>
+    <div className='variable-bar__settings-bar'>
       // TODO: Buttons for Metric / Imperial + Default location.
+      <button className='variable-bar__settings-bar__metric-button'>Metric</button>
+      <input className=' variable-bar__settings-bar__location-input'/>
     </div>
   );
 }

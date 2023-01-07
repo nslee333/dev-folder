@@ -12,6 +12,11 @@ const [forecastDaily, setForecastDaily] = useState<forecastDailyData>();
 const [forecastHourly, setForecastHourly] = useState<forecastHourlyData>();
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
+const [homeHighlighted, setHomeHighlighted] = useState(false);
+const [worldHighlighted, setWorldHighlighted] = useState(false);
+const [mapHighlighted, setMapHighlighted] = useState(false);
+const [settingsHighlighted, setSettingsHighlighted] = useState(false);
+
 
 useEffect(() => {
 
@@ -111,13 +116,44 @@ const hourForecastComponent = () => { // TODO: Might need to remove two parent d
   );
 }
 
+const handleNavbarClick: (pageClicked: string) => void = (pageClicked: string) => {
+  if (pageClicked === 'home' && homeHighlighted === false) {
+    setHomeHighlighted(true);
+    setWorldHighlighted(false);
+    setMapHighlighted(false);
+    setSettingsHighlighted(false);
+    
+  } else if (pageClicked === 'world' && worldHighlighted === false) {
+    setWorldHighlighted(true);
+    setHomeHighlighted(false);
+    setMapHighlighted(false);
+    setSettingsHighlighted(false);
+
+  } else if (pageClicked === 'map' && mapHighlighted === false) {
+    setMapHighlighted(true);
+    setHomeHighlighted(false);
+    setWorldHighlighted(false);
+    setSettingsHighlighted(false);
+
+    
+  } else if (pageClicked === 'settings' && settingsHighlighted === false) {
+    setSettingsHighlighted(!settingsHighlighted);
+    setHomeHighlighted(false);
+    setWorldHighlighted(false);
+    setMapHighlighted(false);
+  }
+}
+
 
 const navbarComponent = () => {
   return (
     <div className='navbar'>
-
       <div className='navbar__pages'>
-        <button className='navbar__pages__button' /* TODO: onClick={} */>
+        <button 
+          className='navbar__pages__button' 
+          onClick={() => handleNavbarClick("home")}
+          style={{backgroundColor: homeHighlighted ? 'var(--main-darkGrey)' : 'var(--main-grey'}}
+        >
           <div className='navbar__pages__button__icon-div'>
             <FontAwesomeIcon icon={faHouse} className='navbar__pages__button__icon-div__icon'/> 
           </div>
@@ -125,12 +161,15 @@ const navbarComponent = () => {
             Home
           </div>
         </button>
-      </div>
-
+    </div>
       <hr className='navbar__hr'/>
 
       <div className='navbar__pages'>
-        <button className='navbar__pages__button'>
+        <button 
+          className='navbar__pages__button' 
+          onClick={() => handleNavbarClick("world")}
+          style={{backgroundColor: worldHighlighted ? 'var(--main-darkGrey)' : 'var(--main-grey'}}
+        >
           <div className='navbar__pages__button__icon-div'>
             <FontAwesomeIcon icon={faEarthAmericas} className='navbar__pages__button__icon-div__icon'/> 
           </div>
@@ -141,7 +180,11 @@ const navbarComponent = () => {
       </div>
       <hr className='navbar__hr'/>
       <div className='navbar__pages'>
-        <button className='navbar__pages__button'>
+        <button 
+          className='navbar__pages__button' 
+          onClick={() => handleNavbarClick("map")} 
+          style={{backgroundColor: mapHighlighted ? 'var(--main-darkGrey)' : 'var(--main-grey' }}
+        >
           <div className='navbar__pages__button__icon-div'>
             <FontAwesomeIcon icon={faLocationDot} className='navbar__pages__button__icon-div__icon'/> 
           </div>
@@ -150,13 +193,26 @@ const navbarComponent = () => {
           </div>
         </button>
       </div>
-      <hr className='navbar__hr'/>
-      <div className='navbar__pages'>
-        <button className='navbar__pages__button'>
-            <div className='navbar__pages__button__icon-div'>
-              <FontAwesomeIcon icon={faSliders} className='navbar__pages__button__icon-div__icon'/>
+      <hr className='navbar__hr' style={{backgroundColor: 'var(--settings-color)'}}/>
+      <div className='navbar__pages' style={{backgroundColor: 'var(--settings-color)'}}>
+        <button 
+          className='navbar__pages__button' 
+          onClick={() => handleNavbarClick("settings")}
+          style={{
+            backgroundColor: settingsHighlighted ? 
+            '--settings-color: grey' : '--settings-color: var(--main-grey)'}}
+        >
+            <div className='navbar__pages__button__icon-div' 
+            style={{backgroundColor: 'var(--settings-color)'}}
+            >
+              <FontAwesomeIcon icon={faSliders} 
+              className='navbar__pages__button__icon-div__icon'
+              style={{backgroundColor: 'var(--settings-color)'}}
+              />
             </div>
-            <div className='navbar__pages__button__text'>
+            <div className='navbar__pages__button__text'
+            style={{backgroundColor: 'var(--settings-color)'}}
+            >
               Settings
             </div>
         </button>

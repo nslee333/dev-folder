@@ -17,7 +17,14 @@
   --main-font: var(--main-black);
   
   --main-hourly: var(--main-blueGrey);
+
+
   --main-navbar-button: var(--main-orange);
+  
+  --main-navbar-home: var(--main-orange);
+  --main-navbar-world: var(--main-orange);
+  --main-navbar-map: var(--main-orange);
+  --main-navbar-settings: var(--main-orange);
 
 
   font-family: 'Open Sans', 'sans-serif';
@@ -70,6 +77,7 @@
 }
 
 
+
 .navbar__pages {
   background-color: var(--main-navbar-button);
   border-radius: 7px;
@@ -84,11 +92,6 @@
   justify-content: center;
 }
 
-.navbar__pages:hover{
-  --main-navbar-button: var(--main-darkGrey);
-  cursor: pointer;
-  
-}
 
 
 
@@ -99,17 +102,15 @@
   text-align: left;
   margin: 5px;
   width: 125px;
-  height: 90px
-}
-
-.navbar__pages__button:hover 
-.navbar__pages__button__icon-div:hover, 
-.navbar__pages__button__text:hover,
-.navbar__pages__button__icon-div__icon:hover 
-{
-  --main-navbar-button: var(--main-darkGrey);
+  height: 90px;
   cursor: pointer;
 }
+
+.navbar__pages__button:focus {
+  background-color: black;
+}
+
+
 
 
 .navbar__pages__button__icon-div, .navbar__pages__button__text {

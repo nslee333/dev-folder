@@ -48,11 +48,11 @@
 .forecast-div {
   position: absolute;
   
-  top: 550px;
-  left: 340px;
+  top: 525px;
+  left: 200px;
   
-  height: 350px;
-  width: 950px;
+  height: 375px;
+  width: 1090px;
   
   background-color: var(--primary-div);
   border-radius: 10px;
@@ -122,10 +122,10 @@
   padding: px;
 
   height: 475px;
-  width: 625px;
+  width: 775px;
 
   top: 27.5px;
-  left: 337.5px;
+  left: 200px;
   
   background-color: var(--primary-div);
   border-radius: 10px;

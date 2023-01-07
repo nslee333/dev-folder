@@ -6,7 +6,6 @@
   --main-darkGrey: #9baec8;
   --main-grey: #d9e1e8;
   --main-blue: #2b90d9;
-  --main-blueGrey: #9baec8; /* !! Redundant variable*/
   --main-orange: #f5b183;
   --main-purple: #5c5a5e;
 
@@ -16,7 +15,7 @@
   --main-app: var(--main-darkGrey);
   --main-font: var(--main-black);
   
-  --main-hourly: var(--main-blueGrey);
+  --main-hourly: var(--main-grey);
 
 
   --main-navbar-button: var(--main-orange);
@@ -117,7 +116,7 @@
   border-radius: 10px;
 }
 
-.realtime-h1, .realtime-h2 {
+.realtime-div1, .realtime-div2 {
   
   margin: 0 auto;
   display: block;
@@ -130,12 +129,12 @@
 }
 
 
-.realtime-h2 {
-  font-size: 30px;
+.realtime-div1 {
+  font-size: 60px;
 }
 
-.realtime-h1 {
-  font-size: 60px;
+.realtime-div2 {
+  font-size: 45px;
 }
 
 
@@ -147,25 +146,42 @@
 
   top: 27.5px;
   left: 1000px;
+  /* padding-top: 3px; */
+  /* padding-bottom: 3px; */
 
-
+  /* border: 2px solid red; */
   background-color: var(--primary-div);
   border-radius: 10px;
+  /* padding-top: 5px; */
+  /* padding-bottom: 5px; */
 
+  /* margin: 0px; */
+
+}
+
+.hour-div__hr {
+  margin: 0px;
+  border: 1px solid var(--main-darkGrey);
+  
 }
 
 
 .hour-div__hours {
+  /* border: 2px solid red; */
+  padding-top: px;
+  padding-bottom: 5px;
   background-color: var(--main-hourly);
   color: var(--main-font);
   font-size: 30px;
-  text-align: center;
+  /* text-align: center; */
+  /* justify-content: center; */
 
 
-  margin: 20px;
+  /* margin-top: 9px; */
+  /* margin-bottom: 9px; */
   border-radius: 7px;
 
-  height: 55px;
+  height: 60px;
 }
 
 .variable {

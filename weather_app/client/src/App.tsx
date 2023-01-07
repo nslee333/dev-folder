@@ -27,6 +27,7 @@ useEffect(() => {
   // dataFetch(); // !! Make sure to limit api calls. 
   // * two times per hour w/ two calls left over.
   
+  
   const interval = setInterval(() => {
     const newTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
     setTime(newTime);
@@ -35,6 +36,7 @@ useEffect(() => {
   return () => clearInterval(interval);
   
 })
+
 
 
 type dataTuple = [realtimeWeatherData, forecastDailyData, forecastHourlyData];
@@ -51,6 +53,7 @@ const dataFetch = async () => {
   setForecastHourly(hourly);
 
 }
+
 
 
 const dataRequest: () => Promise<dataTuple| void> = async (): Promise<dataTuple | void> => {
@@ -77,7 +80,7 @@ const dataRequest: () => Promise<dataTuple| void> = async (): Promise<dataTuple 
     return returnArray;
   
 }
-
+// dataFetch(); // ! Don't use dataFetch inside useEffect??
 
 const date = new Date();
 const currentDate = date.toLocaleString('en-US', {
@@ -89,10 +92,10 @@ const currentDate = date.toLocaleString('en-US', {
 
 const realtimeComponent = () => {
   return (
-    <div className='realtime-main'> // TODO: Change to div icons for better font weight.
-      <h1 className='realtime-h1'>{realtime?.weatherIcon && realtime?.weatherDescription && realtime?.temperature || 'ICON 72* Cloudy'}</h1>  
-      <h2 className='realtime-h1'>{time}</h2>
-      <h2 className='realtime-h2'>{currentDate}</h2>
+    <div className='realtime-main'>
+      <div className='realtime-div1'>{realtime?.weatherIcon && realtime?.weatherDescription && realtime?.temperature || 'ICON 72* Cloudy'}</div>  
+      <div className='realtime-div2'>{time}</div>
+      <div className='realtime-div2'>{currentDate}</div>
     </div>
   );
 }
@@ -102,10 +105,15 @@ const hourForecastComponent = () => {
   return (
     <div className='hour-forecast'>
         <div className='hour-div__hours'>{`8:00 72*`}</div>
+        <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>{`9:00 65*`}</div>
+        <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>{`10:00 55*`}</div>
+        <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>{`11:00 43* `}</div>
+        <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>{`12:00 32*`}</div>
+        <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>{`1:00 29*`}</div>
   </div>
   );
@@ -298,6 +306,7 @@ const handleMetricButtonClick = () => {
   ^ Clears Ref after submission.
 */ 
 const keyDownLocationHandler: (event: KeyboardEvent<HTMLInputElement>) => void = (event: KeyboardEvent<HTMLInputElement>) => {
+  // ^ Form validation in here? might be better
   if (event.key === 'Enter') {
     event.preventDefault();
 
@@ -312,24 +321,25 @@ const keyDownLocationHandler: (event: KeyboardEvent<HTMLInputElement>) => void =
 }
 
 // const zipCodeRegex: RegExp = /[0-9]{0,5}/;
-// const cityStateRegex: RegExp = /[a-z]+, [AK,AZ,AR,CA,CO,CT,DE,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY]{2}/i;
+const regex = '^[a-z]+, (A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$i';
+// TODO: Properly implement form validation.
 
-
-// TODO: Clean class names
 const settingsComponent: () => JSX.Element = () => {
   return (
     <div className='variable__settings'>
       <div className='variable__settings__location-div'>
         <div className='variable__settings__location-div__input-label'>Change Location</div>
         <div className='variable__settings__location-div__current-location'>Location: {location}</div>
-        
+        <form>
+
         <input className='variable__settings__location-div__input' 
-        type='search'
-        onKeyDown={keyDownLocationHandler}
-        ref={settingsLocationRef}
-        placeholder='City or ZIP Code'
-        // pattern={} //TODO Data validation with regular expression.
+          type='text'
+          onKeyDown={keyDownLocationHandler}
+          ref={settingsLocationRef}
+          placeholder='City or ZIP Code'
+          pattern='^[a-z]+, (A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$i' //TODO Data validation with regular expression.
         />
+        </form>
       </div>  
       <div className='variable__settings__metric'>
         <div className='variable__settings__metric__button-label'>Change Measurement System</div>

@@ -227,10 +227,55 @@ const navbarComponent = () => {
   );
 }
 
+const homeComponent: () => JSX.Element = () => {
+  return (
+    <div></div>
+  );
+}
+
+const worldComponent: () => JSX.Element = () => {
+  return (
+    <div></div>
+  );
+}
+
+const mapComponent: () => JSX.Element = () => {
+  return (
+    <div></div>
+  );
+}
+
+const settingsComponent: () => JSX.Element = () => {
+  return (
+    <div></div>
+  );
+}
+
+
+
+
+
+
+const variableBar: () => JSX.Element = () => {
+  return (
+    <div>
+      {settingsHighlighted ? (
+      {settingsComponent}
+    ) : worldHighlighted ? (
+      {worldComponent}
+    ) : mapHighlighted ? (
+      {mapComponent}
+    ) : (
+      {homeComponent}
+    )}
+    </div>
+  );
+}
+
 
   return (
     <div className='App'>
-      <div className='forecast-div'></div>
+      <div className='forecast-div'>{variableBar()}</div>
       <div>{navbarComponent()}</div>
       <div>{realtimeComponent()}</div>
       <div>{hourForecastComponent()}</div>

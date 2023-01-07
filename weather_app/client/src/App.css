@@ -45,20 +45,6 @@
   border-radius: 10px;
 }
 
-.forecast-div {
-  position: absolute;
-  
-  top: 525px;
-  left: 200px;
-  
-  height: 375px;
-  width: 1090px;
-  
-  background-color: var(--primary-div);
-  border-radius: 10px;
-
-}
-
 .navbar {
   position: absolute;
   
@@ -168,9 +154,6 @@
 
 }
 
-.hour-div {
-  background-color: var(--main-grey);
-}
 
 .hour-div__hours {
   background-color: var(--main-hourly);
@@ -183,4 +166,18 @@
   border-radius: 7px;
 
   height: 55px;
+}
+
+.home-bar {
+  position: absolute;
+  
+  top: 525px;
+  left: 200px;
+  
+  height: 375px;
+  width: 1090px;
+  
+  background-color: var(--primary-div);
+  border-radius: 10px;
+
 }

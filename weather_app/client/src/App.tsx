@@ -12,7 +12,7 @@ const [forecastDaily, setForecastDaily] = useState<forecastDailyData>();
 const [forecastHourly, setForecastHourly] = useState<forecastHourlyData>();
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
-const [homeHighlighted, setHomeHighlighted] = useState(false);
+const [homeHighlighted, setHomeHighlighted] = useState(true);
 const [worldHighlighted, setWorldHighlighted] = useState(false);
 const [mapHighlighted, setMapHighlighted] = useState(false);
 const [settingsHighlighted, setSettingsHighlighted] = useState(false);
@@ -101,17 +101,15 @@ const realtimeComponent = () => {
 }
 
 
-const hourForecastComponent = () => { // TODO: Might need to remove two parent divs.
+const hourForecastComponent = () => { 
   return (
     <div className='hour-forecast'>
-      <div className='hour-div'>
         <div className='hour-div__hours'>{`8:00 72*`}</div>
         <div className='hour-div__hours'>{`9:00 65*`}</div>
         <div className='hour-div__hours'>{`10:00 55*`}</div>
         <div className='hour-div__hours'>{`11:00 43* `}</div>
         <div className='hour-div__hours'>{`12:00 32*`}</div>
         <div className='hour-div__hours'>{`1:00 29*`}</div>
-      </div>
   </div>
   );
 }
@@ -229,45 +227,42 @@ const navbarComponent = () => {
 
 const homeComponent: () => JSX.Element = () => {
   return (
-    <div></div>
+    <div className='home-bar'>
+      // TODO: Weekly Weather.
+    </div>
   );
 }
 
 const worldComponent: () => JSX.Element = () => {
   return (
-    <div></div>
+    <div className='world-bar'>
+      // TODO: Search bar and city forecast.
+    </div>
   );
 }
 
 const mapComponent: () => JSX.Element = () => {
   return (
-    <div></div>
+    <div className='map-bar'>
+      // TODO Render a forecast map of the local area.
+    </div>
   );
 }
 
 const settingsComponent: () => JSX.Element = () => {
   return (
-    <div></div>
+    <div className='settings-bar'>
+      // TODO: Buttons for Metric / Imperial + Default location.
+    </div>
   );
 }
 
 
-
-
-
-
 const variableBar: () => JSX.Element = () => {
   return (
-    <div>
-      {settingsHighlighted ? (
-      {settingsComponent}
-    ) : worldHighlighted ? (
-      {worldComponent}
-    ) : mapHighlighted ? (
-      {mapComponent}
-    ) : (
-      {homeComponent}
-    )}
+    <div className='variable-bar'>
+      {settingsHighlighted ? settingsComponent() : worldHighlighted ? 
+      worldComponent(): mapHighlighted ? mapComponent() : homeComponent()}
     </div>
   );
 }
@@ -275,7 +270,7 @@ const variableBar: () => JSX.Element = () => {
 
   return (
     <div className='App'>
-      <div className='forecast-div'>{variableBar()}</div>
+      <div>{variableBar()}</div>
       <div>{navbarComponent()}</div>
       <div>{realtimeComponent()}</div>
       <div>{hourForecastComponent()}</div>

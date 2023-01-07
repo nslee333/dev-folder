@@ -35,6 +35,8 @@ Use WeatherAPI.com's API.
       - @param param
     - Remove all unused data from api calls.
     - Refactor CSS, put css classes with each other parent => child => etc.
+    - Define types outside of App or Inside?
+    - Label and Group all state hooks.
 
 
 
@@ -53,6 +55,7 @@ Use WeatherAPI.com's API.
     12. Bug #5 fix - removed module.exports, ESM module error.
     13. hourly + realtime requests - add weather icon numbers.
     14. Displaying data for realtime
+    15. Build navbar component
 
 
 
@@ -67,18 +70,19 @@ Use WeatherAPI.com's API.
     - Performance testing.
     - Web security analysis
     - Add a button for night mode.
-    -  
+    - 
 
 
 
 [CurrentTasks]:
 - `Loading...` display while waiting?
 - Change the background color depending upon the time of day / weather?
+- hour forecast component clean up.
+- Make h1, h2 to be a semi-bold or light font-weight.
+- 
 
 
 [Working]:
-- Build components for navbar, hour forecast
-- Make h1, h2 to be a semi-bold or light font-weight.
 
 
 

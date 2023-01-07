@@ -168,7 +168,7 @@
   height: 55px;
 }
 
-.home-bar {
+.variable-bar {
   position: absolute;
   
   top: 525px;
@@ -180,4 +180,20 @@
   background-color: var(--primary-div);
   border-radius: 10px;
 
+}
+
+.variable-bar__home-bar {
+
+}
+
+.variable-bar__world-bar {
+
+}
+
+.variable-bar__map-bar {
+
+}
+
+.variable-bar__settings-bar {
+  
 }

@@ -227,7 +227,7 @@ const navbarComponent = () => {
 
 const homeComponent: () => JSX.Element = () => {
   return (
-    <div className='home-bar'>
+    <div className='varable-bar__home-bar'>
       // TODO: Weekly Weather.
     </div>
   );
@@ -235,7 +235,7 @@ const homeComponent: () => JSX.Element = () => {
 
 const worldComponent: () => JSX.Element = () => {
   return (
-    <div className='world-bar'>
+    <div className='varable-bar__world-bar'>
       // TODO: Search bar and city forecast.
     </div>
   );
@@ -243,7 +243,7 @@ const worldComponent: () => JSX.Element = () => {
 
 const mapComponent: () => JSX.Element = () => {
   return (
-    <div className='map-bar'>
+    <div className='varable-bar__map-bar'>
       // TODO Render a forecast map of the local area.
     </div>
   );
@@ -251,7 +251,7 @@ const mapComponent: () => JSX.Element = () => {
 
 const settingsComponent: () => JSX.Element = () => {
   return (
-    <div className='settings-bar'>
+    <div className='varable-bar__settings-bar'>
       // TODO: Buttons for Metric / Imperial + Default location.
     </div>
   );

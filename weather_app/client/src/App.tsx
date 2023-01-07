@@ -2,7 +2,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import './App.css';
 import {realtimeRequest, dailyRequest, hourlyRequest, settingsRequest} from './actions/actions';
 import {realtimeWeatherData, forecastDailyData, forecastHourlyData} from './types/dataTypings'
-import { useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faEarthAmericas, faLocationDot, faSliders, faHouse} from '@fortawesome/free-solid-svg-icons';
 function App() {
@@ -17,10 +17,10 @@ const [worldHighlighted, setWorldHighlighted] = useState(false);
 const [mapHighlighted, setMapHighlighted] = useState(false);
 const [settingsHighlighted, setSettingsHighlighted] = useState(false);
 
-
 useEffect(() => {
 
-  // dataFetch(); // !! Make sure to limit api calls.
+  // dataFetch(); // !! Make sure to limit api calls. 
+  // * two times per hour w/ two calls left over.
   
   const interval = setInterval(() => {
     const newTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
@@ -145,73 +145,78 @@ const handleNavbarClick: (pageClicked: string) => void = (pageClicked: string) =
 }
 
 
+type stateHooks = typeof settingsHighlighted | typeof homeHighlighted | typeof worldHighlighted | typeof mapHighlighted;
+
+const style = (stateHook: stateHooks) => {
+    return {backgroundColor: stateHook ? '#9baec8':'#d9e1e8'};
+}
+
+
+
 const navbarComponent = () => {
   return (
     <div className='navbar'>
-      <div className='navbar__pages'>
+      <div className='navbar__pages' style={style(homeHighlighted)}>
         <button 
           className='navbar__pages__button' 
           onClick={() => handleNavbarClick("home")}
-          style={{backgroundColor: homeHighlighted ? 'var(--main-darkGrey)' : 'var(--main-grey'}}
+          style={style(homeHighlighted)}
         >
-          <div className='navbar__pages__button__icon-div'>
-            <FontAwesomeIcon icon={faHouse} className='navbar__pages__button__icon-div__icon'/> 
+          <div className='navbar__pages__button__icon-div' style={style(homeHighlighted)}>
+            <FontAwesomeIcon icon={faHouse} className='navbar__pages__button__icon-div__icon' style={style(homeHighlighted)}/> 
           </div>
-          <div className='navbar__pages__button__text'>
+          <div className='navbar__pages__button__text' style={style(homeHighlighted)}>
             Home
           </div>
         </button>
     </div>
       <hr className='navbar__hr'/>
-
-      <div className='navbar__pages'>
+      <div className='navbar__pages'style={style(worldHighlighted)}>
         <button 
           className='navbar__pages__button' 
           onClick={() => handleNavbarClick("world")}
-          style={{backgroundColor: worldHighlighted ? 'var(--main-darkGrey)' : 'var(--main-grey'}}
+          style={style(worldHighlighted)}
         >
-          <div className='navbar__pages__button__icon-div'>
-            <FontAwesomeIcon icon={faEarthAmericas} className='navbar__pages__button__icon-div__icon'/> 
+          <div className='navbar__pages__button__icon-div' style={style(worldHighlighted)}>
+            <FontAwesomeIcon icon={faEarthAmericas} className='navbar__pages__button__icon-div__icon' style={style(worldHighlighted)}/> 
           </div>
-          <div className='navbar__pages__button__text'>
+          <div className='navbar__pages__button__text' style={style(worldHighlighted)}>
             World
           </div>
         </button>
       </div>
       <hr className='navbar__hr'/>
-      <div className='navbar__pages'>
+      <div className='navbar__pages'style={style(mapHighlighted)}>
         <button 
           className='navbar__pages__button' 
           onClick={() => handleNavbarClick("map")} 
-          style={{backgroundColor: mapHighlighted ? 'var(--main-darkGrey)' : 'var(--main-grey' }}
+          style={style(mapHighlighted)}
         >
-          <div className='navbar__pages__button__icon-div'>
-            <FontAwesomeIcon icon={faLocationDot} className='navbar__pages__button__icon-div__icon'/> 
+          <div className='navbar__pages__button__icon-div' style={style(mapHighlighted)}>
+            <FontAwesomeIcon icon={faLocationDot} className='navbar__pages__button__icon-div__icon'style={style(mapHighlighted)}/> 
           </div>
-          <div className='navbar__pages__button__text'>
+          <div className='navbar__pages__button__text' style={style(mapHighlighted)}>
             Map  
           </div>
         </button>
       </div>
-      <hr className='navbar__hr' style={{backgroundColor: 'var(--settings-color)'}}/>
-      <div className='navbar__pages' style={{backgroundColor: 'var(--settings-color)'}}>
+      <hr className='navbar__hr' style={style(settingsHighlighted)}/>
+      <div className='navbar__pages' style={style(settingsHighlighted)}>
         <button 
           className='navbar__pages__button' 
           onClick={() => handleNavbarClick("settings")}
-          style={{
-            backgroundColor: settingsHighlighted ? 
-            '--settings-color: grey' : '--settings-color: var(--main-grey)'}}
+          style={style(settingsHighlighted)}
         >
             <div className='navbar__pages__button__icon-div' 
-            style={{backgroundColor: 'var(--settings-color)'}}
+            style={style(settingsHighlighted)}
             >
               <FontAwesomeIcon icon={faSliders} 
               className='navbar__pages__button__icon-div__icon'
-              style={{backgroundColor: 'var(--settings-color)'}}
+              style={style(settingsHighlighted)}
               />
             </div>
             <div className='navbar__pages__button__text'
-            style={{backgroundColor: 'var(--settings-color)'}}
+            style={style(settingsHighlighted)}
             >
               Settings
             </div>
@@ -226,10 +231,8 @@ const navbarComponent = () => {
   return (
     <div className='App'>
       <div className='forecast-div'></div>
-      <div>
-        {navbarComponent()}
-      </div>
-        <div>{realtimeComponent()}</div>
+      <div>{navbarComponent()}</div>
+      <div>{realtimeComponent()}</div>
       <div>{hourForecastComponent()}</div>
     </div>
     

@@ -6,7 +6,7 @@
   --main-darkGrey: #9baec8;
   --main-grey: #d9e1e8;
   --main-blue: #2b90d9;
-  --main-blueGrey: #9baec8;
+  --main-blueGrey: #9baec8; /* !! Redundant variable*/
   --main-orange: #f5b183;
   --main-purple: #5c5a5e;
 
@@ -20,7 +20,7 @@
 
 
   --main-navbar-button: var(--main-orange);
-  
+
   --main-navbar-home: var(--main-orange);
   --main-navbar-world: var(--main-orange);
   --main-navbar-map: var(--main-orange);
@@ -79,13 +79,9 @@
 
 
 .navbar__pages {
-  background-color: var(--main-navbar-button);
   border-radius: 7px;
   height: 100px;
-  /* width: 125px; */
   margin: 12px;
-
-  
 
   font-size: 25px;
   display: flex;
@@ -93,10 +89,7 @@
 }
 
 
-
-
 .navbar__pages__button {
-  background-color: var(--main-navbar-button);
   border-radius: 7px;
   border: 0px;
   text-align: left;
@@ -106,34 +99,20 @@
   cursor: pointer;
 }
 
-.navbar__pages__button:focus {
-  background-color: black;
-}
-
-
-
 
 .navbar__pages__button__icon-div, .navbar__pages__button__text {
   text-align: center;
-  background-color: var(--main-navbar-button);
   border-radius: 7px;
 
 }
 
 
-
-
 .navbar__pages__button__icon-div {
-  
   font-size: 35px;
 }
 
-.navbar__pages__button__icon-div__icon {
-  background-color: var(--main-navbar-button);
-}
 
 .navbar__pages__button__text {
-  
   font-size: 25px;
 }
 

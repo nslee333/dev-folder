@@ -140,48 +140,53 @@
 
 .hour-forecast {
   position: absolute;
-
   width: 290px;
-  height: 475px;
-
+  height: 470px;
   top: 27.5px;
   left: 1000px;
-  /* padding-top: 3px; */
-  /* padding-bottom: 3px; */
-
-  /* border: 2px solid red; */
   background-color: var(--primary-div);
   border-radius: 10px;
-  /* padding-top: 5px; */
-  /* padding-bottom: 5px; */
 
-  /* margin: 0px; */
+  padding-top: 5px;
+  
 
 }
-
 .hour-div__hr {
   margin: 0px;
   border: 1px solid var(--main-darkGrey);
-  
+  position: relative;
+}
+
+.hour-forecast__div {
+  background-color: var(--main-grey);
+  position: relative;
+  top: 15px;
 }
 
 
+
 .hour-div__hours {
-  /* border: 2px solid red; */
-  padding-top: px;
-  padding-bottom: 5px;
   background-color: var(--main-hourly);
   color: var(--main-font);
   font-size: 30px;
-  /* text-align: center; */
-  /* justify-content: center; */
 
+  height: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 
-  /* margin-top: 9px; */
-  /* margin-bottom: 9px; */
+  text-align: center;
+
   border-radius: 7px;
+  /* border: 1px solid red; */
+}
 
-  height: 60px;
+.hour-div__hours__display {
+  position: relative;
+  background-color: var(--main-grey);
+  text-align: left;
+  width: 150px;
+  left: 75px;
+  /* border: 1px solid red; */
 }
 
 .variable {
@@ -189,7 +194,7 @@
   
   top: 525px;
   left: 200px;
-  
+
   height: 375px;
   width: 1090px;
   

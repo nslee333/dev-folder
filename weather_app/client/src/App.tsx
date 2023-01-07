@@ -104,18 +104,46 @@ const realtimeComponent = () => {
 const hourForecastComponent = () => { 
   return (
     <div className='hour-forecast'>
-        <div className='hour-div__hours'>{`8:00 72*`}</div>
-        <hr className='hour-div__hr'/>
-        <div className='hour-div__hours'>{`9:00 65*`}</div>
-        <hr className='hour-div__hr'/>
-        <div className='hour-div__hours'>{`10:00 55*`}</div>
-        <hr className='hour-div__hr'/>
-        <div className='hour-div__hours'>{`11:00 43* `}</div>
-        <hr className='hour-div__hr'/>
-        <div className='hour-div__hours'>{`12:00 32*`}</div>
-        <hr className='hour-div__hr'/>
-        <div className='hour-div__hours'>{`1:00 29*`}</div>
-  </div>
+      <div className='hour-forecast__div'>
+          <hr className='hour-div__hr'/>
+        <div className='hour-div__hours'>
+          <div className='hour-div__hours__display'>
+            {`8:00 72*`}
+          </div> 
+        </div>
+          <hr className='hour-div__hr'/>
+        <div className='hour-div__hours'>
+          <div className='hour-div__hours__display'>
+            {`9:00 65*`}
+          </div>
+        </div>
+          <hr className='hour-div__hr'/>
+        <div className='hour-div__hours'>
+          <div className='hour-div__hours__display'>
+          {`10:00 55*`}
+          </div>
+        </div>
+          <hr className='hour-div__hr'/>
+        <div className='hour-div__hours'>
+          <div className='hour-div__hours__display'>
+          {`11:00 43* `}
+          </div>
+        </div>
+          <hr className='hour-div__hr'/>
+        <div className='hour-div__hours'>
+          <div className='hour-div__hours__display'>
+          {`12:00 32*`}
+          </div>
+        </div>
+          <hr className='hour-div__hr'/>
+        <div className='hour-div__hours'>
+          <div className='hour-div__hours__display'>
+            {`1:00 32*`}
+          </div>
+        </div>
+          <hr className='hour-div__hr'/>
+      </div>
+    </div>
   );
 }
 

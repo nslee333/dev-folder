@@ -2,9 +2,10 @@ import { AxiosError, AxiosResponse } from 'axios';
 import './App.css';
 import {realtimeRequest, dailyRequest, hourlyRequest, settingsRequest} from './actions/actions';
 import {realtimeWeatherData, forecastDailyData, forecastHourlyData} from './types/dataTypings'
-import { CSSProperties, useEffect, useState } from 'react';
+import { RefObject, useEffect, useState, createRef, KeyboardEvent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faEarthAmericas, faLocationDot, faSliders, faHouse} from '@fortawesome/free-solid-svg-icons';
+
 function App() {
 
 const [realtime, setRealtime] = useState<realtimeWeatherData>();
@@ -17,8 +18,9 @@ const [worldHighlighted, setWorldHighlighted] = useState(false);
 const [mapHighlighted, setMapHighlighted] = useState(false);
 const [settingsHighlighted, setSettingsHighlighted] = useState(true);
 
-const [location, setLocation] = useState<number | string>(97702);
+const [location, setLocation] = useState(97702);
 const [metric, setMetric] = useState(false);
+const settingsLocationRef: RefObject<HTMLInputElement> = createRef();
 
 useEffect(() => {
 
@@ -74,14 +76,6 @@ const dataRequest: () => Promise<dataTuple| void> = async (): Promise<dataTuple 
      
     return returnArray;
   
-}
-
-
-const settingsUpdate = async (locationString: string, metricBool: boolean) => {
-  const response: AxiosResponse | AxiosError = await settingsRequest(locationString, metricBool);
-  if (response instanceof AxiosError) return console.error(response);
-  
-  console.log(response);
 }
 
 
@@ -252,20 +246,81 @@ const mapComponent: () => JSX.Element = () => {
   );
 }
 
+const settingsUpdate = async (locationString: string, metricBool: boolean) => {
+  const response: AxiosResponse | AxiosError = await settingsRequest(locationString, metricBool);
+  if (response instanceof AxiosError) return console.error(response);
+  
+  console.log(response);
+
+  // ! Separate settingsUpdate into two functions -> metric update + location update
+}
+
+
+const handleLocationInput = (event: KeyboardEvent<HTMLInputElement>) => {
+  console.log("location input success")
+
+  // * Custom types for string and number??
+
+  // ^ If string
+  // ^ AccuWeatherAPI Query requirements?
+  // ^ if bad string => return window alert => error & requirements.
+  // ^ if good string => call settingsUpdate.
+  // ^ success -> window alert success? 
+
+  // & If number:
+  // & number.length exactly 5 numbers.
+  // & if bad number => return window alert => error & requirements.
+
+
+  // ! setLocation(event);
+}
+
+const handleMetricButtonClick = () => {
+  console.log("metric button success.")
+  setMetric(!metric);
+}
+
+/* 
+  ^ Keydown Handler: Location input.
+  ^ Submits string => `handleLocationInput` on `Enter` keypress.
+  ^ Clears Ref after submission.
+*/ 
+const keyDownLocationHandler: (event: KeyboardEvent<HTMLInputElement>) => void = (event: KeyboardEvent<HTMLInputElement>) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+
+    handleLocationInput(event);
+
+    if (settingsLocationRef.current === null) {
+      return console.error("Settings Location Ref Error:", settingsLocationRef.current)
+    }
+
+    settingsLocationRef.current.value = "";
+  }
+}
+
+
+// TODO: Clean class names
 const settingsComponent: () => JSX.Element = () => {
   return (
     <div className='variable-bar__settings-bar'>
       <div className='variable-bar__settings-bar__location-div'>
         <div className='variable-bar__settings-bar__location-div__input-label'>Change Location</div>
         <div className='variable-bar__settings-bar__location-div__current-location'>Location: {location}</div>
-        {/* // TODO Success / Fail message on update.  */}
-        <input className='variable-bar__settings-bar__location-div__input' placeholder='City or ZIP Code'/>
+        
+        <input className='variable-bar__settings-bar__location-div__input' 
+        type='text'
+        onKeyDown={keyDownLocationHandler}
+        ref={settingsLocationRef}
+        placeholder='City or ZIP Code'
+
+        />
       </div> 
       <div className='variable-bar__settings-bar__metric-div'>
         <div className='variable-bar__settings-bar__metric-div__button-label'>Change Measurement System</div>
         <div className='variable-bar__settings-bar__metric-div__metric-current'>Current: {metric ? 'Metric' : 'Imperial'}</div>
-        <button className='variable-bar__settings-bar__metric-div__button' onClick={() => setMetric(!metric)}>{metric ? 'Imperial' : 'Metric'}</button>
-      </div>
+        <button className='variable-bar__settings-bar__metric-div__button' onClick={handleMetricButtonClick}>{metric ? 'Imperial' : 'Metric'}</button>
+      </div> 
     </div>
   );
 }

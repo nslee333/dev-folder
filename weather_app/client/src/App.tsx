@@ -17,6 +17,9 @@ const [worldHighlighted, setWorldHighlighted] = useState(false);
 const [mapHighlighted, setMapHighlighted] = useState(false);
 const [settingsHighlighted, setSettingsHighlighted] = useState(true);
 
+const [location, setLocation] = useState<number | string>(97702);
+const [metric, setMetric] = useState(false);
+
 useEffect(() => {
 
   // dataFetch(); // !! Make sure to limit api calls. 
@@ -92,7 +95,7 @@ const currentDate = date.toLocaleString('en-US', {
 
 const realtimeComponent = () => {
   return (
-    <div className='realtime-main'>
+    <div className='realtime-main'> // TODO: Change to div icons for better font weight.
       <h1 className='realtime-h1'>{realtime?.weatherIcon && realtime?.weatherDescription && realtime?.temperature || 'ICON 72* Cloudy'}</h1>  
       <h2 className='realtime-h1'>{time}</h2>
       <h2 className='realtime-h2'>{currentDate}</h2>
@@ -252,9 +255,17 @@ const mapComponent: () => JSX.Element = () => {
 const settingsComponent: () => JSX.Element = () => {
   return (
     <div className='variable-bar__settings-bar'>
-      // TODO: Buttons for Metric / Imperial + Default location.
-      <button className='variable-bar__settings-bar__metric-button'>Metric</button>
-      <input className=' variable-bar__settings-bar__location-input'/>
+      <div className='variable-bar__settings-bar__location-div'>
+        <div className='variable-bar__settings-bar__location-div__input-label'>Change Location</div>
+        <div className='variable-bar__settings-bar__location-div__current-location'>Location: {location}</div>
+        {/* // TODO Success / Fail message on update.  */}
+        <input className='variable-bar__settings-bar__location-div__input' placeholder='City or ZIP Code'/>
+      </div> 
+      <div className='variable-bar__settings-bar__metric-div'>
+        <div className='variable-bar__settings-bar__metric-div__button-label'>Change Measurement System</div>
+        <div className='variable-bar__settings-bar__metric-div__metric-current'>Current: {metric ? 'Metric' : 'Imperial'}</div>
+        <button className='variable-bar__settings-bar__metric-div__button' onClick={() => setMetric(!metric)}>{metric ? 'Imperial' : 'Metric'}</button>
+      </div>
     </div>
   );
 }

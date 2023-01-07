@@ -198,14 +198,103 @@
   background-color: var(--main-grey);
 }
 
-.variable-bar__settings-bar__metric-button {
+.variable-bar__settings-bar__metric-div {
   background-color: var(--main-grey);
-  position: absolute;
-  height: 25px;
-  width: 30px;
   
+  position: absolute;
+  margin-top: 30px;
+  margin-left: 30px;
+  top: 80px;
+
 }
 
-.variable-bar__settings-bar__location-input {
 
+.variable-bar__settings-bar__metric-div__button-label {
+  background-color: var(--main-grey);
+  position: absolute;
+  top: 50px;
+  width: 500px;
+  margin-top: 10px; 
+  margin-bottom: 10px;
+
+  font-size: 30px;
+}
+
+.variable-bar__settings-bar__metric-div__metric-current {
+  background-color: var(--main-grey);
+  position: absolute;
+  top: 100px;
+
+  width: 200px;
+
+  margin-top: 10px; 
+  margin-bottom: 10px;
+
+  font-size: 25px;
+}
+
+.variable-bar__settings-bar__metric-div__button {
+  background-color: #9baec8;
+  position: absolute;
+  /* background-color: var(--main-grey); */
+  width: 140px;
+  height: 40px;
+  
+  top: 150px;
+  
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+  font-size: 20px;
+  border-radius: 7px;
+  border: 0px;
+  padding: 0px;
+  
+  cursor: pointer;
+}
+.variable-bar__settings-bar__metric-div__button:active {
+  background-color: var(--main-grey);
+}
+
+.variable-bar__settings-bar__location-div {
+  width: 0px;
+  position: relative;
+  left: 30px;
+  top: 10px;
+}
+.variable-bar__settings-bar__location-div__input-label,
+.variable-bar__settings-bar__location-div__current-location,
+.variable-bar__settings-bar__location-div__input {
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+
+
+.variable-bar__settings-bar__location-div__input-label {
+  background-color: var(--main-grey);
+  font-size: 30px;
+  width: 350px;
+  
+  
+}
+.variable-bar__settings-bar__location-div__current-location {
+  background-color: var(--main-grey);
+  width: 300px;
+  font-size: 25px;
+}
+
+
+.variable-bar__settings-bar__location-div__input {
+  background-color: var(--main-grey);
+  position: absolute;
+  width: 250px;
+  height: 30px;
+
+  font-size: 20px;  
+  border: 0px;
+}
+
+.variable-bar__settings-bar__location-div__input:focus-visible {
+  outline: none;
 }

@@ -56,6 +56,8 @@ Use WeatherAPI.com's API.
     13. hourly + realtime requests - add weather icon numbers.
     14. Displaying data for realtime
     15. Build navbar component
+    16.  Make h1, h2 to be a semi-bold or light font-weight.
+    17.  Hour forecast component clean up.
 
 
 
@@ -77,8 +79,6 @@ Use WeatherAPI.com's API.
 [CurrentTasks]:
 - `Loading...` display while waiting?
 - Change the background color depending upon the time of day / weather?
-- hour forecast component clean up.
-- Make h1, h2 to be a semi-bold or light font-weight.
 - 
 
 

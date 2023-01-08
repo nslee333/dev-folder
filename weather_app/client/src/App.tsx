@@ -183,7 +183,6 @@ const style = (stateHook: stateHooks) => {
 }
 
 
-
 const navbarComponent = () => {
   return (
     <div className='navbar'>
@@ -257,6 +256,7 @@ const navbarComponent = () => {
     </div>
   );
 }
+
 
 const homeComponent: () => JSX.Element = () => {
   return (
@@ -368,6 +368,7 @@ const handleLocationInput = (event: KeyboardEvent<HTMLInputElement>) => {
   // ! setLocation(event);
 }
 
+
 const handleMetricButtonClick = () => {
   console.log("metric button success.")
   setMetric(!metric);
@@ -378,6 +379,7 @@ const handleMetricButtonClick = () => {
   ^ Submits string => `handleLocationInput` on `Enter` keypress.
   ^ Clears Ref after submission.
 */ 
+
 const keyDownLocationHandler: (event: KeyboardEvent<HTMLInputElement>) => void = (event: KeyboardEvent<HTMLInputElement>) => {
   // ^ Form validation in here? might be better
   if (event.key === 'Enter') {
@@ -392,6 +394,7 @@ const keyDownLocationHandler: (event: KeyboardEvent<HTMLInputElement>) => void =
     settingsLocationRef.current.value = "";
   }
 }
+
 
 // const zipCodeRegex: RegExp = /[0-9]{0,5}/;
 const regex = '^[a-z]+, (A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$i';

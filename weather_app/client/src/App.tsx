@@ -13,10 +13,10 @@ const [forecastDaily, setForecastDaily] = useState<forecastDailyData>();
 const [forecastHourly, setForecastHourly] = useState<forecastHourlyData>();
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
-const [homeHighlighted, setHomeHighlighted] = useState(false); //TODO Reset => TRUE
+const [homeHighlighted, setHomeHighlighted] = useState(true); //TODO Reset => TRUE
 const [worldHighlighted, setWorldHighlighted] = useState(false);
 const [mapHighlighted, setMapHighlighted] = useState(false);
-const [settingsHighlighted, setSettingsHighlighted] = useState(true);
+const [settingsHighlighted, setSettingsHighlighted] = useState(false);
 
 const [location, setLocation] = useState(97702);
 const [metric, setMetric] = useState(false);
@@ -261,7 +261,52 @@ const navbarComponent = () => {
 const homeComponent: () => JSX.Element = () => {
   return (
     <div className='variable__home'>
-      // TODO: Weekly Weather.
+        <div className='variable__home__page'>
+          <div className='variable__home__page__day'>Monday</div>
+          <div className='variable__home__page__day__conditions'>
+            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
+            <div className='variable__home__page__day__conditions__icon'>icon / night icon</div>
+            <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
+          </div>
+        </div>
+      <hr className='variable__home__hr'/>
+        <div className='variable__home__page'>
+          <div className='variable__home__page__day'>Tuesday</div>
+          <div className='variable__home__page__day__conditions'>
+            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
+            <div className='variable__home__page__day__conditions__icon'>icon / night icon</div>
+            <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
+          </div>
+          
+          
+        </div>
+      <hr className='variable__home__hr'/>
+        <div className='variable__home__page'>
+          <div className='variable__home__page__day'>Wednesday</div>
+          <div className='variable__home__page__day__conditions'>
+            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
+            <div className='variable__home__page__day__conditions__icon'>icon / night icon</div>
+            <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
+          </div>
+        </div>
+      <hr className='variable__home__hr'/>
+        <div className='variable__home__page'>
+          <div className='variable__home__page__day'>Thursday</div>
+          <div className='variable__home__page__day__conditions'>
+            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
+            <div className='variable__home__page__day__conditions__icon'>icon / night icon</div>
+            <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
+          </div>
+        </div>
+      <hr className='variable__home__hr'/>
+        <div className='variable__home__page'>
+          <div className='variable__home__page__day'>Friday</div>
+          <div className='variable__home__page__day__conditions'>
+            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
+            <div className='variable__home__page__day__conditions__icon'>icon / night icon</div>
+            <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
+          </div>
+        </div>
     </div>
   );
 }

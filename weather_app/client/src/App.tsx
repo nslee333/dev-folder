@@ -38,7 +38,6 @@ useEffect(() => {
 })
 
 
-
 type dataTuple = [realtimeWeatherData, forecastDailyData, forecastHourlyData];
 
 const dataFetch = async () => {
@@ -53,7 +52,6 @@ const dataFetch = async () => {
   setForecastHourly(hourly);
 
 }
-
 
 
 const dataRequest: () => Promise<dataTuple| void> = async (): Promise<dataTuple | void> => {
@@ -146,6 +144,7 @@ const hourForecastComponent = () => {
     </div>
   );
 }
+
 
 const handleNavbarClick: (pageClicked: string) => void = (pageClicked: string) => {
   if (pageClicked === 'home' && homeHighlighted === false) {

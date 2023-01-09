@@ -59,6 +59,7 @@ Use WeatherAPI.com's API.
     16.  Make h1, h2 to be a semi-bold or light font-weight.
     17.  Hour forecast component clean up.
     18.  Swap * with degree symbol
+    19.  Settings variable page done.
 
 
 

@@ -263,8 +263,8 @@ const homeComponent: () => JSX.Element = () => {
         <div className='variable__home__page'>
           <div className='variable__home__page__day'>Monday</div>
           <div className='variable__home__page__day__conditions'>
-            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
             <div className='variable__home__page__day__conditions__icon'>icon / icon</div>
+            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
             <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
           </div>
         </div>
@@ -272,8 +272,8 @@ const homeComponent: () => JSX.Element = () => {
         <div className='variable__home__page'>
           <div className='variable__home__page__day'>Tuesday</div>
           <div className='variable__home__page__day__conditions'>
-            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
             <div className='variable__home__page__day__conditions__icon'>icon / icon</div>
+            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
             <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
           </div>
           
@@ -283,8 +283,8 @@ const homeComponent: () => JSX.Element = () => {
         <div className='variable__home__page'>
           <div className='variable__home__page__day'>Wednesday</div>
           <div className='variable__home__page__day__conditions'>
-            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
             <div className='variable__home__page__day__conditions__icon'>icon / icon</div>
+            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
             <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
           </div>
         </div>
@@ -292,8 +292,8 @@ const homeComponent: () => JSX.Element = () => {
         <div className='variable__home__page'>
           <div className='variable__home__page__day'>Thursday</div> {/* //TODO consider swapping temp with icons vertically*/}
           <div className='variable__home__page__day__conditions'>
-            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
             <div className='variable__home__page__day__conditions__icon'>icon / night icon</div>
+            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
             <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
           </div>
         </div>
@@ -301,14 +301,15 @@ const homeComponent: () => JSX.Element = () => {
         <div className='variable__home__page'>
           <div className='variable__home__page__day'>Friday</div>
           <div className='variable__home__page__day__conditions'>
-            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
             <div className='variable__home__page__day__conditions__icon'>icon / icon</div>
+            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
             <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
           </div>
         </div>
     </div>
   );
 }
+
 
 const worldComponent: () => JSX.Element = () => {
   return (
@@ -317,6 +318,7 @@ const worldComponent: () => JSX.Element = () => {
     </div>
   );
 }
+
 
 const mapComponent: () => JSX.Element = () => {
   return (

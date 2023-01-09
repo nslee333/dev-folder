@@ -225,16 +225,17 @@
   display: inline-block;
   text-align: center;
 
+  position: relative;
   left: 15px;
   /* top: 32px; */
 
-  margin-left: 5px;
-  margin-right: 5px;
-  margin-bottom: 5px;
-  margin-top: 22.5px;
+  /* margin-left: 5px; */
+  /* margin-right: 5px; */
+  /* margin-bottom: 5px; */
+  margin-top: 20px;
   width: 160px;
   height: 290px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 
   padding: 10px;
 
@@ -243,39 +244,49 @@
 .variable__home__page__day {
   background-color: var(--main-grey);
   position: absolute;
-  /* text-align: center; */
-  /* border: 1pxw solid red; */
   /* margin: 5px; */
   /* margin-left: 35px; */
-  /* margin-right: px; */
 
   width: 80px;
-  height: 20px;
   
 
 }
 .variable__home__page__day__conditions {
-  border: 2px solid red;
+  border: 2px solid var(--main-darkGrey);
   text-align: left;
   margin: 10px;  
+  height: 250px;
   background-color: var(--main-grey);
 }
 .variable__home__page__day__conditions__temperature {
-  border: 2px solid red;
+  /* border: 2px solid var(--main-darkGrey); */
   text-align: left;
-  margin: 10px;
+  /* margin: 10px; */
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
   background-color: var(--main-grey);
 }
 .variable__home__page__day__conditions__icon {
-  border: 2px solid red;
   text-align: left;
-  margin: 10px;
+  /* margin: 10px; */
+  /* font-size: 18px; */
+  /* margin-top: 20px; */
+  /* margin-bottom: 20px; */
+  /* margin-right: 10px; */
+  margin-left: 10px;
   background-color: var(--main-grey);
 }
 .variable__home__page__day__conditions__description {
-  border: 2px solid red;
   text-align: left;
-  margin: 10px;
+  /* margin: 10px; */
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
   background-color: var(--main-grey);
 }
 

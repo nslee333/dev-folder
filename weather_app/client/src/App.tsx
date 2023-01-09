@@ -264,7 +264,7 @@ const homeComponent: () => JSX.Element = () => {
           <div className='variable__home__page__day'>Monday</div>
           <div className='variable__home__page__day__conditions'>
             <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
-            <div className='variable__home__page__day__conditions__icon'>icon / night icon</div>
+            <div className='variable__home__page__day__conditions__icon'>icon / icon</div>
             <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
           </div>
         </div>
@@ -273,7 +273,7 @@ const homeComponent: () => JSX.Element = () => {
           <div className='variable__home__page__day'>Tuesday</div>
           <div className='variable__home__page__day__conditions'>
             <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
-            <div className='variable__home__page__day__conditions__icon'>icon / night icon</div>
+            <div className='variable__home__page__day__conditions__icon'>icon / icon</div>
             <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
           </div>
           
@@ -284,13 +284,13 @@ const homeComponent: () => JSX.Element = () => {
           <div className='variable__home__page__day'>Wednesday</div>
           <div className='variable__home__page__day__conditions'>
             <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
-            <div className='variable__home__page__day__conditions__icon'>icon / night icon</div>
+            <div className='variable__home__page__day__conditions__icon'>icon / icon</div>
             <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
           </div>
         </div>
       <hr className='variable__home__hr'/>
         <div className='variable__home__page'>
-          <div className='variable__home__page__day'>Thursday</div>
+          <div className='variable__home__page__day'>Thursday</div> {/* //TODO consider swapping temp with icons*/}
           <div className='variable__home__page__day__conditions'>
             <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
             <div className='variable__home__page__day__conditions__icon'>icon / night icon</div>
@@ -302,7 +302,7 @@ const homeComponent: () => JSX.Element = () => {
           <div className='variable__home__page__day'>Friday</div>
           <div className='variable__home__page__day__conditions'>
             <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
-            <div className='variable__home__page__day__conditions__icon'>icon / night icon</div>
+            <div className='variable__home__page__day__conditions__icon'>icon / icon</div>
             <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
           </div>
         </div>
@@ -337,34 +337,25 @@ const settingsUpdate = async (locationString: string, metricBool: boolean) => {
 
 
 const handleLocationInput = (event: KeyboardEvent<HTMLInputElement>) => {
-  console.log("location input success")
-
   const target = event.target as HTMLInputElement;
 
   const stringValue: string = target.value;
 
-  const inputNumber = (!isNaN(parseInt(stringValue)));
+  const inputIsNumber: boolean = (!isNaN(parseInt(stringValue)));
 
-  if (!isNaN(parseInt(stringValue))) {
+  if (inputIsNumber) {
     if (stringValue.length < 5) return window.alert("Zip code is too short.");
     if (stringValue.length > 5) return window.alert("Zip code is too long."); 
 
   } else {
-    // & string query case
+    const stringQueryRegex = /([a-zA-Z]+), (A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$/i;
+     const regexResult = stringValue.match(stringQueryRegex);
+     if (regexResult) {
+      // TODO: Call update query.
+     } else {
+        return window.alert("Query must match the following pattern: `Bend, or` or `Bend, OR`")
+     }
   }
-
-  // ^ If string
-  // ^ AccuWeatherAPI Query requirements?
-  // ^ if bad string => return window alert => error & requirements.
-  // ^ if good string => call settingsUpdate. "city, state"
-  // ^ success -> window alert success? 
-
-  // & If number:
-  // & number.length exactly 5 numbers.
-  // & if bad number => return window alert => error & requirements.
-
-
-  // ! setLocation(event);
 }
 
 
@@ -395,9 +386,6 @@ const keyDownLocationHandler: (event: KeyboardEvent<HTMLInputElement>) => void =
 }
 
 
-// const zipCodeRegex: RegExp = /[0-9]{0,5}/;
-const regex = '^[a-z]+, (A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$i';
-// TODO: Properly implement form validation.
 
 const settingsComponent: () => JSX.Element = () => {
   return (
@@ -412,7 +400,6 @@ const settingsComponent: () => JSX.Element = () => {
           onKeyDown={keyDownLocationHandler}
           ref={settingsLocationRef}
           placeholder='City or ZIP Code'
-          pattern='^[a-z]+, (A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$i' //TODO Data validation with regular expression.
         />
         </form>
       </div>  

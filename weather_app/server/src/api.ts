@@ -14,6 +14,23 @@ let locationKey: string = '335268';
 let metricBool: boolean = false;
 
 
+// TODO: Implement a freeze on all request functions.
+
+// TODO: Implement a middleware that sustains data for fetching.
+
+// TODO: Implement cooldown()
+
+
+
+
+const functionFreeze: boolean = true;
+
+function cooldown() {
+
+}
+
+
+
 export const updateMetric: (metricBoolean: boolean) => void = (metricBoolean : boolean) => {
     metricBool = metricBoolean;
 }
@@ -25,22 +42,27 @@ export const updateQueryParams: (newQueryParams: string | number) => void = (new
 }
 
 const getLocationKey = async () => {
-    const result = await axios.get(baseURL + citySearchURL, {
-        params: {
-            apikey: process.env.API_KEY,
-            q: locationQuery,
-        }
-    })
-    .then(function (response: AxiosResponse) {
-        return response;
-    })
-    .catch(function (error: AxiosError) {
-        return error;
-    })
+    if (functionFreeze === true) {
+        return new Error("Cooldown in effect.") 
 
-    if (result instanceof AxiosError) return result;
+    } else {
+        const result = await axios.get(baseURL + citySearchURL, {
+            params: {
+                apikey: process.env.API_KEY,
+                q: locationQuery,
+            }
+        })
+        .then(function (response: AxiosResponse) {
+            return response;
+        })
+        .catch(function (error: AxiosError) {
+            return error;
+        })
     
-    locationKey = result.data.Key;
+        if (result instanceof AxiosError) return result;
+        
+        locationKey = result.data.Key;
+    }
 }
 
 

@@ -35,7 +35,7 @@ useEffect(() => {
 
   return () => clearInterval(interval);
   
-})
+}, [])
 
 
 type dataTuple = [realtimeWeatherData, forecastDailyData, forecastHourlyData];
@@ -91,7 +91,7 @@ const currentDate = date.toLocaleString('en-US', {
 const realtimeComponent = () => {
   return (
     <div className='realtime-main'>
-      <div className='realtime-div1'>{realtime?.weatherIcon && realtime?.weatherDescription && realtime?.temperature || 'ICON 72° Cloudy'}</div>  
+      <div className='realtime-div1'>{realtime?.weatherIcon && realtime?.weatherDescription && realtime?.temperature + '°' || 'ICON 72° Cloudy'}</div>  
       <div className='realtime-div2'>{time}</div>
       <div className='realtime-div2'>{currentDate}</div>
     </div>
@@ -178,7 +178,7 @@ const handleNavbarClick: (pageClicked: string) => void = (pageClicked: string) =
 type stateHooks = typeof settingsHighlighted | typeof homeHighlighted | typeof worldHighlighted | typeof mapHighlighted;
 
 const style = (stateHook: stateHooks) => {
-    return {backgroundColor: stateHook ? '#9baec8':'#d9e1e8'};
+    return {backgroundColor: stateHook ? '#9baec8' : '#d9e1e8'};
 }
 
 

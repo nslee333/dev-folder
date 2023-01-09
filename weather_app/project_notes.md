@@ -58,6 +58,7 @@ Use WeatherAPI.com's API.
     15. Build navbar component
     16.  Make h1, h2 to be a semi-bold or light font-weight.
     17.  Hour forecast component clean up.
+    18.  Swap * with degree symbol
 
 
 
@@ -73,7 +74,6 @@ Use WeatherAPI.com's API.
     - Web security analysis
     - Add a button for night mode.
     - Hour forecast hr bars
-    - Swap * with degree symbol
 
 
 

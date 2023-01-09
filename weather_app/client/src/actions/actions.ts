@@ -41,12 +41,23 @@ export const hourlyRequest: () => Promise<AxiosResponse | AxiosError> = async ()
     return result;
 }
 
-export const settingsRequest: (location: string, metricBool: boolean) => Promise<AxiosResponse | AxiosError> = async (location: string, metricBool: boolean) => {
-    const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'settings', {
-        params: {
-            locationQuery: location,
+export const metricUpdate: (metricBool: boolean) => Promise<AxiosResponse | AxiosError> = async (metricBool: boolean) => {
+    const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'settings/metric', {
             metric: metricBool
-        }
+    })
+    .then(function (response: AxiosResponse) {
+        return response;
+    })
+    .catch(function (error: AxiosError) {
+        return error;
+    });
+
+    return result;
+}
+
+export const locationUpdate: (location: string) => Promise<AxiosResponse | AxiosError> = async (location: string) => {
+    const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'settings/location', {
+        locationQuery: location
     })
     .then(function (response: AxiosResponse) {
         return response;

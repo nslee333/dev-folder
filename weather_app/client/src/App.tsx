@@ -1,8 +1,8 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import './App.css';
-import {realtimeRequest, dailyRequest, hourlyRequest, settingsRequest} from './actions/actions';
+import {realtimeRequest, dailyRequest, hourlyRequest, metricUpdate, locationUpdate} from './actions/actions';
 import {realtimeWeatherData, forecastDailyData, forecastHourlyData} from './types/dataTypings'
-import { RefObject, useEffect, useState, createRef, KeyboardEvent } from 'react';
+import { RefObject, useEffect, useState, createRef, KeyboardEvent, Key } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faEarthAmericas, faLocationDot, faSliders, faHouse} from '@fortawesome/free-solid-svg-icons';
 
@@ -18,7 +18,7 @@ const [worldHighlighted, setWorldHighlighted] = useState(false);
 const [mapHighlighted, setMapHighlighted] = useState(false);
 const [settingsHighlighted, setSettingsHighlighted] = useState(false);
 
-const [location, setLocation] = useState(97702);
+const [location, setLocation] = useState("97702");
 const [metric, setMetric] = useState(false);
 const settingsLocationRef: RefObject<HTMLInputElement> = createRef();
 
@@ -91,7 +91,7 @@ const currentDate = date.toLocaleString('en-US', {
 const realtimeComponent = () => {
   return (
     <div className='realtime-main'>
-      <div className='realtime-div1'>{realtime?.weatherIcon && realtime?.weatherDescription && realtime?.temperature || 'ICON 72* Cloudy'}</div>  
+      <div className='realtime-div1'>{realtime?.weatherIcon && realtime?.weatherDescription && realtime?.temperature || 'ICON 72° Cloudy'}</div>  
       <div className='realtime-div2'>{time}</div>
       <div className='realtime-div2'>{currentDate}</div>
     </div>
@@ -106,37 +106,37 @@ const hourForecastComponent = () => {
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-            {`8:00 72*`}
+            {`8:00 72°`}
           </div> 
         </div>
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-            {`9:00 65*`}
+            {`9:00 65°`}
           </div>
         </div>
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-          {`10:00 55*`}
+          {`10:00 55°`}
           </div>
         </div>
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-          {`11:00 43* `}
+          {`11:00 43° `}
           </div>
         </div>
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-          {`12:00 32*`}
+          {`12:00 32°`}
           </div>
         </div>
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-            {`1:00 32*`}
+            {`1:00 32°`}
           </div>
         </div>
           <hr className='hour-div__hr'/>
@@ -290,7 +290,7 @@ const homeComponent: () => JSX.Element = () => {
         </div>
       <hr className='variable__home__hr'/>
         <div className='variable__home__page'>
-          <div className='variable__home__page__day'>Thursday</div> {/* //TODO consider swapping temp with icons*/}
+          <div className='variable__home__page__day'>Thursday</div> {/* //TODO consider swapping temp with icons vertically*/}
           <div className='variable__home__page__day__conditions'>
             <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
             <div className='variable__home__page__day__conditions__icon'>icon / night icon</div>
@@ -326,17 +326,17 @@ const mapComponent: () => JSX.Element = () => {
   );
 }
 
-const settingsUpdate = async (locationString: string, metricBool: boolean) => {
-  const response: AxiosResponse | AxiosError = await settingsRequest(locationString, metricBool);
+
+const locationUpdateRequest = async (locationQuery: string) => {
+  const response: AxiosResponse | AxiosError = await locationUpdate(locationQuery);
   if (response instanceof AxiosError) return console.error(response);
   
-  console.log(response);
-
-  // ! Separate settingsUpdate into two functions -> metric update + location update
+  setLocation(locationQuery);
+  return response;
 }
 
 
-const handleLocationInput = (event: KeyboardEvent<HTMLInputElement>) => {
+const handleLocationInput: (event: KeyboardEvent<HTMLInputElement>) => void = (event: KeyboardEvent<HTMLInputElement>) => {
   const target = event.target as HTMLInputElement;
 
   const stringValue: string = target.value;
@@ -345,23 +345,35 @@ const handleLocationInput = (event: KeyboardEvent<HTMLInputElement>) => {
 
   if (inputIsNumber) {
     if (stringValue.length < 5) return window.alert("Zip code is too short.");
-    if (stringValue.length > 5) return window.alert("Zip code is too long."); 
+    if (stringValue.length > 5) return window.alert("Zip code is too long.");
+
+    const result = locationUpdateRequest(stringValue);
+    if (result instanceof AxiosError) return window.alert("Location update error, please try again."); 
+    window.alert("Default location successfully updated.");
 
   } else {
     const stringQueryRegex = /([a-zA-Z]+), (A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$/i;
-     const regexResult = stringValue.match(stringQueryRegex);
-     if (regexResult) {
-      // TODO: Call update query.
-     } else {
-        return window.alert("Query must match the following pattern: `Bend, or` or `Bend, OR`")
-     }
+    
+    const regexResult = stringValue.match(stringQueryRegex);
+
+    if (regexResult === null) return window.alert("Query must match the following pattern: `Bend, or` or `Bend, OR`");
+
+     const result = locationUpdateRequest(stringValue);
+     if (result instanceof AxiosError) return window.alert("Location update error, please try again.");
+     window.alert("Default location successfully updated.");
   }
 }
 
-
-const handleMetricButtonClick = () => {
-  console.log("metric button success.")
+const metricUpdateRequest = async (metricBool: boolean) => {
+  const response: AxiosResponse | AxiosError = await metricUpdate(metricBool);
+  if (response instanceof AxiosError) return (console.error(response), window.alert("Measurement system update error, please try again."));
+  window.alert("Measurement system successfully updated.")
   setMetric(!metric);
+}
+
+
+const handleMetricButtonClick: () => void = () => {
+  metricUpdateRequest(!metric);
 }
 
 /* 
@@ -371,7 +383,6 @@ const handleMetricButtonClick = () => {
 */ 
 
 const keyDownLocationHandler: (event: KeyboardEvent<HTMLInputElement>) => void = (event: KeyboardEvent<HTMLInputElement>) => {
-  // ^ Form validation in here? might be better
   if (event.key === 'Enter') {
     event.preventDefault();
 

@@ -13,7 +13,7 @@ import { AxiosError } from 'axios';
 
 const app = express();
 const port = 1300;
-app.use(cors())
+app.use(express.json(), cors(), express.urlencoded({extended:true}));
 
 
 app.get('/api/realtime', async (request: Request, response: Response) => {
@@ -48,19 +48,27 @@ app.get('/api/hourlyForecast', async (request: Request, response: Response) => {
     }
 });
 
-app.post('/api/settings', async (request: Request, response: Response) => {
-    const locationQuery = request.query.locationQuery;
-    const metric = request.query.metric;
+app.post('/api/settings/metric/', async (request: Request, response: Response) => {
+    const metric = request.body.metric;
 
-    if (typeof metric === 'string') {
-        updateMetric(!!metric)
+    if (typeof metric === 'boolean') {
+        updateMetric(!!metric);
+        return response.status(200).send("Measurement system updated.");
+    } else {
+        return response.status(400).send("Bad request. Must include a metric query.")
     }
+})
+
+
+app.post('/api/settings/location', async (request: Request, response: Response) => {
+    const locationQuery = request.body.locationQuery;
     
     if (typeof locationQuery === 'string' || typeof locationQuery === 'number') {
         updateQueryParams(locationQuery);
+        return response.status(200).send("Default location updated.");
+    } else {
+        return response.status(400).send("Bad request. LocationQuery must be present and be type of either number or string.")
     }
-
-    return response.status(200).send("Settings updated.");
 });
 
 

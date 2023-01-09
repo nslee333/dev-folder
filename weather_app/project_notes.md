@@ -72,6 +72,7 @@ Use WeatherAPI.com's API.
     - Performance testing.
     - Web security analysis
     - Add a button for night mode.
+    - Hour forecast hr bars
     - 
 
 
@@ -84,6 +85,7 @@ Use WeatherAPI.com's API.
 
 [Working]:
 // 503 Error, is it coming from effect, or my backend application...
+finish up data validation for settings
 
 
 
@@ -93,6 +95,7 @@ AK,AZ,AR,CA,CO,CT,DE,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV
 
 
 
+<input type="text" pattern='/^[a-z]+, (A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$/i'>
 
 
 

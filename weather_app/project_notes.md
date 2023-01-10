@@ -80,6 +80,7 @@ Use WeatherAPI.com's API.
     - Web security analysis
     - Add a button for night mode.
     - Hour forecast hr bars
+    - Initial location request upon page start => update settings.
 
 
 
@@ -90,7 +91,6 @@ Use WeatherAPI.com's API.
 
 
 [Working]:
-- 503 Error, is it coming from effect, or my backend application...
 
 
 

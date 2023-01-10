@@ -63,6 +63,8 @@ Use WeatherAPI.com's API.
     20. Implement a freeze on all request functions.
     21. Implement a way to save copies of data automatically.
     22. Implement cooldown().
+    23. Fixed 503 Error, is it coming from effect, or my backend application...
+        1.  Implemented a cooldown to make sure I don't call the api too often.
 
 
 
@@ -88,8 +90,7 @@ Use WeatherAPI.com's API.
 
 
 [Working]:
-// 503 Error, is it coming from effect, or my backend application...
-finish up data validation for settings
+- 503 Error, is it coming from effect, or my backend application...
 
 
 

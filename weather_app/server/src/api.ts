@@ -17,7 +17,7 @@ let cooldownEndTime: number = 0;
 
 
 function startCooldown(): void {
-    cooldownEndTime = Date.now() + 1200000; // 20 minutes
+    cooldownEndTime = Date.now() + 3600000; // 20 minutes
 }
 
 // TODO: Increase cooldown time?

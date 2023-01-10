@@ -9,8 +9,8 @@ import {faEarthAmericas, faLocationDot, faSliders, faHouse} from '@fortawesome/f
 function App() {
 
 const [realtime, setRealtime] = useState<realtimeWeatherData>();
-const [forecastDaily, setForecastDaily] = useState<forecastDailyData>();
-const [forecastHourly, setForecastHourly] = useState<forecastHourlyData>();
+const [forecastDaily, setForecastDaily] = useState<forecastDailyData[]>([]);
+const [forecastHourly, setForecastHourly] = useState<forecastHourlyData[]>([]);
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
 const [homeHighlighted, setHomeHighlighted] = useState(true); //TODO Reset => TRUE
@@ -26,7 +26,7 @@ useEffect(() => {
 
   // dataFetch(); // !! Make sure to limit api calls. 
   // * two times per hour w/ two calls left over.
-  
+  // dataFetch();
   
   const interval = setInterval(() => {
     const newTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
@@ -38,18 +38,25 @@ useEffect(() => {
 }, [])
 
 
-type dataTuple = [realtimeWeatherData, forecastDailyData, forecastHourlyData];
+useEffect(() => {
+  dataFetch();
+}, [])
+
+
+type dataTuple = [realtimeWeatherData, forecastDailyData[], forecastHourlyData[]];
 
 const dataFetch = async () => {
 
   const apiData: dataTuple | void = await dataRequest();
-  if (apiData === undefined || apiData === null) return console.error("Realtime Data undefined.");
+  if (typeof apiData === 'undefined' || apiData === null) return console.error("Realtime Data undefined.");
 
   const [realtime, daily, hourly] = apiData; // JS array destructuring
 
   setRealtime(realtime);
   setForecastDaily(daily);
   setForecastHourly(hourly);
+  // console.log(realtime)
+  // console.log(hourly)
 
 }
 
@@ -64,12 +71,12 @@ const dataRequest: () => Promise<dataTuple| void> = async (): Promise<dataTuple 
     
     const responseDaily = await dailyRequest();
     if (responseDaily instanceof AxiosError) return console.error(responseDaily);
-    const dailyResult: forecastDailyData = responseDaily.data;
+    const dailyResult: forecastDailyData[] = responseDaily.data;
     
     
     const responseHourly = await hourlyRequest();
     if (responseHourly instanceof AxiosError) return console.error(responseHourly);
-    const hourlyResult: forecastHourlyData = responseHourly.data; 
+    const hourlyResult: forecastHourlyData[] = responseHourly.data; 
     // TODO: Need the data shape to type effectively.
 
 
@@ -78,7 +85,6 @@ const dataRequest: () => Promise<dataTuple| void> = async (): Promise<dataTuple 
     return returnArray;
   
 }
-// dataFetch(); // ! Don't use dataFetch inside useEffect??
 
 const date = new Date();
 const currentDate = date.toLocaleString('en-US', {
@@ -99,6 +105,21 @@ const realtimeComponent = () => {
 }
 
 
+
+
+const hourlyData = () => {
+   const hour = ((new Date(forecastHourly[0].timeEpoch * 1000)).getHours()) - 12;
+
+   console.log(hour);
+  
+}
+
+// hourlyData();
+
+
+
+
+
 const hourForecastComponent = () => { 
   return (
     <div className='hour-forecast'>
@@ -106,7 +127,9 @@ const hourForecastComponent = () => {
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-            {`8:00 72°`}
+            {/* {(new Date(forecastHourly[0].timeEpoch * 1000)).getHours()} */}
+            {forecastHourly[0]?.temperature + "° "}
+            {forecastHourly[0]?.iconPhrase}
           </div> 
         </div>
           <hr className='hour-div__hr'/>

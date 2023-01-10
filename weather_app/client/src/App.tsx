@@ -40,6 +40,7 @@ useEffect(() => {
 
 useEffect(() => {
   dataFetch();
+
 }, [])
 
 
@@ -107,15 +108,30 @@ const realtimeComponent = () => {
 
 
 
-const hourlyData = () => {
-   const hour = ((new Date(forecastHourly[0].timeEpoch * 1000)).getHours()) - 12;
+const hourlyData = (forecastHour: forecastHourlyData) => {
+  if (forecastHour !== undefined) {
+    const date = new Date(forecastHour.timeEpoch * 1000)
+    const hour = date.getHours();
+  
+    if (hour === 0) {
+      return `${hour}:00am`
+    }else if (hour < 12) { // TODO: Stopped at 0:00 not converting to 12:00am.
+      return `${hour}:00am`
+    } else if (hour === 12) {
+      return `${hour}:00pm`
+    } else if (hour > 12) {
+      const stdHour = hour - 12;
+      return `${stdHour}:00pm`
+    } 
 
-   console.log(hour);
+  }
+
+  
   
 }
 
-// hourlyData();
-
+// console.log(hourlyData(forecastHourly[0].timeEpoch))
+// console.log(forecastHourly[0].timeEpoch)
 
 
 
@@ -127,7 +143,7 @@ const hourForecastComponent = () => {
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-            {/* {(new Date(forecastHourly[0].timeEpoch * 1000)).getHours()} */}
+            {hourlyData(forecastHourly[0])}
             {forecastHourly[0]?.temperature + "° "}
             {forecastHourly[0]?.iconPhrase}
           </div> 
@@ -135,31 +151,41 @@ const hourForecastComponent = () => {
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-            {`9:00 65°`}
+            {hourlyData(forecastHourly[1])}
+            {forecastHourly[1]?.temperature + "° "}
+            {forecastHourly[1]?.iconPhrase}
           </div>
         </div>
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-          {`10:00 55°`}
+            {hourlyData(forecastHourly[2])}
+            {forecastHourly[2]?.temperature + "° "}
+            {forecastHourly[2]?.iconPhrase}
           </div>
         </div>
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-          {`11:00 43° `}
+            {hourlyData(forecastHourly[3])}
+            {forecastHourly[3]?.temperature + "° "}
+            {forecastHourly[3]?.iconPhrase}
           </div>
         </div>
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-          {`12:00 32°`}
+            {hourlyData(forecastHourly[4])}
+            {forecastHourly[4]?.temperature + "° "}
+            {forecastHourly[4]?.iconPhrase}
           </div>
         </div>
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-            {`1:00 32°`}
+            {hourlyData(forecastHourly[5])}
+            {forecastHourly[5]?.temperature + "° "}
+            {forecastHourly[5]?.iconPhrase}
           </div>
         </div>
           <hr className='hour-div__hr'/>

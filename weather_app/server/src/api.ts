@@ -20,6 +20,10 @@ function startCooldown(): void {
     cooldownEndTime = Date.now() + 1200000; // 20 minutes
 }
 
+// TODO: Increase cooldown time?
+
+// TODO: Maybe more than just a cooldown? Like fetch once, and only if certain parameters are met?
+
 
 export const updateMetric: (metricBoolean: boolean) => void = (metricBoolean : boolean) => {
     metricBool = metricBoolean;
@@ -72,39 +76,39 @@ const currentRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
 
 // Forecast axios request
 const forecastRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
-        const result = await axios.get(baseURL + forecastURL + locationKey, {
-            params: {
-                apikey: process.env.API_KEY,
-                metric: metricBool
-            }
-        })
-        .then(function (response: AxiosResponse) {
-            return response;
-        })
-        .catch(function (error: AxiosError) {
-            return error;
-        });
-        
-        return result;
+    const result = await axios.get(baseURL + forecastURL + locationKey, {
+        params: {
+            apikey: process.env.API_KEY,
+            metric: metricBool
+        }
+    })
+    .then(function (response: AxiosResponse) {
+        return response;
+    })
+    .catch(function (error: AxiosError) {
+        return error;
+    });
+    
+    return result;
 }
 
 
 const hourlyRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
-        const result = await axios.get(baseURL + hourlyForecastURL + locationKey, {
-            params: {
-                apikey: process.env.API_KEY,
-                metric: metricBool,
-            }
-        })
-        .then(function (response) {
-            return response;
-        })
-        .catch(function (error) {
-            return error;
-        })
+    const result = await axios.get(baseURL + hourlyForecastURL + locationKey, {
+        params: {
+            apikey: process.env.API_KEY,
+            metric: metricBool,
+        }
+    })
+    .then(function (response) {
+        return response;
+    })
+    .catch(function (error) {
+        return error;
+    })
 
-        startCooldown();
-        return result;
+    startCooldown();
+    return result;
 }
 
 

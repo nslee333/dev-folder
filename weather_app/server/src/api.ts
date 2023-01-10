@@ -13,25 +13,12 @@ let locationQuery: string | number = 97702;
 let locationKey: string = '335268';
 let metricBool: boolean = false;
 
-
-// TODO: Implement a freeze on all request functions.
-
-// TODO: Implement a middleware that sustains data for fetching.
-
-// TODO: Implement cooldown()
+let cooldownEndTime: number = 0;
 
 
-
-
-
-
-
-const functionFreeze: boolean = true;
-
-function cooldown() {
-
+function startCooldown(): void {
+    cooldownEndTime = Date.now() + 1200000; // 20 minutes
 }
-
 
 
 export const updateMetric: (metricBoolean: boolean) => void = (metricBoolean : boolean) => {
@@ -42,30 +29,27 @@ export const updateMetric: (metricBoolean: boolean) => void = (metricBoolean : b
 export const updateQueryParams: (newQueryParams: string | number) => void = (newQueryParams: string | number) => {
     locationQuery = newQueryParams; 
     getLocationKey();
+   
 }
 
-const getLocationKey = async () => {
-    if (functionFreeze === true) {
-        return new Error("Cooldown in effect.") 
 
-    } else {
-        const result = await axios.get(baseURL + citySearchURL, {
-            params: {
-                apikey: process.env.API_KEY,
-                q: locationQuery,
-            }
-        })
-        .then(function (response: AxiosResponse) {
-            return response;
-        })
-        .catch(function (error: AxiosError) {
-            return error;
-        })
+const getLocationKey: () => Promise<AxiosError | void> = async () => {
+    const result = await axios.get(baseURL + citySearchURL, {
+        params: {
+            apikey: process.env.API_KEY,
+            q: locationQuery,
+        }
+    })
+    .then(function (response: AxiosResponse) {
+        return response;
+    })
+    .catch(function (error: AxiosError) {
+        return error;
+    })
+
+    if (result instanceof AxiosError) return result;
     
-        if (result instanceof AxiosError) return result;
-        
-        locationKey = result.data.Key;
-    }
+    locationKey = result.data.Key;
 }
 
 
@@ -82,44 +66,63 @@ const currentRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
     .catch(function (error: AxiosError) {
         return error;
     })
-
+    
     return result;
 }
 
 // Forecast axios request
 const forecastRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
-    const result = await axios.get(baseURL + forecastURL + locationKey, {
-        params: {
-            apikey: process.env.API_KEY,
-            metric: metricBool
-        }
-    })
-    .then(function (response: AxiosResponse) {
-        return response;
-    })
-    .catch(function (error: AxiosError) {
-        return error;
-    });
-
-    return result;
+        const result = await axios.get(baseURL + forecastURL + locationKey, {
+            params: {
+                apikey: process.env.API_KEY,
+                metric: metricBool
+            }
+        })
+        .then(function (response: AxiosResponse) {
+            return response;
+        })
+        .catch(function (error: AxiosError) {
+            return error;
+        });
+        
+        return result;
 }
 
 
 const hourlyRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
-    const result = await axios.get(baseURL + hourlyForecastURL + locationKey, {
-        params: {
-            apikey: process.env.API_KEY,
-            metric: metricBool,
-        }
-    })
-    .then(function (response) {
-        return response;
-    })
-    .catch(function (error) {
-        return error;
-    })
+        const result = await axios.get(baseURL + hourlyForecastURL + locationKey, {
+            params: {
+                apikey: process.env.API_KEY,
+                metric: metricBool,
+            }
+        })
+        .then(function (response) {
+            return response;
+        })
+        .catch(function (error) {
+            return error;
+        })
 
-    return result;
+        startCooldown();
+        return result;
+}
+
+
+const checkCoolDown: (weatherForecastType: string) => void | realtimeWeatherData | forecastDailyData[] | forecastHourlyData[]  = (weatherForecastType: string) => {
+    if (cooldownEndTime < Date.now()) {
+        return;
+    } else {
+
+        if (weatherForecastType === 'realtime' ) {
+            return realtimeWeatherCopy;
+
+        } else if (weatherForecastType === 'daily') {
+            return dailyForecastCopy;
+
+        } else if (weatherForecastType === 'hourly') {
+            return hourlyForecastCopy;
+        }
+    }
 }
 
 
@@ -132,7 +135,19 @@ type realtimeWeatherData = {
 }
 
 
-export const realtimeWeatherSort: () => Promise<realtimeWeatherData | AxiosError> = async () => {
+let realtimeWeatherCopy: realtimeWeatherData = {
+    weatherDescription: '',
+    weatherIcon: 0,
+    hasPrecipitation: false,
+    precipitationType: null,
+    temperature: 0
+}
+
+
+export const realtimeWeatherSort: () => Promise<void | AxiosError | realtimeWeatherData | forecastDailyData[] | forecastHourlyData[]> = async () => {
+    const cooldownResult = checkCoolDown('realtime');
+    if (typeof cooldownResult !== undefined || typeof cooldownResult !== null) return cooldownResult;
+    
     const apiResponse: AxiosResponse | AxiosError = await currentRequest();
     if ( apiResponse instanceof AxiosError) return apiResponse;
 
@@ -146,6 +161,7 @@ export const realtimeWeatherSort: () => Promise<realtimeWeatherData | AxiosError
             precipitationType: apiData.PrecipitationType,
             temperature: apiData.Temperature.Metric.Value,
         }
+        realtimeWeatherCopy = apiDataMetric;
         return apiDataMetric;
         
     } else {
@@ -156,6 +172,7 @@ export const realtimeWeatherSort: () => Promise<realtimeWeatherData | AxiosError
             precipitationType: apiData.PrecipitationType,
             temperature: apiData.Temperature.Imperial.Value,
         }
+        realtimeWeatherCopy = apiDataImperial;
         return apiDataImperial
     }
 
@@ -180,11 +197,17 @@ type forecastDailyData = {
 }
 
 
-export const forecastWeeklySort: () => Promise<forecastDailyData[] | AxiosError> = async () => {
+let dailyForecastCopy: forecastDailyData[] = [];
+
+
+export const forecastDailySort: () => Promise<void | AxiosError  | realtimeWeatherData | forecastDailyData[] | forecastHourlyData[]> = async () => {
+    const cooldownResult = checkCoolDown('daily');
+    if (typeof cooldownResult !== undefined || typeof cooldownResult !== null) return cooldownResult;
+
     const apiResponse: AxiosResponse | AxiosError = await forecastRequest(); 
     if (apiResponse instanceof AxiosError) return apiResponse;
 
-        const apiWeeklyForecast: forecastDailyData[] = [];
+        const apiDailyForecast: forecastDailyData[] = [];
         
         for (let count: number = 0; count < 5; count++ ) {
             const forecastDay = apiResponse.data.DailyForecasts[count];
@@ -206,10 +229,11 @@ export const forecastWeeklySort: () => Promise<forecastDailyData[] | AxiosError>
                 nightPrecipitationIntensity: forecastDay.Night.PrecipitationIntensity
             };
         
-            apiWeeklyForecast.push(apiForecastDay)
+            apiDailyForecast.push(apiForecastDay)
+            dailyForecastCopy.push(apiForecastDay);
 
         }
-        return apiWeeklyForecast;
+        return apiDailyForecast;
 }
 
 
@@ -223,8 +247,12 @@ type forecastHourlyData = {
     precipitationIntensity: string | null,
 }
 
+let hourlyForecastCopy: forecastHourlyData[] = [];
 
-export const forecastHourlySort: () => Promise<forecastHourlyData[] | AxiosError> = async () => {
+
+export const forecastHourlySort: () => Promise< void | AxiosError | realtimeWeatherData | forecastDailyData[] | forecastHourlyData[]> = async () => {
+    const cooldownResult = checkCoolDown('hourly');
+    if (typeof cooldownResult !== undefined || typeof cooldownResult !== null) return cooldownResult;
     
     const apiResponse: AxiosResponse | AxiosError = await hourlyRequest();
     if (apiResponse instanceof AxiosError) return apiResponse;
@@ -249,9 +277,9 @@ export const forecastHourlySort: () => Promise<forecastHourlyData[] | AxiosError
                 precipitationIntensity: apiForecastHour.PrecipitationIntensity
             }
             hourlyForecast.push(hourForecast);
+            hourlyForecastCopy.push(hourForecast);
         }
     }
-
     return hourlyForecast;
 
 }
@@ -261,6 +289,6 @@ module.exports = {
     updateMetric,
     updateQueryParams,
     realtimeWeatherSort,
-    forecastWeeklySort,
+    forecastDailySort,
     forecastHourlySort
 };

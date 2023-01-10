@@ -5,7 +5,7 @@ import {
     updateMetric,
     updateQueryParams,
     realtimeWeatherSort,
-    forecastWeeklySort,
+    forecastDailySort,
     forecastHourlySort
 } from './api'
 import { AxiosError } from 'axios';
@@ -28,7 +28,7 @@ app.get('/api/realtime', async (request: Request, response: Response) => {
 
 
 app.get('/api/weeklyForecast', async (request: Request, response: Response) => {
-    const apiResponse = await forecastWeeklySort();
+    const apiResponse = await forecastDailySort();
 
     if (apiResponse instanceof Error) {
         return response.status(500).send(apiResponse);

@@ -60,6 +60,9 @@ Use WeatherAPI.com's API.
     17.  Hour forecast component clean up.
     18.  Swap * with degree symbol
     19.  Settings variable page done.
+    20. Implement a freeze on all request functions.
+    21. Implement a way to save copies of data automatically.
+    22. Implement cooldown().
 
 
 

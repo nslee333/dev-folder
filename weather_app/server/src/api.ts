@@ -23,6 +23,9 @@ let metricBool: boolean = false;
 
 
 
+
+
+
 const functionFreeze: boolean = true;
 
 function cooldown() {

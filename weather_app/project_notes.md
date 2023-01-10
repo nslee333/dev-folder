@@ -81,6 +81,7 @@ Use WeatherAPI.com's API.
     - Add a button for night mode.
     - Hour forecast hr bars
     - Initial location request upon page start => update settings.
+    - Find a way to preload temperature values before everything else is loaded.
 
 
 

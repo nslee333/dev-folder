@@ -33,7 +33,7 @@ export const updateMetric: (metricBoolean: boolean) => void = (metricBoolean : b
 export const updateQueryParams: (newQueryParams: string | number) => void = (newQueryParams: string | number) => {
     locationQuery = newQueryParams; 
     getLocationKey();
-   
+
 }
 
 
@@ -112,11 +112,11 @@ const hourlyRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
 }
 
 
-const checkCoolDown: (weatherForecastType: string) => void | realtimeWeatherData | forecastDailyData[] | forecastHourlyData[]  = (weatherForecastType: string) => {
+const checkCoolDown: (weatherForecastType: string) => undefined | realtimeWeatherData | forecastDailyData[] | forecastHourlyData[]  = (weatherForecastType: string) => {
     if (cooldownEndTime < Date.now()) {
-        return;
+        return undefined;
     } else {
-
+        console.log("Cooldown in effect.")
         if (weatherForecastType === 'realtime' ) {
             return realtimeWeatherCopy;
 
@@ -150,7 +150,7 @@ let realtimeWeatherCopy: realtimeWeatherData = {
 
 export const realtimeWeatherSort: () => Promise<void | AxiosError | realtimeWeatherData | forecastDailyData[] | forecastHourlyData[]> = async () => {
     const cooldownResult = checkCoolDown('realtime');
-    if (typeof cooldownResult !== undefined || typeof cooldownResult !== null) return cooldownResult;
+    if (typeof cooldownResult !== 'undefined') return cooldownResult;
     
     const apiResponse: AxiosResponse | AxiosError = await currentRequest();
     if ( apiResponse instanceof AxiosError) return apiResponse;
@@ -206,7 +206,7 @@ let dailyForecastCopy: forecastDailyData[] = [];
 
 export const forecastDailySort: () => Promise<void | AxiosError  | realtimeWeatherData | forecastDailyData[] | forecastHourlyData[]> = async () => {
     const cooldownResult = checkCoolDown('daily');
-    if (typeof cooldownResult !== undefined || typeof cooldownResult !== null) return cooldownResult;
+    if (typeof cooldownResult !== 'undefined') return cooldownResult;
 
     const apiResponse: AxiosResponse | AxiosError = await forecastRequest(); 
     if (apiResponse instanceof AxiosError) return apiResponse;
@@ -256,7 +256,7 @@ let hourlyForecastCopy: forecastHourlyData[] = [];
 
 export const forecastHourlySort: () => Promise< void | AxiosError | realtimeWeatherData | forecastDailyData[] | forecastHourlyData[]> = async () => {
     const cooldownResult = checkCoolDown('hourly');
-    if (typeof cooldownResult !== undefined || typeof cooldownResult !== null) return cooldownResult;
+    if (typeof cooldownResult !== 'undefined') return cooldownResult;
     
     const apiResponse: AxiosResponse | AxiosError = await hourlyRequest();
     if (apiResponse instanceof AxiosError) return apiResponse;

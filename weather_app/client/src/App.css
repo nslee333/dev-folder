@@ -184,8 +184,8 @@
   position: relative;
   background-color: var(--main-grey);
   text-align: left;
-  width: 150px;
-  left: 75px;
+  width: 200px;
+  left: 25px;
   /* border: 1px solid red; */
 }
 

@@ -22,6 +22,9 @@ const [location, setLocation] = useState("97702");
 const [metric, setMetric] = useState(false);
 const settingsLocationRef: RefObject<HTMLInputElement> = createRef();
 
+const citySearchRef: RefObject<HTMLInputElement> = createRef();
+const [userSavedCities, setUserSavedCities] = useState<string[]>([]);
+
 useEffect(() => {
 
   // dataFetch(); // !! Make sure to limit api calls. 
@@ -383,12 +386,32 @@ const renderCities: (cityIndex: number) => JSX.Element = (cityIndex: number) => 
         <div className='variable__city__display__city__content'>
           {`${cityArray[cityIndex]?.name} - ${cityArray[cityIndex]?.time}, ${cityArray[cityIndex]?.temperature} and ${cityArray[cityIndex]?.condition}`}
         </div>
-        <button className='variable__city__display__city__close-btn'>
+        <button className='variable__city__display__city__close-btn'> 
+        {/* // TODO: Implement delete button.*/}
         &times;
         </button>
       </div>
     </div>
   );
+}
+
+const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
+  if (citySearchRef.current === null)
+    return console.error("City Search Error:", citySearchRef.current);
+  // TODO: Data validation - Separate function?
+  
+  const cityString = citySearchRef.current.value;
+
+
+
+  if (event.key === `Enter`) {
+    event.preventDefault()
+
+    
+    // setUserSavedCities(citySearchRef.current.value);
+
+    citySearchRef.current.value = "";
+  }
 }
 
 
@@ -400,6 +423,8 @@ const cityComponent: () => JSX.Element = () => {
             <
               input type='text' placeholder='97702 or Bend, OR' 
               className='variable__city__search__form__input'
+              onKeyDown={event => citySearchHandleSubmit(event)}
+              ref={citySearchRef}
             />
           </form>
         </div>

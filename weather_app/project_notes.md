@@ -82,6 +82,7 @@ Use WeatherAPI.com's API.
     - Hour forecast hr bars
     - Initial location request upon page start => update settings.
     - Find a way to preload temperature values before everything else is loaded.
+    - Change app name and change tab logo.
 
 
 

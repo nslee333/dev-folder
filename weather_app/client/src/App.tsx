@@ -13,8 +13,8 @@ const [forecastDaily, setForecastDaily] = useState<forecastDailyData[]>([]);
 const [forecastHourly, setForecastHourly] = useState<forecastHourlyData[]>([]);
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
-const [homeHighlighted, setHomeHighlighted] = useState(true); //TODO Reset => TRUE
-const [worldHighlighted, setWorldHighlighted] = useState(false);
+const [homeHighlighted, setHomeHighlighted] = useState(false); //TODO Reset => TRUE
+const [worldHighlighted, setWorldHighlighted] = useState(true);
 const [settingsHighlighted, setSettingsHighlighted] = useState(false);
 
 const [location, setLocation] = useState("97702");
@@ -113,14 +113,14 @@ const hourlyData = (forecastHour: forecastHourlyData) => {
     const hour = date.getHours();
   
     if (hour === 0) {
-      return `${hour}:00 am`
+      return `12am`
     }else if (hour < 12) { // TODO: Stopped at 0:00 not converting to 12:00am.
-      return `${hour}:00 am`
+      return `${hour}am`
     } else if (hour === 12) {
-      return `${hour}:00 pm`
+      return `${hour}pm`
     } else if (hour > 12) {
       const stdHour = hour - 12;
-      return `${stdHour}:00 pm`
+      return `${stdHour}pm`
     } 
 
   }
@@ -137,48 +137,48 @@ const hourForecastComponent = () => { // TODO Correct Upper-left corner display 
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-            {hourlyData(forecastHourly[0]) + " "}
-            {forecastHourly[0]?.temperature + "° "}
-            {forecastHourly[0]?.iconPhrase}
+            {hourlyData(forecastHourly[0]) + " - "}
+            {forecastHourly[0]?.temperature + "° and "}
+            {forecastHourly[0]?.iconPhrase + " "}
           </div> 
         </div>
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-            {hourlyData(forecastHourly[1]) + " "}
-            {forecastHourly[1]?.temperature + "° "}
+            {hourlyData(forecastHourly[1]) + " - "}
+            {forecastHourly[1]?.temperature + "° and "}
             {forecastHourly[1]?.iconPhrase}
           </div>
         </div>
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-            {hourlyData(forecastHourly[2]) + " "}
-            {forecastHourly[2]?.temperature + "° "}
+            {hourlyData(forecastHourly[2]) + " - "}
+            {forecastHourly[2]?.temperature + "° and "}
             {forecastHourly[2]?.iconPhrase}
           </div>
         </div>
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-            {hourlyData(forecastHourly[3]) + " "}
-            {forecastHourly[3]?.temperature + "° "}
+            {hourlyData(forecastHourly[3]) + " - "}
+            {forecastHourly[3]?.temperature + "° and "}
             {forecastHourly[3]?.iconPhrase}
           </div>
         </div>
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-            {hourlyData(forecastHourly[4]) + " "}
-            {forecastHourly[4]?.temperature + "° "}
+            {hourlyData(forecastHourly[4]) + " - "}
+            {forecastHourly[4]?.temperature + "° and "}
             {forecastHourly[4]?.iconPhrase}
           </div>
         </div>
           <hr className='hour-div__hr'/>
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
-            {hourlyData(forecastHourly[5]) + " "}
-            {forecastHourly[5]?.temperature + "° "}
+            {hourlyData(forecastHourly[5]) + " - "}
+            {forecastHourly[5]?.temperature + "° and "}
             {forecastHourly[5]?.iconPhrase}
           </div>
         </div>
@@ -333,7 +333,11 @@ const homeComponent: () => JSX.Element = () => {
 const worldComponent: () => JSX.Element = () => {
   return (
     <div className='variable__world'>
-      // TODO: Search bar and city forecast.
+      <form>
+        <div className='variable__world__search'>
+          <input type='text' placeholder='Please enter a city to add' className='variable__world__search__input'/>
+        </div>
+      </form>
     </div>
   );
 }

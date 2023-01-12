@@ -154,6 +154,8 @@
   margin: 0px;
   border: 1px solid var(--main-darkGrey);
   position: relative;
+  /* margin-top: 7px; */
+  /* margin-bottom: 7px; */
 }
 
 .hour-forecast__div {
@@ -172,7 +174,6 @@
   height: 50px;
   margin-top: 10px;
   margin-bottom: 10px;
-
   text-align: center;
 
   border-radius: 7px;
@@ -183,8 +184,9 @@
   position: relative;
   background-color: var(--main-grey);
   text-align: left;
-  width: 200px;
-  left: 25px;
+  width: 250px;
+  left: 15px;
+  top: 10px;
   /* border: 1px solid red; */
 }
 
@@ -227,11 +229,7 @@
 
   position: relative;
   left: 15px;
-  /* top: 32px; */
-
-  /* margin-left: 5px; */
-  /* margin-right: 5px; */
-  /* margin-bottom: 5px; */
+  
   margin-top: 20px;
   width: 160px;
   height: 290px;
@@ -244,8 +242,6 @@
 .variable__home__page__day {
   background-color: var(--main-grey);
   position: absolute;
-  /* margin: 5px; */
-  /* margin-left: 35px; */
 
   width: 80px;
   
@@ -394,4 +390,12 @@
 
 .variable__settings__location-div__input:focus-visible {
   outline: none;
+}
+
+.variable__world__search {
+  background-color: var(--main-grey);
+}
+
+.variable__world__search__input {
+  background-color: var(--main-grey);
 }

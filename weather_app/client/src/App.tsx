@@ -4,7 +4,7 @@ import {realtimeRequest, dailyRequest, hourlyRequest, metricUpdate, locationUpda
 import {realtimeWeatherData, forecastDailyData, forecastHourlyData} from './types/dataTypings'
 import { RefObject, useEffect, useState, createRef, KeyboardEvent, Key } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faEarthAmericas, faLocationDot, faSliders, faHouse} from '@fortawesome/free-solid-svg-icons';
+import {faCity, faSliders, faHouse} from '@fortawesome/free-solid-svg-icons';
 
 function App() {
 
@@ -225,7 +225,11 @@ const navbarComponent = () => {
           style={style(homeHighlighted)}
         >
           <div className='navbar__pages__button__icon-div' style={style(homeHighlighted)}>
-            <FontAwesomeIcon icon={faHouse} className='navbar__pages__button__icon-div__icon' style={style(homeHighlighted)}/> 
+            <
+              FontAwesomeIcon icon={faHouse} 
+              className='navbar__pages__button__icon-div__icon' 
+              style={style(homeHighlighted)}
+            /> 
           </div>
           <div className='navbar__pages__button__text' style={style(homeHighlighted)}>
             Home
@@ -240,10 +244,13 @@ const navbarComponent = () => {
           style={style(cityHighlighted)}
         >
           <div className='navbar__pages__button__icon-div' style={style(cityHighlighted)}>
-            <FontAwesomeIcon icon={faEarthAmericas} className='navbar__pages__button__icon-div__icon' style={style(cityHighlighted)}/> 
+            <
+              FontAwesomeIcon icon={faCity} 
+              className='navbar__pages__button__icon-div__icon' style={style(cityHighlighted)}
+            /> 
           </div>
           <div className='navbar__pages__button__text' style={style(cityHighlighted)}>
-            city
+            City
           </div>
         </button>
       </div>
@@ -309,7 +316,8 @@ const homeComponent: () => JSX.Element = () => {
         </div>
       <hr className='variable__home__hr'/>
         <div className='variable__home__page'>
-          <div className='variable__home__page__day'>Thursday</div> {/* //TODO consider swapping temp with icons vertically*/}
+          <div className='variable__home__page__day'>Thursday</div> 
+          {/* //TODO consider swapping temp with icons vertically*/}
           <div className='variable__home__page__day__conditions'>
             <div className='variable__home__page__day__conditions__icon'>icon / night icon</div>
             <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
@@ -333,12 +341,27 @@ const homeComponent: () => JSX.Element = () => {
 // TODO: New York City, Los Angeles, Austin, Seattle, Boston.
 // TODO: Clear button for values. 
 
+// TODO: Sustain data without a database between re-loads
+
+const cityValues = () => {
+
+}
+
+
+
+
+
+
+
 const cityComponent: () => JSX.Element = () => {
   return (
     <div className='variable__city'>
         <div className='variable__city__search'>
           <form className='variable__city__search__form'>
-            <input type='text' placeholder='97702 or Bend, OR' className='variable__city__search__form__input'/>
+            <
+              input type='text' placeholder='97702 or Bend, OR' 
+              className='variable__city__search__form__input'
+            />
           </form>
         </div>
       <hr className='variable__city__hr'/>
@@ -398,7 +421,8 @@ const locationUpdateRequest = async (locationQuery: string) => {
 }
 
 
-const handleLocationInput: (event: KeyboardEvent<HTMLInputElement>) => void = (event: KeyboardEvent<HTMLInputElement>) => {
+const handleLocationInput: (event: KeyboardEvent<HTMLInputElement>) => void 
+= (event: KeyboardEvent<HTMLInputElement>) => {
   const target = event.target as HTMLInputElement;
 
   const stringValue: string = target.value;
@@ -414,7 +438,8 @@ const handleLocationInput: (event: KeyboardEvent<HTMLInputElement>) => void = (e
     window.alert("Default location successfully updated.");
 
   } else {
-    const stringQueryRegex = /([a-zA-Z]+), (A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$/i;
+    const stringQueryRegex = 
+    /([a-zA-Z]+), (A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$/i;
     
     const regexResult = stringValue.match(stringQueryRegex);
 

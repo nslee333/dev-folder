@@ -22,7 +22,6 @@
 
   --main-navbar-home: var(--main-orange);
   --main-navbar-world: var(--main-orange);
-  --main-navbar-map: var(--main-orange);
   --main-navbar-settings: var(--main-orange);
 
 
@@ -289,10 +288,6 @@
 }
 
 .variable__world {
-  background-color: var(--main-grey);
-}
-
-.variable__map {
   background-color: var(--main-grey);
 }
 

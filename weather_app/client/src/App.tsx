@@ -15,7 +15,6 @@ const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour
 
 const [homeHighlighted, setHomeHighlighted] = useState(true); //TODO Reset => TRUE
 const [worldHighlighted, setWorldHighlighted] = useState(false);
-const [mapHighlighted, setMapHighlighted] = useState(false);
 const [settingsHighlighted, setSettingsHighlighted] = useState(false);
 
 const [location, setLocation] = useState("97702");
@@ -194,32 +193,22 @@ const handleNavbarClick: (pageClicked: string) => void = (pageClicked: string) =
   if (pageClicked === 'home' && homeHighlighted === false) {
     setHomeHighlighted(true);
     setWorldHighlighted(false);
-    setMapHighlighted(false);
     setSettingsHighlighted(false);
     
   } else if (pageClicked === 'world' && worldHighlighted === false) {
     setWorldHighlighted(true);
     setHomeHighlighted(false);
-    setMapHighlighted(false);
     setSettingsHighlighted(false);
 
-  } else if (pageClicked === 'map' && mapHighlighted === false) {
-    setMapHighlighted(true);
-    setHomeHighlighted(false);
-    setWorldHighlighted(false);
-    setSettingsHighlighted(false);
-
-    
   } else if (pageClicked === 'settings' && settingsHighlighted === false) {
     setSettingsHighlighted(!settingsHighlighted);
     setHomeHighlighted(false);
     setWorldHighlighted(false);
-    setMapHighlighted(false);
   }
 }
 
 
-type stateHooks = typeof settingsHighlighted | typeof homeHighlighted | typeof worldHighlighted | typeof mapHighlighted;
+type stateHooks = typeof settingsHighlighted | typeof homeHighlighted | typeof worldHighlighted;
 
 const style = (stateHook: stateHooks) => {
     return {backgroundColor: stateHook ? '#9baec8' : '#d9e1e8'};
@@ -258,21 +247,7 @@ const navbarComponent = () => {
           </div>
         </button>
       </div>
-      <hr className='navbar__hr'/>
-      <div className='navbar__pages'style={style(mapHighlighted)}>
-        <button 
-          className='navbar__pages__button' 
-          onClick={() => handleNavbarClick("map")} 
-          style={style(mapHighlighted)}
-        >
-          <div className='navbar__pages__button__icon-div' style={style(mapHighlighted)}>
-            <FontAwesomeIcon icon={faLocationDot} className='navbar__pages__button__icon-div__icon'style={style(mapHighlighted)}/> 
-          </div>
-          <div className='navbar__pages__button__text' style={style(mapHighlighted)}>
-            Map  
-          </div>
-        </button>
-      </div>
+      
       <hr className='navbar__hr' style={style(settingsHighlighted)}/>
       <div className='navbar__pages' style={style(settingsHighlighted)}>
         <button 
@@ -359,15 +334,6 @@ const worldComponent: () => JSX.Element = () => {
   return (
     <div className='variable__world'>
       // TODO: Search bar and city forecast.
-    </div>
-  );
-}
-
-
-const mapComponent: () => JSX.Element = () => {
-  return (
-    <div className='variable__map'>
-      // TODO Render a forecast map of the local area.
     </div>
   );
 }
@@ -474,7 +440,7 @@ const variableBar: () => JSX.Element = () => {
   return (
     <div className='variable'>
       {settingsHighlighted ? settingsComponent() : worldHighlighted ? 
-      worldComponent(): mapHighlighted ? mapComponent() : homeComponent()}
+      worldComponent() : homeComponent()}
     </div>
   );
 }

@@ -65,6 +65,8 @@ Use WeatherAPI.com's API.
     22. Implement cooldown().
     23. Fixed 503 Error, is it coming from effect, or my backend application...
         1.  Implemented a cooldown to make sure I don't call the api too often.
+    24. Swap out symbol with a city - switch variable names => city -> cities.
+    25. 
 
 
 

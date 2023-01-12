@@ -139,14 +139,14 @@
 
 .hour-forecast {
   position: absolute;
-  width: 290px;
-  height: 470px;
+  width: 270px;
+  height: 455px;
   top: 27.5px;
   left: 1000px;
   background-color: var(--primary-div);
   border-radius: 10px;
 
-  padding-top: 5px;
+  padding: 10px;
   
 
 }
@@ -196,11 +196,13 @@
   top: 525px;
   left: 200px;
 
-  height: 375px;
-  width: 1090px;
+  height: 355px;
+  width: 1070px;
   
-  background-color: var(--primary-div);
+  background-color: var(--main-grey);
   border-radius: 10px;
+
+  padding: 10px;
 
 }
 
@@ -283,9 +285,6 @@
   background-color: var(--main-grey);
 }
 
-.variable__world {
-  background-color: var(--main-grey);
-}
 
 .variable__settings {
   background-color: var(--main-grey);
@@ -391,11 +390,45 @@
 .variable__settings__location-div__input:focus-visible {
   outline: none;
 }
+.variable__world {
+  background-color: var(--main-grey);
+
+}
 
 .variable__world__search {
   background-color: var(--main-grey);
 }
 
-.variable__world__search__input {
+.variable__world__search__form {
   background-color: var(--main-grey);
+
+}
+
+.variable__world__search__form__input {
+  background-color: var(--main-grey);
+  position: relative;
+  width: 300px;
+  height: 30px;
+  font-size: 18px;
+  left: 20px;
+  top: 20px;
+  border-radius: 7px;
+
+
+}
+
+.variable__world__display {
+  background-color: var(--main-grey);
+}
+.variable__world__display__city {
+  background-color: var(--main-grey);
+  position: relative;
+  top: 30px;
+}
+
+.variable__world__display__city__content {
+  background-color: var(--main-grey);
+  font-size: 20px;
+  margin: 25px;
+  
 }

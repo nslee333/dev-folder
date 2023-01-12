@@ -333,11 +333,48 @@ const homeComponent: () => JSX.Element = () => {
 const worldComponent: () => JSX.Element = () => {
   return (
     <div className='variable__world'>
-      <form>
         <div className='variable__world__search'>
-          <input type='text' placeholder='Please enter a city to add' className='variable__world__search__input'/>
+        <form className='variable__world__search__form'>
+          <input type='text' placeholder='97702 or Bend, OR' className='variable__world__search__form__input'/>
+        </form>
         </div>
-      </form>
+        <div className='variable__world__display'>
+          <div className='variable__world__display__city'>
+            <div className='variable__world__display__city__content'>
+            {"New York City - 3am, 32* and Rain"}
+            </div>
+          </div>
+        </div>
+        <div className='variable__world__display'>
+          <div className='variable__world__display__city'>
+            <div className='variable__world__display__city__content'>
+            {"Los Angeles - 9:32pm, 32* and Clear"}
+            </div>
+          </div>
+        </div>
+        <div className='variable__world__display'>
+          <div className='variable__world__display__city'>
+            <div className='variable__world__display__city__content'>
+            {"Los Angeles - 9:32pm, 32* and Clear"}
+            </div>
+          </div>
+        </div>
+        <div className='variable__world__display'>
+          <div className='variable__world__display__city'>
+            <div className='variable__world__display__city__content'>
+            {"Los Angeles - 9:32pm, 32* and Clear"}
+            </div>
+          </div>
+        </div>
+        <div className='variable__world__display'>
+          <div className='variable__world__display__city'>
+            <div className='variable__world__display__city__content'>
+              {"Los Angeles - 9:32pm, 32* and Clear"}
+            </div>
+          </div>
+        </div>
+
+      
     </div>
   );
 }

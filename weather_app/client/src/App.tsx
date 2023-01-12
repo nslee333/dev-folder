@@ -452,6 +452,35 @@ const locationUpdateRequest = async (locationQuery: string) => {
 }
 
 
+const cityQueryValidation = (searchString: string) => {
+  const cityQueryIsANumber: boolean = (!isNaN(parseInt(searchString)))
+
+  if (cityQueryIsANumber) {
+    if (searchString.length !== 5) return new Error("Zip code must be exactly 5 digits in length.");
+    
+    return true;
+
+  } else {
+    const stringQueryRegex = /([a-zA-Z]+), (A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$/i;
+    
+    const regexResult = searchString.match(stringQueryRegex);
+
+    if (regexResult === null) return new Error("Query must match the following pattern: `Bend, or` or `Bend, OR`");
+
+    return true;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 const handleLocationInput: (event: KeyboardEvent<HTMLInputElement>) => void 
 = (event: KeyboardEvent<HTMLInputElement>) => {
   const target = event.target as HTMLInputElement;

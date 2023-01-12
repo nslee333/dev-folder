@@ -14,7 +14,7 @@ const [forecastHourly, setForecastHourly] = useState<forecastHourlyData[]>([]);
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
 const [homeHighlighted, setHomeHighlighted] = useState(false); //TODO Reset => TRUE
-const [worldHighlighted, setWorldHighlighted] = useState(true);
+const [cityHighlighted, setCityHighlighted] = useState(true);
 const [settingsHighlighted, setSettingsHighlighted] = useState(false);
 
 const [location, setLocation] = useState("97702");
@@ -192,23 +192,23 @@ const hourForecastComponent = () => { // TODO Correct Upper-left corner display 
 const handleNavbarClick: (pageClicked: string) => void = (pageClicked: string) => {
   if (pageClicked === 'home' && homeHighlighted === false) {
     setHomeHighlighted(true);
-    setWorldHighlighted(false);
+    setCityHighlighted(false);
     setSettingsHighlighted(false);
     
-  } else if (pageClicked === 'world' && worldHighlighted === false) {
-    setWorldHighlighted(true);
+  } else if (pageClicked === 'city' && cityHighlighted === false) {
+    setCityHighlighted(true);
     setHomeHighlighted(false);
     setSettingsHighlighted(false);
 
   } else if (pageClicked === 'settings' && settingsHighlighted === false) {
     setSettingsHighlighted(!settingsHighlighted);
     setHomeHighlighted(false);
-    setWorldHighlighted(false);
+    setCityHighlighted(false);
   }
 }
 
 
-type stateHooks = typeof settingsHighlighted | typeof homeHighlighted | typeof worldHighlighted;
+type stateHooks = typeof settingsHighlighted | typeof homeHighlighted | typeof cityHighlighted;
 
 const style = (stateHook: stateHooks) => {
     return {backgroundColor: stateHook ? '#9baec8' : '#d9e1e8'};
@@ -233,17 +233,17 @@ const navbarComponent = () => {
         </button>
     </div>
       <hr className='navbar__hr'/>
-      <div className='navbar__pages'style={style(worldHighlighted)}>
+      <div className='navbar__pages'style={style(cityHighlighted)}>
         <button 
           className='navbar__pages__button' 
-          onClick={() => handleNavbarClick("world")}
-          style={style(worldHighlighted)}
+          onClick={() => handleNavbarClick("city")}
+          style={style(cityHighlighted)}
         >
-          <div className='navbar__pages__button__icon-div' style={style(worldHighlighted)}>
-            <FontAwesomeIcon icon={faEarthAmericas} className='navbar__pages__button__icon-div__icon' style={style(worldHighlighted)}/> 
+          <div className='navbar__pages__button__icon-div' style={style(cityHighlighted)}>
+            <FontAwesomeIcon icon={faEarthAmericas} className='navbar__pages__button__icon-div__icon' style={style(cityHighlighted)}/> 
           </div>
-          <div className='navbar__pages__button__text' style={style(worldHighlighted)}>
-            World
+          <div className='navbar__pages__button__text' style={style(cityHighlighted)}>
+            city
           </div>
         </button>
       </div>
@@ -329,50 +329,59 @@ const homeComponent: () => JSX.Element = () => {
   );
 }
 
+// TODO: Default Values for cities.
+// TODO: New York City, Los Angeles, Austin, Seattle, Boston.
+// TODO: Clear button for values. 
 
-const worldComponent: () => JSX.Element = () => {
+const cityComponent: () => JSX.Element = () => {
   return (
-    <div className='variable__world'>
-        <div className='variable__world__search'>
-        <form className='variable__world__search__form'>
-          <input type='text' placeholder='97702 or Bend, OR' className='variable__world__search__form__input'/>
-        </form>
+    <div className='variable__city'>
+        <div className='variable__city__search'>
+          <form className='variable__city__search__form'>
+            <input type='text' placeholder='97702 or Bend, OR' className='variable__city__search__form__input'/>
+          </form>
         </div>
-        <div className='variable__world__display'>
-          <div className='variable__world__display__city'>
-            <div className='variable__world__display__city__content'>
+      <hr className='variable__city__hr'/>
+        <div className='variable__city__display'>
+          <div className='variable__city__display__city'>
+            <div className='variable__city__display__city__content'>
             {"New York City - 3am, 32* and Rain"}
             </div>
           </div>
         </div>
-        <div className='variable__world__display'>
-          <div className='variable__world__display__city'>
-            <div className='variable__world__display__city__content'>
+        <hr className='variable__city__hr'/>
+        <div className='variable__city__display'>
+          <div className='variable__city__display__city'>
+            <div className='variable__city__display__city__content'>
             {"Los Angeles - 9:32pm, 32* and Clear"}
             </div>
           </div>
         </div>
-        <div className='variable__world__display'>
-          <div className='variable__world__display__city'>
-            <div className='variable__world__display__city__content'>
+      <hr className='variable__city__hr'/>
+        <div className='variable__city__display'>
+          <div className='variable__city__display__city'>
+            <div className='variable__city__display__city__content'>
             {"Los Angeles - 9:32pm, 32* and Clear"}
             </div>
           </div>
         </div>
-        <div className='variable__world__display'>
-          <div className='variable__world__display__city'>
-            <div className='variable__world__display__city__content'>
+        <hr className='variable__city__hr'/>
+        <div className='variable__city__display'>
+          <div className='variable__city__display__city'>
+            <div className='variable__city__display__city__content'>
             {"Los Angeles - 9:32pm, 32* and Clear"}
             </div>
           </div>
         </div>
-        <div className='variable__world__display'>
-          <div className='variable__world__display__city'>
-            <div className='variable__world__display__city__content'>
+        <hr className='variable__city__hr'/>
+        <div className='variable__city__display'>
+          <div className='variable__city__display__city'>
+            <div className='variable__city__display__city__content'>
               {"Los Angeles - 9:32pm, 32* and Clear"}
             </div>
           </div>
         </div>
+        <hr className='variable__city__hr'/>
 
       
     </div>
@@ -480,8 +489,8 @@ const settingsComponent: () => JSX.Element = () => {
 const variableBar: () => JSX.Element = () => {
   return (
     <div className='variable'>
-      {settingsHighlighted ? settingsComponent() : worldHighlighted ? 
-      worldComponent() : homeComponent()}
+      {settingsHighlighted ? settingsComponent() : cityHighlighted ? 
+      cityComponent() : homeComponent()}
     </div>
   );
 }

@@ -21,7 +21,7 @@
   --main-navbar-button: var(--main-orange);
 
   --main-navbar-home: var(--main-orange);
-  --main-navbar-world: var(--main-orange);
+  --main-navbar-city: var(--main-orange);
   --main-navbar-settings: var(--main-orange);
 
 
@@ -390,45 +390,54 @@
 .variable__settings__location-div__input:focus-visible {
   outline: none;
 }
-.variable__world {
+.variable__city {
   background-color: var(--main-grey);
 
 }
 
-.variable__world__search {
+.variable__city__search {
   background-color: var(--main-grey);
 }
 
-.variable__world__search__form {
+.variable__city__search__form {
   background-color: var(--main-grey);
 
 }
 
-.variable__world__search__form__input {
+.variable__city__search__form__input {
   background-color: var(--main-grey);
   position: relative;
-  width: 300px;
+  width: 850px;
   height: 30px;
   font-size: 18px;
-  left: 20px;
+  left: 110px;
   top: 20px;
   border-radius: 7px;
 
 
 }
 
-.variable__world__display {
+.variable__city__display {
   background-color: var(--main-grey);
 }
-.variable__world__display__city {
+.variable__city__display__city {
   background-color: var(--main-grey);
   position: relative;
   top: 30px;
 }
 
-.variable__world__display__city__content {
+.variable__city__display__city__content {
+  position: relative;
   background-color: var(--main-grey);
   font-size: 20px;
-  margin: 25px;
+  padding: 5px;
   
+}
+
+.variable__city__hr {
+  position: relative;
+  top: 30px;
+  /* right: 360px; */
+  /* width: 350px; */
+  border: 1px solid var(--main-darkGrey);
 }

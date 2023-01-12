@@ -99,3 +99,11 @@ Use WeatherAPI.com's API.
 
 
 
+[Next Project Notes]:
+  - Create a style guide, and stick to it.
+    - Max line-length.
+  - When a task is completed:
+    - Make sure that the function has a good name - i.e. one that describes the function.
+    - Type the functions for that task that was completed.
+    - Make sure that the variables stick to the naming convention.
+    - A variable line doesn't go past the max-line length.

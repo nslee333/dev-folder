@@ -337,18 +337,44 @@ const homeComponent: () => JSX.Element = () => {
   );
 }
 
-// TODO: Default Values for cities.
-// TODO: New York City, Los Angeles, Austin, Seattle, Boston.
+
+// TODO: Redesign layout.
 // TODO: X button clearing a city entry. 
 
 // TODO: Sustain data without a database between re-loads
+// TODO: Default values, and entered values.
+  
 
-const cityValues = () => {
+// ^ City name, time, temperature and condition
+// ^ New York City, Los Angeles, Austin, Seattle, Boston.
 
+const fetchCityData = () => {
+  const city: string = `New York City`;
+  const time: string = `2:19pm`;
+  const temperature: string = `42°`;
+  const condition: string = `Cloudy`;
+
+  return {city, time, temperature, condition}
+  // TODO: return array
 }
 
 
 
+
+const renderCities: () => JSX.Element = () => {
+  return (
+    <div className='variable__city__display'>
+      <div className='variable__city__display__city'>
+        <div className='variable__city__display__city__content'>
+          {`${fetchCityData().city} - ${fetchCityData().time}, ${fetchCityData().temperature} and ${fetchCityData().condition}`}
+        </div>
+        <button className='variable__city__display__city__close-btn'>
+        &times;
+        </button>
+      </div>
+    </div>
+  );
+}
 
 
 
@@ -365,48 +391,16 @@ const cityComponent: () => JSX.Element = () => {
           </form>
         </div>
       <hr className='variable__city__hr'/>
-        <div className='variable__city__display'>
-          <div className='variable__city__display__city'>
-            <div className='variable__city__display__city__content'>
-            {"New York City - 3am, 32* and Rain"}
-            </div>
-          </div>
-        </div>
-        <hr className='variable__city__hr'/>
-        <div className='variable__city__display'>
-          <div className='variable__city__display__city'>
-            <div className='variable__city__display__city__content'>
-            {"Los Angeles - 9:32pm, 32* and Clear"}
-            </div>
-          </div>
-        </div>
+        {renderCities()}
       <hr className='variable__city__hr'/>
-        <div className='variable__city__display'>
-          <div className='variable__city__display__city'>
-            <div className='variable__city__display__city__content'>
-            {"Los Angeles - 9:32pm, 32* and Clear"}
-            </div>
-          </div>
-        </div>
-        <hr className='variable__city__hr'/>
-        <div className='variable__city__display'>
-          <div className='variable__city__display__city'>
-            <div className='variable__city__display__city__content'>
-            {"Los Angeles - 9:32pm, 32* and Clear"}
-            </div>
-          </div>
-        </div>
-        <hr className='variable__city__hr'/>
-        <div className='variable__city__display'>
-          <div className='variable__city__display__city'>
-            <div className='variable__city__display__city__content'>
-              {"Los Angeles - 9:32pm, 32* and Clear"}
-            </div>
-          </div>
-        </div>
-        <hr className='variable__city__hr'/>
-
-      
+        {renderCities()}
+      <hr className='variable__city__hr'/>
+        {renderCities()}
+      <hr className='variable__city__hr'/>
+        {renderCities()}
+      <hr className='variable__city__hr'/>
+        {renderCities()}
+      <hr className='variable__city__hr'/>
     </div>
   );
 }

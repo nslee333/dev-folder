@@ -395,6 +395,16 @@
 
 }
 
+.variable__city__hr {
+  position: relative;
+  top: 30px;
+  /* right: 360px; */
+  /* width: 350px; */
+  border: 1px solid var(--main-darkGrey);
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .variable__city__search {
   background-color: var(--main-grey);
 }
@@ -430,14 +440,20 @@
   position: relative;
   background-color: var(--main-grey);
   font-size: 20px;
-  padding: 5px;
-  
+  /* padding: 5px; */
+  margin-top: 15px;
+  margin-bottom: 15px;
+  /* border: 2px solid red; */
 }
 
-.variable__city__hr {
-  position: relative;
-  top: 30px;
-  /* right: 360px; */
-  /* width: 350px; */
-  border: 1px solid var(--main-darkGrey);
+.variable__city__display__city__close-btn {
+  position: absolute;
+  left: 1025px;
+  top: -30px;
+  background-color: var(--main-grey);
+  font-size: 30px;
+
+  margin-top: 20px;
+  border: none;
+  cursor: pointer;
 }

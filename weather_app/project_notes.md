@@ -56,17 +56,18 @@ Use WeatherAPI.com's API.
     13. hourly + realtime requests - add weather icon numbers.
     14. Displaying data for realtime
     15. Build navbar component
-    16.  Make h1, h2 to be a semi-bold or light font-weight.
-    17.  Hour forecast component clean up.
-    18.  Swap * with degree symbol
-    19.  Settings variable page done.
-    20. Implement a freeze on all request functions.
-    21. Implement a way to save copies of data automatically.
-    22. Implement cooldown().
-    23. Fixed 503 Error, is it coming from effect, or my backend application...
-        1.  Implemented a cooldown to make sure I don't call the api too often.
-    24. Swap out symbol with a city - switch variable names => city -> cities.
-    25. 
+    16. Make h1, h2 to be a semi-bold or light font-weight.
+    17. Hour forecast component clean up.
+    18. Swap * with degree symbol
+    19. Settings variable page done.
+    20. Hour forecast hr bars
+    21. Implement a freeze on all request functions.
+    22. Implement a way to save copies of data automatically.
+    23. Implement cooldown().
+    24. Fixed 503 Error, is it coming from effect, or my backend application...
+      1. Implemented a cooldown to make sure I don't call the api too often.
+    25. Swap out symbol with a city - switch variable names => city -> cities.
+    26. 
 
 
 
@@ -81,7 +82,6 @@ Use WeatherAPI.com's API.
     - Performance testing.
     - Web security analysis
     - Add a button for night mode.
-    - Hour forecast hr bars
     - Initial location request upon page start => update settings.
     - Find a way to preload temperature values before everything else is loaded.
     - Change app name and change tab logo.
@@ -95,11 +95,16 @@ Use WeatherAPI.com's API.
 
 
 [Working]:
+- Display daily forecast.
+- fetch and sustain data for City tab.
+- Display data for City tab.
+- Weather Icons
 
 
 
 
 [Next Project Notes]:
+  - Billable hours log.
   - Create a style guide, and stick to it.
     - Max line-length.
   - When a task is completed:

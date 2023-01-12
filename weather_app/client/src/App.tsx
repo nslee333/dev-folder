@@ -12,6 +12,7 @@ const [realtime, setRealtime] = useState<realtimeWeatherData>();
 const [forecastDaily, setForecastDaily] = useState<forecastDailyData[]>([]);
 const [forecastHourly, setForecastHourly] = useState<forecastHourlyData[]>([]);
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
+const [cityArray, setCityArray] = useState<cityForecastData[]>([]);
 
 const [homeHighlighted, setHomeHighlighted] = useState(false); //TODO Reset => TRUE
 const [cityHighlighted, setCityHighlighted] = useState(true);
@@ -39,7 +40,8 @@ useEffect(() => {
 
 useEffect(() => { //TODO: Research is there any problems with multiple useEffects?
   dataFetch();
-
+  fetchCityData();
+  
 }, [])
 
 
@@ -55,8 +57,6 @@ const dataFetch = async () => {
   setRealtime(realtime);
   setForecastDaily(daily);
   setForecastHourly(hourly);
-  // console.log(realtime)
-  // console.log(hourly)
 
 }
 
@@ -348,25 +348,40 @@ const homeComponent: () => JSX.Element = () => {
 // ^ City name, time, temperature and condition
 // ^ New York City, Los Angeles, Austin, Seattle, Boston.
 
-const fetchCityData = () => {
-  const city: string = `New York City`;
-  const time: string = `2:19pm`;
-  const temperature: string = `42°`;
-  const condition: string = `Cloudy`;
+type cityForecastData = {
+  name: string,
+  time: string,
+  temperature: string,
+  condition: string,
+}
 
-  return {city, time, temperature, condition}
+
+const fetchCityData = () => {
+
+  const entry: cityForecastData = {
+    name: 'New York City',
+    time: '4:11',
+    temperature: '39*',
+    condition: 'Cloudy'
+  }
+  const citiesArray: cityForecastData[] =  [
+    entry, entry, entry, entry, entry
+  ];
+
+
+  citiesArray.push(entry);
+
+  setCityArray(citiesArray);
   // TODO: return array
 }
 
 
-
-
-const renderCities: () => JSX.Element = () => {
+const renderCities: (cityIndex: number) => JSX.Element = (cityIndex: number) => {
   return (
     <div className='variable__city__display'>
       <div className='variable__city__display__city'>
         <div className='variable__city__display__city__content'>
-          {`${fetchCityData().city} - ${fetchCityData().time}, ${fetchCityData().temperature} and ${fetchCityData().condition}`}
+          {`${cityArray[cityIndex]?.name} - ${cityArray[cityIndex]?.time}, ${cityArray[cityIndex]?.temperature} and ${cityArray[cityIndex]?.condition}`}
         </div>
         <button className='variable__city__display__city__close-btn'>
         &times;
@@ -375,8 +390,6 @@ const renderCities: () => JSX.Element = () => {
     </div>
   );
 }
-
-
 
 
 const cityComponent: () => JSX.Element = () => {
@@ -391,15 +404,15 @@ const cityComponent: () => JSX.Element = () => {
           </form>
         </div>
       <hr className='variable__city__hr'/>
-        {renderCities()}
+        {renderCities(0)}
       <hr className='variable__city__hr'/>
-        {renderCities()}
+        {renderCities(1)}
       <hr className='variable__city__hr'/>
-        {renderCities()}
+        {renderCities(2)}
       <hr className='variable__city__hr'/>
-        {renderCities()}
+        {renderCities(3)}
       <hr className='variable__city__hr'/>
-        {renderCities()}
+        {renderCities(4)}
       <hr className='variable__city__hr'/>
     </div>
   );

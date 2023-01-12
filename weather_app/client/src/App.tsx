@@ -396,19 +396,18 @@ const renderCities: (cityIndex: number) => JSX.Element = (cityIndex: number) => 
 }
 
 const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
-  if (citySearchRef.current === null)
-    return console.error("City Search Error:", citySearchRef.current);
-  // TODO: Data validation - Separate function?
-  
-  const cityString = citySearchRef.current.value;
-
-
-
   if (event.key === `Enter`) {
     event.preventDefault()
 
-    
-    // setUserSavedCities(citySearchRef.current.value);
+    if (citySearchRef.current === null) return console.error("City Search Error:", citySearchRef.current);
+  
+    const cityString = citySearchRef.current.value;
+
+    const validationResult = cityQueryValidation(cityString);
+    if (validationResult instanceof Error) return window.alert(validationResult);
+
+    // TODO: Call server => call AccuWeatherAPI, save copy of data, return data to client,
+    // TODO - Save data array in state, this updates for every call.
 
     citySearchRef.current.value = "";
   }

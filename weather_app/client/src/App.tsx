@@ -37,7 +37,7 @@ useEffect(() => {
 }, [])
 
 
-useEffect(() => {
+useEffect(() => { //TODO: Research is there any problems with multiple useEffects?
   dataFetch();
 
 }, [])
@@ -339,7 +339,7 @@ const homeComponent: () => JSX.Element = () => {
 
 // TODO: Default Values for cities.
 // TODO: New York City, Los Angeles, Austin, Seattle, Boston.
-// TODO: Clear button for values. 
+// TODO: X button clearing a city entry. 
 
 // TODO: Sustain data without a database between re-loads
 

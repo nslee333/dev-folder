@@ -131,7 +131,7 @@ const hourlyData = (forecastHour: forecastHourlyData) => {
 }
 
 
-const hourForecastComponent = () => { 
+const hourForecastComponent = () => { // TODO Correct Upper-left corner display issue,
   return (
     <div className='hour-forecast'>
       <div className='hour-forecast__div'>

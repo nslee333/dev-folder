@@ -68,3 +68,17 @@ export const locationUpdate: (location: string) => Promise<AxiosResponse | Axios
 
     return result;
 }
+
+export const cityQuery = async (citiesArrayParam: string[]) => {
+    const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'cities', {
+            citiesArray: citiesArrayParam
+    })
+    .then(function (response: AxiosResponse) {
+        return response;
+    })
+    .catch(function (error: AxiosError) {
+        return error;
+    });
+
+    return result;
+}

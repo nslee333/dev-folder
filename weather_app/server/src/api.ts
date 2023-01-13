@@ -34,7 +34,7 @@ export const updateQueryParams: (newQueryParams: string) => void = async (newQue
 }
 
 
-const cityRealtimeRequest = async (locationQueryString: string) => {
+ const cityRealtimeRequest = async (locationQueryString: string) => {
     // * Call location API, save locationKey
     const cityLocationKey = await getLocationKey(locationQueryString);
     if (cityLocationKey instanceof Error) return cityLocationKey;
@@ -43,9 +43,6 @@ const cityRealtimeRequest = async (locationQueryString: string) => {
     if (result instanceof Error) return result;
 
     return result;
-
-    
-    // * Call current location with location key, return result to caller.
 }
 
 
@@ -89,8 +86,6 @@ const cityRealtimeFetch = async (cityArray: string[]) => {
             cityRealtimeDataCopy.push(cityRealtimeData);
             cityDataArray.push(cityRealtimeData);
 
-            // * Save copy of data.
-            // * Return data to caller.
         }
         return cityDataArray;
 
@@ -357,12 +352,3 @@ export const forecastHourlySort: () => Promise< void | AxiosError | realtimeWeat
     return hourlyForecast;
 
 }
-
-
-module.exports = {
-    updateMetric,
-    updateQueryParams,
-    realtimeWeatherSort,
-    forecastDailySort,
-    forecastHourlySort
-};

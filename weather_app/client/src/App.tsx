@@ -456,7 +456,7 @@ const cityQueryValidation = (searchString: string) => {
   const cityQueryIsANumber: boolean = (!isNaN(parseInt(searchString)))
 
   if (cityQueryIsANumber) {
-    if (searchString.length !== 5) return new Error("Zip code must be exactly 5 digits in length.");
+    if (searchString.length !== 5) return new Error("Bad Zip Code");
     
     return true;
 
@@ -465,49 +465,35 @@ const cityQueryValidation = (searchString: string) => {
     
     const regexResult = searchString.match(stringQueryRegex);
 
-    if (regexResult === null) return new Error("Query must match the following pattern: `Bend, or` or `Bend, OR`");
+    if (regexResult === null) return new Error("Bad City Search");
 
     return true;
   }
 }
 
+const handleLocationInput: ( // ^ Why is TS returning boolean | void, rather than just void
+event: KeyboardEvent<HTMLInputElement>
+) => boolean | void = (event: KeyboardEvent<HTMLInputElement>) => {
 
-
-
-
-
-
-
-
-
-
-const handleLocationInput: (event: KeyboardEvent<HTMLInputElement>) => void 
-= (event: KeyboardEvent<HTMLInputElement>) => {
   const target = event.target as HTMLInputElement;
 
-  const stringValue: string = target.value;
+  const cityQuery: string = target.value;
 
-  const inputIsNumber: boolean = (!isNaN(parseInt(stringValue)));
+  const queryIsValid: Error | true = cityQueryValidation(cityQuery);
 
-  if (inputIsNumber) {
-    if (stringValue.length < 5) return window.alert("Zip code is too short.");
-    if (stringValue.length > 5) return window.alert("Zip code is too long.");
+  if (queryIsValid instanceof Error && queryIsValid.message === "Bad Zip Code") {
+    return (window.alert("Zip code must be exactly 5 digits long."), false);
 
-    const result = locationUpdateRequest(stringValue);
+  } else if (queryIsValid instanceof Error && queryIsValid.message === "Bad City Search") {
+    return (window.alert("Your search must be in the following format: `Bend, OR` or `Bend, or`."), false);
+
+  } else if (queryIsValid === true) {
+    const result = locationUpdateRequest(cityQuery);
     if (result instanceof AxiosError) return window.alert("Location update error, please try again."); 
-    window.alert("Default location successfully updated.");
+    return (window.alert("Default location successfully updated."), true);
 
   } else {
-    const stringQueryRegex = 
-    /([a-zA-Z]+), (A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$/i;
-    
-    const regexResult = stringValue.match(stringQueryRegex);
-
-    if (regexResult === null) return window.alert("Query must match the following pattern: `Bend, or` or `Bend, OR`");
-
-     const result = locationUpdateRequest(stringValue);
-     if (result instanceof AxiosError) return window.alert("Location update error, please try again.");
-     window.alert("Default location successfully updated.");
+    return false;
   }
 }
 
@@ -533,13 +519,16 @@ const keyDownLocationHandler: (event: KeyboardEvent<HTMLInputElement>) => void =
   if (event.key === 'Enter') {
     event.preventDefault();
 
-    handleLocationInput(event);
+    const result = handleLocationInput(event);
+
 
     if (settingsLocationRef.current === null) {
       return console.error("Settings Location Ref Error:", settingsLocationRef.current)
     }
 
-    settingsLocationRef.current.value = "";
+    if (result === true) {
+      settingsLocationRef.current.value = ""
+    };
   }
 }
 

@@ -32,3 +32,13 @@ export type forecastHourlyData = {
     precipitationType: string | null,
     precipitationIntensity: string | null,
 }
+
+export type cityForecastData = {
+    id: string,
+    name: string,
+    time: string,
+    temperature: string,
+    condition: string,
+}
+
+export type dataTuple = [realtimeWeatherData, forecastDailyData[], forecastHourlyData[]];

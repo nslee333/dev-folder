@@ -352,6 +352,7 @@ const homeComponent: () => JSX.Element = () => {
 // ^ New York City, Los Angeles, Austin, Seattle, Boston.
 
 type cityForecastData = {
+  id: number,
   name: string,
   time: string,
   temperature: string,
@@ -362,6 +363,7 @@ type cityForecastData = {
 const fetchCityData = () => {
 
   const entry: cityForecastData = {
+    id: (cityArray.length + 1),
     name: 'New York City',
     time: '4:11',
     temperature: '39*',
@@ -400,20 +402,32 @@ const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
 }
 
 
+const renderCities: (cityArrayParam: cityForecastData[]) => JSX.Element = (cityArrayParam: cityForecastData[]) => {
+  // TODO: Unfinished, need proper data to fix `react key` error.
+  
+  // const city: JSX.Element[] = cityArrayParam.map(cityEntry => (
+    // <div key={cityEntry.id}>
+    //   <hr className='variable__city__hr'/>
+    //     <div className='variable__city__display'>
+    //         <div className='variable__city__display__city'>
+    //           <div className='variable__city__display__city__content'>
+    //             {`${cityEntry.name} - ${cityEntry.time}, ${cityEntry.temperature} and ${cityEntry.condition}`}
+    //           </div>
+    //           <button className='variable__city__display__city__close-btn'> 
+    //             {/* // TODO: Implement delete button.*/}
+    //             &times;
+    //           </button>
+    //         </div>
+    //     </div>
+    // </div>
+      // 
+  // ))
 
-const renderCities: (cityIndex: number) => JSX.Element = (cityIndex: number) => {
   return (
-    <div className='variable__city__display'>
-      <div className='variable__city__display__city'>
-        <div className='variable__city__display__city__content'>
-          {`${cityArray[cityIndex]?.name} - ${cityArray[cityIndex]?.time}, ${cityArray[cityIndex]?.temperature} and ${cityArray[cityIndex]?.condition}`}
-        </div>
-        <button className='variable__city__display__city__close-btn'> 
-        {/* // TODO: Implement delete button.*/}
-        &times;
-        </button>
-      </div>
-    </div>
+    // <>
+    // {city}
+    // </>
+    <div></div>
   );
 }
 
@@ -431,17 +445,7 @@ const cityComponent: () => JSX.Element = () => {
             />
           </form>
         </div>
-      <hr className='variable__city__hr'/>
-        {renderCities(0)}
-      <hr className='variable__city__hr'/>
-        {renderCities(1)}
-      <hr className='variable__city__hr'/>
-        {renderCities(2)}
-      <hr className='variable__city__hr'/>
-        {renderCities(3)}
-      <hr className='variable__city__hr'/>
-        {renderCities(4)}
-      <hr className='variable__city__hr'/>
+      {renderCities(cityArray)}
     </div>
   );
 }

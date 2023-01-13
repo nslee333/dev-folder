@@ -80,7 +80,7 @@ const cityRealtimeFetch = async (cityArray: string[]) => {
 
             const cityRealtimeData: cityRealtimeData = {
                 id: `${count}`,
-                name: dataResult,// TODO: name
+                name: dataResult, // ! fix name problem, grab it from city array? Enforce Capital letters at input validation? 
                 time: dataResult.EpochTime,
                 temperature: (metricBool ? dataResult.Metric.Value : dataResult.Imperial.Value), // TODO: Use this method to simplify current forecast request.
                 condition: dataResult.WeatherText

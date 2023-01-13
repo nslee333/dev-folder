@@ -94,13 +94,15 @@ Use WeatherAPI.com's API.
 
 
 [Working]:
-- Display data for City tab.
-  - fetch and sustain data for City tab.
 - Weather Icons
     - Sustain data on server side and frontend
       - Default location, measurement system and data.
 - Hour forecast not updating, cooldown faulty?
   - Found possible fix, monitor.
+- Display data for City tab.
+  - fetch and sustain data for City tab.
+  - Finish api side, make sure modified requests are working.
+    - Server, and actions still to do, and testing.
 
 
 

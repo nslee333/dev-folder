@@ -379,6 +379,28 @@ const fetchCityData = () => {
 }
 
 
+
+
+const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
+  if (event.key === `Enter`) {
+    event.preventDefault()
+    
+    if (citySearchRef.current === null) return console.error("City Search Error:", citySearchRef.current);
+    
+    const cityString = citySearchRef.current.value;
+    
+    const validationResult = cityQueryValidation(cityString);
+    if (validationResult instanceof Error) return window.alert(validationResult);
+    
+    // TODO: Call server => call AccuWeatherAPI, save copy of data, return data to client,
+    // TODO - Save data array in state, this updates for every call.
+    
+    citySearchRef.current.value = "";
+  }
+}
+
+
+
 const renderCities: (cityIndex: number) => JSX.Element = (cityIndex: number) => {
   return (
     <div className='variable__city__display'>
@@ -393,24 +415,6 @@ const renderCities: (cityIndex: number) => JSX.Element = (cityIndex: number) => 
       </div>
     </div>
   );
-}
-
-const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
-  if (event.key === `Enter`) {
-    event.preventDefault()
-
-    if (citySearchRef.current === null) return console.error("City Search Error:", citySearchRef.current);
-  
-    const cityString = citySearchRef.current.value;
-
-    const validationResult = cityQueryValidation(cityString);
-    if (validationResult instanceof Error) return window.alert(validationResult);
-
-    // TODO: Call server => call AccuWeatherAPI, save copy of data, return data to client,
-    // TODO - Save data array in state, this updates for every call.
-
-    citySearchRef.current.value = "";
-  }
 }
 
 
@@ -470,8 +474,8 @@ const cityQueryValidation = (searchString: string) => {
     return true;
   }
 }
-
-const handleLocationInput: ( // ^ Why is TS returning boolean | void, rather than just void
+// ^ Why is TS returning boolean | void, rather than just boolean? currently using bandaid fix 
+const handleLocationInput: ( 
 event: KeyboardEvent<HTMLInputElement>
 ) => boolean | void = (event: KeyboardEvent<HTMLInputElement>) => {
 

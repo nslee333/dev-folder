@@ -103,6 +103,8 @@ Use WeatherAPI.com's API.
   - fetch and sustain data for City tab.
   - Finish api side, make sure modified requests are working.
     - Server, and actions still to do, and testing.
+- Rethink how server api works, queryParams especially.
+- 
 
 
 

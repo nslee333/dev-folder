@@ -99,6 +99,7 @@ const dataRequest: () => Promise<dataTuple| void> = async (): Promise<dataTuple 
 }
 
 const date = new Date();
+
 const currentDate = date.toLocaleString('en-US', {
   month: 'long',
   day: 'numeric',
@@ -338,7 +339,7 @@ const homeComponent: () => JSX.Element = () => {
           <div className='variable__home__page__day__conditions'>
             <div className='variable__home__page__day__conditions__icon'>icon</div>
             <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[4]?.maxTemp + "°"} - {forecastDaily[4]?.minTemp + "°"}</div>
-            <div className='variable__home__page__day__conditions__description'>{forecastDaily[4]?.dayIconPhrase} - {forecastDaily[4]?.nightIconPhrase}</div>
+            <div className='variable__home__page__day__conditions__description'>{forecastDaily[4]?.dayIconPhrase} - {forecastDaily[4]?.nightIconPhrase }</div>
           </div>
         </div>
     </div>
@@ -366,14 +367,6 @@ const homeComponent: () => JSX.Element = () => {
 const fetchCityData = () => {
 
   // ^ Call 
-
-// TODO: Conditional Unnecessary after api hook up is done, because of conditional at citySearchHandleSubmit, it's impossible for it to happen, I think.
-  // if (citiesArray.length < 5) {  
-  //   citiesArray.push(entry);
-  // }
-
-  setCityArray(citiesArray);
-  // TODO: return array
 }
 
 
@@ -422,6 +415,8 @@ const renderCities: (cityArrayParam: cityForecastData[]) => JSX.Element = (cityA
       // 
   // ))
 
+  // TODO: Render queries that haven't been saved yet.
+
   return (
     // <>
     // {city}
@@ -441,7 +436,7 @@ const cityComponent: () => JSX.Element = () => {
               className='variable__city__search__form__input'
               onKeyDown={event => citySearchHandleSubmit(event)}
               ref={citySearchRef}
-            />
+            /> {/*// TODO: Save button that calls fetchCityData */} 
           </form>
         </div>
       {renderCities(cityArray)}
@@ -478,6 +473,8 @@ const cityQueryValidation = (searchString: string) => {
     return true;
   }
 }
+
+
 // ^ Why is TS returning boolean | void, rather than just boolean? currently using bandaid fix 
 const handleLocationInput: ( 
 event: KeyboardEvent<HTMLInputElement>
@@ -501,7 +498,7 @@ event: KeyboardEvent<HTMLInputElement>
     return (window.alert("Default location successfully updated."), true);
 
   } else {
-    return false;
+    return false; // TODO: Might remove, if TS issue in function is fixed.
   }
 }
 
@@ -510,6 +507,7 @@ const metricUpdateRequest = async (metricBool: boolean) => {
   if (response instanceof AxiosError) return (console.error(response), window.alert("Measurement system update error, please try again."));
   window.alert("Measurement system successfully updated.")
   setMetric(!metric);
+  
 }
 
 

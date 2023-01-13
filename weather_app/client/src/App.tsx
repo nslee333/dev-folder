@@ -394,35 +394,44 @@ const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
 }
 
 
-const renderCities: (cityArrayParam: cityForecastData[]) => JSX.Element = (cityArrayParam: cityForecastData[]) => {
-  // TODO: Unfinished, need proper data to fix `react key` error.
+  const displayUserSavedCities = () => {
+    return (
+      userSavedCities.map(cityEntry => (
+        <div key={cityEntry.id}>
+          <hr className='variable__city__hr'/>
+            <div className='variable__city__display'>
+                <div className='variable__city__display__city'>
+                  <div className='variable__city__display__city__content'>
+                    {`${cityEntry}`}
+                  </div>
+                  <button className='variable__city__display__city__close-btn' onClick={event => deleteCity(cityEntry.id, cityEntry.name)}> 
+                    {/* // TODO: Implement delete button.*/}
+                    &times;
+                  </button>
+                </div>
+            </div>
+        </div>
+      ))
+    );
+  };
   
-  // const city: JSX.Element[] = cityArrayParam.map(cityEntry => (
-    // <div key={cityEntry.id}>
-    //   <hr className='variable__city__hr'/>
-    //     <div className='variable__city__display'>
-    //         <div className='variable__city__display__city'>
-    //           <div className='variable__city__display__city__content'>
-    //             {`${cityEntry.name} - ${cityEntry.time}, ${cityEntry.temperature} and ${cityEntry.condition}`}
-    //           </div>
-    //           <button className='variable__city__display__city__close-btn'> 
-    //             {/* // TODO: Implement delete button.*/}
-    //             &times;
-    //           </button>
-    //         </div>
-    //     </div>
-    // </div>
-      // 
-  // ))
 
-  // TODO: Render queries that haven't been saved yet.
+ 
+  if (cityArray) {
+    return (
+      <>
+      {displayCityArray()}
+      </>
+    );
 
-  return (
-    // <>
-    // {city}
-    // </>
-    <div></div>
-  );
+  } else {
+    return (
+      <>
+      {displayUserSavedCities()}
+      </>
+    )
+  }
+
 }
 
 
@@ -438,8 +447,9 @@ const cityComponent: () => JSX.Element = () => {
               ref={citySearchRef}
             /> {/*// TODO: Save button that calls fetchCityData */} 
           </form>
+          <button className='variable__city__search__save-btn' onClick={fetchCityData}>Save</button>
         </div>
-      {renderCities(cityArray)}
+      {renderCities()}
     </div>
   );
 }

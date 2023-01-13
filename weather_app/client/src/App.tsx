@@ -345,7 +345,7 @@ const homeComponent: () => JSX.Element = () => {
 // ^ Boston default value
 
 type cityForecastData = {
-  id: number,
+  id: string,
   name: string,
   time: string,
   temperature: string,

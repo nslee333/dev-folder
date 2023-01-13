@@ -55,8 +55,8 @@ const cityRealtimeRequest = async (locationQueryString: string) => {
 
 const cityQueryData: string[] = [];
 
-type cityForecastData = {
-    id: number,
+type cityRealtimeData = {
+    id: string,
     name: string,
     time: string,
     temperature: string,

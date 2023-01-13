@@ -6,7 +6,8 @@ import {
     updateQueryParams,
     realtimeWeatherSort,
     forecastDailySort,
-    forecastHourlySort
+    forecastHourlySort,
+    cityRealtimeFetch
 } from './api'
 import { AxiosError } from 'axios';
 import { cityQueryArray, cityRealtimeData } from './types';
@@ -64,13 +65,25 @@ app.post('/api/settings/metric/', async (request: Request, response: Response) =
 app.post('/api/settings/location', async (request: Request, response: Response) => {
     const locationQuery = request.body.locationQuery;
     
-    if (typeof locationQuery === 'string' || typeof locationQuery === 'number') {
+    if (typeof locationQuery === 'string') {
         updateQueryParams(locationQuery);
         return response.status(200).send("Default location updated.");
     } else {
-        return response.status(400).send("Bad request. LocationQuery must be present and be type of either number or string.")
+        return response.status(400).send("Bad request. LocationQuery must be present and be type of string.")
     }
 });
+
+app.post("/api/cities/", async (request: Request, response: Response) => {
+
+    const citiesArray: cityQueryArray = request.body.citiesArray;
+
+    const result: AxiosError | cityRealtimeData[] = await cityRealtimeFetch(citiesArray);
+    if (result instanceof AxiosError) {
+         return response.status(500).send(result);
+    } else {
+        return response.status(200).send(result);
+    }
+})
 
 
 app.listen(port, () => {

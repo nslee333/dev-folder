@@ -9,7 +9,7 @@ const currentURL: string = '/currentconditions/v1/';
 const hourlyForecastURL: string = '/forecasts/v1/hourly/12hour/';
 const citySearchURL: string = 'locations/v1/cities/search'
 
-let locationQuery: string | number = 97702;
+let locationQuery: string = '97702';
 let locationKey: string = '335268';
 let metricBool: boolean = false;
 
@@ -20,22 +20,75 @@ function startCooldown(): void {
     cooldownEndTime = Date.now() + 3600000; // 20 minutes
 }
 
-// TODO: Increase cooldown time?
-
-// TODO: Maybe more than just a cooldown? Like fetch once, and only if certain parameters are met?
-
 
 export const updateMetric: (metricBoolean: boolean) => void = (metricBoolean : boolean) => {
     metricBool = metricBoolean;
 }
 
 
-export const updateQueryParams: (newQueryParams: string | number) => void = (newQueryParams: string | number) => {
-    locationQuery = newQueryParams; 
-    getLocationKey();
+export const updateQueryParams: (newQueryParams: string) => void = async (newQueryParams: string) => {
+    const result = await getLocationKey(locationQuery);
+    if (result instanceof Error) return result;
+    locationQuery = result; 
 
 }
 
+
+const cityRealtimeRequest = async (locationQueryString: string) => {
+    // * Call location API, save locationKey
+    const cityLocationKey = await getLocationKey(locationQueryString);
+    if (cityLocationKey instanceof Error) return cityLocationKey;
+
+    const result = await currentRequest(cityLocationKey);
+    if (result instanceof Error) return result;
+
+    return result;
+
+    
+    // * Call current location with location key, return result to caller.
+}
+
+
+
+// & Type data here.
+
+
+const cityQueryData: string[] = [];
+
+type cityForecastData = {
+    id: number,
+    name: string,
+    time: string,
+    temperature: string,
+    condition: string,
+  }
+
+
+
+const cityRealtimeFetch = async (cityArray: string[]) => {
+    if (cooldownEndTime < Date.now()) {
+
+        // & Loop => For every entry:
+
+        for (let count = 0; cityArray.length >= count; count++) {
+            // * Call cityRealtimeRequest, handle errors, 
+            const result = await cityRealtimeRequest(cityArray[count]);
+            if (result instanceof Error) return result;
+
+            
+            // * Save copy of data.
+            // * Return data to caller.
+            
+        }
+
+
+    } else {
+        // * If cooldown active:
+        // * Return copy of data for each.
+
+    }
+
+}
 
 
 

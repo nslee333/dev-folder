@@ -14,8 +14,8 @@ const [forecastHourly, setForecastHourly] = useState<forecastHourlyData[]>([]);
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 const [cityArray, setCityArray] = useState<cityForecastData[]>([]);
 
-const [homeHighlighted, setHomeHighlighted] = useState(false); //TODO Reset => TRUE
-const [cityHighlighted, setCityHighlighted] = useState(true);
+const [homeHighlighted, setHomeHighlighted] = useState(true); //TODO Reset => TRUE
+const [cityHighlighted, setCityHighlighted] = useState(false);
 const [settingsHighlighted, setSettingsHighlighted] = useState(false);
 
 const [location, setLocation] = useState("97702");
@@ -292,18 +292,18 @@ const homeComponent: () => JSX.Element = () => {
         <div className='variable__home__page'>
           <div className='variable__home__page__day'>Monday</div>
           <div className='variable__home__page__day__conditions'>
-            <div className='variable__home__page__day__conditions__icon'>icon / icon</div>
-            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
-            <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
+            <div className='variable__home__page__day__conditions__icon'>icon</div>
+            <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[0]?.maxTemp + "°"} - {forecastDaily[0]?.minTemp + "°"}</div>
+            <div className='variable__home__page__day__conditions__description'>{forecastDaily[0]?.dayIconPhrase} - {forecastDaily[0]?.nightIconPhrase}</div>
           </div>
         </div>
       <hr className='variable__home__hr'/>
         <div className='variable__home__page'>
           <div className='variable__home__page__day'>Tuesday</div>
           <div className='variable__home__page__day__conditions'>
-            <div className='variable__home__page__day__conditions__icon'>icon / icon</div>
-            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
-            <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
+            <div className='variable__home__page__day__conditions__icon'>icon</div>
+            <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[1]?.maxTemp + "°"} - {forecastDaily[1]?.minTemp + "°"}</div>
+            <div className='variable__home__page__day__conditions__description'>{forecastDaily[1]?.dayIconPhrase} - {forecastDaily[1]?.nightIconPhrase}</div>
           </div>
           
           
@@ -312,28 +312,27 @@ const homeComponent: () => JSX.Element = () => {
         <div className='variable__home__page'>
           <div className='variable__home__page__day'>Wednesday</div>
           <div className='variable__home__page__day__conditions'>
-            <div className='variable__home__page__day__conditions__icon'>icon / icon</div>
-            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
-            <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
+            <div className='variable__home__page__day__conditions__icon'>icon</div>
+            <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[2]?.maxTemp + "°"} - {forecastDaily[2]?.minTemp + "°"}</div>
+            <div className='variable__home__page__day__conditions__description'>{forecastDaily[2]?.dayIconPhrase} - {forecastDaily[2]?.nightIconPhrase}</div>
           </div>
         </div>
       <hr className='variable__home__hr'/>
         <div className='variable__home__page'>
-          <div className='variable__home__page__day'>Thursday</div> 
-          {/* //TODO consider swapping temp with icons vertically*/}
+          <div className='variable__home__page__day'>Thursday</div>
           <div className='variable__home__page__day__conditions'>
-            <div className='variable__home__page__day__conditions__icon'>icon / night icon</div>
-            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
-            <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
+            <div className='variable__home__page__day__conditions__icon'>icon</div>
+            <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[3]?.maxTemp + "°"} - {forecastDaily[3]?.minTemp + "°"}</div>
+            <div className='variable__home__page__day__conditions__description'>{forecastDaily[3]?.dayIconPhrase} - {forecastDaily[3]?.nightIconPhrase}</div>
           </div>
         </div>
       <hr className='variable__home__hr'/>
         <div className='variable__home__page'>
           <div className='variable__home__page__day'>Friday</div>
           <div className='variable__home__page__day__conditions'>
-            <div className='variable__home__page__day__conditions__icon'>icon / icon</div>
-            <div className='variable__home__page__day__conditions__temperature'>68 / 32</div>
-            <div className='variable__home__page__day__conditions__description'>cloudy / cloudy night</div>
+            <div className='variable__home__page__day__conditions__icon'>icon</div>
+            <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[4]?.maxTemp + "°"} - {forecastDaily[4]?.minTemp + "°"}</div>
+            <div className='variable__home__page__day__conditions__description'>{forecastDaily[4]?.dayIconPhrase} - {forecastDaily[4]?.nightIconPhrase}</div>
           </div>
         </div>
     </div>

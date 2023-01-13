@@ -37,7 +37,9 @@ export const updateQueryParams: (newQueryParams: string | number) => void = (new
 }
 
 
-const getLocationKey: () => Promise<AxiosError | void> = async () => {
+
+
+const getLocationKey: (locationQueryString: string) => Promise<AxiosError | string> = async () => {
     const result = await axios.get(baseURL + citySearchURL, {
         params: {
             apikey: process.env.API_KEY,
@@ -53,12 +55,13 @@ const getLocationKey: () => Promise<AxiosError | void> = async () => {
 
     if (result instanceof AxiosError) return result;
     
-    locationKey = result.data.Key;
+    const locationKey = result.data.Key;
+    return locationKey;
 }
 
 
-const currentRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
-    const result = await axios.get(baseURL + currentURL + locationKey, {
+const currentRequest: (locationKeyString: string) => Promise<AxiosResponse | AxiosError> = async (locationKeyString: string) => {
+    const result = await axios.get(baseURL + currentURL + locationKeyString, { // * Might break here because of locationKeyString
         params: {
             apikey: process.env.API_KEY,
             metric: metricBool
@@ -154,7 +157,7 @@ export const realtimeWeatherSort: () => Promise<void | AxiosError | realtimeWeat
     const cooldownResult = checkCoolDown('realtime');
     if (typeof cooldownResult !== 'undefined') return cooldownResult;
     
-    const apiResponse: AxiosResponse | AxiosError = await currentRequest();
+    const apiResponse: AxiosResponse | AxiosError = await currentRequest(locationQuery);
     if ( apiResponse instanceof AxiosError) return apiResponse;
 
     const apiData = apiResponse.data[0];

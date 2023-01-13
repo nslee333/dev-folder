@@ -85,7 +85,6 @@ Use WeatherAPI.com's API.
     - Initial location request upon page start => update settings.
     - Find a way to preload temperature values before everything else is loaded.
     - Change app name and change tab logo.
-    - Hour forecast not updating, cooldown faulty?
 
 
 [CurrentTasks]:
@@ -98,6 +97,10 @@ Use WeatherAPI.com's API.
 - Display data for City tab.
   - fetch and sustain data for City tab.
 - Weather Icons
+    - Sustain data on server side and frontend
+      - Default location, measurement system and data.
+- Hour forecast not updating, cooldown faulty?
+  - Found possible fix, monitor.
 
 
 

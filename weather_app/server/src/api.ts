@@ -1,5 +1,11 @@
 import axios, {AxiosError, AxiosResponse} from 'axios';
 import dotenv from 'dotenv';
+import { 
+    cityRealtimeData,
+    forecastDailyData, 
+    forecastHourlyData, 
+    realtimeWeatherData 
+} from './types';
 dotenv.config();
 
 
@@ -17,25 +23,25 @@ let cooldownEndTime: number = 0;
 
 
 function startCooldown(): void {
-    cooldownEndTime = Date.now() + 3600000; // 20 minutes
+    cooldownEndTime = Date.now() + 3600000; // Need to set it at the next hour, if possible
 }
 
 
 export const updateMetric: (metricBoolean: boolean) => void = (metricBoolean : boolean) => {
     metricBool = metricBoolean;
+    // TODO: Update both variable names here.
 }
 
 
 export const updateQueryParams: (newQueryParams: string) => void = async (newQueryParams: string) => {
-    const result = await getLocationKey(locationQuery);
+    const result = await getLocationKey(newQueryParams);
     if (result instanceof Error) return result;
     locationQuery = result; 
 
 }
 
 
- const cityRealtimeRequest = async (locationQueryString: string) => {
-    // * Call location API, save locationKey
+const cityRealtimeRequest = async (locationQueryString: string) => {
     const cityLocationKey = await getLocationKey(locationQueryString);
     if (cityLocationKey instanceof Error) return cityLocationKey;
 
@@ -46,18 +52,11 @@ export const updateQueryParams: (newQueryParams: string) => void = async (newQue
 }
 
 
-
-// & Type data here.
-
-
 const cityRealtimeDataCopy: cityRealtimeData[] = [];
 
 
-
-const cityRealtimeFetch = async (cityArray: string[]) => {
+export const cityRealtimeFetch = async (cityArray: string[]) => {
     if (cooldownEndTime < Date.now()) {
-
-        // & Loop => For every entry:
 
         const cityDataArray: cityRealtimeData[] = [];
 
@@ -65,11 +64,11 @@ const cityRealtimeFetch = async (cityArray: string[]) => {
             const result = await cityRealtimeRequest(cityArray[count]);
             if (result instanceof Error) return result;
 
-            const dataResult = result.data 
+            const dataResult = result.data;
 
             const cityRealtimeData: cityRealtimeData = {
-                id: `${count}`,
-                name: dataResult, // ! fix name problem, grab it from city array? Enforce Capital letters at input validation? 
+                id: `${count}`, 
+                name: `${cityArray[count]}`,
                 time: dataResult.EpochTime,
                 temperature: (metricBool ? dataResult.Metric.Value : dataResult.Imperial.Value), // TODO: Use this method to simplify current forecast request.
                 condition: dataResult.WeatherText
@@ -305,5 +304,4 @@ export const forecastHourlySort: () => Promise< void | AxiosError | realtimeWeat
         }
     }
     return hourlyForecast;
-
 }

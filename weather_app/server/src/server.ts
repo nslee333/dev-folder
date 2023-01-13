@@ -9,6 +9,7 @@ import {
     forecastHourlySort
 } from './api'
 import { AxiosError } from 'axios';
+import { cityQueryArray, cityRealtimeData } from './types';
 
 
 const app = express();

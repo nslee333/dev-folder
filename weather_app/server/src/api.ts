@@ -107,7 +107,9 @@ const hourlyRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
         return error;
     })
 
-    startCooldown();
+    if (cooldownEndTime < Date.now()) {
+        startCooldown();
+    }
     return result;
 }
 

@@ -373,8 +373,10 @@ const fetchCityData = () => {
     entry, entry, entry, entry, entry
   ];
 
-
-  citiesArray.push(entry);
+// TODO: Conditional Unnecessary after api hook up is done, because of conditional at citySearchHandleSubmit, it's impossible for it to happen, I think.
+  if (citiesArray.length < 5) {  
+    citiesArray.push(entry);
+  }
 
   setCityArray(citiesArray);
   // TODO: return array
@@ -386,6 +388,7 @@ const fetchCityData = () => {
 const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
   if (event.key === `Enter`) {
     event.preventDefault()
+    if (cityArray.length === 5) return window.alert("Sorry, you cannot have more than five cities saved at a time..")
     
     if (citySearchRef.current === null) return console.error("City Search Error:", citySearchRef.current);
     

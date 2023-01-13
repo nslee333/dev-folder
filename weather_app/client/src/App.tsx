@@ -80,7 +80,6 @@ const dataRequest: () => Promise<dataTuple| void> = async (): Promise<dataTuple 
     const responseHourly = await hourlyRequest();
     if (responseHourly instanceof AxiosError) return console.error(responseHourly);
     const hourlyResult: forecastHourlyData[] = responseHourly.data; 
-    // TODO: Need the data shape to type effectively.
 
 
     const returnArray: dataTuple = [realtimeResult, dailyResult, hourlyResult];
@@ -127,9 +126,6 @@ const hourlyData = (forecastHour: forecastHourlyData) => {
     } 
 
   }
-
-  
-  
 }
 
 
@@ -357,23 +353,21 @@ type cityForecastData = {
 }
 
 
+
+// TODO: Sustain cities on client side,
+// * Function |> calls for every city, sustains data.
+// * Then call fetchData().
+
+
+
 const fetchCityData = () => {
 
-  const entry: cityForecastData = {
-    id: (cityArray.length + 1),
-    name: 'New York City',
-    time: '4:11',
-    temperature: '39*',
-    condition: 'Cloudy'
-  }
-  const citiesArray: cityForecastData[] =  [
-    entry, entry, entry, entry, entry
-  ];
+  // ^ Call 
 
 // TODO: Conditional Unnecessary after api hook up is done, because of conditional at citySearchHandleSubmit, it's impossible for it to happen, I think.
-  if (citiesArray.length < 5) {  
-    citiesArray.push(entry);
-  }
+  // if (citiesArray.length < 5) {  
+  //   citiesArray.push(entry);
+  // }
 
   setCityArray(citiesArray);
   // TODO: return array
@@ -393,6 +387,8 @@ const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
     
     const validationResult = cityQueryValidation(cityString);
     if (validationResult instanceof Error) return window.alert(validationResult);
+
+    userSavedCities.push(cityString);
     
     // TODO: Call server => call AccuWeatherAPI, save copy of data, return data to client,
     // TODO - Save data array in state, this updates for every call.

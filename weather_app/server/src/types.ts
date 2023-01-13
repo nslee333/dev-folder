@@ -1,5 +1,6 @@
 export type cityRealtimeData = {
     id: string,
+    name: string,
     time: string,
     temperature: string,
     condition: string,

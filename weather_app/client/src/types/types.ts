@@ -42,3 +42,8 @@ export type cityForecastData = {
 }
 
 export type dataTuple = [realtimeWeatherData, forecastDailyData[], forecastHourlyData[]];
+
+export type userSavedCity = {
+    id: string,
+    name: string
+}

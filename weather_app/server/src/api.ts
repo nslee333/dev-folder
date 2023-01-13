@@ -53,7 +53,7 @@ const cityRealtimeRequest = async (locationQueryString: string) => {
 // & Type data here.
 
 
-const cityQueryData: string[] = [];
+const cityRealtimeDataCopy: cityRealtimeData[] = [];
 
 type cityRealtimeData = {
     id: string,
@@ -70,21 +70,33 @@ const cityRealtimeFetch = async (cityArray: string[]) => {
 
         // & Loop => For every entry:
 
+        const cityDataArray: cityRealtimeData[] = [];
+
         for (let count = 0; cityArray.length >= count; count++) {
-            // * Call cityRealtimeRequest, handle errors, 
             const result = await cityRealtimeRequest(cityArray[count]);
             if (result instanceof Error) return result;
 
-            
+            const dataResult = result.data 
+
+            const cityRealtimeData: cityRealtimeData = {
+                id: `${count}`,
+                name: dataResult,// TODO: name
+                time: dataResult.EpochTime,
+                temperature: (metricBool ? dataResult.Metric.Value : dataResult.Imperial.Value), // TODO: Use this method to simplify current forecast request.
+                condition: dataResult.WeatherText
+            }
+
+            cityRealtimeDataCopy.push(cityRealtimeData);
+            cityDataArray.push(cityRealtimeData);
+
             // * Save copy of data.
             // * Return data to caller.
-            
         }
-
+        return cityDataArray;
 
     } else {
-        // * If cooldown active:
-        // * Return copy of data for each.
+        console.log("Cooldown in effect.")
+        return cityRealtimeDataCopy;
 
     }
 

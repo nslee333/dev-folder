@@ -393,7 +393,43 @@ const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
   }
 }
 
+const deleteCity = (cityId: string, cityName: string) => {
+  // * Delete city from userSavedCities
 
+  const query: userSavedCity = {id: cityId, name: cityName}
+  const index: number = userSavedCities.indexOf(query);
+  userSavedCities.splice(index, 1);
+
+  fetchCityData();
+}
+
+// console.log(userSavedCities)
+
+
+
+const renderCities = () => {
+
+  const displayCityArray = () => {
+    return (
+      cityArray.map(cityEntry => (
+        <div key={cityEntry.id}>
+          <hr className='variable__city__hr'/>
+            <div className='variable__city__display'>
+                <div className='variable__city__display__city'>
+                  <div className='variable__city__display__city__content'>
+                    {`${cityEntry.name} - ${cityEntry.time}, ${cityEntry.temperature} and ${cityEntry.condition}`}
+                  </div>
+                  <button className='variable__city__display__city__close-btn' onClick={event => deleteCity(cityEntry.id, cityEntry.name)}> 
+                    {/* // TODO: Implement delete button.*/}
+                    &times;
+                  </button>
+                </div>
+            </div>
+        </div>
+      ))
+    );
+  };
+  
   const displayUserSavedCities = () => {
     return (
       userSavedCities.map(cityEntry => (

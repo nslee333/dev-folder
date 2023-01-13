@@ -85,7 +85,7 @@ Use WeatherAPI.com's API.
     - Initial location request upon page start => update settings.
     - Find a way to preload temperature values before everything else is loaded.
     - Change app name and change tab logo.
-
+    - Hour forecast not updating, cooldown faulty?
 
 
 [CurrentTasks]:

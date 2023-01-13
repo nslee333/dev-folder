@@ -340,15 +340,13 @@ const homeComponent: () => JSX.Element = () => {
 }
 
 
-// TODO: Redesign layout.
 // TODO: X button clearing a city entry. 
 
 // TODO: Sustain data without a database between re-loads
-// TODO: Default values, and entered values.
-  
+  // & Use ref.
 
-// ^ City name, time, temperature and condition
-// ^ New York City, Los Angeles, Austin, Seattle, Boston.
+// ^ id, name, time, temperature and condition
+// ^ Boston default value
 
 type cityForecastData = {
   id: number,

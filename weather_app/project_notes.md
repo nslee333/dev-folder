@@ -67,7 +67,7 @@ Use WeatherAPI.com's API.
     24. Fixed 503 Error, is it coming from effect, or my backend application...
       1. Implemented a cooldown to make sure I don't call the api too often.
     25. Swap out symbol with a city - switch variable names => city -> cities.
-    26. 
+    26. Display daily forecast.
 
 
 
@@ -95,9 +95,8 @@ Use WeatherAPI.com's API.
 
 
 [Working]:
-- Display daily forecast.
-- fetch and sustain data for City tab.
 - Display data for City tab.
+  - fetch and sustain data for City tab.
 - Weather Icons
 
 

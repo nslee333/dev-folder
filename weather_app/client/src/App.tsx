@@ -1,7 +1,19 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import './App.css';
-import {realtimeRequest, dailyRequest, hourlyRequest, metricUpdate, locationUpdate} from './actions/actions';
-import {realtimeWeatherData, forecastDailyData, forecastHourlyData} from './types/dataTypings'
+import {
+  realtimeRequest, 
+  dailyRequest, 
+  hourlyRequest, 
+  metricUpdate, 
+  locationUpdate
+} from './actions/actions';
+import {
+  realtimeWeatherData, 
+  forecastDailyData, 
+  forecastHourlyData, 
+  cityForecastData, 
+  dataTuple
+} from './types/types'
 import { RefObject, useEffect, useState, createRef, KeyboardEvent, Key } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faCity, faSliders, faHouse} from '@fortawesome/free-solid-svg-icons';
@@ -47,8 +59,6 @@ useEffect(() => { //TODO: Research is there any problems with multiple useEffect
   
 }, [])
 
-
-type dataTuple = [realtimeWeatherData, forecastDailyData[], forecastHourlyData[]];
 
 const dataFetch = async () => {
 
@@ -344,13 +354,6 @@ const homeComponent: () => JSX.Element = () => {
 // ^ id, name, time, temperature and condition
 // ^ Boston default value
 
-type cityForecastData = {
-  id: string,
-  name: string,
-  time: string,
-  temperature: string,
-  condition: string,
-}
 
 
 

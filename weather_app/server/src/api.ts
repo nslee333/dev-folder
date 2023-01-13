@@ -52,14 +52,6 @@ export const updateQueryParams: (newQueryParams: string) => void = async (newQue
 
 const cityRealtimeDataCopy: cityRealtimeData[] = [];
 
-type cityRealtimeData = {
-    id: string,
-    name: string,
-    time: string,
-    temperature: string,
-    condition: string,
-  }
-
 
 
 const cityRealtimeFetch = async (cityArray: string[]) => {
@@ -195,15 +187,6 @@ const checkCoolDown: (weatherForecastType: string) => undefined | realtimeWeathe
 }
 
 
-type realtimeWeatherData = {
-    weatherDescription: string,
-    weatherIcon: number,
-    hasPrecipitation: boolean,
-    precipitationType: string | null,
-    temperature: number,
-}
-
-
 let realtimeWeatherCopy: realtimeWeatherData = {
     weatherDescription: '',
     weatherIcon: 0,
@@ -248,24 +231,6 @@ export const realtimeWeatherSort: () => Promise<void | AxiosError | realtimeWeat
 }
 
 
-type forecastDailyData = {
-    date: string,
-    dateEpoch: number,
-    maxTemp: number,
-    minTemp: number,
-    dayIcon: number,
-    dayIconPhrase: string,
-    dayHasPrecipitation: boolean | null,
-    dayPrecipitationType: string | null,
-    dayPrecipitationIntensity: string | null,
-    nightIcon: number,
-    nightIconPhrase: string,
-    nightHasPrecipitation: boolean | null,
-    nightPrecipitationType: string | null,
-    nightPrecipitationIntensity: string | null;
-}
-
-
 let dailyForecastCopy: forecastDailyData[] = [];
 
 
@@ -305,16 +270,6 @@ export const forecastDailySort: () => Promise<void | AxiosError  | realtimeWeath
         return apiDailyForecast;
 }
 
-
-type forecastHourlyData = {
-    timeEpoch: number,
-    weatherIcon: number,
-    iconPhrase: string,
-    hasPrecipitation: boolean;
-    temperature: number,
-    precipitationType: string | null,
-    precipitationIntensity: string | null,
-}
 
 let hourlyForecastCopy: forecastHourlyData[] = [];
 

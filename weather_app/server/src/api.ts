@@ -14,7 +14,7 @@ const baseURL: string = 'http://dataservice.accuweather.com';
 const forecastURL: string = '/forecasts/v1/daily/5day/';
 const currentURL: string = '/currentconditions/v1/';
 const hourlyForecastURL: string = '/forecasts/v1/hourly/12hour/';
-const citySearchURL: string = 'locations/v1/cities/search'
+const citySearchURL: string = '/locations/v1/cities/search'
 
 let locationQuery: string = '97702';
 let locationKey: string = '335268';
@@ -91,7 +91,7 @@ export const cityRealtimeFetch = async (cityArray: string[]) => {
 
 
 
-const getLocationKey: (locationQueryString: string) => Promise<AxiosError | string> = async () => {
+const getLocationKey: (locationQueryString: string) => Promise<AxiosError | string> = async (locationQueryString: string) => {
     const result = await axios.get(baseURL + citySearchURL, {
         params: {
             apikey: process.env.API_KEY,

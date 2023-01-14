@@ -120,42 +120,42 @@ const currentDate = date.toLocaleString('en-US', {
 });
 
 
-const fetchIcon: (weatherIcon: number ) => JSX.Element = (weatherIcon: number ) => {
+const fetchIcon: (weatherIcon: number, className: string) => JSX.Element = (weatherIcon: number, className: string ) => {
   if (weatherIcon >= 1 && weatherIcon <= 5) {
-    return <FontAwesomeIcon icon={faSun} className='variable__home__page__day__conditions__icon'/>
+    return <FontAwesomeIcon icon={faSun} className={`${className}`}/>
 
   } else if (weatherIcon >= 6 && weatherIcon <= 11) {
-    return <FontAwesomeIcon icon={faCloud} className='variable__home__page__day__conditions__icon'/>
+    return <FontAwesomeIcon icon={faCloud} className={`${className}`}/>
 
   } else if (weatherIcon >= 12 && weatherIcon <= 18) {
-    return <FontAwesomeIcon icon={faCloudSunRain}className='variable__home__page__day__conditions__icon'/>
+    return <FontAwesomeIcon icon={faCloudSunRain}className={`${className}`}/>
     
   } else if (weatherIcon >= 19 && weatherIcon <= 23) {
-    return <FontAwesomeIcon icon={faSnowflake} className='variable__home__page__day__conditions__icon'/>
+    return <FontAwesomeIcon icon={faSnowflake} className={`${className}`}/>
 
   } else if (weatherIcon === 24) {
-    return <FontAwesomeIcon icon={faIcicles} className='variable__home__page__day__conditions__icon'/>
+    return <FontAwesomeIcon icon={faIcicles} className={`${className}`}/>
 
   } else if (weatherIcon >= 25 && weatherIcon <= 29) {
-    return <FontAwesomeIcon icon={faCloudShowersHeavy} className='variable__home__page__day__conditions__icon'/>
+    return <FontAwesomeIcon icon={faCloudShowersHeavy} className={`${className}`}/>
 
   } else if (weatherIcon === 32) {
-    return <FontAwesomeIcon icon={faWind} className='variable__home__page__day__conditions__icon'/>
+    return <FontAwesomeIcon icon={faWind} className={`${className}`}/>
 
   } else if (weatherIcon >= 33 && weatherIcon <= 35) {
-    return <FontAwesomeIcon icon={faMoon} className='variable__home__page__day__conditions__icon'/>;
+    return <FontAwesomeIcon icon={faMoon} className={`${className}`}/>;
 
   } else if (weatherIcon >= 36 && weatherIcon <= 38) {
-    return <FontAwesomeIcon icon={faCloudMoon} className='variable__home__page__day__conditions__icon'/>
+    return <FontAwesomeIcon icon={faCloudMoon} className={`${className}`}/>
 
   } else if (weatherIcon >= 39 && weatherIcon <= 42) {
-    return <FontAwesomeIcon icon={faCloudMoonRain} className='variable__home__page__day__conditions__icon'/>
+    return <FontAwesomeIcon icon={faCloudMoonRain} className={`${className}`}/>
 
   } else if (weatherIcon >= 42 && weatherIcon <= 44) {
-    return <FontAwesomeIcon icon={faSnowflake} className='variable__home__page__day__conditions__icon'/>
+    return <FontAwesomeIcon icon={faSnowflake} className={`${className}`}/>
 
   } else {
-    return <FontAwesomeIcon icon={faSun} className='variable__home__page__day__conditions__icon' />
+    return <FontAwesomeIcon icon={faSun} className={`${className}`} />
     
   }
 }

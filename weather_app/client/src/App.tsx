@@ -40,8 +40,8 @@ const [forecastDaily, setForecastDaily] = useState<forecastDailyData[]>([]);
 const [forecastHourly, setForecastHourly] = useState<forecastHourlyData[]>([]);
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
-const [homeHighlighted, setHomeHighlighted] = useState(false); //TODO Reset => TRUE
-const [cityHighlighted, setCityHighlighted] = useState(true);
+const [homeHighlighted, setHomeHighlighted] = useState(true); //TODO Reset => TRUE
+const [cityHighlighted, setCityHighlighted] = useState(false);
 const [settingsHighlighted, setSettingsHighlighted] = useState(false);
 
 const [location, setLocation] = useState("97702");
@@ -53,25 +53,22 @@ const [cityArray, setCityArray] = useState<cityForecastData[]>([]);
 const [userSavedCities, setUserSavedCities] = useState<userSavedCity[]>([{id: "0", name: "Boston, MA"}]); // TODO: Make sure this works.
 const [idCount, setIdCount] = useState<number>(0); // TODO: Make sure this works.
 
+
+
+useEffect(() => { //TODO: Research is there any problems with multiple useEffects?
+  dataFetch();
+  // fetchCityData();
+  
+}, [])
+
 useEffect(() => {
 
-  // dataFetch(); // !! Make sure to limit api calls. 
-  // * two times per hour w/ two calls left over.
-  // dataFetch();
-  
   const interval = setInterval(() => {
     const newTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
     setTime(newTime);
   }, 1000);
 
   return () => clearInterval(interval);
-  
-}, [])
-
-
-useEffect(() => { //TODO: Research is there any problems with multiple useEffects?
-  dataFetch();
-  fetchCityData();
   
 }, [])
 

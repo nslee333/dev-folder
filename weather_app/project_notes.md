@@ -95,6 +95,7 @@ Use WeatherAPI.com's API.
 
 [Working]:
 - Weather Icons
+  - Monitor icons to make sure they work
 - Hour forecast not updating, cooldown faulty?
   - Found possible fix, monitor.
     - Might need to decrease font-size to clean up presentation of long weather descriptions.

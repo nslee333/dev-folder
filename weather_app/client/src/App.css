@@ -143,13 +143,12 @@
   height: 455px;
   top: 27.5px;
   left: 1000px;
-  background-color: var(--primary-div);
+  background-color: var(--main-grey);
   border-radius: 10px;
-
-  padding: 10px;
   
-
+  padding: 10px;
 }
+
 .hour-div__hr {
   margin: 0px;
   border: 1px solid var(--main-darkGrey);

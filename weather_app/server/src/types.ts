@@ -42,6 +42,11 @@ export type forecastHourlyData = {
 }
 
 
+export type userSavedCity = {
+    id: string,
+    name: string
+}
 
-export type cityQueryArray = string[];
+
+export type cityQueryArray = userSavedCity[];
 

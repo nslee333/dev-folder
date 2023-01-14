@@ -123,12 +123,7 @@ const currentDate = date.toLocaleString('en-US', {
 });
 
 
-const fetchIcon: (weatherIcon: number | undefined) => JSX.Element = (weatherIcon: number | undefined) => {
-  console.log(weatherIcon)
-  if (typeof weatherIcon === 'undefined') {
-    return <div></div>
-  } 
-
+const fetchIcon: (weatherIcon: number ) => JSX.Element = (weatherIcon: number ) => {
   if (weatherIcon >= 1 && weatherIcon <= 5) {
     return <FontAwesomeIcon icon={faSun} className='variable__home__page__day__conditions__icon'/>
 
@@ -169,13 +164,19 @@ const fetchIcon: (weatherIcon: number | undefined) => JSX.Element = (weatherIcon
 }
 
 const realtimeComponent = () => {
-  return (
-    <div className='realtime-main'>
-      <div className='realtime-div1'>{fetchIcon(realtime?.weatherIcon)} {realtime?.temperature + '°' || 'ICON 72° Cloudy'}</div>  
-      <div className='realtime-div2'>{time}</div>
-      <div className='realtime-div2'>{currentDate}</div>
-    </div>
-  );
+  if (realtime) {
+    return (
+      <div className='realtime-main'>
+        <div className='realtime-div1'>{fetchIcon(realtime.weatherIcon)} {realtime.temperature + '°'}</div>  
+        <div className='realtime-div2'>{time}</div>
+        <div className='realtime-div2'>{currentDate}</div>
+      </div>
+    );
+  } else {
+    return (
+      <div className='realtime-main'></div>
+    )
+  }
 }
 
 
@@ -188,7 +189,7 @@ const hourlyData = (forecastHour: forecastHourlyData) => {
   
     if (hour === 0) {
       return `12am`
-    }else if (hour < 12) { // TODO: Stopped at 0:00 not converting to 12:00am.
+    } else if (hour < 12) { // TODO: Stopped at 0:00 not converting to 12:00am.
       return `${hour}am`
     } else if (hour === 12) {
       return `${hour}pm`
@@ -202,61 +203,70 @@ const hourlyData = (forecastHour: forecastHourlyData) => {
 
 
 const hourForecastComponent = () => { // TODO Correct Upper-left corner display issue,
-  return (
-    <div className='hour-forecast'>
-      <div className='hour-forecast__div'>
-          <hr className='hour-div__hr'/>
-        <div className='hour-div__hours'>
-          <div className='hour-div__hours__display'>
-            {hourlyData(forecastHourly[0]) + " - "}
-            {forecastHourly[0]?.temperature + "° and "}
-            {forecastHourly[0]?.iconPhrase + " "}
-          </div> 
-        </div>
-          <hr className='hour-div__hr'/>
-        <div className='hour-div__hours'>
-          <div className='hour-div__hours__display'>
-            {hourlyData(forecastHourly[1]) + " - "}
-            {forecastHourly[1]?.temperature + "° and "}
-            {forecastHourly[1]?.iconPhrase}
+  if (forecastHourly !== undefined && forecastHourly[5] !== undefined) {
+      return (
+          <div className='hour-forecast'>
+            <div className='hour-forecast__div'>
+                <hr className='hour-div__hr'/>
+              <div className='hour-div__hours'>
+                <div className='hour-div__hours__display'>
+                  {hourlyData(forecastHourly[0]) + " - "}
+                  {forecastHourly[0].temperature + "° and "}
+                  {forecastHourly[0].iconPhrase + " "}
+                </div> 
+              </div>
+                <hr className='hour-div__hr'/>
+              <div className='hour-div__hours'>
+            <div className='hour-div__hours__display'>
+              {hourlyData(forecastHourly[1]) + " - "}
+              {forecastHourly[1].temperature + "° and "}
+              {forecastHourly[1].iconPhrase}
+            </div>
           </div>
-        </div>
-          <hr className='hour-div__hr'/>
-        <div className='hour-div__hours'>
-          <div className='hour-div__hours__display'>
-            {hourlyData(forecastHourly[2]) + " - "}
-            {forecastHourly[2]?.temperature + "° and "}
-            {forecastHourly[2]?.iconPhrase}
+            <hr className='hour-div__hr'/>
+          <div className='hour-div__hours'>
+            <div className='hour-div__hours__display'>
+              {hourlyData(forecastHourly[2]) + " - "}
+              {forecastHourly[2].temperature + "° and "}
+              {forecastHourly[2].iconPhrase}
+            </div>
           </div>
-        </div>
-          <hr className='hour-div__hr'/>
-        <div className='hour-div__hours'>
-          <div className='hour-div__hours__display'>
-            {hourlyData(forecastHourly[3]) + " - "}
-            {forecastHourly[3]?.temperature + "° and "}
-            {forecastHourly[3]?.iconPhrase}
+            <hr className='hour-div__hr'/>
+          <div className='hour-div__hours'>
+            <div className='hour-div__hours__display'>
+              {hourlyData(forecastHourly[3]) + " - "}
+              {forecastHourly[3].temperature + "° and "}
+              {forecastHourly[3].iconPhrase}
+            </div>
           </div>
-        </div>
-          <hr className='hour-div__hr'/>
-        <div className='hour-div__hours'>
-          <div className='hour-div__hours__display'>
-            {hourlyData(forecastHourly[4]) + " - "}
-            {forecastHourly[4]?.temperature + "° and "}
-            {forecastHourly[4]?.iconPhrase}
+            <hr className='hour-div__hr'/>
+          <div className='hour-div__hours'>
+            <div className='hour-div__hours__display'>
+              {hourlyData(forecastHourly[4]) + " - "}
+              {forecastHourly[4].temperature + "° and "}
+              {forecastHourly[4].iconPhrase}
+            </div>
           </div>
-        </div>
-          <hr className='hour-div__hr'/>
-        <div className='hour-div__hours'>
-          <div className='hour-div__hours__display'>
-            {hourlyData(forecastHourly[5]) + " - "}
-            {forecastHourly[5]?.temperature + "° and "}
-            {forecastHourly[5]?.iconPhrase}
+            <hr className='hour-div__hr'/>
+          <div className='hour-div__hours'>
+            <div className='hour-div__hours__display'>
+              {hourlyData(forecastHourly[5]) + " - "}
+              {forecastHourly[5].temperature + "° and "}
+              {forecastHourly[5].iconPhrase}
+            </div>
           </div>
+            <hr className='hour-div__hr'/>
         </div>
-          <hr className='hour-div__hr'/>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className='hour-forecast'>
+        <div className='hour-forecast__div'>
+        </div>
+      </div>
+    );
+  }
 }
 
 
@@ -355,56 +365,64 @@ const navbarComponent = () => {
 
 
 const homeComponent: () => JSX.Element = () => {
-  return (
-    <div className='variable__home'>
-        <div className='variable__home__page'>
-          <div className='variable__home__page__day'>Monday</div>
-          <div className='variable__home__page__day__conditions'>
-            <div className='variable__home__page__day__conditions__icon'>icon</div>
-            <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[0]?.maxTemp + "°"} - {forecastDaily[0]?.minTemp + "°"}</div>
-            <div className='variable__home__page__day__conditions__description'>{forecastDaily[0]?.dayIconPhrase} - {forecastDaily[0]?.nightIconPhrase}</div>
+  if (forecastDaily !== undefined && forecastDaily[5] !== undefined) {
+    return (
+      <div className='variable__home'>
+          <div className='variable__home__page'>
+            <div className='variable__home__page__day'>Monday</div>
+            <div className='variable__home__page__day__conditions'>
+              <div className='variable__home__page__day__conditions__icon'>icon</div>
+              <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[0].maxTemp + "°"} - {forecastDaily[0].minTemp + "°"}</div>
+              <div className='variable__home__page__day__conditions__description'>{forecastDaily[0].dayIconPhrase} - {forecastDaily[0].nightIconPhrase}</div>
+            </div>
           </div>
-        </div>
-      <hr className='variable__home__hr'/>
-        <div className='variable__home__page'>
-          <div className='variable__home__page__day'>Tuesday</div>
-          <div className='variable__home__page__day__conditions'>
-            <div className='variable__home__page__day__conditions__icon'>icon</div>
-            <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[1]?.maxTemp + "°"} - {forecastDaily[1]?.minTemp + "°"}</div>
-            <div className='variable__home__page__day__conditions__description'>{forecastDaily[1]?.dayIconPhrase} - {forecastDaily[1]?.nightIconPhrase}</div>
+        <hr className='variable__home__hr'/>
+          <div className='variable__home__page'>
+            <div className='variable__home__page__day'>Tuesday</div>
+            <div className='variable__home__page__day__conditions'>
+              <div className='variable__home__page__day__conditions__icon'>icon</div>
+              <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[1].maxTemp + "°"} - {forecastDaily[1].minTemp + "°"}</div>
+              <div className='variable__home__page__day__conditions__description'>{forecastDaily[1].dayIconPhrase} - {forecastDaily[1].nightIconPhrase}</div>
+            </div>
+            
+            
           </div>
-          
-          
-        </div>
-      <hr className='variable__home__hr'/>
-        <div className='variable__home__page'>
-          <div className='variable__home__page__day'>Wednesday</div>
-          <div className='variable__home__page__day__conditions'>
-            <div className='variable__home__page__day__conditions__icon'>icon</div>
-            <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[2]?.maxTemp + "°"} - {forecastDaily[2]?.minTemp + "°"}</div>
-            <div className='variable__home__page__day__conditions__description'>{forecastDaily[2]?.dayIconPhrase} - {forecastDaily[2]?.nightIconPhrase}</div>
+        <hr className='variable__home__hr'/>
+          <div className='variable__home__page'>
+            <div className='variable__home__page__day'>Wednesday</div>
+            <div className='variable__home__page__day__conditions'>
+              <div className='variable__home__page__day__conditions__icon'>icon</div>
+              <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[2].maxTemp + "°"} - {forecastDaily[2].minTemp + "°"}</div>
+              <div className='variable__home__page__day__conditions__description'>{forecastDaily[2].dayIconPhrase} - {forecastDaily[2].nightIconPhrase}</div>
+            </div>
           </div>
-        </div>
-      <hr className='variable__home__hr'/>
-        <div className='variable__home__page'>
-          <div className='variable__home__page__day'>Thursday</div>
-          <div className='variable__home__page__day__conditions'>
-            <div className='variable__home__page__day__conditions__icon'>icon</div>
-            <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[3]?.maxTemp + "°"} - {forecastDaily[3]?.minTemp + "°"}</div>
-            <div className='variable__home__page__day__conditions__description'>{forecastDaily[3]?.dayIconPhrase} - {forecastDaily[3]?.nightIconPhrase}</div>
+        <hr className='variable__home__hr'/>
+          <div className='variable__home__page'>
+            <div className='variable__home__page__day'>Thursday</div>
+            <div className='variable__home__page__day__conditions'>
+              <div className='variable__home__page__day__conditions__icon'>icon</div>
+              <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[3].maxTemp + "°"} - {forecastDaily[3].minTemp + "°"}</div>
+              <div className='variable__home__page__day__conditions__description'>{forecastDaily[3].dayIconPhrase} - {forecastDaily[3].nightIconPhrase}</div>
+            </div>
           </div>
-        </div>
-      <hr className='variable__home__hr'/>
-        <div className='variable__home__page'>
-          <div className='variable__home__page__day'>Friday</div>
-          <div className='variable__home__page__day__conditions'>
-            <div className='variable__home__page__day__conditions__icon'>icon</div>
-            <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[4]?.maxTemp + "°"} - {forecastDaily[4]?.minTemp + "°"}</div>
-            <div className='variable__home__page__day__conditions__description'>{forecastDaily[4]?.dayIconPhrase} - {forecastDaily[4]?.nightIconPhrase }</div>
+        <hr className='variable__home__hr'/>
+          <div className='variable__home__page'>
+            <div className='variable__home__page__day'>Friday</div>
+            <div className='variable__home__page__day__conditions'>
+              <div className='variable__home__page__day__conditions__icon'>{fetchIcon(forecastDaily[4].dayIcon)}</div>
+              <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[4].maxTemp + "°"} - {forecastDaily[4].minTemp + "°"}</div>
+              <div className='variable__home__page__day__conditions__description'>{forecastDaily[4].dayIconPhrase} - {forecastDaily[4].nightIconPhrase }</div>
+            </div>
           </div>
-        </div>
-    </div>
-  );
+      </div>
+    );
+  } else {
+    return (
+      <div className='variable__home'>
+        
+      </div>
+    );
+  }
 }
 
 

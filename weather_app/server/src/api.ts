@@ -56,13 +56,13 @@ const cityRealtimeRequest = async (locationQueryString: string) => {
 const cityRealtimeDataCopy: cityRealtimeData[] = [];
 
 
-export const cityRealtimeFetch = async (cityArray: string[]) => {
+export const cityRealtimeFetch = async (cityArray: userSavedCity[]) => {
     if (cooldownEndTime < Date.now()) {
 
         const cityDataArray: cityRealtimeData[] = [];
 
-        for (let count = 0; cityArray.length >= count; count++) {
-            const result = await cityRealtimeRequest(cityArray[count]);
+        for (let count = 0; count <= cityArray.length; count++) {
+            const result = await cityRealtimeRequest(cityArray[count].name);
             if (result instanceof Error) return result;
 
             const dataResult = result.data[0];

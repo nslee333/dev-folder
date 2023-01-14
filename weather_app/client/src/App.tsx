@@ -361,12 +361,35 @@ const navbarComponent = () => {
 }
 
 
+
+const dateToDay = (dateEntry: string) => {
+  const day = new Date(dateEntry)
+  const result = day.getDay();
+
+
+  if (result === 0) {
+    return 'Sunday';
+  } else if (result === 1) {
+    return 'Monday';
+  } else if (result === 2) {
+    return 'Tuesday';
+  } else if (result === 3) {
+    return 'Wednesday';
+  } else if (result === 4) {
+    return 'Thursday';
+  } else if (result === 5) {
+    return 'Friday';
+  } else if (result === 6) {
+    return 'Saturday';
+  }
+}
+
 const homeComponent: () => JSX.Element = () => {
   if (forecastDaily !== undefined && forecastDaily[5] !== undefined) {
     return (
       <div className='variable__home'>
           <div className='variable__home__page'>
-            <div className='variable__home__page__day'>Monday</div>
+            <div className='variable__home__page__day'>{dateToDay(forecastDaily[0].date)}</div>
             <div className='variable__home__page__day__conditions'>
               <div className='variable__home__page__day__conditions__icon'>icon</div>
               <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[0].maxTemp + "°"} - {forecastDaily[0].minTemp + "°"}</div>
@@ -375,7 +398,7 @@ const homeComponent: () => JSX.Element = () => {
           </div>
         <hr className='variable__home__hr'/>
           <div className='variable__home__page'>
-            <div className='variable__home__page__day'>Tuesday</div>
+            <div className='variable__home__page__day'>{dateToDay(forecastDaily[1].date)}</div>
             <div className='variable__home__page__day__conditions'>
               <div className='variable__home__page__day__conditions__icon'>icon</div>
               <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[1].maxTemp + "°"} - {forecastDaily[1].minTemp + "°"}</div>
@@ -386,7 +409,7 @@ const homeComponent: () => JSX.Element = () => {
           </div>
         <hr className='variable__home__hr'/>
           <div className='variable__home__page'>
-            <div className='variable__home__page__day'>Wednesday</div>
+            <div className='variable__home__page__day'>{dateToDay(forecastDaily[2].date)}</div>
             <div className='variable__home__page__day__conditions'>
               <div className='variable__home__page__day__conditions__icon'>icon</div>
               <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[2].maxTemp + "°"} - {forecastDaily[2].minTemp + "°"}</div>
@@ -395,7 +418,7 @@ const homeComponent: () => JSX.Element = () => {
           </div>
         <hr className='variable__home__hr'/>
           <div className='variable__home__page'>
-            <div className='variable__home__page__day'>Thursday</div>
+            <div className='variable__home__page__day'>{dateToDay(forecastDaily[3].date)}</div>
             <div className='variable__home__page__day__conditions'>
               <div className='variable__home__page__day__conditions__icon'>icon</div>
               <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[3].maxTemp + "°"} - {forecastDaily[3].minTemp + "°"}</div>
@@ -404,7 +427,7 @@ const homeComponent: () => JSX.Element = () => {
           </div>
         <hr className='variable__home__hr'/>
           <div className='variable__home__page'>
-            <div className='variable__home__page__day'>Friday</div>
+            <div className='variable__home__page__day'>{dateToDay(forecastDaily[4].date)}</div>
             <div className='variable__home__page__day__conditions'>
               <div className='variable__home__page__day__conditions__icon'>{fetchIcon(forecastDaily[4].dayIcon)}</div>
               <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[4].maxTemp + "°"} - {forecastDaily[4].minTemp + "°"}</div>

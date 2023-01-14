@@ -127,6 +127,10 @@
   color: var(--main-font);
 }
 
+.realtime-icon {
+  background-color: var(--main-grey);
+}
+
 
 .realtime-div1 {
   font-size: 60px;
@@ -187,6 +191,11 @@
   left: 15px;
   top: 10px;
   /* border: 1px solid red; */
+}
+
+.hour-div__hours__display__icon {
+  background-color: var(--main-grey);
+
 }
 
 .variable {
@@ -252,6 +261,7 @@
 }
 .variable__home__page__day__conditions {
   border: 2px solid var(--main-darkGrey);
+  border-radius: 7px;
   text-align: left;
   margin: 10px;  
   height: 250px;
@@ -270,7 +280,8 @@
 .variable__home__page__day__conditions__icon {
   text-align: left;
   background-color: var(--main-grey);
-  height: 70px;
+  height: 40px;
+  margin: 5px;
 }
 .variable__home__page__day__conditions__description {
   display: flex;

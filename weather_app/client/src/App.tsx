@@ -354,24 +354,22 @@ const homeComponent: () => JSX.Element = () => {
 // TODO: Sustain data without a database between re-loads
   // & Use ref.
 
-
-
-
-
-// TODO: Sustain cities on client side,
-// * Function |> calls for every city, sustains data.
-// * Then call fetchData().
-
-
-
-const fetchCityData = () => {
-
-  // ^ Call 
-}
-
-
-
-
+  
+  const fetchCityData = async () => {
+    // * if cities are saved or initial page load => call this.
+    console.log(userSavedCities, "HERE")
+    
+    const result = await cityQuery(userSavedCities); // TODO: Rewrite backend logic to include id.
+    if (result instanceof AxiosError) return console.log("Axios Error:", AxiosError);
+    
+    const cityData = result.data;
+    
+    console.log(cityData);
+    setCityArray(cityData);
+  }
+  
+  // fetchCityData();
+  
 const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
   if (event.key === `Enter`) {
     event.preventDefault()
@@ -379,16 +377,22 @@ const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
     
     if (citySearchRef.current === null) return console.error("City Search Error:", citySearchRef.current);
     
-    const cityString = citySearchRef.current.value;
+    const cityString: string = citySearchRef.current.value;
+    
     
     const validationResult = cityQueryValidation(cityString);
     if (validationResult instanceof Error) return window.alert(validationResult);
-
-    userSavedCities.push(cityString);
     
-    // TODO: Call server => call AccuWeatherAPI, save copy of data, return data to client,
-    // TODO - Save data array in state, this updates for every call.
-    
+    const cityEntry: userSavedCity = {
+      id: `${idCount + 1}`,
+      name: citySearchRef.current.value,
+    }
+      setIdCount(idCount + 1);
+      userSavedCities.push(cityEntry); // ! Make sure this works, not sure
+      console.log(cityEntry)
+      console.log(userSavedCities)
+      
+      
     citySearchRef.current.value = "";
   }
 }

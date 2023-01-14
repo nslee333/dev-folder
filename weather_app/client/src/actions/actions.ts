@@ -1,4 +1,5 @@
 import axios, { Axios, AxiosError, AxiosResponse } from 'axios';
+import { userSavedCity } from '../types/types';
 
 const baseURL: string = 'http://localhost:1300/api/'
 
@@ -69,7 +70,7 @@ export const locationUpdate: (location: string) => Promise<AxiosResponse | Axios
     return result;
 }
 
-export const cityQuery = async (citiesArrayParam: string[]) => {
+export const cityQuery = async (citiesArrayParam: userSavedCity[]) => {
     const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'cities', {
             citiesArray: citiesArrayParam
     })

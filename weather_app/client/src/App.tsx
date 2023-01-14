@@ -5,14 +5,16 @@ import {
   dailyRequest, 
   hourlyRequest, 
   metricUpdate, 
-  locationUpdate
+  locationUpdate,
+  cityQuery
 } from './actions/actions';
 import {
   realtimeWeatherData, 
   forecastDailyData, 
   forecastHourlyData, 
   cityForecastData, 
-  dataTuple
+  dataTuple,
+  userSavedCity
 } from './types/types'
 import { RefObject, useEffect, useState, createRef, KeyboardEvent, Key } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,10 +26,9 @@ const [realtime, setRealtime] = useState<realtimeWeatherData>();
 const [forecastDaily, setForecastDaily] = useState<forecastDailyData[]>([]);
 const [forecastHourly, setForecastHourly] = useState<forecastHourlyData[]>([]);
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
-const [cityArray, setCityArray] = useState<cityForecastData[]>([]);
 
-const [homeHighlighted, setHomeHighlighted] = useState(true); //TODO Reset => TRUE
-const [cityHighlighted, setCityHighlighted] = useState(false);
+const [homeHighlighted, setHomeHighlighted] = useState(false); //TODO Reset => TRUE
+const [cityHighlighted, setCityHighlighted] = useState(true);
 const [settingsHighlighted, setSettingsHighlighted] = useState(false);
 
 const [location, setLocation] = useState("97702");
@@ -35,7 +36,9 @@ const [metric, setMetric] = useState(false);
 const settingsLocationRef: RefObject<HTMLInputElement> = createRef();
 
 const citySearchRef: RefObject<HTMLInputElement> = createRef();
-const [userSavedCities, setUserSavedCities] = useState<string[]>([]);
+const [cityArray, setCityArray] = useState<cityForecastData[]>([]);
+const [userSavedCities, setUserSavedCities] = useState<userSavedCity[]>([{id: "0", name: "Boston, MA"}]); // TODO: Make sure this works.
+const [idCount, setIdCount] = useState<number>(0); // TODO: Make sure this works.
 
 useEffect(() => {
 

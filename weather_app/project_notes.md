@@ -95,17 +95,13 @@ Use WeatherAPI.com's API.
 
 [Working]:
 - Weather Icons
-    - Sustain data on server side and frontend
-      - Default location, measurement system and data.
 - Hour forecast not updating, cooldown faulty?
   - Found possible fix, monitor.
     - Might need to decrease font-size to clean up presentation of long weather descriptions.
 - Display data for City tab.
   - fetch and sustain data for City tab.
-  - Finish api side, make sure modified requests are working.
-    - Server, and actions still to do, and testing.
+  - Finish api side, make sure modified requests are working..
 - Rethink how server api works, queryParams especially.
-- 
 
 
 
@@ -119,3 +115,8 @@ Use WeatherAPI.com's API.
     - Type the functions for that task that was completed.
     - Make sure that the variables stick to the naming convention.
     - A variable line doesn't go past the max-line length.
+
+
+{id: "0", name: "Boston, MA"}
+
+[{id: "0", name: "Boston, MA"}, {id: "0", name: "Boston, MA"}, {id: "0", name: "Boston, MA"}, {id: "0", name: "Boston, MA"}, {id: "0", name: "Boston, MA"}]

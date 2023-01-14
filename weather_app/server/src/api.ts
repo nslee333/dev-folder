@@ -65,7 +65,7 @@ export const cityRealtimeFetch = async (cityArray: string[]) => {
             const result = await cityRealtimeRequest(cityArray[count]);
             if (result instanceof Error) return result;
 
-            const dataResult = result.data;
+            const dataResult = result.data[0];
 
             const cityRealtimeData: cityRealtimeData = {
                 id: `${count}`, 
@@ -95,7 +95,7 @@ const getLocationKey: (locationQueryString: string) => Promise<AxiosError | stri
     const result = await axios.get(baseURL + citySearchURL, {
         params: {
             apikey: process.env.API_KEY,
-            q: locationQuery,
+            q: locationQueryString,
         }
     })
     .then(function (response: AxiosResponse) {
@@ -107,7 +107,7 @@ const getLocationKey: (locationQueryString: string) => Promise<AxiosError | stri
 
     if (result instanceof AxiosError) return result;
     
-    const locationKey = result.data.Key;
+    const locationKey = result.data[0].Key;
     return locationKey;
 }
 

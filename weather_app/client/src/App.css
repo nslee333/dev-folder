@@ -270,10 +270,8 @@
 }
 .variable__home__page__day__conditions__icon {
   text-align: left;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: 10px;
   background-color: var(--main-grey);
+  height: 70px;
 }
 .variable__home__page__day__conditions__description {
   display: flex;

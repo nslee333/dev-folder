@@ -18,7 +18,20 @@ import {
 } from './types/types'
 import { RefObject, useEffect, useState, createRef, KeyboardEvent, Key } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faCity, faSliders, faHouse} from '@fortawesome/free-solid-svg-icons';
+import {
+  faCity, 
+  faSliders, 
+  faHouse, 
+  faCloudSunRain, 
+  faCloud, 
+  faCloudMoon, 
+  faCloudMoonRain, 
+  faCloudShowersHeavy, 
+  faIcicles, faMoon, 
+  faSnowflake, 
+  faSun, 
+  faWind
+} from '@fortawesome/free-solid-svg-icons';
 
 function App() {
 
@@ -110,13 +123,57 @@ const currentDate = date.toLocaleString('en-US', {
 });
 
 
+const fetchIcon: (weatherIcon: number | undefined) => JSX.Element = (weatherIcon: number | undefined) => {
+  console.log(weatherIcon)
+  if (typeof weatherIcon === 'undefined') {
+    return <div></div>
+  } 
+
+  if (weatherIcon >= 1 && weatherIcon <= 5) {
+    return <FontAwesomeIcon icon={faSun} className='variable__home__page__day__conditions__icon'/>
+
+  } else if (weatherIcon >= 6 && weatherIcon <= 11) {
+    return <FontAwesomeIcon icon={faCloud} className='variable__home__page__day__conditions__icon'/>
+
+  } else if (weatherIcon >= 12 && weatherIcon <= 18) {
+    return <FontAwesomeIcon icon={faCloudSunRain}className='variable__home__page__day__conditions__icon'/>
+    
+  } else if (weatherIcon >= 19 && weatherIcon <= 23) {
+    return <FontAwesomeIcon icon={faSnowflake} className='variable__home__page__day__conditions__icon'/>
+
+  } else if (weatherIcon === 24) {
+    return <FontAwesomeIcon icon={faIcicles} className='variable__home__page__day__conditions__icon'/>
+
+  } else if (weatherIcon >= 25 && weatherIcon <= 29) {
+    return <FontAwesomeIcon icon={faCloudShowersHeavy} className='variable__home__page__day__conditions__icon'/>
+
+  } else if (weatherIcon === 32) {
+    return <FontAwesomeIcon icon={faWind} className='variable__home__page__day__conditions__icon'/>
+
+  } else if (weatherIcon >= 33 && weatherIcon <= 35) {
+    return <FontAwesomeIcon icon={faMoon} className='variable__home__page__day__conditions__icon'/>;
+
+  } else if (weatherIcon >= 36 && weatherIcon <= 38) {
+    return <FontAwesomeIcon icon={faCloudMoon} className='variable__home__page__day__conditions__icon'/>
+
+  } else if (weatherIcon >= 39 && weatherIcon <= 42) {
+    return <FontAwesomeIcon icon={faCloudMoonRain} className='variable__home__page__day__conditions__icon'/>
+
+  } else if (weatherIcon >= 42 && weatherIcon <= 44) {
+    return <FontAwesomeIcon icon={faSnowflake} className='variable__home__page__day__conditions__icon'/>
+
+  } else {
+    return <FontAwesomeIcon icon={faSun} className='variable__home__page__day__conditions__icon' />
+    
+  }
+}
+
 const realtimeComponent = () => {
   return (
     <div className='realtime-main'>
-      <div className='realtime-div1'>{realtime?.weatherIcon && realtime?.weatherDescription && realtime?.temperature + '°' || 'ICON 72° Cloudy'}</div>  
+      <div className='realtime-div1'>{fetchIcon(realtime?.weatherIcon)} {realtime?.temperature + '°' || 'ICON 72° Cloudy'}</div>  
       <div className='realtime-div2'>{time}</div>
       <div className='realtime-div2'>{currentDate}</div>
-<i className="wi wi-night-sleet"></i>
     </div>
   );
 }

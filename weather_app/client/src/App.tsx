@@ -1,4 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios';
+import { RefObject, useEffect, useState, createRef, KeyboardEvent, Key } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './App.css';
 import {
   realtimeRequest, 
@@ -16,8 +18,6 @@ import {
   dataTuple,
   userSavedCity
 } from './types/types'
-import { RefObject, useEffect, useState, createRef, KeyboardEvent, Key } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCity, 
   faSliders, 
@@ -175,8 +175,6 @@ const realtimeComponent = () => {
     )
   }
 }
-
-
 
 
 const hourlyData = (forecastHour: forecastHourlyData) => {

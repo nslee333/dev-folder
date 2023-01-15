@@ -113,8 +113,3 @@ Use WeatherAPI.com's API.
     - Type the functions for that task that was completed.
     - Make sure that the variables stick to the naming convention.
     - A variable line doesn't go past the max-line length.
-
-
-{id: "0", name: "Boston, MA"}
-
-[{id: "0", name: "Boston, MA"}, {id: "0", name: "Boston, MA"}, {id: "0", name: "Boston, MA"}, {id: "0", name: "Boston, MA"}, {id: "0", name: "Boston, MA"}]

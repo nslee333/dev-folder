@@ -6,7 +6,7 @@ Weather web app:
         Weather of Current city
         The day's forecast
         air conditions?
-        7 day forcast.
+        7 day forecast.
         Background / Theme changes based upon the current weather?
     Cities:
         - List of cities user has added.
@@ -16,7 +16,7 @@ Weather web app:
     Map:
         - Weather map of area?
     Options:
-        -  Farenheit vs Celsius option.
+        -  Fahrenheit vs Celsius option.
         -  Pressures? etc.
 
 [Tools and libraries used]
@@ -88,17 +88,14 @@ Use WeatherAPI.com's API.
 
 
 [CurrentTasks]:
-- `Loading...` display while waiting?
-- Change the background color depending upon the time of day / weather?
-- 
-
-
-[Working]:
 - Weather Icons
   - Monitor icons to make sure they work
 - Hour forecast not updating, cooldown faulty?
   - Found possible fix, monitor.
     - Might need to decrease font-size to clean up presentation of long weather descriptions.
+
+
+[Working]:
 - Display data for City tab.
   - fetch and sustain data for City tab.
   - Finish api side, make sure modified requests are working..

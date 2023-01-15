@@ -215,7 +215,7 @@ const hourForecastComponent = () => { // TODO Correct Upper-left corner display 
             <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
             {fetchIcon(forecastHourly[1].weatherIcon, "hour-div__hours__display__icon")}
-            {" " + hourlyData(forecastHourly[0]) + " - "}
+            {" " + hourlyData(forecastHourly[1]) + " - "}
             {forecastHourly[1].temperature + "° and "}
             {forecastHourly[1].iconPhrase}
           </div>
@@ -224,7 +224,7 @@ const hourForecastComponent = () => { // TODO Correct Upper-left corner display 
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
             {fetchIcon(forecastHourly[2].weatherIcon, "hour-div__hours__display__icon")}
-            {" " + hourlyData(forecastHourly[0]) + " - "}
+            {" " + hourlyData(forecastHourly[2]) + " - "}
             {forecastHourly[2].temperature + "° and "}
             {forecastHourly[2].iconPhrase}
           </div>
@@ -233,7 +233,7 @@ const hourForecastComponent = () => { // TODO Correct Upper-left corner display 
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
             {fetchIcon(forecastHourly[3].weatherIcon, "hour-div__hours__display__icon")}
-            {" " + hourlyData(forecastHourly[0]) + " - "}
+            {" " + hourlyData(forecastHourly[3]) + " - "}
             {forecastHourly[3].temperature + "° and "}
             {forecastHourly[3].iconPhrase}
           </div>
@@ -242,7 +242,7 @@ const hourForecastComponent = () => { // TODO Correct Upper-left corner display 
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
             {fetchIcon(forecastHourly[4].weatherIcon, "hour-div__hours__display__icon")}
-            {" " + hourlyData(forecastHourly[0]) + " - "}
+            {" " + hourlyData(forecastHourly[4]) + " - "}
             {forecastHourly[4].temperature + "° and "}
             {forecastHourly[4].iconPhrase}
           </div>
@@ -251,7 +251,7 @@ const hourForecastComponent = () => { // TODO Correct Upper-left corner display 
         <div className='hour-div__hours'>
           <div className='hour-div__hours__display'>
             {fetchIcon(forecastHourly[5].weatherIcon, "hour-div__hours__display__icon")}
-            {" " + hourlyData(forecastHourly[0]) + " - "}
+            {" " + hourlyData(forecastHourly[5]) + " - "}
             {forecastHourly[5].temperature + "° and "}
             {forecastHourly[5].iconPhrase}
           </div>

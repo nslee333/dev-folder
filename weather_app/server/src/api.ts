@@ -61,7 +61,7 @@ export const cityRealtimeFetch = async (cityArray: userSavedCity[]) => {
 
         const cityDataArray: cityRealtimeData[] = [];
 
-        for (let count = 0; count <= cityArray.length; count++) {
+        for (let count = 0; count < cityArray.length; count++) {
             const result = await cityRealtimeRequest(cityArray[count].name);
             if (result instanceof Error) return result;
 
@@ -71,7 +71,7 @@ export const cityRealtimeFetch = async (cityArray: userSavedCity[]) => {
                 id: `${count}`, 
                 name: `${cityArray[count]}`,
                 time: dataResult.EpochTime,
-                temperature: (metricBool ? dataResult.Metric.Value : dataResult.Imperial.Value), // TODO: Use this method to simplify current forecast request.
+                temperature: (metricBool ? dataResult.Temperature.Metric.Value : dataResult.Temperature.Imperial.Value), // TODO: Use this method to simplify current forecast request.
                 condition: dataResult.WeatherText
             }
 

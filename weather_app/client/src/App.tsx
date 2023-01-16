@@ -168,6 +168,7 @@ const realtimeComponent = () => {
         <div className='realtime-div1'>{fetchIcon(realtime.weatherIcon, "realtime-icon")} {realtime.temperature + '°'}</div>  
         <div className='realtime-div2'>{time}</div>
         <div className='realtime-div2'>{currentDate}</div>
+        <div className='realtime-div2'>{location}</div>
       </div>
     );
   } else {
@@ -396,7 +397,8 @@ const homeComponent: () => JSX.Element = () => {
             <div className='variable__home__page__day__conditions'>
               <div className='variable__home__page__day__conditions__icon'>{fetchIcon(forecastDaily[0].dayIcon, "variable__home__page__day__conditions__icon")} {fetchIcon(forecastDaily[0].nightIcon, "variable__home__page__day__conditions__icon")}</div>
               <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[0].maxTemp + "°"} - {forecastDaily[0].minTemp + "°"}</div>
-              <div className='variable__home__page__day__conditions__description'>{forecastDaily[0].dayIconPhrase} - {forecastDaily[0].nightIconPhrase}</div>
+              <div className='variable__home__page__day__conditions__description'>{forecastDaily[0].dayIconPhrase} during the daytime</div>
+              <div className='variable__home__page__day__conditions__description'>{forecastDaily[0].nightIconPhrase} at night</div>
             </div>
           </div>
         <hr className='variable__home__hr'/>
@@ -405,7 +407,8 @@ const homeComponent: () => JSX.Element = () => {
             <div className='variable__home__page__day__conditions'>
               <div className='variable__home__page__day__conditions__icon'>{fetchIcon(forecastDaily[1].dayIcon, "variable__home__page__day__conditions__icon")} {fetchIcon(forecastDaily[1].nightIcon, "variable__home__page__day__conditions__icon")}</div>
               <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[1].maxTemp + "°"} - {forecastDaily[1].minTemp + "°"}</div>
-              <div className='variable__home__page__day__conditions__description'>{forecastDaily[1].dayIconPhrase} - {forecastDaily[1].nightIconPhrase}</div>
+              <div className='variable__home__page__day__conditions__description'>{forecastDaily[1].dayIconPhrase} during the daytime</div>
+              <div className='variable__home__page__day__conditions__description'>{forecastDaily[1].nightIconPhrase} at night</div>
             </div>
             
             
@@ -416,7 +419,8 @@ const homeComponent: () => JSX.Element = () => {
             <div className='variable__home__page__day__conditions'>
               <div className='variable__home__page__day__conditions__icon'>{fetchIcon(forecastDaily[2].dayIcon, "variable__home__page__day__conditions__icon")} {fetchIcon(forecastDaily[2].nightIcon, "variable__home__page__day__conditions__icon")}</div>
               <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[2].maxTemp + "°"} - {forecastDaily[2].minTemp + "°"}</div>
-              <div className='variable__home__page__day__conditions__description'>{forecastDaily[2].dayIconPhrase} - {forecastDaily[2].nightIconPhrase}</div>
+              <div className='variable__home__page__day__conditions__description'>{forecastDaily[2].dayIconPhrase} during the daytime</div>
+              <div className='variable__home__page__day__conditions__description'>{forecastDaily[2].nightIconPhrase} at night</div>
             </div>
           </div>
         <hr className='variable__home__hr'/>
@@ -425,7 +429,8 @@ const homeComponent: () => JSX.Element = () => {
             <div className='variable__home__page__day__conditions'>
               <div className='variable__home__page__day__conditions__icon'>{fetchIcon(forecastDaily[3].dayIcon, "variable__home__page__day__conditions__icon")} {fetchIcon(forecastDaily[3].nightIcon, "variable__home__page__day__conditions__icon")}</div>
               <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[3].maxTemp + "°"} - {forecastDaily[3].minTemp + "°"}</div>
-              <div className='variable__home__page__day__conditions__description'>{forecastDaily[3].dayIconPhrase} - {forecastDaily[3].nightIconPhrase}</div>
+              <div className='variable__home__page__day__conditions__description'>{forecastDaily[3].dayIconPhrase} during the daytime</div>
+              <div className='variable__home__page__day__conditions__description'>{forecastDaily[3].nightIconPhrase} at night</div>
             </div>
           </div>
         <hr className='variable__home__hr'/>
@@ -434,7 +439,8 @@ const homeComponent: () => JSX.Element = () => {
             <div className='variable__home__page__day__conditions'>
               <div className='variable__home__page__day__conditions__icon'>{fetchIcon(forecastDaily[4].dayIcon, "variable__home__page__day__conditions__icon")} {fetchIcon(forecastDaily[4].nightIcon, "variable__home__page__day__conditions__icon")}</div>
               <div className='variable__home__page__day__conditions__temperature'>{forecastDaily[4].maxTemp + "°"} - {forecastDaily[4].minTemp + "°"}</div>
-              <div className='variable__home__page__day__conditions__description'>{forecastDaily[4].dayIconPhrase} - {forecastDaily[4].nightIconPhrase }</div>
+              <div className='variable__home__page__day__conditions__description'>{forecastDaily[4].dayIconPhrase} during the daytime</div>
+              <div className='variable__home__page__day__conditions__description'>{forecastDaily[4].nightIconPhrase} at night</div>
             </div>
           </div>
       </div>

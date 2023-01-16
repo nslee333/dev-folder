@@ -252,7 +252,7 @@
 .variable__home__page__day {
   background-color: var(--main-grey);
   /* position: absolute; */
-
+  /* top: 50px; */
   width: 80px;
   /* height: 30px; */
   /* border: 2px solid red; */
@@ -263,7 +263,6 @@
   border: 2px solid var(--main-darkGrey);
   border-radius: 7px;
   text-align: left;
-  margin: 10px;  
   height: 250px;
   background-color: var(--main-grey);
 }
@@ -288,10 +287,10 @@
   text-align: left;
   /* margin: 10px; */
   font-size: 15px;
-  height: 90px;
+  height: 70px;
   /* margin-top: 20px; */
   /* margin-bottom: 10px; */
-  margin-right: 10px;
+  /* margin-right: 10px; */
   margin-left: 10px;
   background-color: var(--main-grey);
 }

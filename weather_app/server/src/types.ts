@@ -4,6 +4,7 @@ export type cityRealtimeData = {
     time: string,
     temperature: string,
     condition: string,
+    weatherIcon: string
 }
 
 export type realtimeWeatherData = {

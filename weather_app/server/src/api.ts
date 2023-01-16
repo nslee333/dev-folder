@@ -72,7 +72,8 @@ export const cityRealtimeFetch = async (cityArray: userSavedCity[]) => {
                 name: `${cityArray[count].name}`,
                 time: dataResult.EpochTime,
                 temperature: (metricBool ? dataResult.Temperature.Metric.Value : dataResult.Temperature.Imperial.Value), // TODO: Use this method to simplify current forecast request.
-                condition: dataResult.WeatherText
+                condition: dataResult.WeatherText,
+                weatherIcon: `${dataResult.WeatherIcon}`
             }
 
             cityRealtimeDataCopy.push(cityRealtimeData);

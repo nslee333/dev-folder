@@ -39,6 +39,7 @@ export type cityForecastData = {
     time: string,
     temperature: string,
     condition: string,
+    weatherIcon: string
 }
 
 export type dataTuple = [realtimeWeatherData, forecastDailyData[], forecastHourlyData[]];

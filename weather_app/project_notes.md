@@ -97,9 +97,26 @@ Use WeatherAPI.com's API.
 
 [Working]:
 - Display data for City tab.
-  - fetch and sustain data for City tab.
+  - fetch data works fine.
+    - See if we can include a weathericon.
+  - 
+  - Sustain userSaved cities.
+    - 'Save' button not working.
+    - Need to implement delete button properly.
+      - using localStorage might work, we'll see
+    - The issue with this feature is that it's api call intensive. 
+  
   - Finish api side, make sure modified requests are working..
-- Rethink how server api works, queryParams especially.
+
+
+
+
+This I can debug without the api.
+  - Rethink how server api works, queryParams especially.
+    - Default location not working.
+  - Display current location on realtime display.
+  - make sure measurement system works.
+  - 
 
 
 

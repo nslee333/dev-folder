@@ -1,5 +1,5 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import { RefObject, useEffect, useState, createRef, KeyboardEvent, Key } from 'react';
+import { RefObject, useEffect, useState, createRef, KeyboardEvent, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './App.css';
 import {
@@ -40,8 +40,8 @@ const [forecastDaily, setForecastDaily] = useState<forecastDailyData[]>([]);
 const [forecastHourly, setForecastHourly] = useState<forecastHourlyData[]>([]);
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
-const [homeHighlighted, setHomeHighlighted] = useState(true); //TODO Reset => TRUE
-const [cityHighlighted, setCityHighlighted] = useState(false);
+const [homeHighlighted, setHomeHighlighted] = useState(false); //TODO Reset => TRUE
+const [cityHighlighted, setCityHighlighted] = useState(true);
 const [settingsHighlighted, setSettingsHighlighted] = useState(false);
 
 const [location, setLocation] = useState("97702");
@@ -50,8 +50,9 @@ const settingsLocationRef: RefObject<HTMLInputElement> = createRef();
 
 const citySearchRef: RefObject<HTMLInputElement> = createRef();
 const [cityArray, setCityArray] = useState<cityForecastData[]>([]);
-const [userSavedCities, setUserSavedCities] = useState<userSavedCity[]>([{id: "0", name: "Boston, MA"}]); // TODO: Make sure this works.
 const [idCount, setIdCount] = useState<number>(0); // TODO: Make sure this works.
+const [userSavedCities, setUserSavedCities] = useState<userSavedCity[]>([{id: "0", name: "Boston, MA"}]); // TODO: Make sure this works.
+// const savedCities = useRef<userSavedCity[]>();
 
 
 
@@ -449,22 +450,33 @@ const homeComponent: () => JSX.Element = () => {
 
 
 
-// TODO: Sustain data without a database between re-loads
-  // & Use ref.
+const setCitiesToLocalStorage = () => {
+
+}
+
 
   
-  const fetchCityData = async () => {
-    // * if cities are saved or initial page load => call this.
-    console.log(userSavedCities, "HERE")
+  const fetchCityData = async () => { // * It's not returning the data.
+    // // * if cities are saved or initial page load => call this.
     
-    const result = await cityQuery(userSavedCities); // TODO: Rewrite backend logic to include id.
-    if (result instanceof AxiosError) return console.log("Axios Error:", AxiosError);
+    // const result = await cityQuery(userSavedCities);
+    // if (result instanceof AxiosError) return console.log("Axios Error:", AxiosError);
     
-    const cityData = result.data;
+    // const cityData = result.data;
+    // userSavedCities.push(
     
-    console.log(cityData);
-    setCityArray(cityData);
+    //     {id: '1', name: "New York, NY"}
+    // )
+    localStorage.setItem('userSavedCities', JSON.stringify(userSavedCities));
+    // localStorage.setItem('cityData', cityData);
+    
+    // console.log(localStorage.getItem('userSavedCities'));
+    // console.log(localStorage.getItem('cityData'));
+    console.log(userSavedCities)
+    // setCityArray(cityData);
   }
+
+  // console.log(localStorage.getItem("userSavedCities"), "LOCALSTORAGEW")
   
   // fetchCityData();
   
@@ -487,8 +499,7 @@ const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
     }
       setIdCount(idCount + 1);
       userSavedCities.push(cityEntry); // ! Make sure this works, not sure
-      console.log(cityEntry)
-      console.log(userSavedCities)
+      // localStorage.setItem('userSavedCities')
       
       
     citySearchRef.current.value = "";
@@ -497,17 +508,21 @@ const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
 
 const deleteCity = (cityId: string, cityName: string) => {
   // TODO: Still need to finish implementing / debugging this.
+  const userCities = localStorage.getItem('userSavedCities');
+
+  console.log(userCities);
 
   const query: userSavedCity = {id: cityId, name: cityName}
   const index: number = userSavedCities.indexOf(query);
 
-  cityArray.splice(index, 1);
+  // userCities.splice(index, 1);
 
 
   fetchCityData();
 }
 
 
+// console.log(cityArray);
 
 
 const renderCities = () => {

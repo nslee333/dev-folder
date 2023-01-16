@@ -97,11 +97,11 @@ Use WeatherAPI.com's API.
 
 [Working]:
 - Display data for City tab.
-  - fetch data works fine.
-    - See if we can include a weathericon.
   - 
+  
   - Sustain userSaved cities.
     - 'Save' button not working.
+  
     - Need to implement delete button properly.
       - using localStorage might work, we'll see
     - The issue with this feature is that it's api call intensive. 
@@ -130,3 +130,7 @@ This I can debug without the api.
     - Type the functions for that task that was completed.
     - Make sure that the variables stick to the naming convention.
     - A variable line doesn't go past the max-line length.
+
+
+
+STOPPED AT Home component display.

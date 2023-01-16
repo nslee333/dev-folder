@@ -40,7 +40,7 @@ const [forecastDaily, setForecastDaily] = useState<forecastDailyData[]>([]);
 const [forecastHourly, setForecastHourly] = useState<forecastHourlyData[]>([]);
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
-const [homeHighlighted, setHomeHighlighted] = useState(false); //TODO Reset => TRUE
+const [homeHighlighted, setHomeHighlighted] = useState(false); // TODO Reset => TRUE
 const [cityHighlighted, setCityHighlighted] = useState(true);
 const [settingsHighlighted, setSettingsHighlighted] = useState(false);
 

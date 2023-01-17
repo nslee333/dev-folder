@@ -58,7 +58,7 @@ const [userSavedCities, setUserSavedCities] = useState<userSavedCity[]>([{id: "0
 
 useEffect(() => { //TODO: Research is there any problems with multiple useEffects?
   dataFetch();
-  // fetchCityData();
+  fetchCityData();
   
 }, [])
 
@@ -486,6 +486,10 @@ const setCitiesToLocalStorage = () => {
   
   // fetchCityData();
   
+
+
+
+
 const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
   if (event.key === `Enter`) {
     event.preventDefault()
@@ -505,7 +509,7 @@ const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
     }
       setIdCount(idCount + 1);
       userSavedCities.push(cityEntry); // ! Make sure this works, not sure
-      // localStorage.setItem('userSavedCities')
+      // localStorage.setItem('userSavedCities',);
       
       
     citySearchRef.current.value = "";
@@ -543,7 +547,7 @@ const renderCities = () => {
                   <div className='variable__city__div__display__city__content'>
                     {`${cityEntry.name} - ${cityEntry.time}, ${cityEntry.temperature} and ${cityEntry.condition}`}
                   </div>
-                  <button className='variable__city__div__display__city__close-btn' onClick={event => deleteCity(cityEntry.id, cityEntry.name)}>
+                  <button className='variable__city__div__display__city__close-btn' onClick={() => deleteCity(cityEntry.id, cityEntry.name)}>
                     &times;
                   </button>
                 </div>

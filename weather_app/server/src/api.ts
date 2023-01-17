@@ -80,7 +80,9 @@ export const cityRealtimeFetch = async (cityArray: userSavedCity[]) => {
             cityDataArray.push(cityRealtimeData);
 
         }
+        startCooldown();
         return cityDataArray;
+
 
     } else {
         console.log("Cooldown in effect.")

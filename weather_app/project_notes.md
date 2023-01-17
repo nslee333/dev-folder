@@ -97,7 +97,7 @@ Use WeatherAPI.com's API.
 
 [Working]:
 - Display data for City tab.
-  - 
+  - WeatherICON added, need to display on renderCities.
   
   - Sustain userSaved cities.
     - 'Save' button not working.

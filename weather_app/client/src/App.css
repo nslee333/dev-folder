@@ -195,6 +195,7 @@
 
 .hour-div__hours__display__icon {
   background-color: var(--main-grey);
+  margin-right: 5px;
 
 }
 

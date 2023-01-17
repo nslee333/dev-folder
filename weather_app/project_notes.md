@@ -145,7 +145,9 @@ What I need:
   
 Current data.
   - Temperature
-  - time at location
+  - time at location.
+  - Date at location.
+  - WeatherIcon.
   
 Hourly conditions:
   - Temperature

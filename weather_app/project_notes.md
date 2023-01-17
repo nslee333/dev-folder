@@ -116,8 +116,6 @@ This I can debug without the api.
     - Default location not working.
   - Display current location on realtime display.
   - make sure measurement system works.
-  - 
-
 
 
 

@@ -68,6 +68,9 @@ Use WeatherAPI.com's API.
       1. Implemented a cooldown to make sure I don't call the api too often.
     25. Swap out symbol with a city - switch variable names => city -> cities.
     26. Display daily forecast.
+    27. Hour forecast not updating, fixed.
+  
+
 
 
 
@@ -100,21 +103,20 @@ Use WeatherAPI.com's API.
   - WeatherICON added, need to display on renderCities.
   
   - Sustain userSaved cities.
-    - 'Save' button not working.
-  
-    - Need to implement delete button properly.
+      - Treat it like task_app version
+
+  - 
+  -  Need to implement delete button properly.
       - using localStorage might work, we'll see
-    - The issue with this feature is that it's api call intensive. 
   
-  - Finish api side, make sure modified requests are working..
 
 
 
 
 This I can debug without the api.
   - Rethink how server api works, queryParams especially.
-    - Default location not working.
   - Display current location on realtime display.
+    - When location changes, need to get a new forecast.
   - make sure measurement system works.
 
 
@@ -131,4 +133,24 @@ This I can debug without the api.
 
 
 
-STOPPED AT Home component display.
+Scoping out openWeather api and using that. 
+
+
+What I need:
+- 5 day forecast,
+  - High / Low temp.
+  - day / night Condition
+  - icons for day and night.
+    - Grab data from 12:00pm and 6pm
+  
+Current data.
+  - Temperature
+  - time at location
+  
+Hourly conditions:
+  - Temperature
+  - Time
+  - Icon
+  - Condition
+
+Redesign backend.

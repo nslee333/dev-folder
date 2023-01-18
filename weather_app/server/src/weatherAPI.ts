@@ -9,11 +9,12 @@ import {
 } from './types';
 dotenv.config();
 
-const geocodingURL = 'http://api.openweathermap.org/geo/1.0/direct';
+const geocodingEndpoint = 'https://api.openweathermap.org/geo/1.0/direct';
+const currentEndpoint = 'https://api.openweathermap.org/data/2.5/weather';
 
 
 const geocodeRequest = async (query: string) => {
-    const result = await axios.get(geocodingURL + query + 'US', {
+    const result = await axios.get(geocodingEndpoint + query + 'US', {
         params: {
             limit: 1,
             appid: process.env.weather_key,
@@ -29,30 +30,81 @@ const geocodeRequest = async (query: string) => {
     return result;
 }
 
-type geocodeResult = {
+type geocodeData = {
     name: string,
     state: string,
-    country: string,
     lat: number,
     lon: number
 }
 
 const geocodeProcess = async (query: string) => {
-    const result = await geocodeRequest(query);\
+    const result = await geocodeRequest(query);
     if (result instanceof AxiosError) return result;
 
     const data = result.data; // ! Potential issue here, might be .data[0];
 
-    const resultData: geocodeResult = {
+    const resultData: geocodeData = {
         name: data.name,
         state: data.state,
-        country: data.country,
         lat: data.lat,
         lon: data.lon
     }
 
     return resultData;
 }
+
+
+
+
+const currentWeatherRequest = async (latitude: number, longitude: number, unitSystem: string) => {
+    const result = axios.get(currentEndpoint, {
+        params: {
+            lat: latitude,
+            lon: longitude,
+            appid: process.env.weather_key,
+            units: unitSystem,
+        }
+    })
+    .then(function (response: AxiosResponse) {
+        return response;
+    })
+    .catch(function (error: AxiosError) {
+        return error;
+    });
+
+    return result;
+}
+    type currentWeatherData = {
+        name: string,
+        state: string,
+        condition: string,
+        weatherIcon: string, 
+        temperature: string
+    }
+
+
+const processCurrentWeather = async (positionQuery: string, metric: boolean) => {
+    const geocodeResult = await geocodeProcess(positionQuery);
+    if (geocodeResult instanceof AxiosError) return geocodeResult;
+
+    const {lat, lon} = geocodeResult;
+
+    const currentResult = await currentWeatherRequest(lat, lon, (metric ? 'metric' : 'imperial'));
+    if (currentResult instanceof AxiosError) return currentResult;
+
+    const currentData = currentResult.data
+
+    const weatherResult: currentWeatherData = {
+        name: geocodeResult.name,
+        state: geocodeResult.state,
+        condition: currentData.weather.description,
+        weatherIcon: currentData.weather.icon,
+        temperature: `${currentData.main.temp}`,
+    } 
+
+    return weatherResult;
+} 
+
 
 
 
@@ -74,19 +126,3 @@ const geocodeProcess = async (query: string) => {
     // Bring forecast and geocode data together into a type, 
     //  - then return it to the server request.
 
-// * currentWeatherRequest
-    // params: lat, lon and units.
-
-    // Axios.get -> params: lat, lon, appid, units
-
-    // Return response to processCurrentWeather
-
-// * processCurrentWeather
-    // Call geocodeProcess
-
-    // Grab lat, lon from geocode process
-
-    // call currentWeatherRequest with lat, lon.
-
-    // bring current and geocode data together into a type
-    // - then return it to the server request.

@@ -12,18 +12,8 @@ dotenv.config();
 const geocodingURL = 'http://api.openweathermap.org/geo/1.0/direct';
 
 
-type geocodeResult = {
-    name: string,
-    state: string,
-    country: string,
-    lat: number,
-    lon: number
-}
-
-
-// * Geocoding request.
-const geocodeRequest = (query: string) => {
-    const result = axios.get(geocodingURL + query + 'US', {
+const geocodeRequest = async (query: string) => {
+    const result = await axios.get(geocodingURL + query + 'US', {
         params: {
             limit: 1,
             appid: process.env.weather_key,
@@ -39,14 +29,29 @@ const geocodeRequest = (query: string) => {
     return result;
 }
 
+type geocodeResult = {
+    name: string,
+    state: string,
+    country: string,
+    lat: number,
+    lon: number
+}
 
+const geocodeProcess = async (query: string) => {
+    const result = await geocodeRequest(query);\
+    if (result instanceof AxiosError) return result;
 
-const geocodeProcess = (query: string) => {
-    // Call geocodeRequest
+    const data = result.data; // ! Potential issue here, might be .data[0];
 
-    // Process data into geocodeResult type.
+    const resultData: geocodeResult = {
+        name: data.name,
+        state: data.state,
+        country: data.country,
+        lat: data.lat,
+        lon: data.lon
+    }
 
-    // Return data to caller (forecast or current).
+    return resultData;
 }
 
 

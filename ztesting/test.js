@@ -1,7 +1,12 @@
 
+// ! Still working on getting this working, all data fields are filled - just getting the same result
+// & repeated, 
+
+
+
 const sort = (parse) => {
   const dayForecastData = [];
-  
+
   for (let indexA = 0; indexA < 41; indexA += 8) {
       // const data = list[indexA];
      
@@ -22,15 +27,16 @@ const sort = (parse) => {
               lowValueIndex = indexB;
             }
         
+            console.log(parse.list[indexB].weather[0].description, "description")
       }
 
     const entry = { 
         maxTemp: parse.list[highValueIndex].main.temp,
         minTemp: parse.list[lowValueIndex].main.temp, 
-        dayCondition: parse.list[highValueIndex].weather.description,
-        nightCondition: parse.list[lowValueIndex].weather.description,
-        dayIcon: parse.list[highValueIndex].weather.description,
-        nightIcon: parse.list[lowValueIndex].weather.description
+        dayCondition: parse.list[highValueIndex].weather[0].description,
+        nightCondition: parse.list[lowValueIndex].weather[0].description,
+        dayIcon: parse.list[highValueIndex].weather[0].icon,
+        nightIcon: parse.list[lowValueIndex].weather[0].icon
       };
   
       dayForecastData.push(entry);

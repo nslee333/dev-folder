@@ -55,8 +55,6 @@ const geocodeProcess = async (query: string) => {
 }
 
 
-
-
 const currentWeatherRequest = async (latitude: number, longitude: number, unitSystem: string) => {
     const result = axios.get(currentEndpoint, {
         params: {
@@ -75,6 +73,7 @@ const currentWeatherRequest = async (latitude: number, longitude: number, unitSy
 
     return result;
 }
+
 
 type currentWeatherType = {
     name: string,
@@ -108,9 +107,6 @@ export const processCurrentWeather = async (positionQuery: string, metric: boole
 } 
 
 
-
-
-// * forecastRequest.
 const forecastRequest = async (latitude: number, longitude: number, unitSystem: string) => {
     const result = axios.get(forecastEndpoint, {
         params: {
@@ -166,19 +162,44 @@ export const processForecastWeather = async (locationQuery: string, metric: bool
     const forecastResult = await forecastRequest(lat, lon, (metric ? 'metric' : 'imperial'));
     if (forecastResult instanceof AxiosError) return forecastResult;
 
+    const data = forecastResult.data;
+
     const dayForecastData: dayForecastType[] = [];
 
-    for (let count = 0; count < 5; count++) {
-      const entry: dayForecastType = {
-        minTemp: '',
-        maxTemp: '',
-        dayCondition: '',
-        nightCondition: '',
-        dayIcon: '',
-        nightIcon: ''
-      };
+    // For every 8 entries, go through array elements [1-8] and grab the largest and smallest temp indexes,
+    // Grab your day / night data from the high and low indexes.
+    for (let indexA = 0; indexA < 41; indexA += 8) {
+        const list = data.list[indexA]
+       
+        let highValue = list;
+        let highValueIndex = 0;
+        let lowValue = list;
+        let lowValueIndex = 0;
+        
+        for (let indexB = 0; indexB < 8; indexB++) {
 
-      dayForecastData.push(entry);
+            if (data.list[indexB] > highValue) {
+                highValue = data.list[indexB];
+                highValueIndex = indexB;
+              }
+              
+              if (data.list[indexB] < lowValue) {
+                lowValue = data.list[indexB];
+                lowValueIndex = indexB;
+              }
+          
+        }
+
+      const entry = { 
+          maxTemp: data.list[highValueIndex].main.temp,
+          minTemp: data.list[lowValueIndex].main.temp, 
+          dayCondition: data.list[highValueIndex].weather.description,
+          nightCondition: data.list[lowValueIndex].weather.description,
+          dayIcon: data.list[highValueIndex].weather.description,
+          nightIcon: data.list[lowValueIndex].weather.description
+        };
+    
+        dayForecastData.push(entry);
     }
 
     const hourForecastData: hourForecastType[] = [];

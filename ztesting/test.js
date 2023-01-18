@@ -2,6 +2,8 @@
 // ! Still working on getting this working, all data fields are filled - just getting the same result
 // & repeated, 
 
+// * stopped at trying to get the value of highvalue 
+
 
 
 const sort = (parse) => {
@@ -10,9 +12,10 @@ const sort = (parse) => {
   for (let indexA = 0; indexA < 41; indexA += 8) {
       // const data = list[indexA];
      
-      let highValue = parse.list[indexA];
+      let highValue = parse.list[indexA].main.temp;
+      console.log(highValue) // * <- here
       let highValueIndex = 0;
-      let lowValue = parse.list[indexA];
+      let lowValue = parse.list[indexA].main.temp;
       let lowValueIndex = 0;
       
       for (let indexB = 0; indexB < 8; indexB++) {
@@ -27,7 +30,7 @@ const sort = (parse) => {
               lowValueIndex = indexB;
             }
         
-            console.log(parse.list[indexB].weather[0].description, "description")
+            // console.log(parse.list[indexB].weather[0].description, "description")
       }
 
     const entry = { 

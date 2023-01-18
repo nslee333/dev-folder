@@ -133,7 +133,7 @@ This I can debug without the api.
 
 
 
-Scoping out openWeather api and using that. 
+weatherAPI.ts:
 
 
 What I need:
@@ -143,16 +143,20 @@ What I need:
   - icons for day and night.
     - Grab data from 12:00pm and 6pm
   
-Current data.
-  - Temperature
-  - time at location.
-  - Date at location.
-  - WeatherIcon.
-  
-Hourly conditions:
+Hourly conditions => 6 entries
   - Temperature
   - Time
   - Icon
   - Condition
+  
+Both into one request.  
+  [
+    Current data.
+      - Temperature
+      - WeatherIcon.
+                - time at location. -> client side 
+                - Date at location. -> client side
+      - Condition
+  ]
+  
 
-Redesign backend.

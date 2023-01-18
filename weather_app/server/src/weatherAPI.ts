@@ -11,6 +11,7 @@ dotenv.config();
 
 const geocodingEndpoint = 'https://api.openweathermap.org/geo/1.0/direct';
 const currentEndpoint = 'https://api.openweathermap.org/data/2.5/weather';
+const forecastEndpoint = 'api.openweathermap.org/data/2.5/forecast';
 
 
 const geocodeRequest = async (query: string) => {
@@ -30,7 +31,7 @@ const geocodeRequest = async (query: string) => {
     return result;
 }
 
-type geocodeData = {
+type geocodeType = {
     name: string,
     state: string,
     lat: number,
@@ -43,7 +44,7 @@ const geocodeProcess = async (query: string) => {
 
     const data = result.data; // ! Potential issue here, might be .data[0];
 
-    const resultData: geocodeData = {
+    const resultData: geocodeType = {
         name: data.name,
         state: data.state,
         lat: data.lat,
@@ -74,16 +75,17 @@ const currentWeatherRequest = async (latitude: number, longitude: number, unitSy
 
     return result;
 }
-    type currentWeatherData = {
-        name: string,
-        state: string,
-        condition: string,
-        weatherIcon: string, 
-        temperature: string
-    }
+
+type currentWeatherType = {
+    name: string,
+    state: string,
+    condition: string,
+    weatherIcon: string, 
+    temperature: string
+}
 
 
-const processCurrentWeather = async (positionQuery: string, metric: boolean) => {
+export const processCurrentWeather = async (positionQuery: string, metric: boolean) => {
     const geocodeResult = await geocodeProcess(positionQuery);
     if (geocodeResult instanceof AxiosError) return geocodeResult;
 
@@ -94,7 +96,7 @@ const processCurrentWeather = async (positionQuery: string, metric: boolean) => 
 
     const currentData = currentResult.data
 
-    const weatherResult: currentWeatherData = {
+    const weatherResult: currentWeatherType = {
         name: geocodeResult.name,
         state: geocodeResult.state,
         condition: currentData.weather.description,
@@ -109,20 +111,111 @@ const processCurrentWeather = async (positionQuery: string, metric: boolean) => 
 
 
 // * forecastRequest.
-    // Params: lat, lon, units
+const forecastRequest = async (latitude: number, longitude: number, unitSystem: string) => {
+    const result = axios.get(forecastEndpoint, {
+        params: {
+            lat: latitude,
+            lon: longitude,
+            appid: process.env.weather_key,
+            units: unitSystem
+        }
+    })
+    .then(function (response: AxiosResponse) {
+        return response;
+    })
+    .catch(function (error: AxiosError) {
+        return error;
+    })
 
-    // Axios Params,
-    // lat, lon, appid, units
+    return result;
+}
 
-    // return response to processForecastWeather.
 
-// * processForecastWeather
-    // Call geocodeProcess
+type dayForecastType = {
+  minTemp: string,
+  maxTemp: string,
 
-    // Grab lat, lon from result.
+  dayCondition: string,
+  nightCondition: string,
 
-    // Call forecastRequest with lat, lon, units.
+  dayIcon: string,
+  nightIcon: string,
+}
 
-    // Bring forecast and geocode data together into a type, 
-    //  - then return it to the server request.
+type hourForecastType = {
+  temperature: string,
+  time: string,
+  weatherIcon: string,
+  condition: string
+}
+
+type forecastCombinedType = {
+  name: string,
+  state: string,
+  dayForecast: dayForecastType[],
+  hourForecast: hourForecastType[],
+}
+
+
+export const processForecastWeather = async (locationQuery: string, metric: boolean) => {
+    const geocodeResult = await geocodeProcess(locationQuery);
+    if (geocodeResult instanceof AxiosError) return geocodeResult;
+
+    const {lat, lon} = geocodeResult;
+
+    const forecastResult = await forecastRequest(lat, lon, (metric ? 'metric' : 'imperial'));
+    if (forecastResult instanceof AxiosError) return forecastResult;
+
+    const dayForecastData: dayForecastType[] = [];
+
+    for (let count = 0; count < 5; count++) {
+      const entry: dayForecastType = {
+        minTemp: '',
+        maxTemp: '',
+        dayCondition: '',
+        nightCondition: '',
+        dayIcon: '',
+        nightIcon: ''
+      };
+
+      dayForecastData.push(entry);
+    }
+
+    const hourForecastData: hourForecastType[] = [];
+
+    for (let count = 0; count < 5; count++) {
+      const entry: hourForecastType = {
+        temperature: '',
+        time: '',
+        weatherIcon: '',
+        condition: ''
+      }
+      hourForecastData.push(entry);
+    }
+
+    
+
+    const forecastData: forecastCombinedType = {
+      name: geocodeResult.name,
+      state: geocodeResult.state,
+      dayForecast: dayForecastData, 
+      hourForecast: hourForecastData
+    };
+
+
+    return forecastData;
+}
+
+
+// 6, 9, 12, 3, 6, 9
+
+// 5 days, of 3 hour forecasts = 40 entries.
+
+// Starts at 1am.
+// Stops at 10pm, ends at 1am.
+
+// Day and night conditions, increments of 4 entries 1am => (4 * 3 = 12) === 1pm)
+
+
+//  40 entires
 

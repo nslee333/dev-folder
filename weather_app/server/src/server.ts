@@ -1,91 +1,49 @@
-import express, { application } from 'express';
+import express from 'express';
 import { Request, Response } from 'express';
 import cors from 'cors';
-import {
-    updateMetric,
-    updateQueryParams,
-    realtimeWeatherSort,
-    forecastDailySort,
-    forecastHourlySort,
-    cityRealtimeFetch
-} from './api'
 import { AxiosError } from 'axios';
 import { cityQueryArray, cityRealtimeData } from './types';
+import { processCurrentWeather, processForecastWeather } from './weatherAPI';
 
 
 const app = express();
 const port = 1300;
-app.use(express.json(), cors(), express.urlencoded({extended:true}));
 
+app.use(express.json(), cors());
 
-app.get('/api/realtime', async (request: Request, response: Response) => {
-    const apiResponse = await realtimeWeatherSort();
+// Current weather.
+app.get('/api/current/', async (request: Request, response: Response) => {
+    if (request.body.location !== undefined && request.body.metric !== undefined) {
 
-    if (apiResponse instanceof AxiosError) {
-        return response.status(500).json(apiResponse);
+        const result = await processCurrentWeather(request.body.location, request.body.metric);
+        if (result instanceof AxiosError) {
+            return response.status(500).send(result);
+        } else {
+            return response.status(200).send(result);
+        }
     } else {
-        return response.status(200).send(apiResponse);
-    }
-});
-
-
-app.get('/api/weeklyForecast', async (request: Request, response: Response) => {
-    const apiResponse = await forecastDailySort();
-
-    if (apiResponse instanceof Error) {
-        return response.status(500).send(apiResponse);
-    } else {
-        return response.status(200).send(apiResponse);
-    }
-});
-
-
-app.get('/api/hourlyForecast', async (request: Request, response: Response) => {
-    const apiResponse = await forecastHourlySort();
-
-    if (apiResponse instanceof Error) {
-        return response.status(500).send(apiResponse);
-    } else {
-        return response.status(200).send(apiResponse);
-    }
-});
-
-app.post('/api/settings/metric/', async (request: Request, response: Response) => {
-    const metric = request.body.metric;
-
-    if (typeof metric === 'boolean') {
-        updateMetric(!!metric);
-        return response.status(200).send("Measurement system updated.");
-    } else {
-        return response.status(400).send("Bad request. Must include a metric query.")
+        return response.status(400).send("Bad request - possible missing location and metric request parameters.")
     }
 })
 
 
-app.post('/api/settings/location', async (request: Request, response: Response) => {
-    const locationQuery = request.body.locationQuery;
-    
-    if (typeof locationQuery === 'string') {
-        updateQueryParams(locationQuery);
-        return response.status(200).send("Default location updated.");
+app.get('/api/forecast', async (request: Request, response: Response) => {
+    if (request.body.location !== undefined && request.body.metric !== undefined) {
+        
+        const result = await processForecastWeather(request.body.location, request.body.metric);
+
+        if (result instanceof AxiosError) {
+            return response.status(500).send(result);
+        } else {
+            return response.status(200).send(result);
+        }
+
     } else {
-        return response.status(400).send("Bad request. LocationQuery must be present and be type of string.")
-    }
-});
-
-app.post("/api/cities/", async (request: Request, response: Response) => {
-
-    const citiesArray: cityQueryArray = request.body.citiesArray;
-
-    const result: AxiosError | cityRealtimeData[] = await cityRealtimeFetch(citiesArray);
-    if (result instanceof AxiosError) {
-         return response.status(500).send(result);
-    } else {
-        return response.status(200).send(result);
+        return response.status(400).send("Bad request - possible missing location and metric request parameters.");
     }
 })
 
 
 app.listen(port, () => {
     console.log(`Server has started listening on port ${port}`);
-})
+});

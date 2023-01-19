@@ -166,10 +166,9 @@ export const processForecastWeather = async (locationQuery: string, metric: bool
 
     const dayForecastData: dayForecastType[] = [];
 
-    // For every 8 entries, go through array elements [1-8] and grab the largest and smallest temp indexes,
-    // Grab your day / night data from the high and low indexes.
-    for (let indexA = 0; indexA < 41; indexA += 8) {
-        const list = data.list[indexA]
+
+    for (let indexA = 0; indexA < 40; indexA += 8) {
+        const list = data.list[indexA].main.temp;
        
         let highValue = list;
         let highValueIndex = 0;
@@ -177,26 +176,27 @@ export const processForecastWeather = async (locationQuery: string, metric: bool
         let lowValueIndex = 0;
         
         for (let indexB = 0; indexB < 8; indexB++) {
-
-            if (data.list[indexB] > highValue) {
-                highValue = data.list[indexB];
+            console.log(data.list[lowValueIndex].weather[0].icon, "INDEXB");
+  
+            if (data.list[indexB].main.temp > highValue) {
+                highValue = data.list[indexB].main.temp;
                 highValueIndex = indexB;
               }
               
-              if (data.list[indexB] < lowValue) {
-                lowValue = data.list[indexB];
+              if (data.list[indexB].main.temp < lowValue) {
+                lowValue = data.list[indexB].main.temp;
                 lowValueIndex = indexB;
               }
           
         }
-
+  
       const entry = { 
           maxTemp: data.list[highValueIndex].main.temp,
           minTemp: data.list[lowValueIndex].main.temp, 
-          dayCondition: data.list[highValueIndex].weather.description,
-          nightCondition: data.list[lowValueIndex].weather.description,
-          dayIcon: data.list[highValueIndex].weather.description,
-          nightIcon: data.list[lowValueIndex].weather.description
+          dayCondition: data.list[highValueIndex].weather[0].description,
+          nightCondition: data.list[lowValueIndex].weather[0].description,
+          dayIcon: data.list[highValueIndex].weather[0].icon,
+          nightIcon: data.list[lowValueIndex].weather[0].icon
         };
     
         dayForecastData.push(entry);
@@ -206,11 +206,12 @@ export const processForecastWeather = async (locationQuery: string, metric: bool
 
     for (let count = 0; count < 5; count++) {
       const entry: hourForecastType = {
-        temperature: '',
-        time: '',
-        weatherIcon: '',
-        condition: ''
+        temperature: data.list[count].main.temp,
+        time: data.list[count].dt,
+        weatherIcon: data.list[count].weather[0].icon,
+        condition: data.list[count].weather[0].description
       }
+
       hourForecastData.push(entry);
     }
 
@@ -226,17 +227,3 @@ export const processForecastWeather = async (locationQuery: string, metric: bool
 
     return forecastData;
 }
-
-
-// 6, 9, 12, 3, 6, 9
-
-// 5 days, of 3 hour forecasts = 40 entries.
-
-// Starts at 1am.
-// Stops at 10pm, ends at 1am.
-
-// Day and night conditions, increments of 4 entries 1am => (4 * 3 = 12) === 1pm)
-
-
-//  40 entires
-

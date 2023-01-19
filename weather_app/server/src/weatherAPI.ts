@@ -41,8 +41,12 @@ type geocodeType = {
 
 const geocodeProcess = async (query: string) => {
     const result = await geocodeRequest(query);
+
     if (result instanceof AxiosError) return result;
 
+    if (result.status === 400) return result;
+
+    console.log(result);
     const data = result.data; // ! Potential issue here, might be .data[0];
 
     const resultData: geocodeType = {
@@ -88,8 +92,13 @@ type currentWeatherType = {
 export const processCurrentWeather = async (positionQuery: string, metric: boolean) => {
     const geocodeResult = await geocodeProcess(positionQuery);
     if (geocodeResult instanceof AxiosError) return geocodeResult;
+    if (geocodeResult === undefined) return geocodeResult;
+    // if (typeof geocodeResult === 'object' && geocodeResult.interface === AxiosRespon) {
+            // * Not sure how to Type Guard AxiosResponse :|
+    // }
 
     const {lat, lon} = geocodeResult;
+    // console.log(geocodeResult)
 
     const currentResult = await currentWeatherRequest(lat, lon, (metric ? 'metric' : 'imperial'));
     if (currentResult instanceof AxiosError) return currentResult;

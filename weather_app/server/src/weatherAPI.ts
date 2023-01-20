@@ -226,7 +226,7 @@ export const processForecastWeather = async (locationQuery: string, metric: bool
 
     const hourForecastData: hourForecastType[] = [];
 
-    for (let count = 0; count < 5; count++) {
+    for (let count = 0; count <= 5; count++) {
       const entry: hourForecastType = {
         temperature: data.list[count].main.temp,
         time: data.list[count].dt,

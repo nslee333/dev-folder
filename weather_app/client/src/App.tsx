@@ -593,15 +593,6 @@ const cityComponent: () => JSX.Element = () => {
 }
 
 
-const locationUpdateRequest = async (locationQuery: string) => {
-  const response: AxiosResponse | AxiosError = await locationUpdate(locationQuery);
-  if (response instanceof AxiosError) return console.error(response);
-  
-  setLocation(locationQuery);
-  return response;
-}
-
-
 const cityQueryValidation = (searchString: string) => {
   const cityQueryIsANumber: boolean = (!isNaN(parseInt(searchString)))
 
@@ -641,8 +632,8 @@ event: KeyboardEvent<HTMLInputElement>
     return (window.alert("Your search must be in the following format: `Bend, OR` or `Bend, or`."), false);
 
   } else if (queryIsValid === true) {
-    const result = locationUpdateRequest(cityQuery);
-    if (result instanceof AxiosError) return window.alert("Location update error, please try again."); 
+
+    setLocation(cityQuery);
     return (window.alert("Default location successfully updated."), true);
 
   } else {
@@ -650,17 +641,10 @@ event: KeyboardEvent<HTMLInputElement>
   }
 }
 
-const metricUpdateRequest = async (metricBool: boolean) => {
-  const response: AxiosResponse | AxiosError = await metricUpdate(metricBool);
-  if (response instanceof AxiosError) return (console.error(response), window.alert("Measurement system update error, please try again."));
-  window.alert("Measurement system successfully updated.")
-  setMetric(!metric);
-  
-}
-
 
 const handleMetricButtonClick: () => void = () => {
-  metricUpdateRequest(!metric);
+  setMetric(!metric);
+  window.alert("Measurement system setting updated.")
 }
 
 /* 

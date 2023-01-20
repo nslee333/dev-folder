@@ -103,23 +103,22 @@ export const processCurrentWeather = async (positionQuery: string, metric: boole
     if (geocodeResult instanceof AxiosError) return geocodeResult;
     if (geocodeResult instanceof Error) return geocodeResult;
 
-    const {lat, lon} = geocodeResult;
-    // console.log(geocodeResult)
-
-    const currentResult = await currentWeatherRequest(lat, lon, (metric ? 'metric' : 'imperial'));
-    if (currentResult instanceof AxiosError) return currentResult;
-
-    const currentData = currentResult.data
-
-    const weatherResult: currentWeatherType = {
-        name: geocodeResult.name,
-        state: geocodeResult.state,
-        condition: currentData.weather.description,
-        weatherIcon: currentData.weather.icon,
-        temperature: `${currentData.main.temp}`,
-    } 
-
-    return weatherResult;
+        const {lat, lon} = geocodeResult;
+        
+        const currentResult = await currentWeatherRequest(lat, lon, (metric ? 'metric' : 'imperial'));
+        if (currentResult instanceof AxiosError) return currentResult;
+    
+        const currentData = currentResult.data
+    
+        const weatherResult: currentWeatherType = {
+            name: geocodeResult.name,
+            state: geocodeResult.state,
+            condition: currentData.weather[0].description,
+            weatherIcon: currentData.weather[0].icon,
+            temperature: `${currentData.main.temp}`,
+        } 
+    
+        return weatherResult;
 } 
 
 

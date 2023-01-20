@@ -5,10 +5,8 @@ const baseURL: string = 'http://localhost:1300/api/'
 
 export const currentWeather: (location: string, metric: boolean ) => Promise<AxiosResponse | AxiosError | Error> = async (location: string, metric: boolean ) => {
     const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'current', {
-        "body": {
-            "location": location,
-            "metric": metric
-        }
+        "location": location,
+        "metric": metric
     })
     .then(function (response: AxiosResponse) {
         if (response.status === 200) {
@@ -28,10 +26,8 @@ export const currentWeather: (location: string, metric: boolean ) => Promise<Axi
 
 export const forecastWeather: (location: string, metric: boolean) => Promise<AxiosResponse | AxiosError | Error> = async (location: string, metric: boolean) => {
     const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'forecast', {
-        "body": {
-            "location": location,
-            "metric": metric
-        }
+        "location": location,
+        "metric": metric
     })
     .then(function (response: AxiosResponse) {
         if (response.status === 200) {

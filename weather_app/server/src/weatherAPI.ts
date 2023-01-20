@@ -13,6 +13,34 @@ const geocodingEndpoint = 'https://api.openweathermap.org/geo/1.0/direct';
 const currentEndpoint = 'https://api.openweathermap.org/data/2.5/weather';
 const forecastEndpoint = 'https://api.openweathermap.org/data/2.5/forecast';
 
+let forecastCooldown = 0;
+let currentCooldown = 0;
+
+const startForecastCooldown = () => {
+    forecastCooldown = Date.now() + 1800000; // ^ 30 minutes.
+}
+
+const startCurrentCooldown = () => {
+    currentCooldown = Date.now() + 1800000;
+}
+
+const checkCooldown = (cooldownTime: number) => {
+    const currentTime = Date.now();
+    if (cooldownTime > currentTime) {
+
+        if (cooldownTime === forecastCooldown) {
+            return forecastWeatherCopy;
+
+        } else if (cooldownTime === currentCooldown) {
+            return currentWeatherCopy;
+        }
+
+    } else if (cooldownTime < currentTime) {
+        return true;
+    }
+}
+
+
 
 const geocodeRequest: (query: string) => Promise<AxiosResponse | AxiosError | Error> = async (query: string) => {
     const result = await axios.get(geocodingEndpoint, {
@@ -78,8 +106,19 @@ const currentWeatherRequest = async (latitude: number, longitude: number, unitSy
     return result;
 }
 
+let currentWeatherCopy: currentWeatherType = {
+    name: '',
+    state: '',
+    condition: '',
+    weatherIcon: '',
+    temperature: ''
+}
+
 
 export const processCurrentWeather = async (positionQuery: string, metric: boolean) => {
+    const cooldownResult = checkCooldown(currentCooldown);
+    if (cooldownResult === currentWeatherCopy) return console.log("Current cooldown is active."), cooldownResult;
+
     const geocodeResult = await geocodeProcess(positionQuery);
     if (geocodeResult instanceof AxiosError) return geocodeResult;
     if (geocodeResult instanceof Error) return geocodeResult;
@@ -97,8 +136,11 @@ export const processCurrentWeather = async (positionQuery: string, metric: boole
             condition: currentData.weather[0].description,
             weatherIcon: currentData.weather[0].icon,
             temperature: `${currentData.main.temp}`,
-        } 
-    
+        }
+
+        currentWeatherCopy = weatherResult;
+
+        startCurrentCooldown();
         return weatherResult;
 } 
 
@@ -126,8 +168,18 @@ const forecastRequest = async (latitude: number, longitude: number, unitSystem: 
     return result;
 }
 
+let forecastWeatherCopy: forecastCombinedType = {
+    name: '',
+    state: '',
+    dayForecast: [],
+    hourForecast: []
+}
+
 
 export const processForecastWeather = async (locationQuery: string, metric: boolean) => {
+    const cooldownResult = checkCooldown(forecastCooldown);
+    if (cooldownResult === forecastWeatherCopy) return console.log("Forecast cooldown is active."), cooldownResult;
+
     const geocodeResult = await geocodeProcess(locationQuery);
     if (geocodeResult instanceof AxiosError) return geocodeResult;
     if (geocodeResult instanceof Error) return geocodeResult;
@@ -200,6 +252,8 @@ export const processForecastWeather = async (locationQuery: string, metric: bool
       hourForecast: hourForecastData
     };
 
+    forecastWeatherCopy = forecastData;
 
+    startForecastCooldown();
     return forecastData;
 }

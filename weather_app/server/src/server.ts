@@ -11,34 +11,34 @@ const port = 1300;
 app.use(express.json(), cors());
 
 
-app.post('/api/current', async (request: Request, response: Response) => {
-    if (request.body.location !== undefined && request.body.metric !== undefined) {
+app.post('/api/current', async (req: Request, res: Response) => {
+    if (req.body.location !== undefined && req.body.metric !== undefined) {
 
-        const result = await processCurrentWeather(request.body.location, request.body.metric);
+        const result = await processCurrentWeather(req.body.location, req.body.metric);
         if (result instanceof AxiosError) {
-            return response.status(500).send(result);
+            return res.status(500).send(result);
         } else {
-            return response.status(200).send(result);
+            return res.status(200).send(result);
         }
     } else {
-        return response.status(400).send("Bad request - possible missing location and metric request parameters.")
+        return res.status(400).send("Bad request - possible missing location and metric request parameters.")
     }
 })
 
 
-app.post('/api/forecast', async (request: Request, response: Response) => {
-    if (request.body.location !== undefined && request.body.metric !== undefined) {
+app.post('/api/forecast', async (req: Request, res: Response) => {
+    if (req.body.location !== undefined && req.body.metric !== undefined) {
         
-        const result = await processForecastWeather(request.body.location, request.body.metric);
+        const result = await processForecastWeather(req.body.location, req.body.metric);
 
-        if (result instanceof AxiosError) {
-            return response.status(500).send(result);
+        if (req instanceof AxiosError) {
+            return res.status(500).send(result);
         } else {
-            return response.status(200).send(result);
+            return res.status(200).send(result);
         }
 
     } else {
-        return response.status(400).send("Bad request - possible missing location and metric request parameters.");
+        return res.status(400).send("Bad request - possible missing location and metric request parameters.");
     }
 })
 

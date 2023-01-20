@@ -523,7 +523,7 @@ const renderCities = () => {
                   <div className='variable__city__div__display__city__content'>
                     {`${cityEntry.name} - ${cityEntry.name /* //  need to time */}, ${cityEntry.temperature} and ${cityEntry.condition}`}
                   </div>
-                  <button className='variable__city__div__display__city__close-btn' onClick={() => deleteCity(cityEntry.id, cityEntry.name)}>
+                  <button className='variable__city__div__display__city__close-btn' onClick={() => deleteCity(cityEntry.id)}>
                     &times;
                   </button>
                 </div>
@@ -543,7 +543,7 @@ const renderCities = () => {
                   <div className='variable__city__div__display__city__content'>
                     {`${cityEntry}`}
                   </div>
-                  <button className='variable__city__div__display__city__close-btn' onClick={event => deleteCity(cityEntry.id, cityEntry.name)}>
+                  <button className='variable__city__div__display__city__close-btn' onClick={event => deleteCity(cityEntry.id)}>
                     &times;
                   </button>
                 </div>

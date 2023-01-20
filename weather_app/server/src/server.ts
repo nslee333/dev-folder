@@ -2,7 +2,6 @@ import express from 'express';
 import { Request, Response } from 'express';
 import cors from 'cors';
 import { AxiosError } from 'axios';
-import { cityQueryArray, cityRealtimeData } from './types';
 import { processCurrentWeather, processForecastWeather } from './weatherAPI';
 
 

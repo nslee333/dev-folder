@@ -11,7 +11,7 @@ dotenv.config();
 
 const geocodingEndpoint = 'https://api.openweathermap.org/geo/1.0/direct';
 const currentEndpoint = 'https://api.openweathermap.org/data/2.5/weather';
-const forecastEndpoint = 'api.openweathermap.org/data/2.5/forecast';
+const forecastEndpoint = 'https://api.openweathermap.org/data/2.5/forecast';
 
 
 const geocodeRequest = async (query: string) => {

@@ -49,10 +49,7 @@ const geocodeProcess = async (query: string) => {
     if (result instanceof AxiosError) return new Error("Axios Error"), result;
     if (result instanceof Error) return new Error("Bad Response Error"), result;
 
-    if (result.status === 400) return result;
-
-    console.log(result);
-    const data = result.data; // ! Potential issue here, might be .data[0];
+    const data = result.data[0];
 
     const resultData: geocodeType = {
         name: data.name,
@@ -84,7 +81,6 @@ const currentWeatherRequest = async (latitude: number, longitude: number, unitSy
     .catch(function (error: AxiosError) {
         return error;
     });
-
     return result;
 }
 

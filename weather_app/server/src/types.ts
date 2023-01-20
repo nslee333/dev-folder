@@ -1,4 +1,4 @@
-export type geocodeType = {
+export type Geocode = {
   name: string,
   state: string,
   lat: number,
@@ -6,7 +6,7 @@ export type geocodeType = {
 }
 
 
-export type currentWeatherType = {
+export type CurrentWeather = {
   name: string,
   state: string,
   condition: string,
@@ -15,7 +15,7 @@ export type currentWeatherType = {
 }
 
 
-export type dayForecastType = {
+export type DayForecast = {
   time: number,
 
   minTemp: number,
@@ -29,7 +29,7 @@ export type dayForecastType = {
 }
 
 
-export type hourForecastType = {
+export type HourForecast = {
   temperature: number,
   time: number,
   weatherIcon: string,
@@ -37,9 +37,9 @@ export type hourForecastType = {
 }
 
 
-export type forecastCombinedType = {
+export type ForecastCombined = {
   name: string,
   state: string,
-  dayForecast: dayForecastType[],
-  hourForecast: hourForecastType[],
+  dayForecast: DayForecast[],
+  hourForecast: HourForecast[],
 }

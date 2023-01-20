@@ -1,11 +1,11 @@
 import axios, {AxiosError, AxiosResponse} from 'axios';
 import dotenv from 'dotenv';
 import {
-    geocodeType,
-    currentWeatherType,
-    dayForecastType,
-    hourForecastType,
-    forecastCombinedType,
+    Geocode,
+    CurrentWeather,
+    DayForecast,
+    HourForecast,
+    ForecastCombined,
 } from './types';
 dotenv.config();
 
@@ -73,7 +73,7 @@ const geocodeProcess = async (query: string) => {
 
     const data = result.data[0];
 
-    const resultData: geocodeType = {
+    const resultData: Geocode = {
         name: data.name,
         state: data.state,
         lat: data.lat,
@@ -106,7 +106,7 @@ const currentWeatherRequest = async (latitude: number, longitude: number, unitSy
     return result;
 }
 
-let currentWeatherCopy: currentWeatherType = {
+let currentWeatherCopy: CurrentWeather = {
     name: '',
     state: '',
     condition: '',
@@ -130,7 +130,7 @@ export const processCurrentWeather = async (positionQuery: string, metric: boole
     
         const currentData = currentResult.data
     
-        const weatherResult: currentWeatherType = {
+        const weatherResult: CurrentWeather = {
             name: geocodeResult.name,
             state: geocodeResult.state,
             condition: currentData.weather[0].description,
@@ -168,7 +168,7 @@ const forecastRequest = async (latitude: number, longitude: number, unitSystem: 
     return result;
 }
 
-let forecastWeatherCopy: forecastCombinedType = {
+let forecastWeatherCopy: ForecastCombined = {
     name: '',
     state: '',
     dayForecast: [],
@@ -193,7 +193,7 @@ export const processForecastWeather = async (locationQuery: string, metric: bool
 
     const data = forecastResult.data;
 
-    const dayForecastData: dayForecastType[] = [];
+    const dayForecastData: DayForecast[] = [];
 
 
     for (let indexA = 0; indexA < 40; indexA += 8) {
@@ -231,10 +231,10 @@ export const processForecastWeather = async (locationQuery: string, metric: bool
         dayForecastData.push(entry);
     }
 
-    const hourForecastData: hourForecastType[] = [];
+    const hourForecastData: HourForecast[] = [];
 
     for (let count = 0; count <= 5; count++) {
-      const entry: hourForecastType = {
+      const entry: HourForecast = {
         temperature: data.list[count].main.temp,
         time: data.list[count].dt,
         weatherIcon: data.list[count].weather[0].icon,
@@ -246,7 +246,7 @@ export const processForecastWeather = async (locationQuery: string, metric: bool
 
     
 
-    const forecastData: forecastCombinedType = {
+    const forecastData: ForecastCombined = {
       name: geocodeResult.name,
       state: geocodeResult.state,
       dayForecast: dayForecastData, 

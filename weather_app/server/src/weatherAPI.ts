@@ -23,7 +23,11 @@ const geocodeRequest = async (query: string) => {
         }
     })
     .then(function (response: AxiosResponse) {
-        return response;
+        if (response.status === 200) {
+            return response;
+        } else {
+            return new Error(`Bad Request - Code:${response.status}`), response;
+        }
     })
     .catch(function (error: AxiosError) {
         return error;
@@ -42,7 +46,8 @@ type geocodeType = {
 const geocodeProcess = async (query: string) => {
     const result = await geocodeRequest(query);
 
-    if (result instanceof AxiosError) return result;
+    if (result instanceof AxiosError) return new Error("Axios Error"), result;
+    if (result instanceof Error) return new Error("Bad Response Error"), result;
 
     if (result.status === 400) return result;
 
@@ -70,7 +75,11 @@ const currentWeatherRequest = async (latitude: number, longitude: number, unitSy
         }
     })
     .then(function (response: AxiosResponse) {
-        return response;
+        if (response.status === 200) {
+            return response;
+        } else {
+            return new Error(`Bad Request - Code:${response.status}`), response;
+        }
     })
     .catch(function (error: AxiosError) {
         return error;
@@ -92,10 +101,7 @@ type currentWeatherType = {
 export const processCurrentWeather = async (positionQuery: string, metric: boolean) => {
     const geocodeResult = await geocodeProcess(positionQuery);
     if (geocodeResult instanceof AxiosError) return geocodeResult;
-    if (geocodeResult === undefined) return geocodeResult;
-    // if (typeof geocodeResult === 'object' && geocodeResult.interface === AxiosRespon) {
-            // * Not sure how to Type Guard AxiosResponse :|
-    // }
+    if (geocodeResult instanceof Error) return geocodeResult;
 
     const {lat, lon} = geocodeResult;
     // console.log(geocodeResult)
@@ -127,7 +133,11 @@ const forecastRequest = async (latitude: number, longitude: number, unitSystem: 
         }
     })
     .then(function (response: AxiosResponse) {
-        return response;
+        if (response.status === 200) {
+            return response;
+        } else {
+            return new Error(`Bad request code: ${response.status}`), response;
+        }
     })
     .catch(function (error: AxiosError) {
         return error;
@@ -166,11 +176,14 @@ type forecastCombinedType = {
 export const processForecastWeather = async (locationQuery: string, metric: boolean) => {
     const geocodeResult = await geocodeProcess(locationQuery);
     if (geocodeResult instanceof AxiosError) return geocodeResult;
+    if (geocodeResult instanceof Error) return geocodeResult;
 
     const {lat, lon} = geocodeResult;
 
     const forecastResult = await forecastRequest(lat, lon, (metric ? 'metric' : 'imperial'));
+
     if (forecastResult instanceof AxiosError) return forecastResult;
+    if (forecastResult instanceof Error) return forecastResult;
 
     const data = forecastResult.data;
 
@@ -186,7 +199,6 @@ export const processForecastWeather = async (locationQuery: string, metric: bool
         let lowValueIndex = 0;
         
         for (let indexB = 0; indexB < 8; indexB++) {
-            console.log(data.list[lowValueIndex].weather[0].icon, "INDEXB");
   
             if (data.list[indexB].main.temp > highValue) {
                 highValue = data.list[indexB].main.temp;

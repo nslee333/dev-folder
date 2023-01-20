@@ -10,7 +10,6 @@ import {
   currentWeatherType,
   dayForecastType,
   hourForecastType,
-  forecastCombinedType
 } from './types/types'
 import {
   faCity, 
@@ -21,17 +20,17 @@ import {
   faCloudMoon, 
   faCloudMoonRain, 
   faCloudShowersHeavy, 
-  faIcicles, faMoon, 
+  faMoon, 
   faSnowflake, 
-  faSun, 
-  faWind
+  faSun,
+  faTriangleExclamation,
+  faSmog
 } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
 const [current, setCurrent] = useState<currentWeatherType>();
 const [displayLocation, setDisplayLocation] = useState('');
 
-const [current, setCurrent] = useState();
 const [forecastDay, setForecastDay] = useState<dayForecastType[]>([]);
 const [forecastHour, setForecastHour] = useState<hourForecastType[]>([]);
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
@@ -45,10 +44,9 @@ const [metric, setMetric] = useState(false);
 const settingsLocationRef: RefObject<HTMLInputElement> = createRef();
 
 const citySearchRef: RefObject<HTMLInputElement> = createRef();
-const [cityArray, setCityArray] = useState<cityForecastData[]>([]);
+const [cityArray, setCityArray] = useState([]);
 const [idCount, setIdCount] = useState<number>(0); // TODO: Make sure this works.
-const [userSavedCities, setUserSavedCities] = useState<userSavedCity[]>([{id: "0", name: "Boston, MA"}]); // TODO: Make sure this works.
-// const savedCities = useRef<userSavedCity[]>();
+const [userSavedCities, setUserSavedCities] = useState([{id: "0", name: "Boston, MA"}]); // TODO: Make sure this works.
 
 
 
@@ -110,42 +108,46 @@ const currentDate = date.toLocaleString('en-US', {
 });
 
 
-const fetchIcon: (weatherIcon: number, className: string) => JSX.Element = (weatherIcon: number, className: string ) => {
-  if (weatherIcon >= 1 && weatherIcon <= 5) {
+const fetchIcon: (weatherIcon: string, className: string) => JSX.Element = (weatherIcon: string, className: string ) => {
+  if (weatherIcon === '01d') {
     return <FontAwesomeIcon icon={faSun} className={`${className}`}/>
 
-  } else if (weatherIcon >= 6 && weatherIcon <= 11) {
-    return <FontAwesomeIcon icon={faCloud} className={`${className}`}/>
-
-  } else if (weatherIcon >= 12 && weatherIcon <= 18) {
+  } else if (weatherIcon === '01n') {
+    return <FontAwesomeIcon icon={faMoon} className={`${className}`}/>;
+    
+  } else if (weatherIcon === '02d') {
     return <FontAwesomeIcon icon={faCloudSunRain}className={`${className}`}/>
     
-  } else if (weatherIcon >= 19 && weatherIcon <= 23) {
-    return <FontAwesomeIcon icon={faSnowflake} className={`${className}`}/>
-
-  } else if (weatherIcon === 24) {
-    return <FontAwesomeIcon icon={faIcicles} className={`${className}`}/>
-
-  } else if (weatherIcon >= 25 && weatherIcon <= 29) {
-    return <FontAwesomeIcon icon={faCloudShowersHeavy} className={`${className}`}/>
-
-  } else if (weatherIcon === 32) {
-    return <FontAwesomeIcon icon={faWind} className={`${className}`}/>
-
-  } else if (weatherIcon >= 33 && weatherIcon <= 35) {
-    return <FontAwesomeIcon icon={faMoon} className={`${className}`}/>;
-
-  } else if (weatherIcon >= 36 && weatherIcon <= 38) {
-    return <FontAwesomeIcon icon={faCloudMoon} className={`${className}`}/>
-
-  } else if (weatherIcon >= 39 && weatherIcon <= 42) {
+  } else if (weatherIcon === '02n') {
     return <FontAwesomeIcon icon={faCloudMoonRain} className={`${className}`}/>
+    
+  } else if (weatherIcon === '03d') {
+    return <FontAwesomeIcon icon={faCloud} className={`${className}`}/>
 
-  } else if (weatherIcon >= 42 && weatherIcon <= 44) {
+  } else if (weatherIcon === '03n') {
+    return <FontAwesomeIcon icon={faCloudMoon} className={`${className}`}/>
+    
+  } else if (weatherIcon === '04d' || weatherIcon === '04n') {
+    return <FontAwesomeIcon icon={faCloud} className={`${className}`}/>
+    
+  } else if (weatherIcon === '09d' || weatherIcon === '09n') {
+    return <FontAwesomeIcon icon={faCloudShowersHeavy} className={`${className}`}/>
+    
+  } else if (weatherIcon === '10d' || weatherIcon === '10n') {
+    return <FontAwesomeIcon icon={faCloudShowersHeavy} className={`${className}`}/>
+    
+  
+  } else if (weatherIcon === '11d' || weatherIcon === '11n') {
+    return <FontAwesomeIcon icon={faCloudShowersHeavy} className={`${className}`}/>
+    
+  } else if (weatherIcon === '13d' || weatherIcon === '13n') {
     return <FontAwesomeIcon icon={faSnowflake} className={`${className}`}/>
-
+    
+  } else if (weatherIcon === '50d' || weatherIcon === '50n') {
+    return <FontAwesomeIcon icon={faSmog} className={`${className}`}/>
+    
   } else {
-    return <FontAwesomeIcon icon={faSun} className={`${className}`} />
+    return <FontAwesomeIcon icon={faTriangleExclamation} className={`${className}`} />
     
   }
 }
@@ -636,7 +638,7 @@ const cityQueryValidation = (searchString: string) => {
 }
 
 
-// ^ Why is TS returning boolean | void, rather than just boolean? currently using bandaid fix 
+// ^ Why is TS returning boolean | void, rather than just boolean? currently using band aid fix 
 const handleLocationInput: ( 
 event: KeyboardEvent<HTMLInputElement>
 ) => boolean | void = (event: KeyboardEvent<HTMLInputElement>) => {

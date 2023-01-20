@@ -69,6 +69,10 @@ Use WeatherAPI.com's API.
     25. Swap out symbol with a city - switch variable names => city -> cities.
     26. Display daily forecast.
     27. Hour forecast not updating, fixed.
+    28.  Display data for City tab.
+         1.   WeatherICON added, need to display on renderCities.
+    29. Update http methods => request => res => [Follow convention]
+    30. 
   
 
 
@@ -77,7 +81,6 @@ Use WeatherAPI.com's API.
 [Bugs]:
 
 [Research]:
-    - Authentication.
 
 [Tasks]
     - Integrate with GH actions.
@@ -99,25 +102,38 @@ Use WeatherAPI.com's API.
 
 
 [Working]:
-- Display data for City tab.
-  - WeatherICON added, need to display on renderCities.
-  
-  - Sustain userSaved cities.
-      - Treat it like task_app version
+  - City component.
+    - Display, delete, sustaining saved cities functionality.
+  - Test location and metric work fine.
+    - Make sure it's passing in the right types.
+  - Rewrite iconFetch.
+      - Make sure dateToDay works.
+      - Call google timezone api, and display.
 
-  - 
-  -  Need to implement delete button properly.
-      - using localStorage might work, we'll see
-  
-
-
+  - Update realtime => current
+  - Add a default display if api doesn't return in time.
 
 
-This I can debug without the api.
-  - Rethink how server api works, queryParams especially.
-  - Display current location on realtime display.
-    - When location changes, need to get a new forecast.
-  - make sure measurement system works.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -130,33 +146,4 @@ This I can debug without the api.
     - Type the functions for that task that was completed.
     - Make sure that the variables stick to the naming convention.
     - A variable line doesn't go past the max-line length.
-
-
-
-weatherAPI.ts:
-
-
-What I need:
-- 5 day forecast,
-  - High / Low temp.
-  - day / night Condition
-  - icons for day and night.
-    - Grab data from 12:00pm and 6pm
-  
-Hourly conditions => 6 entries
-  - Temperature
-  - Time
-  - Icon
-  - Condition
-  
-Both into one request.  
-  [
-    Current data.
-      - Temperature
-      - WeatherIcon.
-                - time at location. -> client side 
-                - Date at location. -> client side
-      - Condition
-  ]
-  
 

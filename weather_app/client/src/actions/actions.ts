@@ -20,7 +20,7 @@ export const currentWeather: (location: string, metric: boolean ) => Promise<Axi
     return result;
 } 
 
-// 5 day forecast 
+
 export const forecastWeather: (location: string, metric: boolean) => Promise<AxiosResponse | AxiosError> = async (location: string, metric: boolean) => {
     const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'forecast', {
         "body": {

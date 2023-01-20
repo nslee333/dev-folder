@@ -219,6 +219,7 @@ export const processForecastWeather = async (locationQuery: string, metric: bool
         }
   
       const entry = { 
+          time: data.list[indexA].dt,
           maxTemp: data.list[highValueIndex].main.temp,
           minTemp: data.list[lowValueIndex].main.temp, 
           dayCondition: data.list[highValueIndex].weather[0].description,

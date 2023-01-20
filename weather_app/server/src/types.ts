@@ -16,6 +16,8 @@ export type currentWeatherType = {
 
 
 export type dayForecastType = {
+  time: number,
+
   minTemp: string,
   maxTemp: string,
 

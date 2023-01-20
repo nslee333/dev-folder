@@ -1,11 +1,11 @@
 import axios, {AxiosError, AxiosResponse} from 'axios';
 import dotenv from 'dotenv';
-import { 
-    cityRealtimeData,
-    forecastDailyData, 
-    forecastHourlyData, 
-    realtimeWeatherData, 
-    userSavedCity
+import {
+    geocodeType,
+    currentWeatherType,
+    dayForecastType,
+    hourForecastType,
+    forecastCombinedType,
 } from './types';
 dotenv.config();
 
@@ -36,12 +36,6 @@ const geocodeRequest: (query: string) => Promise<AxiosResponse | AxiosError | Er
     return result;
 }
 
-type geocodeType = {
-    name: string,
-    state: string,
-    lat: number,
-    lon: number
-}
 
 const geocodeProcess = async (query: string) => {
     const result = await geocodeRequest(query);
@@ -82,15 +76,6 @@ const currentWeatherRequest = async (latitude: number, longitude: number, unitSy
         return error;
     });
     return result;
-}
-
-
-type currentWeatherType = {
-    name: string,
-    state: string,
-    condition: string,
-    weatherIcon: string, 
-    temperature: string
 }
 
 
@@ -139,32 +124,6 @@ const forecastRequest = async (latitude: number, longitude: number, unitSystem: 
     })
 
     return result;
-}
-
-
-type dayForecastType = {
-  minTemp: string,
-  maxTemp: string,
-
-  dayCondition: string,
-  nightCondition: string,
-
-  dayIcon: string,
-  nightIcon: string,
-}
-
-type hourForecastType = {
-  temperature: string,
-  time: string,
-  weatherIcon: string,
-  condition: string
-}
-
-type forecastCombinedType = {
-  name: string,
-  state: string,
-  dayForecast: dayForecastType[],
-  hourForecast: hourForecastType[],
 }
 
 

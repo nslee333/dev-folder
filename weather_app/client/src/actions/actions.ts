@@ -1,11 +1,15 @@
 import axios, { Axios, AxiosError, AxiosResponse } from 'axios';
-import { userSavedCity } from '../types/types';
 
 const baseURL: string = 'http://localhost:1300/api/'
 
 
-export const realtimeRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
-    const result: AxiosResponse | AxiosError = await axios.get(baseURL + 'realtime', {})
+export const currentWeather: (location: string, metric: boolean ) => Promise<AxiosResponse | AxiosError> = async (location: string, metric: boolean ) => {
+    const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'current', {
+        "body": {
+            "location": location,
+            "metric": metric
+        }
+    })
     .then(function (response: AxiosResponse) {
         return response;
     })
@@ -17,8 +21,13 @@ export const realtimeRequest: () => Promise<AxiosResponse | AxiosError> = async 
 } 
 
 // 5 day forecast 
-export const dailyRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
-    const result: AxiosResponse | AxiosError = await axios.get(baseURL + 'weeklyForecast', {})
+export const forecastWeather: (location: string, metric: boolean) => Promise<AxiosResponse | AxiosError> = async (location: string, metric: boolean) => {
+    const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'forecast', {
+        "body": {
+            "location": location,
+            "metric": metric
+        }
+    })
     .then(function (response: AxiosResponse) {
         return response;
     })
@@ -26,60 +35,5 @@ export const dailyRequest: () => Promise<AxiosResponse | AxiosError> = async () 
         return error;
     });
     
-    return result;
-}
-
-// Hourly forecast
-export const hourlyRequest: () => Promise<AxiosResponse | AxiosError> = async () => {
-    const result: AxiosResponse | AxiosError = await axios.get(baseURL + 'hourlyForecast', {})
-    .then(function (response: AxiosResponse) {
-        return response;
-    })
-    .catch(function (error: AxiosError) {
-        return error;
-    })
-
-    return result;
-}
-
-export const metricUpdate: (metricBool: boolean) => Promise<AxiosResponse | AxiosError> = async (metricBool: boolean) => {
-    const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'settings/metric', {
-            metric: metricBool
-    })
-    .then(function (response: AxiosResponse) {
-        return response;
-    })
-    .catch(function (error: AxiosError) {
-        return error;
-    });
-
-    return result;
-}
-
-export const locationUpdate: (location: string) => Promise<AxiosResponse | AxiosError> = async (location: string) => {
-    const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'settings/location', {
-        locationQuery: location
-    })
-    .then(function (response: AxiosResponse) {
-        return response;
-    })
-    .catch(function (error: AxiosError) {
-        return error;
-    });
-
-    return result;
-}
-
-export const cityQuery = async (citiesArrayParam: userSavedCity[]) => {
-    const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'cities', {
-            citiesArray: citiesArrayParam
-    })
-    .then(function (response: AxiosResponse) {
-        return response;
-    })
-    .catch(function (error: AxiosError) {
-        return error;
-    });
-
     return result;
 }

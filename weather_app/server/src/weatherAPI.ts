@@ -14,7 +14,7 @@ const currentEndpoint = 'https://api.openweathermap.org/data/2.5/weather';
 const forecastEndpoint = 'https://api.openweathermap.org/data/2.5/forecast';
 
 
-const geocodeRequest = async (query: string) => {
+const geocodeRequest: (query: string) => Promise<AxiosResponse | AxiosError | Error> = async (query: string) => {
     const result = await axios.get(geocodingEndpoint, {
         params: {
             q: query + ", US",

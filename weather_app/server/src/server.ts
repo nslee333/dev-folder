@@ -10,8 +10,8 @@ const port = 1300;
 
 app.use(express.json(), cors());
 
-// Current weather.
-app.get('/api/current/', async (request: Request, response: Response) => {
+
+app.post('/api/current', async (request: Request, response: Response) => {
     if (request.body.location !== undefined && request.body.metric !== undefined) {
 
         const result = await processCurrentWeather(request.body.location, request.body.metric);
@@ -26,7 +26,7 @@ app.get('/api/current/', async (request: Request, response: Response) => {
 })
 
 
-app.get('/api/forecast', async (request: Request, response: Response) => {
+app.post('/api/forecast', async (request: Request, response: Response) => {
     if (request.body.location !== undefined && request.body.metric !== undefined) {
         
         const result = await processForecastWeather(request.body.location, request.body.metric);

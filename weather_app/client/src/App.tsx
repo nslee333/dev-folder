@@ -11,6 +11,7 @@ import {
   CurrentWeather,
   DayForecast,
   HourForecast,
+  SavedCityData,
 } from './types/types'
 import {
   faCity, 
@@ -46,16 +47,15 @@ const settingsLocationRef: RefObject<HTMLInputElement> = createRef();
 
 const citySearchRef: RefObject<HTMLInputElement> = createRef();
 const [savedCities, setSavedCities] = useState<CityEntry[]>([]); 
-const [savedCityData, setSavedCityData] = useState<CurrentWeather[]>([]);
+const [savedCityData, setSavedCityData] = useState<SavedCityData[]>([]);
 const [idCount, setIdCount] = useState<number>(0); // TODO: Make sure this works.
-const [userSavedCities, setUserSavedCities] = useState([{id: "0", name: "Boston, MA"}]); // TODO: Make sure this works.
 
 
 
 useEffect(() => { //TODO: Research is there any problems with multiple useEffects?
   forecastFetch();
   currentFetch();
-  // fetchCityData();
+  fetchCityData();
   
 }, [])
 
@@ -448,46 +448,38 @@ const homeComponent: () => JSX.Element = () => {
 }
 
 
-
-const setCitiesToLocalStorage = () => {
-
-}
-
-
-  
-  const fetchCityData = async () => { // * It's not returning the data.
-    // // * if cities are saved or initial page load => call this.
+  const fetchCityData = async () => { 
+    let cityData: SavedCityData[] = [];
     
-    // const result = await cityQuery(userSavedCities);
-    // if (result instanceof AxiosError) return console.log("Axios Error:", AxiosError);
-    
-    // const cityData = result.data;
-    // userSavedCities.push(
-    
-    //     {id: '1', name: "New York, NY"}
-    // )
-    localStorage.setItem('userSavedCities', JSON.stringify(userSavedCities));
-    // localStorage.setItem('cityData', cityData);
-    
-    // console.log(localStorage.getItem('userSavedCities'));
-    // console.log(localStorage.getItem('cityData'));
-    console.log(userSavedCities)
-    // setCityArray(cityData);
+    for (let count = 0; count <= savedCities.length; count++ ) {
+      const location = savedCities[count].name;
+      const dataResult = await currentWeather(location, metric);
+      if (dataResult instanceof Error) return console.log("currentWeather Error", dataResult);
+
+      const data = dataResult.data;
+
+      const entryData: SavedCityData = {
+        id: idCount + 1,
+        name: data.name,
+        state: data.state,
+        condition: data.condition,
+        weatherIcon: data.weatherIcon,
+        temperature: data.temperature
+      }
+
+      cityData.push(entryData);
+      setIdCount(idCount + 1);
+    }
+
+    setSavedCityData(cityData);
   }
 
-  // console.log(localStorage.getItem("userSavedCities"), "LOCALSTORAGEW")
   
-  // fetchCityData();
-  
-
-
-
-
 const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
   if (event.key === `Enter`) {
     event.preventDefault()
-    if (cityArray.length === 5) return window.alert("Sorry, you cannot have more than five cities saved at a time..")
-    
+
+    if (savedCities.length === 5) return window.alert("Sorry, you cannot have more than five cities saved at a time..")
     if (citySearchRef.current === null) return console.error("City Search Error:", citySearchRef.current);
     
     const cityString: string = citySearchRef.current.value;
@@ -500,45 +492,36 @@ const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
       id: idCount + 1,
       name: citySearchRef.current.value,
     }
+    
       setIdCount(idCount + 1);
-      userSavedCities.push(cityEntry); // ! Make sure this works, not sure
-      // localStorage.setItem('userSavedCities',);
-      
+      savedCities.push(cityEntry);
       
     citySearchRef.current.value = "";
   }
 }
 
-const deleteCity = (cityId: string, cityName: string) => {
-  // TODO: Still need to finish implementing / debugging this.
-  const userCities = localStorage.getItem('userSavedCities');
+const deleteCity = (cityId: number) => {
+  const index = savedCityData.findIndex(element => element.id === cityId);
 
-  console.log(userCities);
+  if (index === -1) return console.error("No such city."); 
 
-  const query: userSavedCity = {id: cityId, name: cityName}
-  const index: number = userSavedCities.indexOf(query);
-
-  // userCities.splice(index, 1);
+  savedCities.splice(index, 1);
 
 
   fetchCityData();
 }
 
 
-// console.log(cityArray);
-
-
 const renderCities = () => {
-
   const displayCityArray = () => {
     return (
-      cityArray.map(cityEntry => (
+      savedCityData.map(cityEntry => (
         <div key={cityEntry.id} className='variable__city__div'>
           <hr className='variable__city__div__hr'/>
             <div className='variable__city__div__display'>
                 <div className='variable__city__div__display__city'>
                   <div className='variable__city__div__display__city__content'>
-                    {`${cityEntry.name} - ${cityEntry.time}, ${cityEntry.temperature} and ${cityEntry.condition}`}
+                    {`${cityEntry.name} - ${cityEntry.name /* //  need to time */}, ${cityEntry.temperature} and ${cityEntry.condition}`}
                   </div>
                   <button className='variable__city__div__display__city__close-btn' onClick={() => deleteCity(cityEntry.id, cityEntry.name)}>
                     &times;
@@ -550,9 +533,9 @@ const renderCities = () => {
     );
   };
   
-  const displayUserSavedCities = () => {
+  const displaySavedCities = () => {
     return (
-      userSavedCities.map(cityEntry => (
+      savedCities.map(cityEntry => (
         <div key={cityEntry.id} className='variable__city__div'>
           <hr className='variable__city__div__hr'/>
             <div className='variable__city__div__display'>
@@ -572,7 +555,7 @@ const renderCities = () => {
   
 
  
-  if (cityArray) {
+  if (savedCityData) {
     return (
       <>
       {displayCityArray()}
@@ -582,7 +565,7 @@ const renderCities = () => {
   } else {
     return (
       <>
-      {displayUserSavedCities()}
+      {displaySavedCities()}
       </>
     )
   }

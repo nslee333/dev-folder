@@ -72,7 +72,7 @@ Use WeatherAPI.com's API.
     28.  Display data for City tab.
          1.   WeatherICON added, need to display on renderCities.
     29. Update http methods => request => res => [Follow convention]
-    30. 
+    30. Rewrite iconFetch.
   
 
 
@@ -105,8 +105,8 @@ Use WeatherAPI.com's API.
   - City component.
     - Display, delete, sustaining saved cities functionality.
   - Test location and metric work fine.
-    - Make sure it's passing in the right types.
-  - Rewrite iconFetch.
+    - Clean up old code.
+
       - Make sure dateToDay works.
       - Call google timezone api, and display.
 

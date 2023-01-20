@@ -111,7 +111,7 @@ let currentWeatherCopy: currentWeatherType = {
     state: '',
     condition: '',
     weatherIcon: '',
-    temperature: ''
+    temperature: 0
 }
 
 
@@ -135,7 +135,7 @@ export const processCurrentWeather = async (positionQuery: string, metric: boole
             state: geocodeResult.state,
             condition: currentData.weather[0].description,
             weatherIcon: currentData.weather[0].icon,
-            temperature: `${currentData.main.temp}`,
+            temperature: currentData.main.temp,
         }
 
         currentWeatherCopy = weatherResult;

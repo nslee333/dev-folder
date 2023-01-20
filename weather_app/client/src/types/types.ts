@@ -3,13 +3,15 @@ export type currentWeatherType = {
   state: string,
   condition: string,
   weatherIcon: string, 
-  temperature: string
+  temperature: number
 }
 
 
 export type dayForecastType = {
-  minTemp: string,
-  maxTemp: string,
+  time: number,
+
+  minTemp: number,
+  maxTemp: number,
 
   dayCondition: string,
   nightCondition: string,
@@ -20,8 +22,8 @@ export type dayForecastType = {
 
 
 export type hourForecastType = {
-  temperature: string,
-  time: string,
+  temperature: number,
+  time: number,
   weatherIcon: string,
   condition: string
 }

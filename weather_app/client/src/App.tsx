@@ -7,9 +7,10 @@ import {
   forecastWeather
 } from './actions/actions';
 import {
-  currentWeatherType,
-  dayForecastType,
-  hourForecastType,
+  CityEntry,
+  CurrentWeather,
+  DayForecast,
+  HourForecast,
 } from './types/types'
 import {
   faCity, 
@@ -28,11 +29,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
-const [current, setCurrent] = useState<currentWeatherType>();
+const [current, setCurrent] = useState<CurrentWeather>();
 const [displayLocation, setDisplayLocation] = useState('');
 
-const [forecastDay, setForecastDay] = useState<dayForecastType[]>([]);
-const [forecastHour, setForecastHour] = useState<hourForecastType[]>([]);
+const [forecastDay, setForecastDay] = useState<DayForecast[]>([]);
+const [forecastHour, setForecastHour] = useState<HourForecast[]>([]);
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
 const [homeHighlighted, setHomeHighlighted] = useState(false); // TODO Reset => TRUE
@@ -44,7 +45,8 @@ const [metric, setMetric] = useState(false);
 const settingsLocationRef: RefObject<HTMLInputElement> = createRef();
 
 const citySearchRef: RefObject<HTMLInputElement> = createRef();
-const [cityArray, setCityArray] = useState([]);
+const [savedCities, setSavedCities] = useState<CityEntry[]>([]); 
+const [savedCityData, setSavedCityData] = useState<CurrentWeather[]>([]);
 const [idCount, setIdCount] = useState<number>(0); // TODO: Make sure this works.
 const [userSavedCities, setUserSavedCities] = useState([{id: "0", name: "Boston, MA"}]); // TODO: Make sure this works.
 
@@ -170,7 +172,7 @@ const realtimeComponent = () => {
 }
 
 
-const hourlyData = (forecastHour: hourForecastType) => {
+const hourlyData = (forecastHour: HourForecast) => {
   if (forecastHour !== undefined) {
 
     const date = new Date(forecastHour.time * 1000)
@@ -494,8 +496,8 @@ const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
     const validationResult = cityQueryValidation(cityString);
     if (validationResult instanceof Error) return window.alert(validationResult);
     
-    const cityEntry: userSavedCity = {
-      id: `${idCount + 1}`,
+    const cityEntry: CityEntry = {
+      id: idCount + 1,
       name: citySearchRef.current.value,
     }
       setIdCount(idCount + 1);

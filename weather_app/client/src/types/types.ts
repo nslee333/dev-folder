@@ -1,4 +1,4 @@
-export type currentWeatherType = {
+export interface CurrentWeather {
   name: string,
   state: string,
   condition: string,
@@ -6,8 +6,12 @@ export type currentWeatherType = {
   temperature: number
 }
 
+export interface SavedCityData extends CurrentWeather {
+  id: number
+}
 
-export type dayForecastType = {
+
+export type DayForecast = {
   time: number,
 
   minTemp: number,
@@ -21,7 +25,7 @@ export type dayForecastType = {
 }
 
 
-export type hourForecastType = {
+export type HourForecast = {
   temperature: number,
   time: number,
   weatherIcon: string,
@@ -29,9 +33,15 @@ export type hourForecastType = {
 }
 
 
-export type forecastCombinedType = {
+export type ForecastCombined = {
   name: string,
   state: string,
-  dayForecast: dayForecastType[],
-  hourForecast: hourForecastType[],
+  dayForecast: DayForecast[],
+  hourForecast: HourForecast[],
 }
+
+export type CityEntry = {
+  id: number,
+  name: string
+}
+

@@ -584,9 +584,8 @@ const cityComponent: () => JSX.Element = () => {
               className='variable__city__search__form__input'
               onKeyDown={event => citySearchHandleSubmit(event)}
               ref={citySearchRef}
-            /> {/*// TODO: Save button that calls fetchCityData */} 
+            />  
           </form>
-          <button className='variable__city__search__save-btn' onClick={fetchCityData}>Save</button>
         </div>
       {renderCities()}
     </div>

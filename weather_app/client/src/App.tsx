@@ -41,7 +41,7 @@ const [homeHighlighted, setHomeHighlighted] = useState(false); // TODO Reset => 
 const [cityHighlighted, setCityHighlighted] = useState(true);
 const [settingsHighlighted, setSettingsHighlighted] = useState(false);
 
-const [location, setLocation] = useState("97702");
+const [location, setLocation] = useState("Bend, OR");
 const [metric, setMetric] = useState(false);
 const settingsLocationRef: RefObject<HTMLInputElement> = createRef();
 
@@ -449,6 +449,7 @@ const homeComponent: () => JSX.Element = () => {
 
 
   const fetchCityData = async () => { 
+    if (savedCities.length === 0) return;
     let cityData: SavedCityData[] = [];
     
     for (let count = 0; count <= savedCities.length; count++ ) {
@@ -579,7 +580,7 @@ const cityComponent: () => JSX.Element = () => {
         <div className='variable__city__search'>
           <form className='variable__city__search__form'>
             <
-              input type='text' placeholder='97702 or Bend, OR' 
+              input type='text' placeholder='Boston, MA' 
               className='variable__city__search__form__input'
               onKeyDown={event => citySearchHandleSubmit(event)}
               ref={citySearchRef}
@@ -594,15 +595,6 @@ const cityComponent: () => JSX.Element = () => {
 
 
 const cityQueryValidation = (searchString: string) => {
-  const cityQueryIsANumber: boolean = (!isNaN(parseInt(searchString)))
-
-  if (cityQueryIsANumber) {
-    if (searchString.length !== 5) return new Error("Bad Zip Code");
-    
-    return true;
-
-  } else {
-
     const stringQueryRegex = /([A-Z]{1}[a-z]+), (A[LKSZRAEP]|a[lkszraep]|C[AOT]|c[aot]|D[EC]|d[ec]|F[LM]|f[lm]|G[AU]|g[au]|HI|hi|I[ADLN]|i[aldn]|K[SY]|k[sy]|LA|la|M[ADEHINOPST]|m[adehinopst]|N[CDEHJMVY]|n[cdehjmvy]|O[HKR]|o[hkr]|P[ARW]|p[arw]|RI|ri|S[CD]|s[cd]|T[NX]|t[nx]|UT|ut|V[AIT]|v[ait]|W[AIVY]|w[aivy])$/;
     
     const regexResult = searchString.match(stringQueryRegex);
@@ -610,7 +602,6 @@ const cityQueryValidation = (searchString: string) => {
     if (regexResult === null) return new Error("Bad City Search");
 
     return true;
-  }
 }
 
 
@@ -625,10 +616,7 @@ event: KeyboardEvent<HTMLInputElement>
 
   const queryIsValid: Error | true = cityQueryValidation(cityQuery);
 
-  if (queryIsValid instanceof Error && queryIsValid.message === "Bad Zip Code") {
-    return (window.alert("Zip code must be exactly 5 digits long."), false);
-
-  } else if (queryIsValid instanceof Error && queryIsValid.message === "Bad City Search") {
+  if (queryIsValid instanceof Error && queryIsValid.message === "Bad City Search") {
     return (window.alert("Your search must be in the following format: `Bend, OR` or `Bend, or`."), false);
 
   } else if (queryIsValid === true) {
@@ -684,7 +672,7 @@ const settingsComponent: () => JSX.Element = () => {
           type='text'
           onKeyDown={keyDownLocationHandler}
           ref={settingsLocationRef}
-          placeholder='City or ZIP Code'
+          placeholder='Boston, MA'
         />
         </form>
       </div>  

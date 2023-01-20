@@ -28,10 +28,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
+const [current, setCurrent] = useState<currentWeatherType>();
+const [displayLocation, setDisplayLocation] = useState('');
 
 const [current, setCurrent] = useState();
 const [forecastDay, setForecastDay] = useState<dayForecastType[]>([]);
-const [forecastHour, setForecastHour] = useState([]);
+const [forecastHour, setForecastHour] = useState<hourForecastType[]>([]);
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
 const [homeHighlighted, setHomeHighlighted] = useState(false); // TODO Reset => TRUE
@@ -51,8 +53,9 @@ const [userSavedCities, setUserSavedCities] = useState<userSavedCity[]>([{id: "0
 
 
 useEffect(() => { //TODO: Research is there any problems with multiple useEffects?
-  dataFetch();
-  fetchCityData();
+  forecastFetch();
+  currentFetch();
+  // fetchCityData();
   
 }, [])
 
@@ -68,34 +71,34 @@ useEffect(() => {
 }, [])
 
 
-const dataFetch = async () => {
 
+const forecastFetch = async () => {
+  const forecastResult = await forecastWeather(location, metric);
+  if (forecastResult instanceof AxiosError) return console.error(forecastResult);
+  if (forecastResult instanceof Error) return console.error(forecastResult);
 
+  const {
+    name, 
+    state,
+    dayForecast, 
+    hourForecast
+  } = forecastResult.data;
+
+  setForecastHour(hourForecast);
+  setForecastDay(dayForecast);
+  setDisplayLocation(`${name}, ${state}`);
 }
 
 
-const dataRequest: () => Promise<dataTuple| void> = async (): Promise<dataTuple | void> => {
-    // TODO: Make sure this works.
-  
-    const responseRealtime = await realtimeRequest();
-    if (responseRealtime instanceof AxiosError) return console.error(responseRealtime);
-    const realtimeResult: realtimeWeatherData = responseRealtime.data;
-    
-    
-    const responseDaily = await dailyRequest();
-    if (responseDaily instanceof AxiosError) return console.error(responseDaily);
-    const dailyResult: forecastDailyData[] = responseDaily.data;
-    
-    
-    const responseHourly = await hourlyRequest();
-    if (responseHourly instanceof AxiosError) return console.error(responseHourly);
-    const hourlyResult: forecastHourlyData[] = responseHourly.data; 
+const currentFetch = async () => {
+  const currentResult = await currentWeather(location, metric);
+  if (currentResult instanceof AxiosError) return console.error("AxiosError", currentResult);
+  if (currentResult instanceof Error) return console.error("Bad Response Error:", currentResult);
 
+  const weatherResult = currentResult.data;
 
-    const returnArray: dataTuple = [realtimeResult, dailyResult, hourlyResult];
-     
-    return returnArray;
-  
+  setCurrent(weatherResult);
+
 }
 
 const date = new Date();
@@ -148,13 +151,13 @@ const fetchIcon: (weatherIcon: number, className: string) => JSX.Element = (weat
 }
 
 const realtimeComponent = () => {
-  if (realtime) {
+  if (current) {
     return (
       <div className='realtime-main'>
-        <div className='realtime-div1'>{fetchIcon(realtime.weatherIcon, "realtime-icon")} {realtime.temperature + '°'}</div>  
+        <div className='realtime-div1'>{fetchIcon(current.weatherIcon, "realtime-icon")} {current.temperature + '°'}</div>  
         <div className='realtime-div2'>{time}</div>
         <div className='realtime-div2'>{currentDate}</div>
-        <div className='realtime-div2'>{location}</div>
+        <div className='realtime-div2'>{displayLocation}</div>
       </div>
     );
   } else {

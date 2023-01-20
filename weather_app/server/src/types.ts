@@ -5,6 +5,7 @@ export type geocodeType = {
   lon: number
 }
 
+
 export type currentWeatherType = {
   name: string,
   state: string,
@@ -25,12 +26,14 @@ export type dayForecastType = {
   nightIcon: string,
 }
 
+
 export type hourForecastType = {
   temperature: string,
   time: string,
   weatherIcon: string,
   condition: string
 }
+
 
 export type forecastCombinedType = {
   name: string,

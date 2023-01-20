@@ -3,20 +3,14 @@ import { RefObject, useEffect, useState, createRef, KeyboardEvent, useRef } from
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './App.css';
 import {
-  realtimeRequest, 
-  dailyRequest, 
-  hourlyRequest, 
-  metricUpdate, 
-  locationUpdate,
-  cityQuery
+  currentWeather,
+  forecastWeather
 } from './actions/actions';
 import {
-  realtimeWeatherData, 
-  forecastDailyData, 
-  forecastHourlyData, 
-  cityForecastData, 
-  dataTuple,
-  userSavedCity
+  currentWeatherType,
+  dayForecastType,
+  hourForecastType,
+  forecastCombinedType
 } from './types/types'
 import {
   faCity, 
@@ -35,9 +29,9 @@ import {
 
 function App() {
 
-const [realtime, setRealtime] = useState<realtimeWeatherData>();
-const [forecastDaily, setForecastDaily] = useState<forecastDailyData[]>([]);
-const [forecastHourly, setForecastHourly] = useState<forecastHourlyData[]>([]);
+const [current, setCurrent] = useState();
+const [forecastDay, setForecastDay] = useState<dayForecastType[]>([]);
+const [forecastHour, setForecastHour] = useState([]);
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
 const [homeHighlighted, setHomeHighlighted] = useState(false); // TODO Reset => TRUE
@@ -76,14 +70,6 @@ useEffect(() => {
 
 const dataFetch = async () => {
 
-  const apiData: dataTuple | void = await dataRequest();
-  if (typeof apiData === 'undefined' || apiData === null) return console.error("Realtime Data undefined.");
-
-  const [realtime, daily, hourly] = apiData; // JS array destructuring
-
-  setRealtime(realtime);
-  setForecastDaily(daily);
-  setForecastHourly(hourly);
 
 }
 

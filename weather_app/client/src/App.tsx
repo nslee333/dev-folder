@@ -37,8 +37,8 @@ const [forecastDay, setForecastDay] = useState<DayForecast[]>([]);
 const [forecastHour, setForecastHour] = useState<HourForecast[]>([]);
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
-const [homeHighlighted, setHomeHighlighted] = useState(false); // TODO Reset => TRUE
-const [cityHighlighted, setCityHighlighted] = useState(true);
+const [homeHighlighted, setHomeHighlighted] = useState(true); // TODO Reset => TRUE
+const [cityHighlighted, setCityHighlighted] = useState(false);
 const [settingsHighlighted, setSettingsHighlighted] = useState(false);
 
 const [location, setLocation] = useState("Bend, OR");
@@ -48,19 +48,28 @@ const settingsLocationRef: RefObject<HTMLInputElement> = createRef();
 const citySearchRef: RefObject<HTMLInputElement> = createRef();
 const [savedCities, setSavedCities] = useState<CityEntry[]>([]); 
 const [savedCityData, setSavedCityData] = useState<SavedCityData[]>([]);
-const [idCount, setIdCount] = useState<number>(0); // TODO: Make sure this works.
+const [idCount, setIdCount] = useState<number>(1); // TODO: Make sure this works.
 
+const [dataReady, setDataReady] = useState(false); 
 
+useEffect(() => {
+  console.log("useEffect 1")
+  isDataReady();
+  
+})
 
 useEffect(() => { //TODO: Research is there any problems with multiple useEffects?
+  console.log("useEffect 2")
   forecastFetch();
   currentFetch();
   fetchCityData();
   
 }, [])
 
-useEffect(() => {
 
+useEffect(() => {
+  console.log("UseEffect 3")
+  
   const interval = setInterval(() => {
     const newTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
     setTime(newTime);
@@ -70,7 +79,15 @@ useEffect(() => {
   
 }, [])
 
+const isDataReady = () => {
+  if (forecastDay[0] !== undefined && forecastDay[4] !== undefined) {
+    if (forecastHour[0] !== undefined && forecastHour[4] !== undefined) {
+      console.log("CALLED")
+      setDataReady(true);
 
+    }
+  }
+}
 
 const forecastFetch = async () => {
   const forecastResult = await forecastWeather(location, metric);
@@ -173,7 +190,7 @@ const realtimeComponent = () => {
 
 
 const hourlyData = (forecastHour: HourForecast) => {
-  if (forecastHour !== undefined) {
+  if (dataReady) {
 
     const date = new Date(forecastHour.time * 1000)
     const hour = date.getHours();
@@ -194,7 +211,7 @@ const hourlyData = (forecastHour: HourForecast) => {
 
 
 const hourForecastComponent = () => { // TODO Correct Upper-left corner display issue,
-  if (forecastHour !== undefined && forecastHour[5] !== undefined) {
+  if (dataReady) {
     return (
         <div className='hour-forecast'>
           <div className='hour-forecast__div'>
@@ -382,7 +399,7 @@ const dateToDay = (dateEntry: number) => {
 }
 
 const homeComponent: () => JSX.Element = () => {
-  if (forecastDay !== undefined && forecastDay[5] !== undefined) {
+  if (dataReady) {
     return (
       <div className='variable__home'>
           <div className='variable__home__page'>

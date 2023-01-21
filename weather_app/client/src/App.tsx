@@ -37,21 +37,20 @@ const [forecastDay, setForecastDay] = useState<DayForecast[]>([]);
 const [forecastHour, setForecastHour] = useState<HourForecast[]>([]);
 const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
-const [homeHighlighted, setHomeHighlighted] = useState(true); // TODO Reset => TRUE
+const [homeHighlighted, setHomeHighlighted] = useState(true);
 const [cityHighlighted, setCityHighlighted] = useState(false);
 const [settingsHighlighted, setSettingsHighlighted] = useState(false);
 
-const [location, setLocation] = useState("Los Alamos, TX");
+const [location, setLocation] = useState("Bend, OR");
 const [metric, setMetric] = useState(false);
 const settingsLocationRef: RefObject<HTMLInputElement> = createRef();
 
 const citySearchRef: RefObject<HTMLInputElement> = createRef();
 const [savedCities, setSavedCities] = useState<CityEntry[]>([]); 
 const [savedCityData, setSavedCityData] = useState<SavedCityData[]>([]);
-const [idCount, setIdCount] = useState<number>(1); // TODO: Make sure this works.
+const [idCount, setIdCount] = useState<number>(0);
 
 const [dataReady, setDataReady] = useState(false); 
-console.log(":)")
 
 useEffect(() => {
   let ignore = false;
@@ -66,7 +65,8 @@ useEffect(() => {
   };
 })
 
-useEffect(() => { //TODO: Research is there any problems with multiple useEffects?
+
+useEffect(() => {
   let ignore = false;
   
   if (!ignore) {
@@ -74,12 +74,12 @@ useEffect(() => { //TODO: Research is there any problems with multiple useEffect
     currentFetch();
 
   }
-  // console.log(savedCityData, "SCD")
   
   return () => {
     ignore = true;
   };
 }, [])
+
 
 useEffect(() => {
   let ignore = false;
@@ -94,6 +94,20 @@ useEffect(() => {
   };
 
 }, [])
+
+useEffect(() => {
+  let ignore = false;
+  
+  if (!ignore) {
+    fetchCityData();
+    
+  }
+
+  return () => {
+    ignore = true;
+  };
+
+}, [savedCities])
 
 
 useEffect(() => {
@@ -491,25 +505,28 @@ const homeComponent: () => JSX.Element = () => {
 }
 
   const saveCitiesToStorage = (city: CityEntry) => {
-    console.log("saved to storage")
-    localStorage.setItem(`${idCount}`, city.name);
+      localStorage.setItem(`${idCount}`, city.name);
+      setIdCount(idCount + 1);
+
   }
 
-  const fetchCitiesFromStorage = () => {
-    console.log("Fetched from storage")
-    const savedCites: CityEntry[] = [];
 
-    for (let count = 0; count <= localStorage.length; count++ ) {
+  const fetchCitiesFromStorage = () => {
+    const savedCitiesArray: CityEntry[] = [];
+
+    for (let count = 0; count < localStorage.length; count++ ) {
       const entry = localStorage.getItem(`${count}`);
+
       if (entry !== null) {
         const city: CityEntry = {
           id: count,
           name: entry
         }
-        savedCities.push(city);
+        savedCitiesArray.push(city);
       }
     }
-    setSavedCities(savedCities);
+    setSavedCities(savedCitiesArray);
+    
   }
 
   const isDuplicate = (query: string) => {
@@ -522,31 +539,26 @@ const homeComponent: () => JSX.Element = () => {
     }
   }
 
-
-
   const fetchCityData = async () => {
     if (savedCities.length === 0) return;
+    setSavedCityData([]);
     let cityData: SavedCityData[] = [];
     
     for (let count = 0; count < savedCities.length; count++ ) {
-      console.log(savedCities[count]);
-      // debugger;
       const locationQuery = savedCities[count].name;
       const dataResult = await currentWeather(locationQuery, metric);
 
       if (dataResult instanceof Error) return console.log("currentWeather Error", dataResult);
-      // debugger;
       const data = dataResult.data;
       
       const entryData: SavedCityData = {
-        id: idCount + 1,
+        id: idCount,
         name: data.name,
         state: data.state,
         condition: data.condition,
         weatherIcon: data.weatherIcon,
         temperature: data.temperature
       }
-      // debugger;
       cityData.push(entryData);
     }
     
@@ -573,7 +585,7 @@ const homeComponent: () => JSX.Element = () => {
     if (validationResult instanceof Error) return window.alert(validationResult);
     
     const cityEntry: CityEntry = {
-      id: idCount + 1,
+      id: idCount,
       name: citySearchRef.current.value,
     }
     
@@ -582,19 +594,22 @@ const homeComponent: () => JSX.Element = () => {
       
     citySearchRef.current.value = "";
     saveCitiesToStorage(cityEntry);
-    // fetchCityData(); // 
+    fetchCityData();
   }
 }
 
 const deleteCity = (cityId: number) => {
-  const index = savedCityData.findIndex(element => element.id === cityId);
+  
+  const index = savedCities.findIndex(element => element.id === cityId);
 
   if (index === -1) return console.error("No such city."); 
 
-  savedCities.splice(index, 1);
+  for (let count = 0; count <= savedCities.length; count++) {
+    savedCities.splice(index, 1);
+  }
+
   localStorage.removeItem(`${cityId}`);
-
-
+ 
   fetchCityData();
 }
 
@@ -602,13 +617,13 @@ const deleteCity = (cityId: number) => {
 const renderCities = () => {
   const displayCityArray = () => {
     return (
-      savedCityData.map(cityEntry => (
-        <div key={cityEntry.id} className='variable__city__div'>
+      savedCityData.map((cityEntry, index) => (
+        <div key={index} className='variable__city__div'>
           <hr className='variable__city__div__hr'/>
             <div className='variable__city__div__display'>
                 <div className='variable__city__div__display__city'>
                   <div className='variable__city__div__display__city__content'>
-                    {`${cityEntry.name} - ${cityEntry.state /* //  need to time */}, ${cityEntry.temperature} and ${cityEntry.condition}`}
+                    {`${cityEntry.name} - ${cityEntry.state} ${cityEntry.temperature}° and ${cityEntry.condition}`}
                   </div>
                   <button className='variable__city__div__display__city__close-btn' onClick={() => deleteCity(cityEntry.id)}>
                     &times;

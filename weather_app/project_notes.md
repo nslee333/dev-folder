@@ -104,8 +104,7 @@ Use WeatherAPI.com's API.
 
 [Working]:
   - City component.
-    - Display, delete, sustaining saved cities functionality.
-    - fix key issue
+    - Add degree symbol
   - Test location and metric work fine.
     - Clean up old code.
 
@@ -114,6 +113,8 @@ Use WeatherAPI.com's API.
 
   - Update realtime => current
   - Add a default display if api doesn't return in time?
+
+  - Might need to export non-side effect functions to outside of the App component.
 
 Need to sustain default location and savedCities between renders.
 

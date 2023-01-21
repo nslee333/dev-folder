@@ -140,7 +140,7 @@ export const processCurrentWeather = async (positionQuery: string, metric: boole
 
         currentWeatherCopy = weatherResult;
 
-        // startCurrentCooldown();
+        startCurrentCooldown();
         return weatherResult;
 } 
 
@@ -255,6 +255,6 @@ export const processForecastWeather = async (locationQuery: string, metric: bool
 
     forecastWeatherCopy = forecastData;
 
-    // startForecastCooldown();
+    startForecastCooldown();
     return forecastData;
 }

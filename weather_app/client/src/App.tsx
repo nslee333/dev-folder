@@ -65,6 +65,16 @@ useEffect(() => {
   };
 })
 
+useEffect(() => {
+  let ignore = false;
+
+  if (!ignore) {
+    fetchLocationFromSessionStorage();
+  }
+
+  ignore = true;
+}, [])
+
 
 useEffect(() => {
   let ignore = false;
@@ -78,7 +88,7 @@ useEffect(() => {
   return () => {
     ignore = true;
   };
-}, [])
+}, [location])
 
 
 useEffect(() => {
@@ -694,6 +704,16 @@ const cityQueryValidation = (searchString: string) => {
     return true;
 }
 
+const saveLocationToSessionStorage = (locationQuery: string) => {
+  sessionStorage.setItem('location', `${locationQuery}`);
+}
+
+const fetchLocationFromSessionStorage = () => {
+  const locationResult = sessionStorage.getItem('location');
+  if (locationResult === null) return console.error("Location not pulled from session storage");
+  setLocation(locationResult);
+}
+
 
 // ^ Why is TS returning boolean | void, rather than just boolean? currently using band aid fix 
 const handleLocationInput: ( 
@@ -712,6 +732,7 @@ event: KeyboardEvent<HTMLInputElement>
   } else if (queryIsValid) {
 
     setLocation(cityQuery);
+    saveLocationToSessionStorage(cityQuery);
     return (window.alert("Default location successfully updated."), true);
 
   } else {

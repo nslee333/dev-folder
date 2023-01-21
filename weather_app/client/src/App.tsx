@@ -41,7 +41,7 @@ const [homeHighlighted, setHomeHighlighted] = useState(true); // TODO Reset => T
 const [cityHighlighted, setCityHighlighted] = useState(false);
 const [settingsHighlighted, setSettingsHighlighted] = useState(false);
 
-const [location, setLocation] = useState("Bend, OR");
+const [location, setLocation] = useState("Los Alamos, TX");
 const [metric, setMetric] = useState(false);
 const settingsLocationRef: RefObject<HTMLInputElement> = createRef();
 
@@ -51,24 +51,29 @@ const [savedCityData, setSavedCityData] = useState<SavedCityData[]>([]);
 const [idCount, setIdCount] = useState<number>(1); // TODO: Make sure this works.
 
 const [dataReady, setDataReady] = useState(false); 
+console.log(":)")
 
 useEffect(() => {
-  console.log("useEffect 1")
   isDataReady();
   
 })
 
 useEffect(() => { //TODO: Research is there any problems with multiple useEffects?
-  console.log("useEffect 2")
+  fetchCitiesFromStorage();
   forecastFetch();
   currentFetch();
-  fetchCityData();
+  console.log(savedCities, "SC")
+  // console.log(savedCityData, "SCD")
   
 }, [])
 
+useEffect(() => {
+  fetchCityData();
+
+}, [savedCities])
+
 
 useEffect(() => {
-  console.log("UseEffect 3")
   
   const interval = setInterval(() => {
     const newTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
@@ -82,7 +87,6 @@ useEffect(() => {
 const isDataReady = () => {
   if (forecastDay[0] !== undefined && forecastDay[4] !== undefined) {
     if (forecastHour[0] !== undefined && forecastHour[4] !== undefined) {
-      console.log("CALLED")
       setDataReady(true);
 
     }
@@ -155,7 +159,6 @@ const fetchIcon: (weatherIcon: string, className: string) => JSX.Element = (weat
   } else if (weatherIcon === '10d' || weatherIcon === '10n') {
     return <FontAwesomeIcon icon={faCloudShowersHeavy} className={`${className}`}/>
     
-  
   } else if (weatherIcon === '11d' || weatherIcon === '11n') {
     return <FontAwesomeIcon icon={faCloudShowersHeavy} className={`${className}`}/>
     
@@ -458,7 +461,7 @@ const homeComponent: () => JSX.Element = () => {
   } else {
     return (
       <div className='variable__home'>
-        
+
       </div>
     );
   }
@@ -498,17 +501,20 @@ const homeComponent: () => JSX.Element = () => {
 
 
 
-  const fetchCityData = async () => { 
+  const fetchCityData = async () => {
     if (savedCities.length === 0) return;
     let cityData: SavedCityData[] = [];
     
-    for (let count = 0; count <= savedCities.length; count++ ) {
-      const location = savedCities[count].name;
-      const dataResult = await currentWeather(location, metric);
+    for (let count = 0; count < savedCities.length; count++ ) {
+      console.log(savedCities[count]);
+      // debugger;
+      const locationQuery = savedCities[count].name;
+      const dataResult = await currentWeather(locationQuery, metric);
+
       if (dataResult instanceof Error) return console.log("currentWeather Error", dataResult);
-
+      // debugger;
       const data = dataResult.data;
-
+      
       const entryData: SavedCityData = {
         id: idCount + 1,
         name: data.name,
@@ -517,22 +523,26 @@ const homeComponent: () => JSX.Element = () => {
         weatherIcon: data.weatherIcon,
         temperature: data.temperature
       }
-
+      // debugger;
       cityData.push(entryData);
-      setIdCount(idCount + 1);
     }
-
+    
     setSavedCityData(cityData);
   }
-
   
-const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
-  if (event.key === `Enter`) {
+  
+  const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === `Enter`) {
     event.preventDefault()
+    
 
     if (savedCities.length === 5) return window.alert("Sorry, you cannot have more than five cities saved at a time..")
     if (citySearchRef.current === null) return console.error("City Search Error:", citySearchRef.current);
     
+    const isDuplicateResult = isDuplicate(citySearchRef.current.value);
+
+    if (isDuplicateResult) return console.log("Duplicate Error"); 
+
     const cityString: string = citySearchRef.current.value;
     
     
@@ -548,6 +558,8 @@ const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
       savedCities.push(cityEntry);
       
     citySearchRef.current.value = "";
+    saveCitiesToStorage(cityEntry);
+    // fetchCityData(); // 
   }
 }
 
@@ -557,6 +569,7 @@ const deleteCity = (cityId: number) => {
   if (index === -1) return console.error("No such city."); 
 
   savedCities.splice(index, 1);
+  localStorage.removeItem(`${cityId}`);
 
 
   fetchCityData();
@@ -572,7 +585,7 @@ const renderCities = () => {
             <div className='variable__city__div__display'>
                 <div className='variable__city__div__display__city'>
                   <div className='variable__city__div__display__city__content'>
-                    {`${cityEntry.name} - ${cityEntry.name /* //  need to time */}, ${cityEntry.temperature} and ${cityEntry.condition}`}
+                    {`${cityEntry.name} - ${cityEntry.state /* //  need to time */}, ${cityEntry.temperature} and ${cityEntry.condition}`}
                   </div>
                   <button className='variable__city__div__display__city__close-btn' onClick={() => deleteCity(cityEntry.id)}>
                     &times;
@@ -592,7 +605,7 @@ const renderCities = () => {
             <div className='variable__city__div__display'>
                 <div className='variable__city__div__display__city'>
                   <div className='variable__city__div__display__city__content'>
-                    {`${cityEntry}`}
+                    {/* {`${cityEntry}`} */}
                   </div>
                   <button className='variable__city__div__display__city__close-btn' onClick={event => deleteCity(cityEntry.id)}>
                     &times;
@@ -668,7 +681,7 @@ event: KeyboardEvent<HTMLInputElement>
   if (queryIsValid instanceof Error && queryIsValid.message === "Bad City Search") {
     return (window.alert("Your search must be in the following format: `Bend, OR` or `Bend, or`."), false);
 
-  } else if (queryIsValid === true) {
+  } else if (queryIsValid) {
 
     setLocation(cityQuery);
     return (window.alert("Default location successfully updated."), true);

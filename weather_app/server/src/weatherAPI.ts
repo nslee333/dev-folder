@@ -13,15 +13,21 @@ const geocodingEndpoint = 'https://api.openweathermap.org/geo/1.0/direct';
 const currentEndpoint = 'https://api.openweathermap.org/data/2.5/weather';
 const forecastEndpoint = 'https://api.openweathermap.org/data/2.5/forecast';
 
+const cooldownEnabled = true;
+
 let forecastCooldown = 0;
 let currentCooldown = 0;
 
 const startForecastCooldown = () => {
-    forecastCooldown = Date.now() + 1800000; // ^ 30 minutes.
+    if (cooldownEnabled) {
+        forecastCooldown = Date.now() + 1800000; // ^ 30 minutes.
+    }
 }
 
 const startCurrentCooldown = () => {
-    currentCooldown = Date.now() + 1800000;
+    if (cooldownEnabled) {
+        currentCooldown = Date.now() + 1800000;
+    }
 }
 
 const checkCooldown = (cooldownTime: number) => {

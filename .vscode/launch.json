@@ -1,12 +1,20 @@
 {
     "configurations": [
         {
-            "name": "Launch via npm",
+            "name": "Launch via NPM for server side",
             "type": "node",
             "request": "launch",
             "cwd": "/home/nslee333/Program/Projects_/weather_app/server",
             "runtimeExecutable": "npm",
             "runtimeArgs": ["run", "dev"]
+        },
+        {
+            "name": "Launch via NPM for client side",
+            "type": "node",
+            "request": "launch",
+            "cwd": "/home/nslee333/Program/Projects_/weather_app/client",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": ["run", "start"]
         },
         {
             "type": "node",

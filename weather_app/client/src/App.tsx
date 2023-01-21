@@ -417,7 +417,7 @@ const navbarComponent = () => {
 
 
 const dateToDay = (dateEntry: number) => {
-  const day = new Date(dateEntry)
+  const day = new Date(dateEntry * 1000)
   const result = day.getDay();
 
 

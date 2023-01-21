@@ -54,23 +54,46 @@ const [dataReady, setDataReady] = useState(false);
 console.log(":)")
 
 useEffect(() => {
-  isDataReady();
+  let ignore = false;
+
+  if (!ignore){
+    isDataReady();
+
+  }
   
+  return () => {
+    ignore = true;
+  };
 })
 
 useEffect(() => { //TODO: Research is there any problems with multiple useEffects?
-  fetchCitiesFromStorage();
-  forecastFetch();
-  currentFetch();
-  console.log(savedCities, "SC")
+  let ignore = false;
+  
+  if (!ignore) {
+    forecastFetch();
+    currentFetch();
+
+  }
   // console.log(savedCityData, "SCD")
   
+  return () => {
+    ignore = true;
+  };
 }, [])
 
 useEffect(() => {
-  fetchCityData();
+  let ignore = false;
+  
+  if (!ignore) {
+    fetchCitiesFromStorage();
+    
+  }
 
-}, [savedCities])
+  return () => {
+    ignore = true;
+  };
+
+}, [])
 
 
 useEffect(() => {
@@ -200,7 +223,7 @@ const hourlyData = (forecastHour: HourForecast) => {
   
     if (hour === 0) {
       return `12am`
-    } else if (hour < 12) { // TODO: Stopped at 0:00 not converting to 12:00am.
+    } else if (hour < 12) {
       return `${hour}am`
     } else if (hour === 12) {
       return `${hour}pm`
@@ -213,7 +236,7 @@ const hourlyData = (forecastHour: HourForecast) => {
 }
 
 
-const hourForecastComponent = () => { // TODO Correct Upper-left corner display issue,
+const hourForecastComponent = () => {
   if (dataReady) {
     return (
         <div className='hour-forecast'>

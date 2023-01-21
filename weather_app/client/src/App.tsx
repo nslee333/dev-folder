@@ -464,6 +464,39 @@ const homeComponent: () => JSX.Element = () => {
   }
 }
 
+  const saveCitiesToStorage = (city: CityEntry) => {
+    console.log("saved to storage")
+    localStorage.setItem(`${idCount}`, city.name);
+  }
+
+  const fetchCitiesFromStorage = () => {
+    console.log("Fetched from storage")
+    const savedCites: CityEntry[] = [];
+
+    for (let count = 0; count <= localStorage.length; count++ ) {
+      const entry = localStorage.getItem(`${count}`);
+      if (entry !== null) {
+        const city: CityEntry = {
+          id: count,
+          name: entry
+        }
+        savedCities.push(city);
+      }
+    }
+    setSavedCities(savedCities);
+  }
+
+  const isDuplicate = (query: string) => {
+    for (let count = 0; count < savedCities.length; count++) {
+      if (query === savedCities[count].name) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+
 
   const fetchCityData = async () => { 
     if (savedCities.length === 0) return;

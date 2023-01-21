@@ -73,6 +73,7 @@ Use WeatherAPI.com's API.
          1.   WeatherICON added, need to display on renderCities.
     29. Update http methods => request => res => [Follow convention]
     30. Rewrite iconFetch.
+    31. Fix, 0 based indexing bug. Home component isn't rendering
   
 
 
@@ -104,6 +105,7 @@ Use WeatherAPI.com's API.
 [Working]:
   - City component.
     - Display, delete, sustaining saved cities functionality.
+    - fix key issue
   - Test location and metric work fine.
     - Clean up old code.
 
@@ -111,10 +113,14 @@ Use WeatherAPI.com's API.
       - Call google timezone api, and display.
 
   - Update realtime => current
-  - Add a default display if api doesn't return in time.
+  - Add a default display if api doesn't return in time?
+
+Need to sustain default location and savedCities between renders.
 
 
 
+
+Stopped at learning how to persist state between page renders in react.
 
 
 

@@ -624,17 +624,7 @@ const renderCities = () => {
     return (
       savedCities.map(cityEntry => (
         <div key={cityEntry.id} className='variable__city__div'>
-          <hr className='variable__city__div__hr'/>
-            <div className='variable__city__div__display'>
-                <div className='variable__city__div__display__city'>
-                  <div className='variable__city__div__display__city__content'>
-                    {/* {`${cityEntry}`} */}
-                  </div>
-                  <button className='variable__city__div__display__city__close-btn' onClick={event => deleteCity(cityEntry.id)}>
-                    &times;
-                  </button>
-                </div>
-            </div>
+          
         </div>
       ))
     );

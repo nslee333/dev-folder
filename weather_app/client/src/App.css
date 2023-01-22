@@ -101,7 +101,7 @@
 }
 
 
-.realtime-main {
+.current__main {
   position: absolute;
   padding: px;
 
@@ -115,7 +115,7 @@
   border-radius: 10px;
 }
 
-.realtime-div1, .realtime-div2 {
+.current__div1, .current__div2 {
   
   margin: 0 auto;
   display: block;
@@ -127,16 +127,16 @@
   color: var(--main-font);
 }
 
-.realtime-icon {
+.current__icon {
   background-color: var(--main-grey);
 }
 
 
-.realtime-div1 {
+.current__div1 {
   font-size: 60px;
 }
 
-.realtime-div2 {
+.current__div2 {
   font-size: 45px;
 }
 

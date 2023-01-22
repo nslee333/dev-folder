@@ -208,19 +208,19 @@ const fetchIcon: (weatherIcon: string, className: string) => JSX.Element = (weat
   }
 }
 
-const realtimeComponent = () => {
+const currentComponent = () => {
   if (current) {
     return (
-      <div className='realtime-main'>
-        <div className='realtime-div1'>{fetchIcon(current.weatherIcon, "realtime-icon")} {current.temperature + '°'}</div>  
-        <div className='realtime-div2'>{time}</div>
-        <div className='realtime-div2'>{currentDate}</div>
-        <div className='realtime-div2'>{displayLocation}</div>
+      <div className='current__main'>
+        <div className='current__div1'>{fetchIcon(current.weatherIcon, "current__icon")} {current.temperature + '°'}</div>  
+        <div className='current__div2'>{time}</div>
+        <div className='current__div2'>{currentDate}</div>
+        <div className='current__div2'>{displayLocation}</div>
       </div>
     );
   } else {
     return (
-      <div className='realtime-main'></div>
+      <div className='current__main'></div>
     )
   }
 }
@@ -811,7 +811,7 @@ const variableBar: () => JSX.Element = () => {
     <div className='App'>
       <div>{variableBar()}</div>
       <div>{navbarComponent()}</div>
-      <div>{realtimeComponent()}</div>
+      <div>{currentComponent()}</div>
       <div>{hourForecastComponent()}</div>
     </div>
     

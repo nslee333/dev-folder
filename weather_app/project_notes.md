@@ -102,6 +102,7 @@ Use WeatherAPI.com's API.
 
 
 [Working]:
+  - Build unit tests for client-side, server side.
 
   - Update realtime => current
 

@@ -21,7 +21,7 @@
   left: 305px;
   padding: 25px;
   
-  background-color: var(--main-app);
+  background-color: var(--main-darkGrey);
   border-radius: 10px;
 }
 
@@ -33,7 +33,7 @@
   
   top: 27.5px;
 
-  background-color: var(--primary-div);
+  background-color: var(--main-grey);
   border-radius: 10px;
 
 }
@@ -93,7 +93,7 @@
   top: 27.5px;
   left: 200px;
   
-  background-color: var(--primary-div);
+  background-color: var(--main-grey);
   border-radius: 10px;
 }
 

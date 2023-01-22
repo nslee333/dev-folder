@@ -109,7 +109,7 @@ Use WeatherAPI.com's API.
 
 [Working]:
   - Refactor App.tsx, App.css.
-  - Cleaning up app.cssaaaaaaaaa
+  - Cleaning up app.css
 
 
 

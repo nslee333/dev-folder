@@ -74,6 +74,9 @@ Use WeatherAPI.com's API.
     29. Update http methods => request => res => [Follow convention]
     30. Rewrite iconFetch.
     31. Fix, 0 based indexing bug. Home component isn't rendering
+    32. Need to sustain default location and savedCities between renders.
+    33. Weather Icons
+    34. Hour forecast not updating, cooldown faulty?
   
 
 
@@ -95,16 +98,10 @@ Use WeatherAPI.com's API.
 
 
 [CurrentTasks]:
-- Weather Icons
-  - Monitor icons to make sure they work
-- Hour forecast not updating, cooldown faulty?
-  - Found possible fix, monitor.
-    - Might need to decrease font-size to clean up presentation of long weather descriptions.
+
 
 
 [Working]:
-  - City component.
-    - Add degree symbol
   - Test location and metric work fine.
     - Clean up old code.
 
@@ -112,16 +109,13 @@ Use WeatherAPI.com's API.
       - Call google timezone api, and display.
 
   - Update realtime => current
-  - Add a default display if api doesn't return in time?
 
   - Might need to export non-side effect functions to outside of the App component.
 
-Need to sustain default location and savedCities between renders.
 
 
 
 
-Stopped at learning how to persist state between page renders in react.
 
 
 

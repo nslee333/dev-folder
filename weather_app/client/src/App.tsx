@@ -52,7 +52,7 @@ const [idCount, setIdCount] = useState<number>(0);
 
 const [dataReady, setDataReady] = useState(false); 
 
-useEffect(() => {
+useEffect(() => { // TODO: Reduce Effects 
   let ignore = false;
 
   if (!ignore){
@@ -98,7 +98,6 @@ useEffect(() => {
   
   if (!ignore) {
     fetchCityData();
-    
   }
 
   return () => {

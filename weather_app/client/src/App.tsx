@@ -69,7 +69,9 @@ useEffect(() => {
   let ignore = false;
 
   if (!ignore) {
+    fetchCitiesFromStorage();
     fetchLocationFromSessionStorage();
+    fetchMetricFromSessionStorage();
   }
 
   ignore = true;
@@ -88,22 +90,8 @@ useEffect(() => {
   return () => {
     ignore = true;
   };
-}, [location])
+}, [location, metric])
 
-
-useEffect(() => {
-  let ignore = false;
-  
-  if (!ignore) {
-    fetchCitiesFromStorage();
-    
-  }
-
-  return () => {
-    ignore = true;
-  };
-
-}, [])
 
 useEffect(() => {
   let ignore = false;
@@ -740,9 +728,22 @@ event: KeyboardEvent<HTMLInputElement>
   }
 }
 
+const saveMetricToSessionStorage = () => {
+  sessionStorage.setItem('metric', `${metric}`)
+}
+
+const fetchMetricFromSessionStorage = () => {
+  const metricResult = sessionStorage.getItem('metric');
+  if (metricResult !== null) {
+    const isImperialSet = (metricResult === 'false');
+    setMetric(isImperialSet);
+  } 
+}
+
 
 const handleMetricButtonClick: () => void = () => {
   setMetric(!metric);
+  saveMetricToSessionStorage();
   window.alert("Measurement system setting updated.")
 }
 

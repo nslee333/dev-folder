@@ -78,7 +78,8 @@ Use WeatherAPI.com's API.
     33. Weather Icons
     34. Hour forecast not updating, cooldown faulty?
     35. Find a way to preload temperature values before everything else is loaded.
-    36. - Test location and metric work fine.
+    36. Test location and metric work fine.
+    37. Update realtime => current
   
 
 
@@ -90,10 +91,9 @@ Use WeatherAPI.com's API.
 
 [Tasks]
     - Integrate with GH actions.
-    - Build tests alongside application.
     - Performance testing.
     - Web security analysis
-    - Initial location request upon page start => update settings.
+    - 
     - Change app name and change tab logo.
 
 
@@ -103,8 +103,6 @@ Use WeatherAPI.com's API.
 
 [Working]:
   - Build unit tests for client-side, server side.
-
-  - Update realtime => current
 
   - Might need to export non-side effect functions to outside of the App component?
 

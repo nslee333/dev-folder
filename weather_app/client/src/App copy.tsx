@@ -67,11 +67,6 @@ useEffect(() => { //TODO: Research is there any problems with multiple useEffect
 
 useEffect(() => {
   fetchCitiesFromStorage();
-  // fetchCityData();
-  // console.log(savedCities, "SC")
-  // console.log(localStorage)
-  // console.log(savedCityData)
-  // debugger;
 
 }, [])
 

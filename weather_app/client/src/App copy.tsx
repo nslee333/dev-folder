@@ -51,17 +51,15 @@ const [savedCityData, setSavedCityData] = useState<SavedCityData[]>([]);
 const [idCount, setIdCount] = useState<number>(1); // TODO: Make sure this works.
 
 const [dataReady, setDataReady] = useState(false); 
-console.log(":)")
 
 useEffect(() => {
   isDataReady();
   
 })
 
-useEffect(() => { //TODO: Research is there any problems with multiple useEffects?
+useEffect(() => {
   forecastFetch();
   currentFetch();
-  // console.log(savedCityData, "SCD")
   
 }, [])
 

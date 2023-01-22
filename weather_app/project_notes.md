@@ -77,6 +77,8 @@ Use WeatherAPI.com's API.
     32. Need to sustain default location and savedCities between renders.
     33. Weather Icons
     34. Hour forecast not updating, cooldown faulty?
+    35. Find a way to preload temperature values before everything else is loaded.
+    36. - Test location and metric work fine.
   
 
 
@@ -91,9 +93,7 @@ Use WeatherAPI.com's API.
     - Build tests alongside application.
     - Performance testing.
     - Web security analysis
-    - Add a button for night mode.
     - Initial location request upon page start => update settings.
-    - Find a way to preload temperature values before everything else is loaded.
     - Change app name and change tab logo.
 
 
@@ -102,15 +102,10 @@ Use WeatherAPI.com's API.
 
 
 [Working]:
-  - Test location and metric work fine.
-    - Clean up old code.
-
-      - Make sure dateToDay works.
-      - Call google timezone api, and display.
 
   - Update realtime => current
 
-  - Might need to export non-side effect functions to outside of the App component.
+  - Might need to export non-side effect functions to outside of the App component?
 
 
 

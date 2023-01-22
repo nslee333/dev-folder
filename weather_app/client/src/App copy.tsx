@@ -528,7 +528,6 @@ const homeComponent: () => JSX.Element = () => {
         weatherIcon: data.weatherIcon,
         temperature: data.temperature
       }
-      // debugger;
       cityData.push(entryData);
     }
     

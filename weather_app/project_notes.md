@@ -80,31 +80,37 @@ Use WeatherAPI.com's API.
     35. Find a way to preload temperature values before everything else is loaded.
     36. Test location and metric work fine.
     37. Update realtime => current
-  
 
 
-
-
-[Bugs]:
-
-[Research]:
-
-[Tasks]
+[Medium-term]
     - Integrate with GH actions.
     - Performance testing.
     - Web security analysis
-    - 
-    - Change app name and change tab logo.
 
 
-[CurrentTasks]:
-
-
-
-[Working]:
+[ImmediateTasks]:
   - Build unit tests for client-side, server side.
 
-  - Might need to export non-side effect functions to outside of the App component?
+
+
+- Proofread and Refactor all code.
+    - Remove all debugger logs.
+    - Remove all unused imports.
+    - Remove all unused dev or main dependencies.
+    - Remove all `any` typings
+    - Comment documentation above function declarations.
+      - Note: Need to research common conventions for this.
+      - @param paramName its use
+      - @param param
+    - Remove all unused data from api calls.
+    - Refactor CSS, put css classes with each other parent => child => etc.
+    - Define types outside of App or Inside?
+    - Label and Group all state hooks.
+
+[Working]:
+  - Refactor App.tsx, App.css.
+  - Cleaning up app.cssaaaaaaaaa
+
 
 
 

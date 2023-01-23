@@ -572,12 +572,9 @@ const homeComponent: () => JSX.Element = () => {
     if (citySearchRef.current === null) return console.error("City Search Error:", citySearchRef.current);
     
     const isDuplicateResult = isDuplicate(citySearchRef.current.value);
-
     if (isDuplicateResult) return console.log("Duplicate Error"); 
 
     const cityString: string = citySearchRef.current.value;
-    
-    
     const validationResult = cityQueryValidation(cityString);
     if (validationResult instanceof Error) return window.alert(validationResult);
     
@@ -683,11 +680,9 @@ const cityComponent: () => JSX.Element = () => {
 
 const cityQueryValidation = (searchString: string) => {
     const stringQueryRegex = /([A-Z]{1}[a-z]+), (A[LKSZRAEP]|a[lkszraep]|C[AOT]|c[aot]|D[EC]|d[ec]|F[LM]|f[lm]|G[AU]|g[au]|HI|hi|I[ADLN]|i[aldn]|K[SY]|k[sy]|LA|la|M[ADEHINOPST]|m[adehinopst]|N[CDEHJMVY]|n[cdehjmvy]|O[HKR]|o[hkr]|P[ARW]|p[arw]|RI|ri|S[CD]|s[cd]|T[NX]|t[nx]|UT|ut|V[AIT]|v[ait]|W[AIVY]|w[aivy])$/;
-    
     const regexResult = searchString.match(stringQueryRegex);
 
     if (regexResult === null) return new Error("Bad City Search");
-
     return true;
 }
 
@@ -757,7 +752,6 @@ const keyDownLocationHandler: (event: KeyboardEvent<HTMLInputElement>) => void =
     event.preventDefault();
 
     const result = handleLocationInput(event);
-
 
     if (settingsLocationRef.current === null) {
       return console.error("Settings Location Ref Error:", settingsLocationRef.current)

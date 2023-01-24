@@ -7,6 +7,7 @@ import {
     HourForecast,
     ForecastCombined,
 } from './types';
+
 dotenv.config();
 
 const geocodingEndpoint = 'https://api.openweathermap.org/geo/1.0/direct';
@@ -18,17 +19,20 @@ const cooldownEnabled = true;
 let forecastCooldown = 0;
 let currentCooldown = 0;
 
+
 const startForecastCooldown = () => {
     if (cooldownEnabled) {
         forecastCooldown = Date.now() + 1800000; // ^ 30 minutes.
     }
 }
 
+
 const startCurrentCooldown = () => {
     if (cooldownEnabled) {
         currentCooldown = Date.now() + 1800000;
     }
 }
+
 
 const checkCooldown = (cooldownTime: number) => {
     const currentTime = Date.now();
@@ -45,7 +49,6 @@ const checkCooldown = (cooldownTime: number) => {
         return true;
     }
 }
-
 
 
 const geocodeRequest: (query: string) => Promise<AxiosResponse | AxiosError | Error> = async (query: string) => {
@@ -112,6 +115,7 @@ const currentWeatherRequest = async (latitude: number, longitude: number, unitSy
     return result;
 }
 
+
 let currentWeatherCopy: CurrentWeather = {
     name: '',
     state: '',
@@ -173,6 +177,7 @@ const forecastRequest = async (latitude: number, longitude: number, unitSystem: 
 
     return result;
 }
+
 
 let forecastWeatherCopy: ForecastCombined = {
     name: '',
@@ -249,8 +254,6 @@ export const processForecastWeather = async (locationQuery: string, metric: bool
 
       hourForecastData.push(entry);
     }
-
-    
 
     const forecastData: ForecastCombined = {
       name: geocodeResult.name,

@@ -39,24 +39,24 @@ const [forecastHour, setForecastHour] = useState<HourForecast[]>([]);
 const [time, setTime] = useState<string>
 (new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
-const [homeHighlighted, setHomeHighlighted] = useState(true);
-const [cityHighlighted, setCityHighlighted] = useState(false);
-const [settingsHighlighted, setSettingsHighlighted] = useState(false);
+const [homeHighlighted, setHomeHighlighted] = useState<boolean>(true);
+const [cityHighlighted, setCityHighlighted] = useState<boolean>(false);
+const [settingsHighlighted, setSettingsHighlighted] = useState<boolean>(false);
 
-const [location, setLocation] = useState("Bend, OR");
-const [metric, setMetric] = useState(false);
-const settingsLocationRef: RefObject<HTMLInputElement> = createRef();
+const [location, setLocation] = useState<string>("Bend, OR");
+const [metric, setMetric] = useState<boolean>(false);
+const settingsLocationRef: RefObject<HTMLInputElement> = createRef<HTMLInputElement>();
 
-const citySearchRef: RefObject<HTMLInputElement> = createRef();
+const citySearchRef: RefObject<HTMLInputElement> = createRef<HTMLInputElement>();
 const [savedCities, setSavedCities] = useState<CityEntry[]>([]); 
 const [savedCityData, setSavedCityData] = useState<SavedCityData[]>([]);
 const [idCount, setIdCount] = useState<number>(0);
 
-const [dataReady, setDataReady] = useState(false); 
+const [dataReady, setDataReady] = useState<boolean>(false); 
 
-const date = new Date();
+const date: Date = new Date();
 
-const currentDate = date.toLocaleString('en-US', {
+const currentDate: string = date.toLocaleString('en-US', {
   month: 'long',
   day: 'numeric',
   year: 'numeric'
@@ -64,7 +64,7 @@ const currentDate = date.toLocaleString('en-US', {
 
 
 useEffect(() => {
-  let ignore = false;
+  let ignore: boolean = false;
 
   if (!ignore){
     isDataReady();
@@ -77,7 +77,7 @@ useEffect(() => {
 })
 
 useEffect(() => {
-  let ignore = false;
+  let ignore: boolean = false;
 
   if (!ignore) {
     fetchCitiesFromStorage();

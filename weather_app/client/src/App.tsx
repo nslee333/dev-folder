@@ -1,5 +1,5 @@
-import { AxiosError, AxiosResponse } from 'axios';
-import { RefObject, useEffect, useState, createRef, KeyboardEvent, useRef } from 'react';
+import { AxiosError } from 'axios';
+import { RefObject, useEffect, useState, createRef, KeyboardEvent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './App.css';
 import {
@@ -153,7 +153,6 @@ const currentFetch = async () => {
   const weatherResult = currentResult.data;
 
   setCurrent(weatherResult);
-
 }
 
 const date = new Date();
@@ -494,9 +493,7 @@ const homeComponent: () => JSX.Element = () => {
     );
   } else {
     return (
-      <div className='variable__home'>
-
-      </div>
+      <div className='variable__home'></div>
     );
   }
 }
@@ -640,7 +637,6 @@ const renderCities = () => {
   };
   
 
- 
   if (savedCityData) {
     return (
       <>

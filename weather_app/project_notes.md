@@ -108,8 +108,16 @@ Use WeatherAPI.com's API.
     - Label and Group all state hooks.
 
 [Working]:
+  - Figure out if processForecastWeather is returning the right data.
+
+
+
+
+
   - Refactor App.tsx, App.css.
   - Cleaning up app.css
+
+
 
 
 

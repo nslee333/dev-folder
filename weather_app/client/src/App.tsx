@@ -549,6 +549,7 @@ const homeComponent: () => JSX.Element = () => {
     
     for (let count = 0; count < savedCities.length; count++ ) {
       const locationQuery: string = savedCities[count].name;
+
       const dataResult: AxiosResponse<any, any> | AxiosError | Error 
       = await currentWeather(locationQuery, metric);
 
@@ -570,19 +571,23 @@ const homeComponent: () => JSX.Element = () => {
   }
   
   
-  const citySearchHandleSubmit: (event: KeyboardEvent<HTMLInputElement>) => void = (event: KeyboardEvent<HTMLInputElement>) => {
+  const citySearchHandleSubmit: (event: KeyboardEvent<HTMLInputElement>) 
+  => void = (event: KeyboardEvent<HTMLInputElement>) => {
+
     if (event.key === `Enter`) {
     event.preventDefault()
     
 
-    if (savedCities.length === 5) return window.alert("Sorry, you cannot have more than five cities saved at a time..")
-    if (citySearchRef.current === null) return console.error("City Search Error:", citySearchRef.current);
+    if (savedCities.length === 5) 
+      return window.alert("Sorry, you cannot have more than five cities saved at a time..")
+    if (citySearchRef.current === null) 
+      return console.error("City Search Error:", citySearchRef.current);
     
-    const isDuplicateResult = isDuplicate(citySearchRef.current.value);
+    const isDuplicateResult: boolean | undefined = isDuplicate(citySearchRef.current.value);
     if (isDuplicateResult) return console.log("Duplicate Error"); 
 
     const cityString: string = citySearchRef.current.value;
-    const validationResult = cityQueryValidation(cityString);
+    const validationResult: true | Error = cityQueryValidation(cityString);
     if (validationResult instanceof Error) return window.alert(validationResult);
     
     const cityEntry: CityEntry = {
@@ -601,7 +606,7 @@ const homeComponent: () => JSX.Element = () => {
 
 const deleteCity: (cityId: number) => void = (cityId: number) => {
   
-  const index = savedCities.findIndex(element => element.id === cityId);
+  const index: number = savedCities.findIndex(element => element.id === cityId);
 
   if (index === -1) return console.error("No such city."); 
 
@@ -639,9 +644,7 @@ const renderCities: () => JSX.Element = () => {
   const displaySavedCities: () => JSX.Element[] = () => {
     return (
       savedCities.map(cityEntry => (
-        <div key={cityEntry.id} className='variable__city__div'>
-          
-        </div>
+        <div key={cityEntry.id} className='variable__city__div'></div>
       ))
     );
   };
@@ -685,8 +688,8 @@ const cityComponent: () => JSX.Element = () => {
 
 
 const cityQueryValidation: (searchString: string) => true | Error = (searchString: string) => {
-    const stringQueryRegex = /([A-Z]{1}[a-z]+), (A[LKSZRAEP]|a[lkszraep]|C[AOT]|c[aot]|D[EC]|d[ec]|F[LM]|f[lm]|G[AU]|g[au]|HI|hi|I[ADLN]|i[aldn]|K[SY]|k[sy]|LA|la|M[ADEHINOPST]|m[adehinopst]|N[CDEHJMVY]|n[cdehjmvy]|O[HKR]|o[hkr]|P[ARW]|p[arw]|RI|ri|S[CD]|s[cd]|T[NX]|t[nx]|UT|ut|V[AIT]|v[ait]|W[AIVY]|w[aivy])$/;
-    const regexResult = searchString.match(stringQueryRegex);
+    const stringQueryRegex: RegExp = /([A-Z]{1}[a-z]+), (A[LKSZRAEP]|a[lkszraep]|C[AOT]|c[aot]|D[EC]|d[ec]|F[LM]|f[lm]|G[AU]|g[au]|HI|hi|I[ADLN]|i[aldn]|K[SY]|k[sy]|LA|la|M[ADEHINOPST]|m[adehinopst]|N[CDEHJMVY]|n[cdehjmvy]|O[HKR]|o[hkr]|P[ARW]|p[arw]|RI|ri|S[CD]|s[cd]|T[NX]|t[nx]|UT|ut|V[AIT]|v[ait]|W[AIVY]|w[aivy])$/;
+    const regexResult: RegExpMatchArray | null = searchString.match(stringQueryRegex);
 
     if (regexResult === null) return new Error("Bad City Search");
     return true;
@@ -697,7 +700,7 @@ const saveLocationToSessionStorage: (locationQuery: string) => void = (locationQ
 }
 
 const fetchLocationFromSessionStorage: () => void = () => {
-  const locationResult = sessionStorage.getItem('location');
+  const locationResult: string | null = sessionStorage.getItem('location');
   if (locationResult === null) return console.error("Location not pulled from session storage");
   setLocation(locationResult);
 }
@@ -708,14 +711,16 @@ const handleLocationInput: (
 event: KeyboardEvent<HTMLInputElement>
 ) => boolean | void = (event: KeyboardEvent<HTMLInputElement>) => {
 
-  const target = event.target as HTMLInputElement;
+  const target: HTMLInputElement = event.target as HTMLInputElement;
 
   const cityQuery: string = target.value;
 
   const queryIsValid: Error | true = cityQueryValidation(cityQuery);
 
   if (queryIsValid instanceof Error && queryIsValid.message === "Bad City Search") {
-    return (window.alert("Your search must be in the following format: `Bend, OR` or `Bend, or`."), false);
+    return (
+      window.alert("Your search must be in the following format: `Bend, OR` or `Bend, or`.")
+      , false);
 
   } else if (queryIsValid) {
 
@@ -733,7 +738,7 @@ const saveMetricToSessionStorage: () => void = () => {
 }
 
 const fetchMetricFromSessionStorage: () => void = () => {
-  const metricResult = sessionStorage.getItem('metric');
+  const metricResult: string | null = sessionStorage.getItem('metric');
   if (metricResult !== null) {
     const isImperialSet = (metricResult === 'false');
     setMetric(isImperialSet);
@@ -757,7 +762,7 @@ const keyDownLocationHandler: (event: KeyboardEvent<HTMLInputElement>) => void =
   if (event.key === 'Enter') {
     event.preventDefault();
 
-    const result = handleLocationInput(event);
+    const result: boolean | void = handleLocationInput(event);
 
     if (settingsLocationRef.current === null) {
       return console.error("Settings Location Ref Error:", settingsLocationRef.current)

@@ -20,32 +20,44 @@ let forecastCooldown = 0;
 let currentCooldown = 0;
 
 
-const startForecastCooldown = () => {
-    if (cooldownEnabled) {
-        forecastCooldown = Date.now() + 1800000; // ^ 30 minutes.
-    }
+const startForecastCooldown: () => void = () => {
+  if (cooldownEnabled) {
+    forecastCooldown = Date.now() + 1800000; // ^ 30 minutes.
+  }
 }
 
 
-const startCurrentCooldown = () => {
-    if (cooldownEnabled) {
-        currentCooldown = Date.now() + 1800000;
-    }
+const startCurrentCooldown: () => void = () => {
+  if (cooldownEnabled) {
+    currentCooldown = Date.now() + 1800000;
+  }
 }
 
 
-const checkCooldown = (cooldownTime: number) => {
+const checkCooldown: (cooldownTime: number) =>  ForecastCombined | CurrentWeather | Error | boolean = (cooldownTime: number) => {
     const currentTime = Date.now();
     if (cooldownTime > currentTime) {
 
         if (cooldownTime === forecastCooldown) {
-            return forecastWeatherCopy;
+            if (forecastWeatherCopy !== undefined) {
+                return forecastWeatherCopy;
+
+            } else {
+                return new Error("Forecast Weather data copy undefined error.")
+            }
 
         } else if (cooldownTime === currentCooldown) {
-            return currentWeatherCopy;
+            if (currentWeatherCopy !== undefined) {
+                return currentWeatherCopy;
+
+            } else {
+                return new Error("Current Weather data copy undefined error.")
+            }
+        } else {
+            return false;
         }
 
-    } else if (cooldownTime < currentTime) {
+    } else {
         return true;
     }
 }

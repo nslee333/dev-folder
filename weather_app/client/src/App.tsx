@@ -596,7 +596,7 @@ const homeComponent: () => JSX.Element = () => {
   }
 }
 
-const deleteCity = (cityId: number) => {
+const deleteCity: (cityId: number) => void = (cityId: number) => {
   
   const index = savedCities.findIndex(element => element.id === cityId);
 
@@ -612,7 +612,7 @@ const deleteCity = (cityId: number) => {
 }
 
 
-const renderCities = () => {
+const renderCities: () => JSX.Element = () => {
   const displayCityArray = () => {
     return (
       savedCityData.map((cityEntry, index) => (
@@ -633,7 +633,7 @@ const renderCities = () => {
     );
   };
   
-  const displaySavedCities = () => {
+  const displaySavedCities: () => JSX.Element[] = () => {
     return (
       savedCities.map(cityEntry => (
         <div key={cityEntry.id} className='variable__city__div'>
@@ -681,7 +681,7 @@ const cityComponent: () => JSX.Element = () => {
 }
 
 
-const cityQueryValidation = (searchString: string) => {
+const cityQueryValidation: (searchString: string) => true | Error = (searchString: string) => {
     const stringQueryRegex = /([A-Z]{1}[a-z]+), (A[LKSZRAEP]|a[lkszraep]|C[AOT]|c[aot]|D[EC]|d[ec]|F[LM]|f[lm]|G[AU]|g[au]|HI|hi|I[ADLN]|i[aldn]|K[SY]|k[sy]|LA|la|M[ADEHINOPST]|m[adehinopst]|N[CDEHJMVY]|n[cdehjmvy]|O[HKR]|o[hkr]|P[ARW]|p[arw]|RI|ri|S[CD]|s[cd]|T[NX]|t[nx]|UT|ut|V[AIT]|v[ait]|W[AIVY]|w[aivy])$/;
     const regexResult = searchString.match(stringQueryRegex);
 

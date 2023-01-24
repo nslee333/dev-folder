@@ -81,7 +81,7 @@ Use WeatherAPI.com's API.
     36. Test location and metric work fine.
     37. Update realtime => current
     38. Cleaned up App.css
-    39. 
+    39. Remove all unused data from api calls.
 
 
 [Medium-term]

@@ -3,7 +3,10 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 const baseURL: string = 'http://localhost:1300/api/'
 
 
-export const currentWeather: (location: string, metric: boolean ) => Promise<AxiosResponse | AxiosError | Error> = async (location: string, metric: boolean ) => {
+export const currentWeather: 
+(location: string, metric: boolean ) => Promise<AxiosResponse | AxiosError | Error> 
+= async (location: string, metric: boolean ) => {
+  
   const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'current', {
     "location": location,
     "metric": metric
@@ -24,7 +27,10 @@ export const currentWeather: (location: string, metric: boolean ) => Promise<Axi
 } 
 
 
-export const forecastWeather: (location: string, metric: boolean) => Promise<AxiosResponse | AxiosError | Error> = async (location: string, metric: boolean) => {
+export const forecastWeather: 
+(location: string, metric: boolean) => Promise<AxiosResponse | AxiosError | Error> 
+= async (location: string, metric: boolean) => {
+
   const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'forecast', {
     "location": location,
     "metric": metric

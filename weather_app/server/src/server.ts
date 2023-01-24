@@ -20,6 +20,7 @@ app.post('/api/current', async (req: Request, res: Response) => {
         } else {
             return res.status(200).send(result);
         }
+        
     } else {
         return res.status(400).send("Bad request - possible missing location and metric request parameters.")
     }

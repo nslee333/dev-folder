@@ -43,3 +43,4 @@ export type ForecastCombined = {
   dayForecast: DayForecast[],
   hourForecast: HourForecast[],
 }
+

@@ -525,7 +525,6 @@ const homeComponent: () => JSX.Element = () => {
         }
         savedCitiesArray.push(city);
       }
-
     }
 
     setSavedCities(savedCitiesArray);

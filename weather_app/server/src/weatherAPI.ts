@@ -106,88 +106,94 @@ const geocodeProcess: (query: string) => Promise<Geocode | Error> = async (query
 
 
 const currentWeatherRequest = async (latitude: number, longitude: number, unitSystem: string) => {
-    const result = axios.get(currentEndpoint, {
-        params: {
-            lat: latitude,
-            lon: longitude,
-            appid: process.env.weather_key,
-            units: unitSystem,
-        }
-    })
-    .then(function (response: AxiosResponse) {
-        if (response.status === 200) {
-            return response;
-        } else {
-            return new Error(`Bad Request - Code:${response.status}`), response;
-        }
-    })
-    .catch(function (error: AxiosError) {
-        return error;
-    });
-    return result;
+  const result = axios.get(currentEndpoint, {
+    params: {
+      lat: latitude,
+      lon: longitude,
+      appid: process.env.weather_key,
+      units: unitSystem,
+    }
+  })
+  .then(function (response: AxiosResponse) {
+    if (response.status === 200) {
+      return response;
+    } else {
+      return new Error(`Bad Request - Code:${response.status}`), response;
+    }
+  })
+  .catch(function (error: AxiosError) {
+    return error;
+  });
+
+  return result;
 }
 
 
 let currentWeatherCopy: CurrentWeather = {
-    name: '',
-    state: '',
-    condition: '',
-    weatherIcon: '',
-    temperature: 0
+  name: '',
+  state: '',
+  condition: '',
+  weatherIcon: '',
+  temperature: 0
 }
 
 
-export const processCurrentWeather = async (positionQuery: string, metric: boolean) => {
-    const cooldownResult = checkCooldown(currentCooldown);
-    if (cooldownResult === currentWeatherCopy) return console.log("Current cooldown is active."), cooldownResult;
+export const processCurrentWeather: (positionQuery: string, metric: boolean) =>  
+Promise<CurrentWeather | Error | AxiosError >
+= async (positionQuery: string, metric: boolean) => {
+  
+  const cooldownResult = checkCooldown(currentCooldown);
 
-    const geocodeResult = await geocodeProcess(positionQuery);
-    if (geocodeResult instanceof AxiosError) return geocodeResult;
-    if (geocodeResult instanceof Error) return geocodeResult;
+  if (cooldownResult === currentWeatherCopy) 
+  return console.log("Current cooldown is active."), cooldownResult;
 
-        const {lat, lon} = geocodeResult;
-        
-        const currentResult = await currentWeatherRequest(lat, lon, (metric ? 'metric' : 'imperial'));
-        if (currentResult instanceof AxiosError) return currentResult;
+  const geocodeResult = await geocodeProcess(positionQuery);
+  if (geocodeResult instanceof AxiosError) return geocodeResult;
+  if (geocodeResult instanceof Error) return geocodeResult;
+
+    const {lat, lon} = geocodeResult;
     
-        const currentData = currentResult.data
-    
-        const weatherResult: CurrentWeather = {
-            name: geocodeResult.name,
-            state: geocodeResult.state,
-            condition: currentData.weather[0].description,
-            weatherIcon: currentData.weather[0].icon,
-            temperature: currentData.main.temp,
-        }
+    const currentResult = await currentWeatherRequest(lat, lon, (metric ? 'metric' : 'imperial'));
+    if (currentResult instanceof AxiosError) return currentResult;
 
-        currentWeatherCopy = weatherResult;
+    const currentData = currentResult.data
 
-        startCurrentCooldown();
-        return weatherResult;
+    const weatherResult: CurrentWeather = {
+      name: geocodeResult.name,
+      state: geocodeResult.state,
+      condition: currentData.weather[0].description,
+      weatherIcon: currentData.weather[0].icon,
+      temperature: currentData.main.temp,
+    }
+
+    currentWeatherCopy = weatherResult;
+
+  startCurrentCooldown();
+  return weatherResult;
 } 
 
 
 const forecastRequest = async (latitude: number, longitude: number, unitSystem: string) => {
-    const result = axios.get(forecastEndpoint, {
-        params: {
-            lat: latitude,
-            lon: longitude,
-            appid: process.env.weather_key,
-            units: unitSystem
-        }
-    })
-    .then(function (response: AxiosResponse) {
-        if (response.status === 200) {
-            return response;
-        } else {
-            return new Error(`Bad request code: ${response.status}`), response;
-        }
-    })
-    .catch(function (error: AxiosError) {
-        return error;
-    })
+  const result = axios.get(forecastEndpoint, {
+    params: {
+        lat: latitude,
+        lon: longitude,
+        appid: process.env.weather_key,
+        units: unitSystem
+    }
+  })
+  .then(function (response: AxiosResponse) {
+    if (response.status === 200) {
+        return response;
+    } else {
+        return new Error(`Bad request code: ${response.status}`), response;
+    }
+  })
+  .catch(function (error: AxiosError) {
+    return error;
+  })
 
-    return result;
+  return result;
 }
 
 

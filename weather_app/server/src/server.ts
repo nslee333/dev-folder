@@ -12,35 +12,37 @@ app.use(express.json(), cors());
 
 
 app.post('/api/current', async (req: Request, res: Response) => {
-    if (req.body.location !== undefined && req.body.metric !== undefined) {
+  if (req.body.location !== undefined && req.body.metric !== undefined) {
 
-        const result = await processCurrentWeather(req.body.location, req.body.metric);
-        if (result instanceof AxiosError) {
-            return res.status(500).send(result);
-        } else {
-            return res.status(200).send(result);
-        }
-        
+    const result = await processCurrentWeather(req.body.location, req.body.metric);
+    if (result instanceof AxiosError) {
+      return res.status(500).send(result);
+      
     } else {
-        return res.status(400).send("Bad request - possible missing location and metric request parameters.")
+      return res.status(200).send(result);
     }
+      
+  } else {
+    return res.status(400).send("Bad request - possible missing location and metric request parameters.")
+  }
 })
 
 
 app.post('/api/forecast', async (req: Request, res: Response) => {
-    if (req.body.location !== undefined && req.body.metric !== undefined) {
-        
-        const result = await processForecastWeather(req.body.location, req.body.metric);
+  if (req.body.location !== undefined && req.body.metric !== undefined) {
+      
+    const result = await processForecastWeather(req.body.location, req.body.metric);
 
-        if (req instanceof AxiosError) {
-            return res.status(500).send(result);
-        } else {
-            return res.status(200).send(result);
-        }
+    if (req instanceof AxiosError) {
+      return res.status(500).send(result);
 
     } else {
-        return res.status(400).send("Bad request - possible missing location and metric request parameters.");
+      return res.status(200).send(result);
     }
+
+  } else {
+    return res.status(400).send("Bad request - possible missing location and metric request parameters.");
+  }
 })
 
 

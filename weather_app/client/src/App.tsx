@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { RefObject, useEffect, useState, createRef, KeyboardEvent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './App.css';
@@ -92,7 +92,7 @@ useEffect(() => {
 
 
 useEffect(() => {
-  let ignore = false;
+  let ignore: boolean = false;
   
   if (!ignore) {
     forecastFetch();
@@ -106,7 +106,7 @@ useEffect(() => {
 
 
 useEffect(() => {
-  let ignore = false;
+  let ignore: boolean = false;
   
   if (!ignore) {
     fetchCityData();
@@ -121,7 +121,7 @@ useEffect(() => {
 
 useEffect(() => {
   
-  const interval = setInterval(() => {
+  const interval: NodeJS.Timer = setInterval(() => {
     const newTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
     setTime(newTime);
   }, 1000);
@@ -137,7 +137,7 @@ const isDataReady: () => void = () => {
 }
 
 const forecastFetch: () => Promise<void> = async () => {
-  const forecastResult = await forecastWeather(location, metric);
+  const forecastResult: AxiosResponse<any, any> | AxiosError | Error = await forecastWeather(location, metric);
   if (forecastResult instanceof AxiosError) return console.error(forecastResult);
   if (forecastResult instanceof Error) return console.error(forecastResult);
 
@@ -155,11 +155,11 @@ const forecastFetch: () => Promise<void> = async () => {
 
 
 const currentFetch: () => Promise<void> = async () => {
-  const currentResult = await currentWeather(location, metric);
+  const currentResult: AxiosResponse<any, any> | AxiosError | Error = await currentWeather(location, metric);
   if (currentResult instanceof AxiosError) return console.error("AxiosError", currentResult);
   if (currentResult instanceof Error) return console.error("Bad Response Error:", currentResult);
 
-  const weatherResult = currentResult.data;
+  const weatherResult: CurrentWeather = currentResult.data;
 
   setCurrent(weatherResult);
 }
@@ -234,8 +234,8 @@ const currentComponent = () => {
 const hourlyData: (forecastHour: HourForecast) => string | undefined = (forecastHour: HourForecast) => {
   if (dataReady) {
 
-    const date = new Date(forecastHour.time * 1000)
-    const hour = date.getHours();
+    const date: Date = new Date(forecastHour.time * 1000)
+    const hour: number = date.getHours();
   
     if (hour === 0) {
       return `12am`
@@ -418,8 +418,8 @@ const navbarComponent: () => JSX.Element = () => {
 
 
 const dateToDay: (dateEntry: number) => string = (dateEntry: number) => {
-  const day = new Date(dateEntry * 1000)
-  const result = day.getDay();
+  const day: Date = new Date(dateEntry * 1000)
+  const result: number = day.getDay();
 
 
   if (result === 0) {
@@ -516,7 +516,7 @@ const homeComponent: () => JSX.Element = () => {
     const savedCitiesArray: CityEntry[] = [];
 
     for (let count = 0; count < localStorage.length; count++ ) {
-      const entry = localStorage.getItem(`${count}`);
+      const entry: string | null = localStorage.getItem(`${count}`);
 
       if (entry !== null) {
         const city: CityEntry = {

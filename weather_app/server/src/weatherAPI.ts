@@ -10,14 +10,14 @@ import {
 
 dotenv.config();
 
-const geocodingEndpoint = 'https://api.openweathermap.org/geo/1.0/direct';
-const currentEndpoint = 'https://api.openweathermap.org/data/2.5/weather';
-const forecastEndpoint = 'https://api.openweathermap.org/data/2.5/forecast';
+const geocodingEndpoint: string = 'https://api.openweathermap.org/geo/1.0/direct';
+const currentEndpoint: string = 'https://api.openweathermap.org/data/2.5/weather';
+const forecastEndpoint: string = 'https://api.openweathermap.org/data/2.5/forecast';
 
-const cooldownEnabled = true;
+const cooldownEnabled: boolean = true;
 
-let forecastCooldown = 0;
-let currentCooldown = 0;
+let forecastCooldown: number = 0;
+let currentCooldown: number = 0;
 
 
 const startForecastCooldown: () => void = () => {
@@ -34,8 +34,10 @@ const startCurrentCooldown: () => void = () => {
 }
 
 
-const checkCooldown: (cooldownTime: number) =>  ForecastCombined | CurrentWeather | Error | boolean = (cooldownTime: number) => {
-  const currentTime = Date.now();
+const checkCooldown: (cooldownTime: number) => 
+ForecastCombined | CurrentWeather | Error | boolean 
+= (cooldownTime: number) => {
+  const currentTime: number = Date.now();
   if (cooldownTime > currentTime) {
 
     if (cooldownTime === forecastCooldown) {
@@ -63,8 +65,11 @@ const checkCooldown: (cooldownTime: number) =>  ForecastCombined | CurrentWeathe
 }
 
 
-const geocodeRequest: (query: string) => Promise<AxiosResponse | AxiosError | Error> = async (query: string) => {
-  const result = await axios.get(geocodingEndpoint, {
+const geocodeRequest: (query: string) => 
+Promise<AxiosResponse | AxiosError | Error> 
+= async (query: string) => {
+
+  const result: AxiosResponse | AxiosError = await axios.get(geocodingEndpoint, {
     params: {
         q: query + ", US",
         limit: 1,
@@ -86,8 +91,9 @@ const geocodeRequest: (query: string) => Promise<AxiosResponse | AxiosError | Er
 }
 
 
-const geocodeProcess: (query: string) => Promise<Geocode | Error> = async (query: string) => {
-  const result = await geocodeRequest(query);
+const geocodeProcess: (query: string) =>
+ Promise<Geocode | Error> = async (query: string) => {
+  const result: Geocode | AxiosResponse | AxiosError | Error = await geocodeRequest(query);
 
   if (result instanceof AxiosError) return new Error("Axios Error"), result;
   if (result instanceof Error) return new Error("Bad Response Error"), result;
@@ -105,8 +111,10 @@ const geocodeProcess: (query: string) => Promise<Geocode | Error> = async (query
 }
 
 
-const currentWeatherRequest = async (latitude: number, longitude: number, unitSystem: string) => {
-  const result = axios.get(currentEndpoint, {
+const currentWeatherRequest: (latitude: number, longitude: number, unitSystem: string) =>
+Promise<AxiosResponse | AxiosError>
+= async (latitude: number, longitude: number, unitSystem: string) => {
+  const result: AxiosResponse | AxiosError = await axios.get(currentEndpoint, {
     params: {
       lat: latitude,
       lon: longitude,
@@ -142,7 +150,8 @@ export const processCurrentWeather: (positionQuery: string, metric: boolean) =>
 Promise<CurrentWeather | Error | AxiosError >
 = async (positionQuery: string, metric: boolean) => {
   
-  const cooldownResult = checkCooldown(currentCooldown);
+  const cooldownResult: CurrentWeather | ForecastCombined | boolean | Error
+  = checkCooldown(currentCooldown);
 
   if (cooldownResult === currentWeatherCopy) 
   return console.log("Current cooldown is active."), cooldownResult;
@@ -153,7 +162,9 @@ Promise<CurrentWeather | Error | AxiosError >
 
     const {lat, lon} = geocodeResult;
     
-    const currentResult = await currentWeatherRequest(lat, lon, (metric ? 'metric' : 'imperial'));
+    const currentResult: AxiosResponse | AxiosError = 
+    await currentWeatherRequest(lat, lon, (metric ? 'metric' : 'imperial'));
+    
     if (currentResult instanceof AxiosError) return currentResult;
 
     const currentData = currentResult.data

@@ -156,7 +156,7 @@ Promise<CurrentWeather | Error | AxiosError >
   if (cooldownResult === currentWeatherCopy) 
   return console.log("Current cooldown is active."), cooldownResult;
 
-  const geocodeResult = await geocodeProcess(positionQuery);
+  const geocodeResult: Geocode | Error = await geocodeProcess(positionQuery);
   if (geocodeResult instanceof AxiosError) return geocodeResult;
   if (geocodeResult instanceof Error) return geocodeResult;
 
@@ -187,6 +187,7 @@ Promise<CurrentWeather | Error | AxiosError >
 const forecastRequest: (latitude: number, longitude: number, unitSystem: string) => 
 Promise<AxiosResponse | AxiosError>
 = async (latitude: number, longitude: number, unitSystem: string) => {
+
   const result: AxiosResponse | AxiosError = await axios.get(forecastEndpoint, {
     params: {
         lat: latitude,
@@ -221,8 +222,9 @@ let forecastWeatherCopy: ForecastCombined = {
 export const processForecastWeather: (locationQuery: string, metric: boolean) 
 => Promise<ForecastCombined | Error | AxiosError >
 = async (locationQuery: string, metric: boolean) => {
+
   const cooldownResult: boolean | ForecastCombined | CurrentWeather | Error = checkCooldown(forecastCooldown);
-  
+
   if (cooldownResult === forecastWeatherCopy) 
   return console.log("Forecast cooldown is active."), cooldownResult;
 
@@ -243,12 +245,12 @@ export const processForecastWeather: (locationQuery: string, metric: boolean)
   const dayForecastData: DayForecast[] = [];
 
   for (let indexA = 0; indexA < 40; indexA += 8) {
-    const list = data.list[indexA].main.temp;
+    const list: number = data.list[indexA].main.temp;
     
-    let highValue = list;
-    let highValueIndex = 0;
-    let lowValue = list;
-    let lowValueIndex = 0;
+    let highValue: number = list;
+    let highValueIndex: number = 0;
+    let lowValue: number = list;
+    let lowValueIndex: number = 0;
     
     for (let indexB = 0; indexB < 8; indexB++) {
 
@@ -279,6 +281,7 @@ export const processForecastWeather: (locationQuery: string, metric: boolean)
   const hourForecastData: HourForecast[] = [];
 
   for (let count = 0; count <= 5; count++) {
+    
     const entry: HourForecast = {
       temperature: data.list[count].main.temp,
       time: data.list[count].dt,

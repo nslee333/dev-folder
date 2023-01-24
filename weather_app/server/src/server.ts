@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import cors from 'cors';
 import { AxiosError } from 'axios';
 import { processCurrentWeather, processForecastWeather } from './weatherAPI';
+import { CurrentWeather, ForecastCombined } from './types';
 
 
 const app = express();
@@ -14,7 +15,7 @@ app.use(express.json(), cors());
 app.post('/api/current', async (req: Request, res: Response) => {
   if (req.body.location !== undefined && req.body.metric !== undefined) {
 
-    const result = await processCurrentWeather(req.body.location, req.body.metric);
+    const result: CurrentWeather | AxiosError | Error = await processCurrentWeather(req.body.location, req.body.metric);
     if (result instanceof AxiosError) {
       return res.status(500).send(result);
       
@@ -31,7 +32,7 @@ app.post('/api/current', async (req: Request, res: Response) => {
 app.post('/api/forecast', async (req: Request, res: Response) => {
   if (req.body.location !== undefined && req.body.metric !== undefined) {
       
-    const result = await processForecastWeather(req.body.location, req.body.metric);
+    const result: ForecastCombined | AxiosError | Error = await processForecastWeather(req.body.location, req.body.metric);
 
     if (req instanceof AxiosError) {
       return res.status(500).send(result);

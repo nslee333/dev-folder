@@ -45,3 +45,6 @@ export type CityEntry = {
   name: string
 }
 
+export type cssStyle = {
+  backgroundColor: string
+}

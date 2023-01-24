@@ -80,6 +80,8 @@ Use WeatherAPI.com's API.
     35. Find a way to preload temperature values before everything else is loaded.
     36. Test location and metric work fine.
     37. Update realtime => current
+    38. Cleaned up App.css
+    39. 
 
 
 [Medium-term]
@@ -114,7 +116,7 @@ Use WeatherAPI.com's API.
 
 
 
-  - Refactor App.tsx, App.css.
+  - Refactor App.tsx.
   - Cleaning up app.css
 
 

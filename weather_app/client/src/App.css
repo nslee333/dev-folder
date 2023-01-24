@@ -107,17 +107,19 @@
   color: var(--main-font);
 }
 
-.current__icon {
-  background-color: var(--main-grey);
-}
-
 
 .current__div1 {
   font-size: 60px;
 }
 
+
 .current__div2 {
   font-size: 45px;
+}
+
+
+.current__icon {
+  background-color: var(--main-grey);
 }
 
 
@@ -135,11 +137,6 @@
   
 }
 
-.hour-div__hr {
-  position: relative;
-  border: 1px solid var(--main-darkGrey);
-  margin: 0px;
-}
 
 .hour-forecast__div {
   position: relative;
@@ -147,6 +144,12 @@
   background-color: var(--main-grey);
 }
 
+
+.hour-div__hr {
+  position: relative;
+  border: 1px solid var(--main-darkGrey);
+  margin: 0px;
+}
 
 
 .hour-div__hours {
@@ -463,6 +466,7 @@
   background-color: var(--main-grey);
 }
 
+
 .variable__city__div__display__city__close-btn {
   position: absolute;
   top: -19px;
@@ -471,7 +475,7 @@
   margin-top: 20px;
   border: none;
   cursor: pointer;
-  
+
   background-color: var(--main-grey);
   font-size: 30px;
 }

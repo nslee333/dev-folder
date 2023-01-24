@@ -1,4 +1,4 @@
-import axios, {AxiosError, AxiosResponse} from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import dotenv from 'dotenv';
 import {
     Geocode,
@@ -198,14 +198,12 @@ export const processForecastWeather = async (locationQuery: string, metric: bool
     const {lat, lon} = geocodeResult;
 
     const forecastResult = await forecastRequest(lat, lon, (metric ? 'metric' : 'imperial'));
-
     if (forecastResult instanceof AxiosError) return forecastResult;
     if (forecastResult instanceof Error) return forecastResult;
 
     const data = forecastResult.data;
 
     const dayForecastData: DayForecast[] = [];
-
 
     for (let indexA = 0; indexA < 40; indexA += 8) {
         const list = data.list[indexA].main.temp;
@@ -220,14 +218,13 @@ export const processForecastWeather = async (locationQuery: string, metric: bool
             if (data.list[indexB].main.temp > highValue) {
                 highValue = data.list[indexB].main.temp;
                 highValueIndex = indexB;
-              }
+            }
               
-              if (data.list[indexB].main.temp < lowValue) {
-                lowValue = data.list[indexB].main.temp;
-                lowValueIndex = indexB;
-              }
-          
-        }
+            if (data.list[indexB].main.temp < lowValue) {
+            lowValue = data.list[indexB].main.temp;
+            lowValueIndex = indexB;
+            }
+          }
   
       const entry = { 
           time: data.list[indexA].dt,

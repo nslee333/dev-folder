@@ -35,73 +35,73 @@ const startCurrentCooldown: () => void = () => {
 
 
 const checkCooldown: (cooldownTime: number) =>  ForecastCombined | CurrentWeather | Error | boolean = (cooldownTime: number) => {
-    const currentTime = Date.now();
-    if (cooldownTime > currentTime) {
+  const currentTime = Date.now();
+  if (cooldownTime > currentTime) {
 
-        if (cooldownTime === forecastCooldown) {
-            if (forecastWeatherCopy !== undefined) {
-                return forecastWeatherCopy;
+    if (cooldownTime === forecastCooldown) {
+      if (forecastWeatherCopy !== undefined) {
+        return forecastWeatherCopy;
 
-            } else {
-                return new Error("Forecast Weather data copy undefined error.")
-            }
+      } else {
+        return new Error("Forecast Weather data copy undefined error.")
+      }
 
-        } else if (cooldownTime === currentCooldown) {
-            if (currentWeatherCopy !== undefined) {
-                return currentWeatherCopy;
+    } else if (cooldownTime === currentCooldown) {
+      if (currentWeatherCopy !== undefined) {
+        return currentWeatherCopy;
 
-            } else {
-                return new Error("Current Weather data copy undefined error.")
-            }
-        } else {
-            return false;
-        }
-
+      } else {
+        return new Error("Current Weather data copy undefined error.")
+      }
     } else {
-        return true;
+      return false;
     }
+
+  } else {
+    return true;
+  }
 }
 
 
 const geocodeRequest: (query: string) => Promise<AxiosResponse | AxiosError | Error> = async (query: string) => {
-    const result = await axios.get(geocodingEndpoint, {
-        params: {
-            q: query + ", US",
-            limit: 1,
-            appid: process.env.weather_key,
-        }
-    })
-    .then(function (response: AxiosResponse) {
-        if (response.status === 200) {
-            return response;
-        } else {
-            return new Error(`Bad Request - Code:${response.status}`), response;
-        }
-    })
-    .catch(function (error: AxiosError) {
-        return error;
-    })
+  const result = await axios.get(geocodingEndpoint, {
+    params: {
+        q: query + ", US",
+        limit: 1,
+        appid: process.env.weather_key,
+    }
+  })
+  .then(function (response: AxiosResponse) {
+    if (response.status === 200) {
+        return response;
+    } else {
+        return new Error(`Bad Request - Code:${response.status}`), response;
+    }
+  })
+  .catch(function (error: AxiosError) {
+    return error;
+  })
 
-    return result;
+  return result;
 }
 
 
-const geocodeProcess = async (query: string) => {
-    const result = await geocodeRequest(query);
+const geocodeProcess: (query: string) => Promise<Geocode | Error> = async (query: string) => {
+  const result = await geocodeRequest(query);
 
-    if (result instanceof AxiosError) return new Error("Axios Error"), result;
-    if (result instanceof Error) return new Error("Bad Response Error"), result;
+  if (result instanceof AxiosError) return new Error("Axios Error"), result;
+  if (result instanceof Error) return new Error("Bad Response Error"), result;
 
-    const data = result.data[0];
+  const data = result.data[0];
 
-    const resultData: Geocode = {
-        name: data.name,
-        state: data.state,
-        lat: data.lat,
-        lon: data.lon
-    }
+  const resultData: Geocode = {
+    name: data.name,
+    state: data.state,
+    lat: data.lat,
+    lon: data.lon
+  }
 
-    return resultData;
+  return resultData;
 }
 
 

@@ -231,7 +231,8 @@ const currentComponent = () => {
 }
 
 
-const hourlyData: (forecastHour: HourForecast) => string | undefined = (forecastHour: HourForecast) => {
+const hourlyData: (forecastHour: HourForecast) => string | undefined 
+= (forecastHour: HourForecast) => {
   if (dataReady) {
 
     const date: Date = new Date(forecastHour.time * 1000)
@@ -342,7 +343,8 @@ const handleNavbarClick: (pageClicked: string) => void = (pageClicked: string) =
 }
 
 
-type stateHooks = typeof settingsHighlighted | typeof homeHighlighted | typeof cityHighlighted;
+type stateHooks = 
+typeof settingsHighlighted | typeof homeHighlighted | typeof cityHighlighted;
 
 const style: (stateHook: stateHooks) => cssStyle = (stateHook: stateHooks) => {
   return {backgroundColor: stateHook ? '#9baec8' : '#d9e1e8'};
@@ -547,7 +549,8 @@ const homeComponent: () => JSX.Element = () => {
     
     for (let count = 0; count < savedCities.length; count++ ) {
       const locationQuery: string = savedCities[count].name;
-      const dataResult = await currentWeather(locationQuery, metric);
+      const dataResult: AxiosResponse<any, any> | AxiosError | Error 
+      = await currentWeather(locationQuery, metric);
 
       if (dataResult instanceof Error) return console.log("currentWeather Error", dataResult);
       const data = dataResult.data;

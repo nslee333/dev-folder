@@ -198,87 +198,89 @@ const forecastRequest = async (latitude: number, longitude: number, unitSystem: 
 
 
 let forecastWeatherCopy: ForecastCombined = {
-    name: '',
-    state: '',
-    dayForecast: [],
-    hourForecast: []
+  name: '',
+  state: '',
+  dayForecast: [],
+  hourForecast: []
 }
 
 
-export const processForecastWeather = async (locationQuery: string, metric: boolean) => {
-    const cooldownResult = checkCooldown(forecastCooldown);
-    if (cooldownResult === forecastWeatherCopy) return console.log("Forecast cooldown is active."), cooldownResult;
+export const processForecastWeather: (locationQuery: string, metric: boolean) 
+=> Promise<ForecastCombined | Error | AxiosError >
+= async (locationQuery: string, metric: boolean) => {
+  const cooldownResult = checkCooldown(forecastCooldown);
+  if (cooldownResult === forecastWeatherCopy) return console.log("Forecast cooldown is active."), cooldownResult;
 
-    const geocodeResult = await geocodeProcess(locationQuery);
-    if (geocodeResult instanceof AxiosError) return geocodeResult;
-    if (geocodeResult instanceof Error) return geocodeResult;
+  const geocodeResult = await geocodeProcess(locationQuery);
+  if (geocodeResult instanceof AxiosError) return geocodeResult;
+  if (geocodeResult instanceof Error) return geocodeResult;
 
-    const {lat, lon} = geocodeResult;
+  const {lat, lon} = geocodeResult;
 
-    const forecastResult = await forecastRequest(lat, lon, (metric ? 'metric' : 'imperial'));
-    if (forecastResult instanceof AxiosError) return forecastResult;
-    if (forecastResult instanceof Error) return forecastResult;
+  const forecastResult = await forecastRequest(lat, lon, (metric ? 'metric' : 'imperial'));
+  if (forecastResult instanceof AxiosError) return forecastResult;
+  if (forecastResult instanceof Error) return forecastResult;
 
-    const data = forecastResult.data;
+  const data = forecastResult.data;
 
-    const dayForecastData: DayForecast[] = [];
+  const dayForecastData: DayForecast[] = [];
 
-    for (let indexA = 0; indexA < 40; indexA += 8) {
-        const list = data.list[indexA].main.temp;
-       
-        let highValue = list;
-        let highValueIndex = 0;
-        let lowValue = list;
-        let lowValueIndex = 0;
-        
-        for (let indexB = 0; indexB < 8; indexB++) {
-  
-            if (data.list[indexB].main.temp > highValue) {
-                highValue = data.list[indexB].main.temp;
-                highValueIndex = indexB;
-            }
-              
-            if (data.list[indexB].main.temp < lowValue) {
-            lowValue = data.list[indexB].main.temp;
-            lowValueIndex = indexB;
-            }
-          }
-  
-      const entry = { 
-          time: data.list[indexA].dt,
-          maxTemp: data.list[highValueIndex].main.temp,
-          minTemp: data.list[lowValueIndex].main.temp, 
-          dayCondition: data.list[highValueIndex].weather[0].description,
-          nightCondition: data.list[lowValueIndex].weather[0].description,
-          dayIcon: data.list[highValueIndex].weather[0].icon,
-          nightIcon: data.list[lowValueIndex].weather[0].icon
-        };
+  for (let indexA = 0; indexA < 40; indexA += 8) {
+    const list = data.list[indexA].main.temp;
     
-        dayForecastData.push(entry);
-    }
+    let highValue = list;
+    let highValueIndex = 0;
+    let lowValue = list;
+    let lowValueIndex = 0;
+    
+    for (let indexB = 0; indexB < 8; indexB++) {
 
-    const hourForecastData: HourForecast[] = [];
-
-    for (let count = 0; count <= 5; count++) {
-      const entry: HourForecast = {
-        temperature: data.list[count].main.temp,
-        time: data.list[count].dt,
-        weatherIcon: data.list[count].weather[0].icon,
-        condition: data.list[count].weather[0].description
+      if (data.list[indexB].main.temp > highValue) {
+        highValue = data.list[indexB].main.temp;
+        highValueIndex = indexB;
       }
-
-      hourForecastData.push(entry);
+          
+      if (data.list[indexB].main.temp < lowValue) {
+        lowValue = data.list[indexB].main.temp;
+        lowValueIndex = indexB;
+      }
     }
 
-    const forecastData: ForecastCombined = {
-      name: geocodeResult.name,
-      state: geocodeResult.state,
-      dayForecast: dayForecastData, 
-      hourForecast: hourForecastData
+  const entry = { 
+      time: data.list[indexA].dt,
+      maxTemp: data.list[highValueIndex].main.temp,
+      minTemp: data.list[lowValueIndex].main.temp, 
+      dayCondition: data.list[highValueIndex].weather[0].description,
+      nightCondition: data.list[lowValueIndex].weather[0].description,
+      dayIcon: data.list[highValueIndex].weather[0].icon,
+      nightIcon: data.list[lowValueIndex].weather[0].icon
     };
 
-    forecastWeatherCopy = forecastData;
+    dayForecastData.push(entry);
+  }
 
-    startForecastCooldown();
-    return forecastData;
+  const hourForecastData: HourForecast[] = [];
+
+  for (let count = 0; count <= 5; count++) {
+    const entry: HourForecast = {
+      temperature: data.list[count].main.temp,
+      time: data.list[count].dt,
+      weatherIcon: data.list[count].weather[0].icon,
+      condition: data.list[count].weather[0].description
+    }
+
+    hourForecastData.push(entry);
+  }
+
+  const forecastData: ForecastCombined = {
+    name: geocodeResult.name,
+    state: geocodeResult.state,
+    dayForecast: dayForecastData, 
+    hourForecast: hourForecastData
+  };
+
+  forecastWeatherCopy = forecastData;
+
+  startForecastCooldown();
+  return forecastData;
 }

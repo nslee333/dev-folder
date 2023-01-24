@@ -417,7 +417,7 @@ const navbarComponent: () => JSX.Element = () => {
 }
 
 
-const dateToDay = (dateEntry: number) => {
+const dateToDay: (dateEntry: number) => string = (dateEntry: number) => {
   const day = new Date(dateEntry * 1000)
   const result = day.getDay();
 
@@ -436,6 +436,8 @@ const dateToDay = (dateEntry: number) => {
     return 'Friday';
   } else if (result === 6) {
     return 'Saturday';
+  } else {
+    return 'dateToDayError';
   }
 }
 
@@ -503,14 +505,14 @@ const homeComponent: () => JSX.Element = () => {
   }
 }
 
-  const saveCitiesToStorage = (city: CityEntry) => {
+  const saveCitiesToStorage: (city: CityEntry) => void = (city: CityEntry) => {
       localStorage.setItem(`${idCount}`, city.name);
       setIdCount(idCount + 1);
 
   }
 
 
-  const fetchCitiesFromStorage = () => {
+  const fetchCitiesFromStorage: () => void = () => {
     const savedCitiesArray: CityEntry[] = [];
 
     for (let count = 0; count < localStorage.length; count++ ) {
@@ -523,12 +525,13 @@ const homeComponent: () => JSX.Element = () => {
         }
         savedCitiesArray.push(city);
       }
+
     }
+
     setSavedCities(savedCitiesArray);
-    
   }
 
-  const isDuplicate = (query: string) => {
+  const isDuplicate: (query: string) => boolean | undefined = (query: string) => {
     for (let count = 0; count < savedCities.length; count++) {
       if (query === savedCities[count].name) {
         return true;
@@ -538,13 +541,13 @@ const homeComponent: () => JSX.Element = () => {
     }
   }
 
-  const fetchCityData = async () => {
+  const fetchCityData: () => Promise<void> = async () => {
     if (savedCities.length === 0) return;
     setSavedCityData([]);
     let cityData: SavedCityData[] = [];
     
     for (let count = 0; count < savedCities.length; count++ ) {
-      const locationQuery = savedCities[count].name;
+      const locationQuery: string = savedCities[count].name;
       const dataResult = await currentWeather(locationQuery, metric);
 
       if (dataResult instanceof Error) return console.log("currentWeather Error", dataResult);
@@ -565,7 +568,7 @@ const homeComponent: () => JSX.Element = () => {
   }
   
   
-  const citySearchHandleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
+  const citySearchHandleSubmit: (event: KeyboardEvent<HTMLInputElement>) => void = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === `Enter`) {
     event.preventDefault()
     

@@ -117,6 +117,8 @@ Use WeatherAPI.com's API.
 
 
   - Refactor App.tsx.
+    - Extract components?
+    - Extract functions?
   - Cleaning up app.css
 
 

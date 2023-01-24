@@ -729,7 +729,7 @@ event: KeyboardEvent<HTMLInputElement>
     return (window.alert("Default location successfully updated."), true);
 
   } else {
-    return false; // TODO: Might remove, if TS issue in function is fixed.
+    return false;
   }
 }
 

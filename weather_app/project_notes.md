@@ -82,6 +82,7 @@ Use WeatherAPI.com's API.
     37. Update realtime => current
     38. Cleaned up App.css
     39. Remove all unused data from api calls.
+    40. Refactor CSS, put css classes with each other parent => child => etc.
 
 
 [Medium-term]
@@ -104,9 +105,6 @@ Use WeatherAPI.com's API.
       - Note: Need to research common conventions for this.
       - @param paramName its use
       - @param param
-    - Remove all unused data from api calls.
-    - Refactor CSS, put css classes with each other parent => child => etc.
-    - Define types outside of App or Inside?
     - Label and Group all state hooks.
 
 [Working]:
@@ -135,8 +133,15 @@ Use WeatherAPI.com's API.
 
 
 
-
-
+Clean up general todo list.
+- Remove all debugger logs.
+    - Remove all unused imports.
+    - Remove all unused dev or main dependencies.
+    - Remove all `any` types
+    - Comment documentation above function declarations.
+      - Note: Need to research common conventions for this.
+      - @param paramName its use
+      - @param param
 
 
 

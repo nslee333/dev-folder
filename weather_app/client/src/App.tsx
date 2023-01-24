@@ -689,11 +689,11 @@ const cityQueryValidation: (searchString: string) => true | Error = (searchStrin
     return true;
 }
 
-const saveLocationToSessionStorage = (locationQuery: string) => {
+const saveLocationToSessionStorage: (locationQuery: string) => void = (locationQuery: string) => {
   sessionStorage.setItem('location', `${locationQuery}`);
 }
 
-const fetchLocationFromSessionStorage = () => {
+const fetchLocationFromSessionStorage: () => void = () => {
   const locationResult = sessionStorage.getItem('location');
   if (locationResult === null) return console.error("Location not pulled from session storage");
   setLocation(locationResult);
@@ -725,11 +725,11 @@ event: KeyboardEvent<HTMLInputElement>
   }
 }
 
-const saveMetricToSessionStorage = () => {
+const saveMetricToSessionStorage: () => void = () => {
   sessionStorage.setItem('metric', `${metric}`)
 }
 
-const fetchMetricFromSessionStorage = () => {
+const fetchMetricFromSessionStorage: () => void = () => {
   const metricResult = sessionStorage.getItem('metric');
   if (metricResult !== null) {
     const isImperialSet = (metricResult === 'false');

@@ -6,6 +6,7 @@ export interface CurrentWeather {
   temperature: number
 }
 
+
 export interface SavedCityData extends CurrentWeather {
   id: number
 }
@@ -40,10 +41,12 @@ export type ForecastCombined = {
   hourForecast: HourForecast[],
 }
 
+
 export type CityEntry = {
   id: number,
   name: string
 }
+
 
 export type cssStyle = {
   backgroundColor: string

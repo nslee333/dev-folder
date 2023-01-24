@@ -164,7 +164,7 @@ Promise<CurrentWeather | Error | AxiosError >
     
     const currentResult: AxiosResponse | AxiosError = 
     await currentWeatherRequest(lat, lon, (metric ? 'metric' : 'imperial'));
-    
+
     if (currentResult instanceof AxiosError) return currentResult;
 
     const currentData = currentResult.data
@@ -184,8 +184,10 @@ Promise<CurrentWeather | Error | AxiosError >
 } 
 
 
-const forecastRequest = async (latitude: number, longitude: number, unitSystem: string) => {
-  const result = axios.get(forecastEndpoint, {
+const forecastRequest: (latitude: number, longitude: number, unitSystem: string) => 
+Promise<AxiosResponse | AxiosError>
+= async (latitude: number, longitude: number, unitSystem: string) => {
+  const result: AxiosResponse | AxiosError = await axios.get(forecastEndpoint, {
     params: {
         lat: latitude,
         lon: longitude,
@@ -219,16 +221,20 @@ let forecastWeatherCopy: ForecastCombined = {
 export const processForecastWeather: (locationQuery: string, metric: boolean) 
 => Promise<ForecastCombined | Error | AxiosError >
 = async (locationQuery: string, metric: boolean) => {
-  const cooldownResult = checkCooldown(forecastCooldown);
-  if (cooldownResult === forecastWeatherCopy) return console.log("Forecast cooldown is active."), cooldownResult;
+  const cooldownResult: boolean | ForecastCombined | CurrentWeather | Error = checkCooldown(forecastCooldown);
+  
+  if (cooldownResult === forecastWeatherCopy) 
+  return console.log("Forecast cooldown is active."), cooldownResult;
 
-  const geocodeResult = await geocodeProcess(locationQuery);
+  const geocodeResult: Geocode | Error = await geocodeProcess(locationQuery);
   if (geocodeResult instanceof AxiosError) return geocodeResult;
   if (geocodeResult instanceof Error) return geocodeResult;
 
   const {lat, lon} = geocodeResult;
 
-  const forecastResult = await forecastRequest(lat, lon, (metric ? 'metric' : 'imperial'));
+  const forecastResult: AxiosResponse | AxiosError = 
+  await forecastRequest(lat, lon, (metric ? 'metric' : 'imperial'));
+
   if (forecastResult instanceof AxiosError) return forecastResult;
   if (forecastResult instanceof Error) return forecastResult;
 

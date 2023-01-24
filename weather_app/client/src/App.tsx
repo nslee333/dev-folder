@@ -137,7 +137,7 @@ const isDataReady: () => void = () => {
 }
 
 const forecastFetch: () => Promise<void> = async () => {
-  const forecastResult: AxiosResponse<any, any> | AxiosError | Error = await forecastWeather(location, metric);
+  const forecastResult: AxiosResponse | AxiosError | Error = await forecastWeather(location, metric);
   if (forecastResult instanceof AxiosError) return console.error(forecastResult);
   if (forecastResult instanceof Error) return console.error(forecastResult);
 
@@ -155,7 +155,7 @@ const forecastFetch: () => Promise<void> = async () => {
 
 
 const currentFetch: () => Promise<void> = async () => {
-  const currentResult: AxiosResponse<any, any> | AxiosError | Error = await currentWeather(location, metric);
+  const currentResult: AxiosResponse | AxiosError | Error = await currentWeather(location, metric);
   if (currentResult instanceof AxiosError) return console.error("AxiosError", currentResult);
   if (currentResult instanceof Error) return console.error("Bad Response Error:", currentResult);
 
@@ -550,7 +550,7 @@ const homeComponent: () => JSX.Element = () => {
     for (let count = 0; count < savedCities.length; count++ ) {
       const locationQuery: string = savedCities[count].name;
 
-      const dataResult: AxiosResponse<any, any> | AxiosError | Error 
+      const dataResult: AxiosResponse | AxiosError | Error 
       = await currentWeather(locationQuery, metric);
 
       if (dataResult instanceof Error) return console.log("currentWeather Error", dataResult);

@@ -35,7 +35,8 @@ const [displayLocation, setDisplayLocation] = useState('');
 
 const [forecastDay, setForecastDay] = useState<DayForecast[]>([]);
 const [forecastHour, setForecastHour] = useState<HourForecast[]>([]);
-const [time, setTime] = useState<string>(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
+const [time, setTime] = useState<string>
+(new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}));
 
 const [homeHighlighted, setHomeHighlighted] = useState(true);
 const [cityHighlighted, setCityHighlighted] = useState(false);
@@ -52,7 +53,16 @@ const [idCount, setIdCount] = useState<number>(0);
 
 const [dataReady, setDataReady] = useState(false); 
 
-useEffect(() => { // TODO: Reduce Effects 
+const date = new Date();
+
+const currentDate = date.toLocaleString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric'
+});
+
+
+useEffect(() => {
   let ignore = false;
 
   if (!ignore){
@@ -74,7 +84,9 @@ useEffect(() => {
     fetchMetricFromSessionStorage();
   }
 
-  ignore = true;
+  return () => {
+    ignore = true;
+  };
 }, [])
 
 
@@ -84,7 +96,6 @@ useEffect(() => {
   if (!ignore) {
     forecastFetch();
     currentFetch();
-
   }
   
   return () => {
@@ -118,16 +129,13 @@ useEffect(() => {
   
 }, [])
 
-const isDataReady = () => {
-  if (forecastDay[0] !== undefined && forecastDay[4] !== undefined) {
-    if (forecastHour[0] !== undefined && forecastHour[4] !== undefined) {
-      setDataReady(true);
-
-    }
+const isDataReady: () => void = () => { 
+  if (forecastDay[4] !== undefined && forecastHour[4] !== undefined) {
+    setDataReady(true);
   }
 }
 
-const forecastFetch = async () => {
+const forecastFetch: () => Promise<void> = async () => {
   const forecastResult = await forecastWeather(location, metric);
   if (forecastResult instanceof AxiosError) return console.error(forecastResult);
   if (forecastResult instanceof Error) return console.error(forecastResult);
@@ -145,7 +153,7 @@ const forecastFetch = async () => {
 }
 
 
-const currentFetch = async () => {
+const currentFetch: () => Promise<void> = async () => {
   const currentResult = await currentWeather(location, metric);
   if (currentResult instanceof AxiosError) return console.error("AxiosError", currentResult);
   if (currentResult instanceof Error) return console.error("Bad Response Error:", currentResult);
@@ -155,16 +163,9 @@ const currentFetch = async () => {
   setCurrent(weatherResult);
 }
 
-const date = new Date();
 
-const currentDate = date.toLocaleString('en-US', {
-  month: 'long',
-  day: 'numeric',
-  year: 'numeric'
-});
-
-
-const fetchIcon: (weatherIcon: string, className: string) => JSX.Element = (weatherIcon: string, className: string ) => {
+const fetchIcon: (weatherIcon: string, className: string) => JSX.Element 
+= (weatherIcon: string, className: string ) => {
   if (weatherIcon === '01d') {
     return <FontAwesomeIcon icon={faSun} className={`${className}`}/>
 
@@ -211,12 +212,16 @@ const currentComponent = () => {
   if (current) {
     return (
       <div className='current__main'>
-        <div className='current__div1'>{fetchIcon(current.weatherIcon, "current__icon")} {current.temperature + '°'}</div>  
+        <div className='current__div1'>
+          {fetchIcon(current.weatherIcon, "current__icon")} 
+          {current.temperature + '°'}
+        </div>  
         <div className='current__div2'>{time}</div>
         <div className='current__div2'>{currentDate}</div>
         <div className='current__div2'>{displayLocation}</div>
       </div>
     );
+
   } else {
     return (
       <div className='current__main'></div>
@@ -225,7 +230,7 @@ const currentComponent = () => {
 }
 
 
-const hourlyData = (forecastHour: HourForecast) => {
+const hourlyData: (forecastHour: HourForecast) => string | undefined = (forecastHour: HourForecast) => {
   if (dataReady) {
 
     const date = new Date(forecastHour.time * 1000)
@@ -240,13 +245,12 @@ const hourlyData = (forecastHour: HourForecast) => {
     } else if (hour > 12) {
       const stdHour = hour - 12;
       return `${stdHour}pm`
-    } 
-
+    }
   }
 }
 
 
-const hourForecastComponent = () => {
+const hourForecastComponent: () => JSX.Element = () => {
   if (dataReady) {
     return (
         <div className='hour-forecast'>

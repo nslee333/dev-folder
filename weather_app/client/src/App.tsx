@@ -327,7 +327,7 @@ function App() {
     }
   }
 
-
+  // ^ Handles navbar clicks - uses state hooks to track what display tab is selected. 
   const handleNavbarClick: (pageClicked: string) => void = (pageClicked: string) => {
     if (pageClicked === 'home' && homeHighlighted === false) {
       setHomeHighlighted(true);
@@ -350,10 +350,10 @@ function App() {
   type stateHooks = 
   typeof settingsHighlighted | typeof homeHighlighted | typeof cityHighlighted;
 
+  // ^ Used to highlight the selected navbar tab for the user.
   const style: (stateHook: stateHooks) => CssStyle = (stateHook: stateHooks) => {
     return {backgroundColor: stateHook ? '#9baec8' : '#d9e1e8'};
   }
-
 
   const navbarComponent: () => JSX.Element = () => {
     return (
@@ -422,7 +422,7 @@ function App() {
     );
   }
 
-
+  // ^ Takes in an epoch time, returns a day of the week, used in the home component.
   const dateToDay: (dateEntry: number) => string = (dateEntry: number) => {
     const day: Date = new Date(dateEntry * 1000)
     const result: number = day.getDay();
@@ -511,13 +511,14 @@ function App() {
     }
   }
 
+  // ^ Saves the user's cities to localStorage.
     const saveCitiesToStorage: (city: CityEntry) => void = (city: CityEntry) => {
         localStorage.setItem(`${idCount}`, city.name);
         setIdCount(idCount + 1);
 
     }
 
-
+  // ^ Fetches saved cities from local storage.
     const fetchCitiesFromStorage: () => void = () => {
       const savedCitiesArray: CityEntry[] = [];
 
@@ -536,6 +537,7 @@ function App() {
       setSavedCities(savedCitiesArray);
     }
 
+    // ^ Checks if the query is a duplicate, used with the cityComponent to eliminate redundant entries.
     const isDuplicate: (query: string) => boolean | undefined = (query: string) => {
       for (let count = 0; count < savedCities.length; count++) {
         if (query === savedCities[count].name) {
@@ -546,6 +548,7 @@ function App() {
       }
     }
 
+    // ^ Fetches current weather data for each saved city, saves to the savedCityData state hook.
     const fetchCityData: () => Promise<void> = async () => {
       if (savedCities.length === 0) return;
       setSavedCityData([]);
@@ -574,7 +577,9 @@ function App() {
       setSavedCityData(cityData);
     }
     
-    
+    // ^ Handles any new city input, throws an error if there are too many cities saved, 
+    // ^ if the city is a duplicate, or if the city is in the wrong format.
+    // ^ Saves to local storage and re-fetches city data if above is ok.
     const citySearchHandleSubmit: (event: KeyboardEvent<HTMLInputElement>) 
     => void = (event: KeyboardEvent<HTMLInputElement>) => {
 
@@ -608,6 +613,7 @@ function App() {
     }
   }
 
+  // ^ 
   const deleteCity: (cityId: number) => void = (cityId: number) => {
     
     const index: number = savedCities.findIndex(element => element.id === cityId);

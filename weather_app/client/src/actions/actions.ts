@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 
 const baseURL: string = 'http://localhost:1300/api/'
 
-
+// ^ Request current weather data from server.
 export const currentWeather: 
 (location: string, metric: boolean ) => Promise<AxiosResponse | AxiosError | Error> 
 = async (location: string, metric: boolean ) => {
@@ -26,7 +26,7 @@ export const currentWeather:
   return result;
 } 
 
-
+// ^ Request forecast weather data from server.
 export const forecastWeather: 
 (location: string, metric: boolean) => Promise<AxiosResponse | AxiosError | Error> 
 = async (location: string, metric: boolean) => {

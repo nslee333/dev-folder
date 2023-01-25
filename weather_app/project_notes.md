@@ -83,6 +83,12 @@ Use WeatherAPI.com's API.
     38. Cleaned up App.css
     39. Remove all unused data from api calls.
     40. Refactor CSS, put css classes with each other parent => child => etc.
+    41. Remove all unused dev or main dependencies.
+    42. Remove all unused imports.
+    43. Remove all `any` typings.
+    44. Label and Group all state hooks.
+    45. Remove all debugger logs.
+
 
 
 [Medium-term]
@@ -93,31 +99,17 @@ Use WeatherAPI.com's API.
 
 [ImmediateTasks]:
   - Build unit tests for client-side, server side.
-
-
-
-- Proofread and Refactor all code.
-    - Remove all debugger logs.
-    - Remove all unused imports.
-    - Remove all unused dev or main dependencies.
-    - Remove all `any` typings
-    - Comment documentation above function declarations.
-      - Note: Need to research common conventions for this.
-      - @param paramName its use
-      - @param param
-    - Label and Group all state hooks.
+  
+  - Comment documentation above function declarations.
+    - Brief overview of what it does.
 
 [Working]:
   - Figure out if processForecastWeather is returning the right data.
 
 
-
-
-
   - Refactor App.tsx.
     - Extract components?
     - Extract functions?
-  - Cleaning up app.css
 
 
 

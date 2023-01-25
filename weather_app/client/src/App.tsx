@@ -710,6 +710,7 @@ function App() {
     sessionStorage.setItem('location', `${locationQuery}`);
   }
 
+  // ^ See above comment.
   const fetchLocationFromSessionStorage: () => void = () => {
     const locationResult: string | null = sessionStorage.getItem('location');
     if (locationResult === null) return console.error("Location not pulled from session storage");
@@ -749,6 +750,7 @@ function App() {
     sessionStorage.setItem('metric', `${metric}`)
   }
 
+  // ^ See above comment.
   const fetchMetricFromSessionStorage: () => void = () => {
     const metricResult: string | null = sessionStorage.getItem('metric');
     if (metricResult !== null) {
@@ -757,7 +759,7 @@ function App() {
     } 
   }
 
-
+  // ^ Handles metric button click, saves to state hook and session storage.
   const handleMetricButtonClick: () => void = () => {
     setMetric(!metric);
     saveMetricToSessionStorage();

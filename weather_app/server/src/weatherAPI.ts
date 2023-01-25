@@ -19,14 +19,14 @@ const cooldownEnabled: boolean = true;
 let forecastCooldown: number = 0;
 let currentCooldown: number = 0;
 
-// ^ API cooldown for both Current and Forecast weather. 
+// ^ API cooldown start for both Current and Forecast weather. 
 const startForecastCooldown: () => void = () => {
   if (cooldownEnabled) {
     forecastCooldown = Date.now() + 1800000; // ^ 30 minutes.
   }
 }
 
-
+// ^ See above comment.
 const startCurrentCooldown: () => void = () => {
   if (cooldownEnabled) {
     currentCooldown = Date.now() + 1800000;

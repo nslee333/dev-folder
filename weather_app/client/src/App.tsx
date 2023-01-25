@@ -53,7 +53,7 @@ function App() {
   const [savedCityData, setSavedCityData] = useState<SavedCityData[]>([]);
   const [idCount, setIdCount] = useState<number>(0);
 
-
+  // ^ Grab todays current date for display.
   const date: Date = new Date();
   const currentDate: string = date.toLocaleString('en-US', {
     month: 'long',
@@ -61,7 +61,7 @@ function App() {
     year: 'numeric'
   });
 
-
+  // ^ useEffect to check if data has been loaded, reruns everytime state changes.
   useEffect(() => {
     let ignore: boolean = false;
 
@@ -75,6 +75,7 @@ function App() {
     };
   })
 
+  // ^ Fetch saved cities from localStorage, and location and metric's values from sessionStorage.
   useEffect(() => {
     let ignore: boolean = false;
 
@@ -89,7 +90,7 @@ function App() {
     };
   }, [])
 
-
+  // ^ Fetch forecast and current weather data from server.
   useEffect(() => {
     let ignore: boolean = false;
     
@@ -103,7 +104,7 @@ function App() {
     };
   }, [location, metric])
 
-
+  // ^ Fetch current data for each city that the user has saved in the city component.
   useEffect(() => {
     let ignore: boolean = false;
     
@@ -117,7 +118,7 @@ function App() {
 
   }, [savedCities])
 
-
+  // ^ A timer that updates the display time every second.
   useEffect(() => {
     
     const interval: NodeJS.Timer = setInterval(() => {
@@ -129,6 +130,7 @@ function App() {
     
   }, [])
 
+  // ^
   const isDataReady: () => void = () => { 
     if (forecastDay[4] !== undefined && forecastHour[4] !== undefined) {
       setDataReady(true);

@@ -613,7 +613,7 @@ function App() {
     }
   }
 
-  // ^ 
+  // ^ Delete a saved city from savedCities hook and localStorage.
   const deleteCity: (cityId: number) => void = (cityId: number) => {
     
     const index: number = savedCities.findIndex(element => element.id === cityId);
@@ -696,7 +696,7 @@ function App() {
     );
   }
 
-
+  // ^ Ensure that the city query is in either `city, ST` or `city, st` format.
   const cityQueryValidation: (searchString: string) => true | Error = (searchString: string) => {
       const stringQueryRegex: RegExp = /([A-Z]{1}[a-z]+), (A[LKSZRAEP]|a[lkszraep]|C[AOT]|c[aot]|D[EC]|d[ec]|F[LM]|f[lm]|G[AU]|g[au]|HI|hi|I[ADLN]|i[aldn]|K[SY]|k[sy]|LA|la|M[ADEHINOPST]|m[adehinopst]|N[CDEHJMVY]|n[cdehjmvy]|O[HKR]|o[hkr]|P[ARW]|p[arw]|RI|ri|S[CD]|s[cd]|T[NX]|t[nx]|UT|ut|V[AIT]|v[ait]|W[AIVY]|w[aivy])$/;
       const regexResult: RegExpMatchArray | null = searchString.match(stringQueryRegex);
@@ -705,6 +705,7 @@ function App() {
       return true;
   }
 
+  // ^ Save and fetch from session storage.
   const saveLocationToSessionStorage: (locationQuery: string) => void = (locationQuery: string) => {
     sessionStorage.setItem('location', `${locationQuery}`);
   }
@@ -716,7 +717,7 @@ function App() {
   }
 
 
-  // ^ Why is TS returning boolean | void, rather than just boolean? currently using band aid fix 
+  // ^ Handle and validate new default location, save to session storage if ok. 
   const handleLocationInput: ( 
   event: KeyboardEvent<HTMLInputElement>
   ) => boolean | void = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -743,6 +744,7 @@ function App() {
     }
   }
 
+  // ^ Save and fetch metric value from session storage.
   const saveMetricToSessionStorage: () => void = () => {
     sessionStorage.setItem('metric', `${metric}`)
   }
@@ -762,12 +764,7 @@ function App() {
     window.alert("Measurement system setting updated.")
   }
 
-  /* 
-    ^ Keydown Handler: Location input.
-    ^ Submits string => `handleLocationInput` on `Enter` keypress.
-    ^ Clears Ref after submission.
-  */ 
-
+  // ^ key down handler for submitting on `Enter` key press, clears input element.
   const keyDownLocationHandler: (event: KeyboardEvent<HTMLInputElement>) => void = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -783,7 +780,6 @@ function App() {
       };
     }
   }
-
 
 
   const settingsComponent: () => JSX.Element = () => {

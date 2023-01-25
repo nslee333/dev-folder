@@ -12,7 +12,7 @@ import {
   DayForecast,
   HourForecast,
   SavedCityData,
-  cssStyle,
+  CssStyle,
 } from './types/types'
 import {
   faCity, 
@@ -346,7 +346,7 @@ const handleNavbarClick: (pageClicked: string) => void = (pageClicked: string) =
 type stateHooks = 
 typeof settingsHighlighted | typeof homeHighlighted | typeof cityHighlighted;
 
-const style: (stateHook: stateHooks) => cssStyle = (stateHook: stateHooks) => {
+const style: (stateHook: stateHooks) => CssStyle = (stateHook: stateHooks) => {
   return {backgroundColor: stateHook ? '#9baec8' : '#d9e1e8'};
 }
 

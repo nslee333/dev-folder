@@ -48,6 +48,6 @@ export type CityEntry = {
 }
 
 
-export type cssStyle = {
+export type CssStyle = {
   backgroundColor: string
 }

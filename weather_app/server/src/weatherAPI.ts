@@ -19,7 +19,7 @@ const cooldownEnabled: boolean = true;
 let forecastCooldown: number = 0;
 let currentCooldown: number = 0;
 
-
+// ^ API cooldown for both Current and Forecast weather. 
 const startForecastCooldown: () => void = () => {
   if (cooldownEnabled) {
     forecastCooldown = Date.now() + 1800000; // ^ 30 minutes.
@@ -33,7 +33,7 @@ const startCurrentCooldown: () => void = () => {
   }
 }
 
-
+// ^ Checks if cooldown is enabled - returns copy of Weather API data if cooldown is active.
 const checkCooldown: (cooldownTime: number) => 
 ForecastCombined | CurrentWeather | Error | boolean 
 = (cooldownTime: number) => {
@@ -65,7 +65,7 @@ ForecastCombined | CurrentWeather | Error | boolean
   }
 }
 
-
+// ^ OpenWeather Geocoding API Request, use the latitude, longitude for making weather requests.
 const geocodeRequest: (query: string) => 
 Promise<AxiosResponse | AxiosError | Error> 
 = async (query: string) => {
@@ -91,7 +91,7 @@ Promise<AxiosResponse | AxiosError | Error>
   return result;
 }
 
-
+// ^ Function to handle Geocode API call, grabs and returns needed data.
 const geocodeProcess: (query: string) =>
  Promise<Geocode | Error> = async (query: string) => {
   const result: Geocode | AxiosResponse | AxiosError | Error = await geocodeRequest(query);
@@ -111,7 +111,7 @@ const geocodeProcess: (query: string) =>
   return resultData;
 }
 
-
+// ^ Function to call Current Weather from OpenWeatherMap.
 const currentWeatherRequest: (latitude: number, longitude: number, unitSystem: string) =>
 Promise<AxiosResponse | AxiosError>
 = async (latitude: number, longitude: number, unitSystem: string) => {
@@ -137,7 +137,7 @@ Promise<AxiosResponse | AxiosError>
   return result;
 }
 
-
+// ^ Copy of current weather data.
 let currentWeatherCopy: CurrentWeather = {
   name: '',
   state: '',
@@ -146,7 +146,7 @@ let currentWeatherCopy: CurrentWeather = {
   temperature: 0
 }
 
-
+// ^ Process current weather, grabs and returns data.
 export const processCurrentWeather: (positionQuery: string, metric: boolean) =>  
 Promise<CurrentWeather | Error | AxiosError >
 = async (positionQuery: string, metric: boolean) => {
@@ -184,7 +184,7 @@ Promise<CurrentWeather | Error | AxiosError >
   return weatherResult;
 } 
 
-
+// ^ Function for calling current weather. 
 const forecastRequest: (latitude: number, longitude: number, unitSystem: string) => 
 Promise<AxiosResponse | AxiosError>
 = async (latitude: number, longitude: number, unitSystem: string) => {
@@ -211,7 +211,7 @@ Promise<AxiosResponse | AxiosError>
   return result;
 }
 
-
+// ^ Copy of forecast data.
 let forecastWeatherCopy: ForecastCombined = {
   name: '',
   state: '',
@@ -219,7 +219,7 @@ let forecastWeatherCopy: ForecastCombined = {
   hourForecast: []
 }
 
-
+// ^ Handle forecast request, grabs and returns data.
 export const processForecastWeather: (locationQuery: string, metric: boolean) 
 => Promise<ForecastCombined | Error | AxiosError >
 = async (locationQuery: string, metric: boolean) => {

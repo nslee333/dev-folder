@@ -103,6 +103,8 @@ Use WeatherAPI.com's API.
   - Comment documentation above function declarations.
     - Brief overview of what it does.
 
+Stopped at commenting for App.tsx
+
 [Working]:
   - Figure out if processForecastWeather is returning the right data.
 

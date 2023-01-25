@@ -130,13 +130,14 @@ function App() {
     
   }, [])
 
-  // ^
+  // ^ Checks if forecast data has been retrieved, if true allow components to render data.
   const isDataReady: () => void = () => { 
     if (forecastDay[4] !== undefined && forecastHour[4] !== undefined) {
       setDataReady(true);
     }
   }
 
+  // ^ Fetch forecast weather, destructure and set the data to their state hooks.
   const forecastFetch: () => Promise<void> = async () => {
     const forecastResult: AxiosResponse | AxiosError | Error = await forecastWeather(location, metric);
     if (forecastResult instanceof AxiosError) return console.error(forecastResult);
@@ -154,7 +155,7 @@ function App() {
     setDisplayLocation(`${name}, ${state}`);
   }
 
-
+  // ^ Fetch current weather data, and set to the current state hook. 
   const currentFetch: () => Promise<void> = async () => {
     const currentResult: AxiosResponse | AxiosError | Error = await currentWeather(location, metric);
     if (currentResult instanceof AxiosError) return console.error("AxiosError", currentResult);
@@ -165,7 +166,8 @@ function App() {
     setCurrent(weatherResult);
   }
 
-
+  // ^ Returns a icon that matches the WeatherIcon returned from the OpenWeatherMap api,
+  // ^ the icon returned has the className parameter for use in multiple components. 
   const fetchIcon: (weatherIcon: string, className: string) => JSX.Element 
   = (weatherIcon: string, className: string ) => {
     if (weatherIcon === '01d') {
@@ -210,7 +212,8 @@ function App() {
     }
   }
 
-  const currentComponent = () => {
+  // ^ JSX for main window that displays time and current weather of the user's location.
+  const currentComponent: () => JSX.Element = () => {
     if (current) {
       return (
         <div className='current__main'>
@@ -231,7 +234,7 @@ function App() {
     }
   }
 
-
+  // ^ Takes in Epoch time for an hour entry, and returns a time for display.
   const hourlyData: (forecastHour: HourForecast) => string | undefined 
   = (forecastHour: HourForecast) => {
     if (dataReady) {
@@ -252,7 +255,7 @@ function App() {
     }
   }
 
-
+  // ^ Display component for the hourly forecast. 
   const hourForecastComponent: () => JSX.Element = () => {
     if (dataReady) {
       return (

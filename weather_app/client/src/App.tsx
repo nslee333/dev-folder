@@ -511,14 +511,14 @@ function App() {
     }
   }
 
-  // ^ Saves the user's cities to localStorage.
+    // ^ Saves the user's cities to localStorage.
     const saveCitiesToStorage: (city: CityEntry) => void = (city: CityEntry) => {
         localStorage.setItem(`${idCount}`, city.name);
         setIdCount(idCount + 1);
 
     }
 
-  // ^ Fetches saved cities from local storage.
+    // ^ Fetches saved cities from local storage.
     const fetchCitiesFromStorage: () => void = () => {
       const savedCitiesArray: CityEntry[] = [];
 
@@ -705,7 +705,7 @@ function App() {
       return true;
   }
 
-  // ^ Save and fetch from session storage.
+  // ^ Save and fetch - location - session storage.
   const saveLocationToSessionStorage: (locationQuery: string) => void = (locationQuery: string) => {
     sessionStorage.setItem('location', `${locationQuery}`);
   }
@@ -744,7 +744,7 @@ function App() {
     }
   }
 
-  // ^ Save and fetch metric value from session storage.
+  // ^ Save and fetch - metric - session storage.
   const saveMetricToSessionStorage: () => void = () => {
     sessionStorage.setItem('metric', `${metric}`)
   }

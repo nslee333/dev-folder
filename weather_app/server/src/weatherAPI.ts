@@ -37,6 +37,7 @@ const startCurrentCooldown: () => void = () => {
 const checkCooldown: (cooldownTime: number) => 
 ForecastCombined | CurrentWeather | Error | boolean 
 = (cooldownTime: number) => {
+
   const currentTime: number = Date.now();
   if (cooldownTime > currentTime) {
 
@@ -223,9 +224,10 @@ export const processForecastWeather: (locationQuery: string, metric: boolean)
 => Promise<ForecastCombined | Error | AxiosError >
 = async (locationQuery: string, metric: boolean) => {
 
-  const cooldownResult: boolean | ForecastCombined | CurrentWeather | Error = checkCooldown(forecastCooldown);
+  const cooldownResult: boolean | ForecastCombined | CurrentWeather | Error 
+  = checkCooldown(forecastCooldown);
 
-  if (cooldownResult === forecastWeatherCopy) 
+  if (cooldownResult === forecastWeatherCopy)
   return console.log("Forecast cooldown is active."), cooldownResult;
 
   const geocodeResult: Geocode | Error = await geocodeProcess(locationQuery);
@@ -281,7 +283,7 @@ export const processForecastWeather: (locationQuery: string, metric: boolean)
   const hourForecastData: HourForecast[] = [];
 
   for (let count = 0; count <= 5; count++) {
-    
+
     const entry: HourForecast = {
       temperature: data.list[count].main.temp,
       time: data.list[count].dt,

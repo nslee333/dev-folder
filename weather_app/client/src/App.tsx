@@ -20,7 +20,7 @@ import {
   faHouse, 
 } from '@fortawesome/free-solid-svg-icons';
 import { fetchIcon } from './components/components';
-import { dateToDay, hourlyData, isDuplicate } from './utilities/utilities';
+import { cityQueryValidation, dateToDay, hourlyData, isDuplicate } from './utilities/utilities';
 
 
 function App() {
@@ -440,17 +440,6 @@ function App() {
       setSavedCities(savedCitiesArray);
     }
 
-    // // ^ Checks if the query is a duplicate, used with the cityComponent to eliminate redundant entries.
-    // const isDuplicate: (query: string, arrayToQuery: CityEntry[]) => boolean | undefined = (query: string, arrayToQuery: CityEntry[]) => {
-    //   for (let count = 0; count < arrayToQuery.length; count++) {
-    //     if (query === arrayToQuery[count].name) {
-    //       return true;
-    //     } else {
-    //       return false;
-    //     }
-    //   }
-    // }
-
     // ^ Fetches current weather data for each saved city, saves to the savedCityData state hook.
     const fetchCityData: () => Promise<void> = async () => {
       if (savedCities.length === 0) return;
@@ -599,14 +588,6 @@ function App() {
     );
   }
 
-  // ^ Ensure that the city query is in either `city, ST` or `city, st` format.
-  const cityQueryValidation: (searchString: string) => true | Error = (searchString: string) => {
-      const stringQueryRegex: RegExp = /([A-Z]{1}[a-z]+), (A[LKSZRAEP]|a[lkszraep]|C[AOT]|c[aot]|D[EC]|d[ec]|F[LM]|f[lm]|G[AU]|g[au]|HI|hi|I[ADLN]|i[aldn]|K[SY]|k[sy]|LA|la|M[ADEHINOPST]|m[adehinopst]|N[CDEHJMVY]|n[cdehjmvy]|O[HKR]|o[hkr]|P[ARW]|p[arw]|RI|ri|S[CD]|s[cd]|T[NX]|t[nx]|UT|ut|V[AIT]|v[ait]|W[AIVY]|w[aivy])$/;
-      const regexResult: RegExpMatchArray | null = searchString.match(stringQueryRegex);
-
-      if (regexResult === null) return new Error("Bad City Search");
-      return true;
-  }
 
   // ^ Save and fetch - location - session storage.
   const saveLocationToSessionStorage: (locationQuery: string) => void = (locationQuery: string) => {

@@ -54,3 +54,12 @@ export const dateToDay: (dateEntry: number) => string = (dateEntry: number) => {
       }
     }
   }
+
+  // ^ Ensure that the city query is in either `city, ST` or `city, st` format.
+  export const cityQueryValidation: (searchString: string) => true | Error = (searchString: string) => {
+    const stringQueryRegex: RegExp = /([A-Z]{1}[a-z]+), (A[LKSZRAEP]|a[lkszraep]|C[AOT]|c[aot]|D[EC]|d[ec]|F[LM]|f[lm]|G[AU]|g[au]|HI|hi|I[ADLN]|i[aldn]|K[SY]|k[sy]|LA|la|M[ADEHINOPST]|m[adehinopst]|N[CDEHJMVY]|n[cdehjmvy]|O[HKR]|o[hkr]|P[ARW]|p[arw]|RI|ri|S[CD]|s[cd]|T[NX]|t[nx]|UT|ut|V[AIT]|v[ait]|W[AIVY]|w[aivy])$/;
+    const regexResult: RegExpMatchArray | null = searchString.match(stringQueryRegex);
+
+    if (regexResult === null) return new Error("Bad City Search");
+    return true;
+}

@@ -14,15 +14,15 @@ export const currentWeather:
   .then(function (response: AxiosResponse) {
     if (response.status === 200) {
       return response;
-
+      
     } else {
       return new Error(`Bad response status: ${response.status}, ${response}`);
     }
   })
   .catch(function (error) {
-      return error;
+    return error;
   })
-
+  
   return result;
 } 
 
@@ -30,7 +30,7 @@ export const currentWeather:
 export const forecastWeather: 
 (location: string, metric: boolean) => Promise<AxiosResponse | AxiosError | Error> 
 = async (location: string, metric: boolean) => {
-
+  
   const result: AxiosResponse | AxiosError = await axios.post(baseURL + 'forecast', {
     "location": location,
     "metric": metric
@@ -38,7 +38,7 @@ export const forecastWeather:
   .then(function (response: AxiosResponse) {
     if (response.status === 200) {
       return response;
-
+      
     } else {
       return new Error(`Bad response status: ${response.status}`), response;
     }

@@ -181,26 +181,6 @@ function App() {
     }
   }
 
-  // ^ Takes in Epoch time for an hour entry, and returns a time for display.
-  const hourlyData: (forecastHour: HourForecast) => string | undefined 
-  = (forecastHour: HourForecast) => {
-    if (dataReady) {
-
-      const date: Date = new Date(forecastHour.time * 1000)
-      const hour: number = date.getHours();
-    
-      if (hour === 0) {
-        return `12am`
-      } else if (hour < 12) {
-        return `${hour}am`
-      } else if (hour === 12) {
-        return `${hour}pm`
-      } else if (hour > 12) {
-        const stdHour = hour - 12;
-        return `${stdHour}pm`
-      }
-    }
-  }
 
   // ^ Display component for the hourly forecast. 
   const hourForecastComponent: () => JSX.Element = () => {
@@ -212,7 +192,7 @@ function App() {
               <div className='hour-div__hours'>
                 <div className='hour-div__hours__display'>
                   {fetchIcon(forecastHour[0].weatherIcon, "hour-div__hours__display__icon")}
-                  {" " + hourlyData(forecastHour[0]) + " - "}
+                  {" " + hourlyData(forecastHour[0], dataReady) + " - "}
                   {forecastHour[0].temperature + "° and "}
                   {forecastHour[0].condition + " "}
                 </div> 
@@ -221,7 +201,7 @@ function App() {
               <div className='hour-div__hours'>
             <div className='hour-div__hours__display'>
               {fetchIcon(forecastHour[1].weatherIcon, "hour-div__hours__display__icon")}
-              {" " + hourlyData(forecastHour[1]) + " - "}
+              {" " + hourlyData(forecastHour[1], dataReady) + " - "}
               {forecastHour[1].temperature + "° and "}
               {forecastHour[1].condition}
             </div>
@@ -230,7 +210,7 @@ function App() {
           <div className='hour-div__hours'>
             <div className='hour-div__hours__display'>
               {fetchIcon(forecastHour[2].weatherIcon, "hour-div__hours__display__icon")}
-              {" " + hourlyData(forecastHour[2]) + " - "}
+              {" " + hourlyData(forecastHour[2], dataReady) + " - "}
               {forecastHour[2].temperature + "° and "}
               {forecastHour[2].condition}
             </div>
@@ -239,7 +219,7 @@ function App() {
           <div className='hour-div__hours'>
             <div className='hour-div__hours__display'>
               {fetchIcon(forecastHour[3].weatherIcon, "hour-div__hours__display__icon")}
-              {" " + hourlyData(forecastHour[3]) + " - "}
+              {" " + hourlyData(forecastHour[3], dataReady) + " - "}
               {forecastHour[3].temperature + "° and "}
               {forecastHour[3].condition}
             </div>
@@ -248,7 +228,7 @@ function App() {
           <div className='hour-div__hours'>
             <div className='hour-div__hours__display'>
               {fetchIcon(forecastHour[4].weatherIcon, "hour-div__hours__display__icon")}
-              {" " + hourlyData(forecastHour[4]) + " - "}
+              {" " + hourlyData(forecastHour[4], dataReady) + " - "}
               {forecastHour[4].temperature + "° and "}
               {forecastHour[4].condition}
             </div>
@@ -257,7 +237,7 @@ function App() {
           <div className='hour-div__hours'>
             <div className='hour-div__hours__display'>
               {fetchIcon(forecastHour[5].weatherIcon, "hour-div__hours__display__icon")}
-              {" " + hourlyData(forecastHour[5]) + " - "}
+              {" " + hourlyData(forecastHour[5], dataReady) + " - "}
               {forecastHour[5].temperature + "° and "}
               {forecastHour[5].condition}
             </div>

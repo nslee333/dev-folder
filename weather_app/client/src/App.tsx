@@ -20,7 +20,7 @@ import {
   faHouse, 
 } from '@fortawesome/free-solid-svg-icons';
 import { fetchIcon } from './components/components';
-import { dateToDay, hourlyData } from './utilities/utilities';
+import { dateToDay, hourlyData, isDuplicate } from './utilities/utilities';
 
 
 function App() {
@@ -419,7 +419,6 @@ function App() {
     const saveCitiesToStorage: (city: CityEntry) => void = (city: CityEntry) => {
         localStorage.setItem(`${idCount}`, city.name);
         setIdCount(idCount + 1);
-
     }
 
     // ^ Fetches saved cities from local storage.
@@ -441,16 +440,16 @@ function App() {
       setSavedCities(savedCitiesArray);
     }
 
-    // ^ Checks if the query is a duplicate, used with the cityComponent to eliminate redundant entries.
-    const isDuplicate: (query: string) => boolean | undefined = (query: string) => {
-      for (let count = 0; count < savedCities.length; count++) {
-        if (query === savedCities[count].name) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-    }
+    // // ^ Checks if the query is a duplicate, used with the cityComponent to eliminate redundant entries.
+    // const isDuplicate: (query: string, arrayToQuery: CityEntry[]) => boolean | undefined = (query: string, arrayToQuery: CityEntry[]) => {
+    //   for (let count = 0; count < arrayToQuery.length; count++) {
+    //     if (query === arrayToQuery[count].name) {
+    //       return true;
+    //     } else {
+    //       return false;
+    //     }
+    //   }
+    // }
 
     // ^ Fetches current weather data for each saved city, saves to the savedCityData state hook.
     const fetchCityData: () => Promise<void> = async () => {
@@ -496,7 +495,7 @@ function App() {
       if (citySearchRef.current === null) 
         return console.error("City Search Error:", citySearchRef.current);
       
-      const isDuplicateResult: boolean | undefined = isDuplicate(citySearchRef.current.value);
+      const isDuplicateResult: boolean | undefined = isDuplicate(citySearchRef.current.value, savedCities);
       if (isDuplicateResult) return console.log("Duplicate Error"); 
 
       const cityString: string = citySearchRef.current.value;

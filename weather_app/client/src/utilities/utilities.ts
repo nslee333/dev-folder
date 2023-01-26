@@ -1,4 +1,4 @@
-import { HourForecast } from "../types/types";
+import { CityEntry, HourForecast } from "../types/types";
 
 // ^ Takes in Epoch time for an hour entry, and returns a time for display.
 export const hourlyData: (forecastHour: HourForecast, dataReady: boolean) => string | undefined 
@@ -41,5 +41,16 @@ export const dateToDay: (dateEntry: number) => string = (dateEntry: number) => {
       return 'Saturday';
     } else {
       return 'dateToDayError';
+    }
+  }
+
+  // ^ Checks if the query is a duplicate, used with the cityComponent to eliminate redundant entries.
+  export const isDuplicate: (query: string, arrayToQuery: CityEntry[]) => boolean | undefined = (query: string, arrayToQuery: CityEntry[]) => {
+    for (let count = 0; count < arrayToQuery.length; count++) {
+      if (query === arrayToQuery[count].name) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }

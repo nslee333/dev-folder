@@ -1,8 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faCity, 
-  faSliders, 
-  faHouse, 
   faCloudSunRain, 
   faCloud, 
   faCloudMoon, 

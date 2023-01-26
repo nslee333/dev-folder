@@ -88,6 +88,8 @@ Use WeatherAPI.com's API.
     43. Remove all `any` typings.
     44. Label and Group all state hooks.
     45. Remove all debugger logs.
+    46. Comment documentation above function declarations.
+        1.   Brief overview of what it does.
 
 
 
@@ -99,13 +101,14 @@ Use WeatherAPI.com's API.
 
 [ImmediateTasks]:
   - Build unit tests for client-side, server side.
-  
-  - Comment documentation above function declarations.
-    - Brief overview of what it does.
+
 
 
 [Working]:
   - Figure out if processForecastWeather is returning the right data.
+
+    Stopped at trying to ask chatgpt what
+    the issue is :-)
 
 
   - Refactor App.tsx.

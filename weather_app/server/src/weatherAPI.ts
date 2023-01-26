@@ -243,18 +243,19 @@ export const processForecastWeather: (locationQuery: string, metric: boolean)
   if (forecastResult instanceof Error) return forecastResult;
 
   const data = forecastResult.data;
-
+  
   const dayForecastData: DayForecast[] = [];
-
+  
   for (let indexA = 0; indexA < 40; indexA += 8) {
     const list: number = data.list[indexA].main.temp;
     
     let highValue: number = list;
-    let highValueIndex: number = 0;
+    let highValueIndex: number = indexA;
     let lowValue: number = list;
-    let lowValueIndex: number = 0;
+    let lowValueIndex: number = indexA;
     
-    for (let indexB = 0; indexB < 8; indexB++) {
+    for (let indexB = indexA; indexB < indexA + 8; indexB++) {
+      console.log(data.list[indexB].main);
 
       if (data.list[indexB].main.temp > highValue) {
         highValue = data.list[indexB].main.temp;

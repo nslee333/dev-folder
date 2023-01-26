@@ -20,8 +20,14 @@ Weather web app:
         -  Pressures? etc.
 
 [Tools and libraries used]
+  - React
+  - Axios
+  - Typescript
 
-Use WeatherAPI.com's API.
+  - Express
+  - Axios
+  - Typescript
+  - OpenWeatherMap API.
 
 [WrapUp]:
     - Proofread and Refactor all code.
@@ -65,7 +71,7 @@ Use WeatherAPI.com's API.
     22. Implement a way to save copies of data automatically.
     23. Implement cooldown().
     24. Fixed 503 Error, is it coming from effect, or my backend application...
-      1. Implemented a cooldown to make sure I don't call the api too often.
+      25. Implemented a cooldown to make sure I don't call the api too often.
     25. Swap out symbol with a city - switch variable names => city -> cities.
     26. Display daily forecast.
     27. Hour forecast not updating, fixed.
@@ -90,6 +96,8 @@ Use WeatherAPI.com's API.
     45. Remove all debugger logs.
     46. Comment documentation above function declarations.
         1.   Brief overview of what it does.
+    47. Figure out if processForecastWeather is returning the right data.
+        1.  Issue with my algorithm gathering the data I needed.
 
 
 
@@ -101,14 +109,11 @@ Use WeatherAPI.com's API.
 
 [ImmediateTasks]:
   - Build unit tests for client-side, server side.
+  - Put note in readme about OpenWeatherMap not working properly.
 
 
 
 [Working]:
-  - Figure out if processForecastWeather is returning the right data.
-
-    Stopped at trying to ask chatgpt what
-    the issue is :-)
 
 
   - Refactor App.tsx.

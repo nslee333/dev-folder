@@ -114,11 +114,13 @@ Weather web app:
 
 
 [Working]:
+- Refactor App.tsx.
+  - Extract components?
+  - Extract functions?
+  
+- Stopped specifically at seeing if I can use useContext to pass state from one component to another.
 
 
-  - Refactor App.tsx.
-    - Extract components?
-    - Extract functions?
 
 
 

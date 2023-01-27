@@ -118,7 +118,9 @@ Weather web app:
   - Extract components?
   - Extract functions?
   
-- Stopped specifically at seeing if I can use useContext to pass state from one component to another.
+- I wonder if I can useContext to bring state down to the settings component, modify it, and pass it back up.
+
+Might be able to pass multiple readState, setState using value ={readState, setState}
 
 
 

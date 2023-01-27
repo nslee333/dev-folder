@@ -255,7 +255,6 @@ export const processForecastWeather: (locationQuery: string, metric: boolean)
     let lowValueIndex: number = indexA;
     
     for (let indexB = indexA; indexB < indexA + 8; indexB++) {
-      console.log(data.list[indexB].main);
 
       if (data.list[indexB].main.temp > highValue) {
         highValue = data.list[indexB].main.temp;

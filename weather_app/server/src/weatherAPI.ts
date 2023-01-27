@@ -14,7 +14,7 @@ const geocodingEndpoint: string = 'https://api.openweathermap.org/geo/1.0/direct
 const currentEndpoint: string = 'https://api.openweathermap.org/data/2.5/weather';
 const forecastEndpoint: string = 'https://api.openweathermap.org/data/2.5/forecast';
 
-const cooldownEnabled: boolean = true;
+const cooldownEnabled: boolean = false;
 
 let forecastCooldown: number = 0;
 let currentCooldown: number = 0;

@@ -118,39 +118,12 @@ Weather web app:
 [Working]:
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 Clean up general todo list.
 - Remove all debugger logs.
     - Remove all unused imports.
     - Remove all unused dev or main dependencies.
     - Remove all `any` types
     - Comment documentation above function declarations.
-      - Note: Need to research common conventions for this.
-      - @param paramName its use
-      - @param param
-
-
-
-
-
-
-
-
-
-
-
 
 
 [Next Project Notes]:

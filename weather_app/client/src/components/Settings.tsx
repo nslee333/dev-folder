@@ -1,10 +1,20 @@
-import { RefObject, createRef, useEffect, useState, KeyboardEvent } from "react";
+import { RefObject, createRef, useEffect, useState, KeyboardEvent, useContext } from "react";
 import { cityQueryValidation } from "../utilities/utilities";
 
-export function settingsComponent(): JSX.Element {
-  const [location, setLocation] = useState<string>("Bend, OR");
-  const [metric, setMetric] = useState<boolean>(false);
-  const settingsLocationRef: RefObject<HTMLInputElement> = createRef<HTMLInputElement>();
+export function Settings(): JSX.Element {
+  // const [location, setLocation] = useState<string>("Bend, OR");
+  // const [metric, setMetric] = useState<boolean>(false);
+  // const settingsLocationRef: RefObject<HTMLInputElement> = createRef<HTMLInputElement>();
+  const metric = useContext({
+    location,
+    setLocation,
+    metric,
+    setMetric,
+    settingsLocationRef
+  });
+  const setMetric = useContext(SettingsContext);
+  const location = useContext(SettingsContext);
+  const setLocation = useContext(SettingsContext);
 
 useEffect(() => {
     let ignore: boolean = false;

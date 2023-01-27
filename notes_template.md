@@ -1,7 +1,5 @@
 Project Ideas => MVP.
 
-
-
 [Tools]:
  
 
@@ -16,14 +14,16 @@ Project Ideas => MVP.
     - Refactor CSS, put css classes with each other parent => child => etc.
     - Label and Group all state hooks.
 
+
 [Completed]:
-    
+
 
 [Medium-term]:
+- Use TDD,
+  - Unit tests in parallel, client and server side.
 
 
 [ImmediateTasks]:
-
 
 
 [Working]:

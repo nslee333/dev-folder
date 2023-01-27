@@ -98,6 +98,8 @@ Weather web app:
         1.   Brief overview of what it does.
     47. Figure out if processForecastWeather is returning the right data.
         1.  Issue with my algorithm gathering the data I needed.
+    48. Refactor App.tsx.
+        1.  Extract functions
 
 
 
@@ -114,15 +116,6 @@ Weather web app:
 
 
 [Working]:
-- Refactor App.tsx.
-  - Extract components?
-  - Extract functions?
-  
-- I wonder if I can useContext to bring state down to the settings component, modify it, and pass it back up.
-
-Might be able to pass multiple readState, setState using value ={readState, setState}
-
-
 
 
 

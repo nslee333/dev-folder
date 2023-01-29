@@ -4,6 +4,10 @@ Web application ideas:
 
 Three full-stack web sites
 
+- Integrate with GH actions.
+  - Performance testing.
+  - Web security analysis
+
 
 PoetRock
     - 'user has the aux cord'
@@ -11,13 +15,20 @@ PoetRock
     - wait room
     - private repo
     - music, watch videos, randomize with other people
-    - 
+    -  Twitch stream waiting room:
+      - A place where viewers can hang out and chat before the start of a stream.
+      - Needs to be cozy.
+      - Host can play music from spotify.
+          - user "zzz" has the aux cord
+          - wordle app
+
 
 Astrostation
 
 
 
 New Craigslist
+- use elastic search
 
 
 Golang projects?

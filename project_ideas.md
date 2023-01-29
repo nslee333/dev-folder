@@ -19,3 +19,23 @@ Astrostation
 
 New Craigslist
 
+
+Golang projects?
+- api
+- docker
+- backend tools
+- database, key-value store
+- 
+
+Poll site
+- Quick to generate a poll
+- Analytics
+- ease of use
+- answer, and 1 sentence why
+- Super easy to use, always reference-able
+
+
+Simple discussion site - one sentence topic, one sentence replys
+
+quote guesser game - probably not gonna use this one
+
